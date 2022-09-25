@@ -1,0 +1,12 @@
+.grid_container {
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+}
+
+.grid_left {
+  grid-column: span 2 / span 2;
+}
+
+.grid_right {
+  grid-column: span 10 / span 10;
+}
