@@ -7,7 +7,7 @@ import * as routerPaths from "./routes.paths";
 export const appRoutes: IRoute[] = [
   {
     key: 1,
-    path: routerPaths.PATH_PRODUCTS,
+    path: routerPaths.PATH,
     component: <Product />
   },
   {
