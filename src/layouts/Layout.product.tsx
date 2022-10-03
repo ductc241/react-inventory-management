@@ -7,7 +7,7 @@ import "./Layout.style.css";
 
 const LayoutProduct = () => {
   return (
-    <div className="container">
+    <div className="containers">
       <Header />
       <div className="grid grid_container">
         <div className="grid_left">
