@@ -185,8 +185,8 @@ const ProductForm = () => {
       autoComplete="off"
     >
       <Title level={2}>Thêm hàng</Title>
-      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-        <Col span={14}>
+      <Row>
+        <Col md={{ span: 13 }}>
           <Form.Item
             label="Mã hàng"
             name="Pul"
@@ -195,7 +195,7 @@ const ProductForm = () => {
             <Input />
           </Form.Item>
         </Col>
-        <Col span={10}>
+        <Col md={{ span: 9 }}>
           <Form.Item
             label="Giá vốn"
             name="costPrice"
@@ -206,7 +206,7 @@ const ProductForm = () => {
             <Input type="number" />
           </Form.Item>
         </Col>
-        <Col span={14}>
+        <Col md={{ span: 13 }}>
           <Form.Item
             label="Mã vạch"
             name="Barcode"
@@ -215,7 +215,7 @@ const ProductForm = () => {
             <Input />
           </Form.Item>
         </Col>
-        <Col span={10}>
+        <Col md={{ span: 9 }}>
           <Form.Item
             label="Giá bán"
             name="Price"
@@ -224,7 +224,7 @@ const ProductForm = () => {
             <Input type="number" />
           </Form.Item>
         </Col>
-        <Col span={14}>
+        <Col md={{ span: 13 }}>
           <Form.Item
             label="Tên hàng"
             name="ProductName"
@@ -235,7 +235,7 @@ const ProductForm = () => {
             <Input />
           </Form.Item>
         </Col>
-        <Col span={10}>
+        <Col md={{ span: 9 }}>
           <Form.Item
             label="Tồn kho"
             name="Inventory"
@@ -247,7 +247,7 @@ const ProductForm = () => {
           </Form.Item>
         </Col>
 
-        <Col span={14}>
+        <Col md={{ span: 13 }}>
           <Form.Item
             label="Nhóm hàng"
             name="GroupGoods"
@@ -258,7 +258,7 @@ const ProductForm = () => {
             <Input />
           </Form.Item>
         </Col>
-        <Col span={10}>
+        <Col md={{ span: 9 }}>
           <Form.Item
             label="Trọng lượng"
             name="Weight"
@@ -268,7 +268,7 @@ const ProductForm = () => {
           </Form.Item>
         </Col>
 
-        <Col span={14}>
+        <Col md={{ span: 13 }}>
           <Form.Item
             label="Thương hiệu"
             name="Trademark"
@@ -280,7 +280,7 @@ const ProductForm = () => {
           </Form.Item>
         </Col>
 
-        <Col span={14}>
+        <Col md={{ span: 13 }}>
           <Form.Item
             label="Vị trí"
             name="Location"
@@ -289,9 +289,9 @@ const ProductForm = () => {
             <Input />
           </Form.Item>
         </Col>
-        <Col span={14}>
-          <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-            <Col span={4} offset={2}>
+        <Col md={{ span: 13 }}>
+          <Row>
+            <Col span={4}>
               <Upload
                 name="avatar1"
                 listType="picture-card"
@@ -308,7 +308,7 @@ const ProductForm = () => {
                 )}
               </Upload>
             </Col>
-            <Col span={4}>
+            <Col span={4} offset={1}>
               <Upload
                 name="avatar2"
                 listType="picture-card"
@@ -325,7 +325,7 @@ const ProductForm = () => {
                 )}
               </Upload>
             </Col>
-            <Col span={4}>
+            <Col span={4} offset={1}>
               <Upload
                 name="avatar3"
                 listType="picture-card"
@@ -342,7 +342,7 @@ const ProductForm = () => {
                 )}
               </Upload>
             </Col>
-            <Col span={4}>
+            <Col span={4} offset={1}>
               <Upload
                 name="avatar4"
                 listType="picture-card"
@@ -359,7 +359,7 @@ const ProductForm = () => {
                 )}
               </Upload>
             </Col>
-            <Col span={4}>
+            <Col span={4} offset={1}>
               <Upload
                 name="avatar5"
                 listType="picture-card"
@@ -409,7 +409,7 @@ const ProductForm = () => {
           </Collapse>
         </Col>
       </Row>
-      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} style={{ marginTop: 20 }}>
+      <Row style={{ marginTop: 20 }}>
         <Col span={2} offset={6}>
           <Form.Item label=" ">
             <Button
