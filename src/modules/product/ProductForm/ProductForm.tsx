@@ -10,13 +10,20 @@ import {
   Typography,
   message,
   Upload,
-  Image
+  Image,
+  Collapse
 } from "antd";
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import {
+  LoadingOutlined,
+  PlusOutlined,
+  DownOutlined,
+  UpOutlined
+} from "@ant-design/icons";
 import type { UploadChangeParam } from "antd/es/upload";
 import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
 
 const { Title } = Typography;
+const { Panel } = Collapse;
 const ProductForm = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [imageUrl1, setImageUrl1] = useState<string>();
@@ -130,6 +137,44 @@ const ProductForm = () => {
       <div style={{ marginTop: 8 }}>Upload</div>
     </div>
   );
+
+  const onChange = () => {
+    setProperties(!properties);
+  };
+
+  const onChange1 = () => {
+    setUnit(!unit);
+  };
+
+  const genExtra = () =>
+    properties === false ? (
+      <DownOutlined
+        onClick={(event: any) => {
+          event.stopPropagation();
+        }}
+      />
+    ) : (
+      <UpOutlined
+        onClick={(event: any) => {
+          event.stopPropagation();
+        }}
+      />
+    );
+
+  const genExtras = () =>
+    unit === false ? (
+      <DownOutlined
+        onClick={(event: any) => {
+          event.stopPropagation();
+        }}
+      />
+    ) : (
+      <UpOutlined
+        onClick={(event: any) => {
+          event.stopPropagation();
+        }}
+      />
+    );
 
   return (
     <Form
@@ -338,73 +383,30 @@ const ProductForm = () => {
           style={{
             marginTop: "20px",
             borderRadius: "10px"
-          }}>
-          <div style ={{borderWidth:1,borderColor:"white"}}>
-          <Button
-            style={{
-              backgroundColor: "#e4e4e4",
-              width: "100%",
-              display: "flex",
-              color: "black",
-              justifyContent: "space-between",
-              borderRadius: "10px",
-              alignItems: "center"
-            }}
-            onClick={() => setProperties(!properties)}
-          >
-            Thuộc tính
-            <Image
-              width={20}
-              height={20}
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9jg_QdwISNBxfOfsC-Ap80vKhK5w0w8gRJW5V2hGizg&s"
-              fallback="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9jg_QdwISNBxfOfsC-Ap80vKhK5w0w8gRJW5V2hGizg&s"
-            />
-          </Button>
-          {properties === true && (
-            <div style={{ width: "100%", marginTop: "20px" }}>
-              <Button
-                style={{
-                  backgroundColor: "white"
-                }}
-              >
-                Thêm thuộc tính
-              </Button>
-            </div>
-          )}
-          </div>
+          }}
+        >
+          <Collapse onChange={onChange} expandIcon={() => null}>
+            <Panel
+              header="thuộc tính"
+              key="1"
+              extra={genExtra()}
+              style={{ backgroundColor: "#ececee" }}
+            >
+              <Button>Thêm thuộc tính</Button>
+            </Panel>
+          </Collapse>
         </Col>
         <Col span={24} style={{ marginTop: "20px" }}>
-          <Button
-            style={{
-              backgroundColor: "#e4e4e4",
-              width: "100%",
-              display: "flex",
-              color: "black",
-              justifyContent: "space-between",
-              borderRadius: "10px",
-              alignItems: "center"
-            }}
-            onClick={() => setUnit(!unit)}
-          >
-            Đơn vị tính
-            <Image
-              width={20}
-              height={20}
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9jg_QdwISNBxfOfsC-Ap80vKhK5w0w8gRJW5V2hGizg&s"
-              fallback="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9jg_QdwISNBxfOfsC-Ap80vKhK5w0w8gRJW5V2hGizg&s"
-            />
-          </Button>
-          {unit === true && (
-            <div style={{ width: "100%", marginTop: "20px" }}>
-              <Button
-                style={{
-                  backgroundColor: "white"
-                }}
-              >
-                Thêm đơn vị
-              </Button>
-            </div>
-          )}
+          <Collapse onChange={onChange1} expandIcon={() => null}>
+            <Panel
+              header="đơn vị tính"
+              key="1"
+              extra={genExtras()}
+              style={{ backgroundColor: "#ececee" }}
+            >
+              <Button>Thêm đơn vị</Button>
+            </Panel>
+          </Collapse>
         </Col>
       </Row>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} style={{ marginTop: 20 }}>
