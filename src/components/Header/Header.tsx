@@ -196,10 +196,13 @@ const Header = () => {
                     </ul>
                     <ul
                       className="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute 
-                        transition duration-150 ease-in-out origin-top text-black w-48 py-2 drop-shadow-xl"
+                        transition duration-150 ease-in-out origin-top text-black w-40 py-2 drop-shadow-xl -ml-36"
                       >
-                      <li className="rounded-sm px-3 py-1 hover:text-sky-700">
-                        Danh mục
+                      <li className="rounded-sm px-3 py-1 text-center hover:text-sky-700">
+                        Tài khoản
+                      </li>
+                      <li className="rounded-sm px-3 py-1 text-center hover:text-sky-700">
+                        Đăng xuất
                       </li>
                     </ul>
                   </div>
