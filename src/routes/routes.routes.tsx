@@ -1,4 +1,4 @@
-import Product from "../modules/product";
+import Product from "../modules/product/ProductsList";
 
 import IRoute from "../types/router.type";
 import * as routerPaths from "./routes.paths";
