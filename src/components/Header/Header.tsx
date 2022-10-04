@@ -1,625 +1,236 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/button-has-type */
+
 import "./Header.styles.css";
 
 const Header = () => {
   return (
     <div>
-      <div className="bg-gray-200 font-sans leading-normal tracking-normal">
-        <nav className="relative bg-white border-b-2 border-gray-300 text-gray-900">
-          <div className="container mx-auto flex justify-between">
-            <div className="relative block p-4 lg:p-6 text-xl text-blue-600 font-bold">
-              Logo
-            </div>
-            <ul className="flex">
-              <li className="hover:bg-blue-800 hover:text-white">
-                <a
-                  href="#"
-                  className="relative block py-6 px-2 lg:p-6 text-sm lg:text-base font-bold"
-                >
-                  Tổng quan
+      <div>
+        {/* follow me on twitter asad_codes */}
+        <div className="flex flex-wrap place-items-center">
+          <section className="relative mx-auto">
+            {/* navbar */}
+            <nav className="flex justify-between bg-gray-900 text-white w-screen">
+              <div className="px-5 xl:px-12 py-6 flex w-full items-center">
+                <a className="w-20" href="#">
+                  {/* <img class="h-9" src="logo.png" alt="logo"> */}
+                  <img
+                    src="https://res.cloudinary.com/dsirnbuyv/image/upload/v1644767257/logo_white02_zocquw.png"
+                    alt=""
+                    width="50px"
+                  />
                 </a>
-              </li>
-
-              <li className="toggleable hover:bg-blue-800 hover:text-white">
-                <input
-                  type="checkbox"
-                  defaultValue="selected"
-                  id="toggle-one"
-                  className="toggle-input"
-                />
-                <label
-                  htmlFor="toggle-one"
-                  className="block cursor-pointer py-6 px-4 lg:p-6 text-sm lg:text-base font-bold"
-                >
-                  Hoá đơn
-                </label>
-                <div className="p-6 mega-menu mb-16 sm:mb-0 shadow-xl bg-blue-800">
-                  <div className="container mx-auto w-full flex flex-wrap justify-between mx-2">
-                    <ul className="px-4 w-full sm:w-1/2 lg:w-1/4 border-gray-600 border-b sm:border-r lg:border-b-0 pb-6 pt-6 lg:pt-3">
-                      <li>
-                        <a
-                          href="#"
-                          className="font-bold text-sl text-white text-bold mb-2"
-                        >
-                          Category One Sublink
-                        </a>
-                      </li>
-                    </ul>
-                    <ul className="px-4 w-full sm:w-1/2 lg:w-1/4 border-gray-600 border-b sm:border-r-0 lg:border-r lg:border-b-0 pb-6 pt-6 lg:pt-3">
-                      <h3 className="font-bold text-xl text-white text-bold mb-2">
-                        Heading 2
-                      </h3>
-                      <li>
-                        <a
-                          href="#"
-                          className="block p-3 hover:bg-blue-600 text-gray-300 hover:text-white"
-                        >
-                          Category One Sublink
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="#"
-                          className="block p-3 hover:bg-blue-600 text-gray-300 hover:text-white"
-                        >
-                          Category One Sublink
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="#"
-                          className="block p-3 hover:bg-blue-600 text-gray-300 hover:text-white"
-                        >
-                          Category One Sublink
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="#"
-                          className="block p-3 hover:bg-blue-600 text-gray-300 hover:text-white"
-                        >
-                          Category One Sublink
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="#"
-                          className="block p-3 hover:bg-blue-600 text-gray-300 hover:text-white"
-                        >
-                          Category One Sublink
-                        </a>
-                      </li>
-                    </ul>
-                    <ul className="px-4 w-full sm:w-1/2 lg:w-1/4 border-gray-600 border-b sm:border-b-0 sm:border-r md:border-b-0 pb-6 pt-6 lg:pt-3">
-                      <h3 className="font-bold text-xl text-white text-bold">
-                        Heading 3
-                      </h3>
-                      <li>
-                        <a
-                          href="#"
-                          className="block p-3 hover:bg-blue-600 text-gray-300 hover:text-white"
-                        >
-                          Category One Sublink
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="#"
-                          className="block p-3 hover:bg-blue-600 text-gray-300 hover:text-white"
-                        >
-                          Category One Sublink
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="#"
-                          className="block p-3 hover:bg-blue-600 text-gray-300 hover:text-white"
-                        >
-                          Category One Sublink
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="#"
-                          className="block p-3 hover:bg-blue-600 text-gray-300 hover:text-white"
-                        >
-                          Category One Sublink
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="#"
-                          className="block p-3 hover:bg-blue-600 text-gray-300 hover:text-white"
-                        >
-                          Category One Sublink
-                        </a>
-                      </li>
-                    </ul>
-                    <ul className="px-4 w-full sm:w-1/2 lg:w-1/4 border-gray-600 pb-6 pt-6 lg:pt-3">
-                      <h3 className="font-bold text-xl text-white text-bold mb-2">
-                        Heading 4
-                      </h3>
-                      <li className="pt-3">
-                        <img src="https://placehold.it/205x172" />
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </li>
-
-              <li className="hoverable hover:bg-blue-800 hover:text-white">
-                <a
-                  href="#"
-                  className="relative block py-6 px-4 lg:p-6 text-sm lg:text-base font-bold hover:bg-blue-800 hover:text-white"
-                >
-                  Hover
-                </a>
-                <div className="p-6 mega-menu mb-16 sm:mb-0 shadow-xl bg-blue-800">
-                  <div className="container mx-auto w-full flex flex-wrap justify-between mx-2">
-                    <div className="w-full text-white mb-8">
-                      <h2 className="font-bold text-2xl">
-                        Main Hero Message for the menu section
-                      </h2>
-                      <p>
-                        Sub-hero message, not too long and not too short. Make
-                        it just right!
-                      </p>
+                {/* Nav Links */}
+                <ul className="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
+                  <li>
+                    <div className="group inline-block">
+                      <ul className="outline-none focus:outline-none px-3 py-1 rounded-sm flex items-center min-w-32">
+                        <span className="pr-1 font-semibold flex-1">
+                          Dropdown
+                        </span>
+                      </ul>
                     </div>
-                    <ul className="px-4 w-full sm:w-1/2 lg:w-1/4 border-gray-600 border-b sm:border-r lg:border-b-0 pb-6 pt-6 lg:pt-3">
-                      <div className="flex items-center">
-                        <svg
-                          className="h-8 mb-3 mr-3 fill-current text-white"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M3 6c0-1.1.9-2 2-2h8l4-4h2v16h-2l-4-4H5a2 2 0 0 1-2-2H1V6h2zm8 9v5H8l-1.67-5H5v-2h8v2h-2z" />
-                        </svg>
-                        <h3 className="font-bold text-xl text-white text-bold mb-2">
-                          Heading 1
-                        </h3>
-                      </div>
-                      <p className="text-gray-100 text-sm">
-                        Quarterly sales are at an all-time low create spaces to
-                        explore the accountable talk and blind vampires.
-                      </p>
-                      <div className="flex items-center py-3">
-                        <svg
-                          className="h-6 pr-3 fill-current text-blue-300"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z" />
-                        </svg>
-                        <a
-                          href="#"
-                          className="text-white bold border-b-2 border-blue-300 hover:text-blue-300"
-                        >
-                          Find out more...
-                        </a>
-                      </div>
-                    </ul>
-                    <ul className="px-4 w-full sm:w-1/2 lg:w-1/4 border-gray-600 border-b sm:border-r-0 lg:border-r lg:border-b-0 pb-6 pt-6 lg:pt-3">
-                      <div className="flex items-center">
-                        <svg
-                          className="h-8 mb-3 mr-3 fill-current text-white"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M4.13 12H4a2 2 0 1 0 1.8 1.11L7.86 10a2.03 2.03 0 0 0 .65-.07l1.55 1.55a2 2 0 1 0 3.72-.37L15.87 8H16a2 2 0 1 0-1.8-1.11L12.14 10a2.03 2.03 0 0 0-.65.07L9.93 8.52a2 2 0 1 0-3.72.37L4.13 12zM0 4c0-1.1.9-2 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4z" />
-                        </svg>
-                        <h3 className="font-bold text-xl text-white text-bold mb-2">
-                          Heading 2
-                        </h3>
-                      </div>
-                      <p className="text-gray-100 text-sm">
-                        Prioritize these line items game-plan draw a line in the
-                        sand come up with something buzzworthy UX upstream
-                        selling.
-                      </p>
-                      <div className="flex items-center py-3">
-                        <svg
-                          className="h-6 pr-3 fill-current text-blue-300"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z" />
-                        </svg>
-                        <a
-                          href="#"
-                          className="text-white bold border-b-2 border-blue-300 hover:text-blue-300"
-                        >
-                          Find out more...
-                        </a>
-                      </div>
-                    </ul>
-                    <ul className="px-4 w-full sm:w-1/2 lg:w-1/4 border-gray-600 border-b sm:border-b-0 sm:border-r md:border-b-0 pb-6 pt-6 lg:pt-3">
-                      <div className="flex items-center">
-                        <svg
-                          className="h-8 mb-3 mr-3 fill-current text-white"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M2 4v14h14v-6l2-2v10H0V2h10L8 4H2zm10.3-.3l4 4L8 16H4v-4l8.3-8.3zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z" />
-                        </svg>
-                        <h3 className="font-bold text-xl text-white text-bold mb-2">
-                          Heading 3
-                        </h3>
-                      </div>
-                      <p className="text-gray-100 text-sm">
-                        This proposal is a win-win situation which will cause a
-                        stellar paradigm shift, let's touch base off-line before
-                        we fire the new ux experience.
-                      </p>
-                      <div className="flex items-center py-3">
-                        <svg
-                          className="h-6 pr-3 fill-current text-blue-300"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z" />
-                        </svg>
-                        <a
-                          href="#"
-                          className="text-white bold border-b-2 border-blue-300 hover:text-blue-300"
-                        >
-                          Find out more...
-                        </a>
-                      </div>
-                    </ul>
-                    <ul className="px-4 w-full sm:w-1/2 lg:w-1/4 border-gray-600 pb-6 pt-6 lg:pt-3">
-                      <div className="flex items-center">
-                        <svg
-                          className="h-8 mb-3 mr-3 fill-current text-white"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M9 12H1v6a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-6h-8v2H9v-2zm0-1H0V5c0-1.1.9-2 2-2h4V2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1h4a2 2 0 0 1 2 2v6h-9V9H9v2zm3-8V2H8v1h4z" />
-                        </svg>
-                        <h3 className="font-bold text-xl text-white text-bold mb-2">
-                          Heading 4
-                        </h3>
-                      </div>
-                      <p className="text-gray-100 text-sm">
-                        This is a no-brainer to wash your face, or we need to
-                        future-proof this high performance keywords granularity.
-                      </p>
-                      <div className="flex items-center py-3">
-                        <svg
-                          className="h-6 pr-3 fill-current text-blue-300"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z" />
-                        </svg>
-                        <a
-                          href="#"
-                          className="text-white bold border-b-2 border-blue-300 hover:text-blue-300"
-                        >
-                          Find out more...
-                        </a>
-                      </div>
-                    </ul>
-                  </div>
-                </div>
-              </li>
-
-
-              <li className="hoverable hover:bg-blue-800 hover:text-white">
-                <a
-                  href="#"
-                  className="relative block py-6 px-4 lg:p-6 text-sm lg:text-base font-bold hover:bg-blue-800 hover:text-white"
-                >
-                  Hover
-                </a>
-                <div className="p-6 mega-menu mb-16 sm:mb-0 shadow-xl bg-blue-800">
-                  <div className="container mx-auto w-full flex flex-wrap justify-between mx-2">
-                    <div className="w-full text-white mb-8">
-                      <h2 className="font-bold text-2xl">
-                        Main Hero Message for the menu section
-                      </h2>
-                      <p>
-                        Sub-hero message, not too long and not too short. Make
-                        it just right!
-                      </p>
+                  </li>
+                  <li>
+                    <div className="group inline-block">
+                      <ul className="outline-none focus:outline-none px-3 py-1 rounded-sm flex items-center min-w-32">
+                        <span className="pr-1 font-semibold flex-1">
+                          Dropdown
+                        </span>
+                        <span>
+                          <svg
+                            className="fill-current h-4 w-4 transform group-hover:-rotate-180
+                            transition duration-150 ease-in-out"
+                          >
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                          </svg>
+                        </span>
+                      </ul>
+                      <ul
+                        className="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute 
+                        transition duration-150 ease-in-out origin-top text-black w-48 py-2 drop-shadow-xl"
+                      >
+                        <li className="rounded-sm px-3 py-1 hover:text-sky-700">
+                          Programming
+                        </li>
+                        <li className="rounded-sm px-3 py-1 hover:text-sky-700">
+                          Programming
+                        </li>
+                      </ul>
                     </div>
-                    <ul className="px-4 w-full sm:w-1/2 lg:w-1/4 border-gray-600 border-b sm:border-r lg:border-b-0 pb-6 pt-6 lg:pt-3">
-                      <div className="flex items-center">
-                        <svg
-                          className="h-8 mb-3 mr-3 fill-current text-white"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M3 6c0-1.1.9-2 2-2h8l4-4h2v16h-2l-4-4H5a2 2 0 0 1-2-2H1V6h2zm8 9v5H8l-1.67-5H5v-2h8v2h-2z" />
-                        </svg>
-                        <h3 className="font-bold text-xl text-white text-bold mb-2">
-                          Heading 1
-                        </h3>
-                      </div>
-                      <p className="text-gray-100 text-sm">
-                        Quarterly sales are at an all-time low create spaces to
-                        explore the accountable talk and blind vampires.
-                      </p>
-                      <div className="flex items-center py-3">
-                        <svg
-                          className="h-6 pr-3 fill-current text-blue-300"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z" />
-                        </svg>
-                        <a
-                          href="#"
-                          className="text-white bold border-b-2 border-blue-300 hover:text-blue-300"
-                        >
-                          Find out more...
-                        </a>
-                      </div>
-                    </ul>
-                    <ul className="px-4 w-full sm:w-1/2 lg:w-1/4 border-gray-600 border-b sm:border-r-0 lg:border-r lg:border-b-0 pb-6 pt-6 lg:pt-3">
-                      <div className="flex items-center">
-                        <svg
-                          className="h-8 mb-3 mr-3 fill-current text-white"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M4.13 12H4a2 2 0 1 0 1.8 1.11L7.86 10a2.03 2.03 0 0 0 .65-.07l1.55 1.55a2 2 0 1 0 3.72-.37L15.87 8H16a2 2 0 1 0-1.8-1.11L12.14 10a2.03 2.03 0 0 0-.65.07L9.93 8.52a2 2 0 1 0-3.72.37L4.13 12zM0 4c0-1.1.9-2 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4z" />
-                        </svg>
-                        <h3 className="font-bold text-xl text-white text-bold mb-2">
-                          Heading 2
-                        </h3>
-                      </div>
-                      <p className="text-gray-100 text-sm">
-                        Prioritize these line items game-plan draw a line in the
-                        sand come up with something buzzworthy UX upstream
-                        selling.
-                      </p>
-                      <div className="flex items-center py-3">
-                        <svg
-                          className="h-6 pr-3 fill-current text-blue-300"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z" />
-                        </svg>
-                        <a
-                          href="#"
-                          className="text-white bold border-b-2 border-blue-300 hover:text-blue-300"
-                        >
-                          Find out more...
-                        </a>
-                      </div>
-                    </ul>
-                    <ul className="px-4 w-full sm:w-1/2 lg:w-1/4 border-gray-600 border-b sm:border-b-0 sm:border-r md:border-b-0 pb-6 pt-6 lg:pt-3">
-                      <div className="flex items-center">
-                        <svg
-                          className="h-8 mb-3 mr-3 fill-current text-white"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M2 4v14h14v-6l2-2v10H0V2h10L8 4H2zm10.3-.3l4 4L8 16H4v-4l8.3-8.3zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z" />
-                        </svg>
-                        <h3 className="font-bold text-xl text-white text-bold mb-2">
-                          Heading 3
-                        </h3>
-                      </div>
-                      <p className="text-gray-100 text-sm">
-                        This proposal is a win-win situation which will cause a
-                        stellar paradigm shift, let's touch base off-line before
-                        we fire the new ux experience.
-                      </p>
-                      <div className="flex items-center py-3">
-                        <svg
-                          className="h-6 pr-3 fill-current text-blue-300"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z" />
-                        </svg>
-                        <a
-                          href="#"
-                          className="text-white bold border-b-2 border-blue-300 hover:text-blue-300"
-                        >
-                          Find out more...
-                        </a>
-                      </div>
-                    </ul>
-                    <ul className="px-4 w-full sm:w-1/2 lg:w-1/4 border-gray-600 pb-6 pt-6 lg:pt-3">
-                      <div className="flex items-center">
-                        <svg
-                          className="h-8 mb-3 mr-3 fill-current text-white"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M9 12H1v6a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-6h-8v2H9v-2zm0-1H0V5c0-1.1.9-2 2-2h4V2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1h4a2 2 0 0 1 2 2v6h-9V9H9v2zm3-8V2H8v1h4z" />
-                        </svg>
-                        <h3 className="font-bold text-xl text-white text-bold mb-2">
-                          Heading 4
-                        </h3>
-                      </div>
-                      <p className="text-gray-100 text-sm">
-                        This is a no-brainer to wash your face, or we need to
-                        future-proof this high performance keywords granularity.
-                      </p>
-                      <div className="flex items-center py-3">
-                        <svg
-                          className="h-6 pr-3 fill-current text-blue-300"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z" />
-                        </svg>
-                        <a
-                          href="#"
-                          className="text-white bold border-b-2 border-blue-300 hover:text-blue-300"
-                        >
-                          Find out more...
-                        </a>
-                      </div>
-                    </ul>
-                  </div>
-                </div>
-              </li>
-              <li className="hoverable hover:bg-blue-800 hover:text-white">
-                <a
-                  href="#"
-                  className="relative block py-6 px-4 lg:p-6 text-sm lg:text-base font-bold hover:bg-blue-800 hover:text-white"
-                >
-                  Hover
-                </a>
-                <div className="p-6 mega-menu mb-16 sm:mb-0 shadow-xl bg-blue-800">
-                  <div className="container mx-auto w-full flex flex-wrap justify-between mx-2">
-                    <div className="w-full text-white mb-8">
-                      <h2 className="font-bold text-2xl">
-                        Main Hero Message for the menu section
-                      </h2>
-                      <p>
-                        Sub-hero message, not too long and not too short. Make
-                        it just right!
-                      </p>
+                  </li>
+                  <li>
+                    <div className="group inline-block">
+                      <ul className="outline-none focus:outline-none px-3 py-1 rounded-sm flex items-center min-w-32">
+                        <span className="pr-1 font-semibold flex-1">
+                          Dropdown
+                        </span>
+                        <span>
+                          <svg
+                            className="fill-current h-4 w-4 transform group-hover:-rotate-180
+                            transition duration-150 ease-in-out"
+                          >
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                          </svg>
+                        </span>
+                      </ul>
+                      <ul
+                        className="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute 
+                        transition duration-150 ease-in-out origin-top text-black w-48 py-2 drop-shadow-xl"
+                      >
+                        <li className="rounded-sm px-3 py-1 hover:text-sky-700">
+                          Programming
+                        </li>
+                        <li className="rounded-sm px-3 py-1 hover:text-sky-700">
+                          Programming
+                        </li>
+                      </ul>
                     </div>
-                    <ul className="px-4 w-full sm:w-1/2 lg:w-1/4 border-gray-600 border-b sm:border-r lg:border-b-0 pb-6 pt-6 lg:pt-3">
-                      <div className="flex items-center">
-                        <svg
-                          className="h-8 mb-3 mr-3 fill-current text-white"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M3 6c0-1.1.9-2 2-2h8l4-4h2v16h-2l-4-4H5a2 2 0 0 1-2-2H1V6h2zm8 9v5H8l-1.67-5H5v-2h8v2h-2z" />
-                        </svg>
-                        <h3 className="font-bold text-xl text-white text-bold mb-2">
-                          Heading 1
-                        </h3>
-                      </div>
-                      <p className="text-gray-100 text-sm">
-                        Quarterly sales are at an all-time low create spaces to
-                        explore the accountable talk and blind vampires.
-                      </p>
-                      <div className="flex items-center py-3">
-                        <svg
-                          className="h-6 pr-3 fill-current text-blue-300"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z" />
-                        </svg>
-                        <a
-                          href="#"
-                          className="text-white bold border-b-2 border-blue-300 hover:text-blue-300"
-                        >
-                          Find out more...
-                        </a>
-                      </div>
-                    </ul>
-                    <ul className="px-4 w-full sm:w-1/2 lg:w-1/4 border-gray-600 border-b sm:border-r-0 lg:border-r lg:border-b-0 pb-6 pt-6 lg:pt-3">
-                      <div className="flex items-center">
-                        <svg
-                          className="h-8 mb-3 mr-3 fill-current text-white"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M4.13 12H4a2 2 0 1 0 1.8 1.11L7.86 10a2.03 2.03 0 0 0 .65-.07l1.55 1.55a2 2 0 1 0 3.72-.37L15.87 8H16a2 2 0 1 0-1.8-1.11L12.14 10a2.03 2.03 0 0 0-.65.07L9.93 8.52a2 2 0 1 0-3.72.37L4.13 12zM0 4c0-1.1.9-2 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4z" />
-                        </svg>
-                        <h3 className="font-bold text-xl text-white text-bold mb-2">
-                          Heading 2
-                        </h3>
-                      </div>
-                      <p className="text-gray-100 text-sm">
-                        Prioritize these line items game-plan draw a line in the
-                        sand come up with something buzzworthy UX upstream
-                        selling.
-                      </p>
-                      <div className="flex items-center py-3">
-                        <svg
-                          className="h-6 pr-3 fill-current text-blue-300"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z" />
-                        </svg>
-                        <a
-                          href="#"
-                          className="text-white bold border-b-2 border-blue-300 hover:text-blue-300"
-                        >
-                          Find out more...
-                        </a>
-                      </div>
-                    </ul>
-                    <ul className="px-4 w-full sm:w-1/2 lg:w-1/4 border-gray-600 border-b sm:border-b-0 sm:border-r md:border-b-0 pb-6 pt-6 lg:pt-3">
-                      <div className="flex items-center">
-                        <svg
-                          className="h-8 mb-3 mr-3 fill-current text-white"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M2 4v14h14v-6l2-2v10H0V2h10L8 4H2zm10.3-.3l4 4L8 16H4v-4l8.3-8.3zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z" />
-                        </svg>
-                        <h3 className="font-bold text-xl text-white text-bold mb-2">
-                          Heading 3
-                        </h3>
-                      </div>
-                      <p className="text-gray-100 text-sm">
-                        This proposal is a win-win situation which will cause a
-                        stellar paradigm shift, let's touch base off-line before
-                        we fire the new ux experience.
-                      </p>
-                      <div className="flex items-center py-3">
-                        <svg
-                          className="h-6 pr-3 fill-current text-blue-300"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z" />
-                        </svg>
-                        <a
-                          href="#"
-                          className="text-white bold border-b-2 border-blue-300 hover:text-blue-300"
-                        >
-                          Find out more...
-                        </a>
-                      </div>
-                    </ul>
-                    <ul className="px-4 w-full sm:w-1/2 lg:w-1/4 border-gray-600 pb-6 pt-6 lg:pt-3">
-                      <div className="flex items-center">
-                        <svg
-                          className="h-8 mb-3 mr-3 fill-current text-white"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M9 12H1v6a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-6h-8v2H9v-2zm0-1H0V5c0-1.1.9-2 2-2h4V2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1h4a2 2 0 0 1 2 2v6h-9V9H9v2zm3-8V2H8v1h4z" />
-                        </svg>
-                        <h3 className="font-bold text-xl text-white text-bold mb-2">
-                          Heading 4
-                        </h3>
-                      </div>
-                      <p className="text-gray-100 text-sm">
-                        This is a no-brainer to wash your face, or we need to
-                        future-proof this high performance keywords granularity.
-                      </p>
-                      <div className="flex items-center py-3">
-                        <svg
-                          className="h-6 pr-3 fill-current text-blue-300"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z" />
-                        </svg>
-                        <a
-                          href="#"
-                          className="text-white bold border-b-2 border-blue-300 hover:text-blue-300"
-                        >
-                          Find out more...
-                        </a>
-                      </div>
-                    </ul>
-                  </div>
+                  </li>
+                  <li>
+                    <div className="group inline-block">
+                      <ul className="outline-none focus:outline-none px-3 py-1 rounded-sm flex items-center min-w-32">
+                        <span className="pr-1 font-semibold flex-1">
+                          Dropdown
+                        </span>
+                        <span>
+                          <svg
+                            className="fill-current h-4 w-4 transform group-hover:-rotate-180
+                            transition duration-150 ease-in-out"
+                          >
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                          </svg>
+                        </span>
+                      </ul>
+                      <ul
+                        className="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute 
+                        transition duration-150 ease-in-out origin-top text-black w-48 py-2 drop-shadow-xl"
+                      >
+                        <li className="rounded-sm px-3 py-1 hover:text-sky-700">
+                          Programming
+                        </li>
+                        <li className="rounded-sm px-3 py-1 hover:text-sky-700">
+                          Programming
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+                {/* Header Icons */}
+                <div className="hidden xl:flex items-center space-x-5 items-center">
+                  <a className="hover:text-gray-200" href="#">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                      />
+                    </svg>
+                  </a>
+                  <a className="flex items-center hover:text-gray-200" href="#">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                      />
+                    </svg>
+                    <span className="flex absolute -mt-5 ml-4">
+                      <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-pink-400 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-pink-500" />
+                    </span>
+                  </a>
+                  {/* Sign In / Register      */}
+                  <a className="flex items-center hover:text-gray-200" href="#">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6 hover:text-gray-200"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </a>
                 </div>
-              </li>
+              </div>
+              {/* Responsive navbar */}
+              <a className="xl:hidden flex mr-6 items-center" href="#">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 hover:text-gray-200"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                  />
+                </svg>
+                <span className="flex absolute -mt-5 ml-4">
+                  <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-pink-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-pink-500" />
+                </span>
+              </a>
+              <a className="navbar-burger self-center mr-12 xl:hidden" href="#">
+                <button
+                  className="text-white inline-flex p-3 hover:bg-gray-900 rounded lg:hidden ml-auto hover:text-white outline-none nav-toggler"
+                  data-target="#navigation"
+                  >
+                  <div id="menuToggle">
+                  <input type="checkbox" />
+                  <span />
+                  <span />
+                  <span />
+                  <ul id="menu">
+                    <li>
+                      <a href="#">Home</a>
+                    </li>
+                    <li>
+                      <a href="#">About</a>
+                    </li>
+                    <li>
+                      <a href="#">Info</a>
+                    </li>
+                    <li>
+                      <a href="#">Contact</a>
+                    </li>
+                    {/* <li className="relative">
+                      <a href="#">home</a>
+                    </li> */}
+                  </ul>
+                </div>
+                </button>
 
-              
-            </ul>
-          </div>
-        </nav>
+                
+              </a>
+            </nav>
+          </section>
+        </div>
+        {/* Does this resource worth a follow? */}
       </div>
     </div>
   );
