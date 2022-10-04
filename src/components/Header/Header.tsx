@@ -196,8 +196,8 @@ const Header = () => {
                     </ul>
                     <ul
                       className="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute 
-                        transition duration-150 ease-in-out origin-top text-black w-40 py-2 drop-shadow-xl -ml-36"
-                      >
+                        transition duration-150 ease-in-out origin-top text-black w-40 py-2 drop-shadow-xl -ml-28"
+                    >
                       <li className="rounded-sm px-3 py-1 text-center hover:text-sky-700">
                         Tài khoản
                       </li>
@@ -206,11 +206,11 @@ const Header = () => {
                       </li>
                     </ul>
                   </div>
-
-
-
                 </div>
               </div>
+
+
+
               {/* Responsive navbar */}
               <a className="navbar-burger self-center mr-12 xl:hidden" href="#">
                 <button
@@ -235,9 +235,12 @@ const Header = () => {
                       <li>
                         <a href="#">Contact</a>
                       </li>
-                      {/* <li className="relative">
-                      <a href="#">home</a>
-                    </li> */}
+
+
+                      
+
+
+
                     </ul>
                   </div>
                 </button>
