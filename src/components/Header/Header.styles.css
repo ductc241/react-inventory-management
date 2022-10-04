@@ -19,7 +19,7 @@
     position: relative;
     top: 0;
     left: 25px;
-    z-index: 1;
+    
     -webkit-user-select: none;
     user-select: none;
   }
