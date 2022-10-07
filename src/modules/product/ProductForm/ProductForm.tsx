@@ -204,6 +204,7 @@ const ProductForm = () => {
 
   const showModal = () => {
     setIsModalOpen(true);
+    
   };
 
   const handleOk = () => {

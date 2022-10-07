@@ -10,6 +10,8 @@ body {
   font-size: 14px;
   font-family: "Roboto", sans-serif;
   line-height: 18px;
+  padding: 0;
+  margin: 0;
 }
 
 .grid {
@@ -17,7 +19,6 @@ body {
 }
 
 .container {
-  max-width: 1570px;
   margin: 0 auto;
   padding-left: 10px;
   padding-right: 10px;
