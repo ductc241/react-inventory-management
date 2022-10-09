@@ -1,0 +1,10 @@
+.iconArrow {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    font-size: 0.75rem;
+    right: .5rem;
+    bottom: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}

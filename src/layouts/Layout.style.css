@@ -9,4 +9,5 @@
 
 .grid_right {
   grid-column: span 10 / span 10;
+  padding: 30px;
 }

@@ -4,22 +4,22 @@
     "es2021": true,
     "node": true
   },
-  "globals": {
-    "React": true,
-    "JSX": true
-  },
-  "extends": ["plugin:react/recommended", "airbnb", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "standard-with-typescript",
+    "prettier"
+  ],
+  "overrides": [],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
     "ecmaVersion": "latest",
-    "sourceType": "module"
+    "sourceType": "module",
+    "project": ["./tsconfig.json"]
   },
   "plugins": ["react", "@typescript-eslint", "prettier", "react-hooks"],
   "rules": {
-    "arrow-body-style": "off",
     "prettier/prettier": ["warn"],
     "react/jsx-filename-extension": [
       1,
@@ -28,7 +28,6 @@
     "react/react-in-jsx-scope": "off",
     "consistent-return": "off",
     "semi": "off",
-    "@typescript-eslint/semi": ["error"],
     "linebreak-style": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "import/extensions": [
@@ -94,22 +93,6 @@
     "jsx-a11y/anchor-is-valid": "off",
     "jsx-a11y/no-static-element-interactions": "off",
     "no-return-assign": "off",
-    "jsx-a11y/label-has-for": [
-      2,
-      {
-        "required": {
-          "some": ["nesting", "id"]
-        },
-        "controlComponents": ["FormikInput"]
-      }
-    ],
-    "jsx-a11y/label-has-associated-control": [
-      2,
-      {
-        "controlComponents": ["FormikInput"],
-        "depth": 3
-      }
-    ],
     "camelcase": "off",
     "import/name": "off",
     "no-underscore-dangle": "off",
@@ -127,8 +110,14 @@
     "no-unused-expressions": "off",
     "react-hooks/rules-of-hooks": "warn",
     "react-hooks/exhaustive-deps": "warn",
-    "react/function-component-definition": "off",
-    "no-useless-escape": "off"
+    "no-nested-ternary": "off",
+    "@typescript-eslint/semi": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-floating-promises": "off",
+    "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/no-dynamic-delete": "off",
+    "@typescript-eslint/consistent-type-assertions": "off"
   },
   "settings": {
     "import/extensions": [".js", ".jsx", ".ts", ".tsx"],
@@ -143,4 +132,3 @@
     }
   }
 }
-  

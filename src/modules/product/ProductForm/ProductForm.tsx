@@ -1,7 +1,7 @@
-import React from "react";
+import { Button } from "../../../components";
 
 const ProductForm = () => {
-  return <div>ProductForm</div>;
+  return <div><Button>Hello</Button></div>;
 };
 
 export default ProductForm;
