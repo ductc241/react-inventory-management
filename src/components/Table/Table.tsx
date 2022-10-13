@@ -12,7 +12,7 @@ const Table = ({
   loading
 }: ITableProps) => {
   return (
-    <table className={clsx("w-full border border-gray-200", className)}>
+    <table className={clsx("w-full", className)}>
       <TableHeader tableHead={column} className={`text-${textAlign}`} />
       <TableBody
         tableColumn={column}
