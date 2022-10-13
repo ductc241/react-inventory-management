@@ -1,4 +1,4 @@
-import { Button, Modal, Table } from "../../../components";
+import { Button, Table } from "../../../components";
 import ReactPaginate from "react-paginate";
 import { Caret, EditIcon, TrashIcon } from "../../../components/icons";
 import { ITableColumn } from "../../../components/Table/Table.types";
