@@ -145,7 +145,12 @@ const Header = () => {
               {/* Header Icons */}
               <div className="hidden xl:flex items-center space-x-5 items-center">
                 <a className="flex items-center hover:text-gray-200" href="#">
-                  {/* <BellOutlined /> */}
+                  <span className="inline-flex justify-center items-center ml-4">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9">
+                      </path>
+                    </svg>
+                  </span>
                   <span className="flex absolute -mt-5 ml-4">
                     <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-pink-400 opacity-75" />
                     <span className="relative inline-flex rounded-full h-3 w-3 bg-pink-500" />
@@ -204,16 +209,33 @@ const Header = () => {
                   <span />
                   <ul id="menu">
                     <li>
-                      <Link to="/home">Home</Link>
+                      <Link to="/home">Tổng quan</Link>
                     </li>
                     <li>
-                      <Link to="#">About</Link>
+                      <Link to="#">Hàng hoá</Link>
+                      <p><Link to="#">Danh mục</Link></p>
+                      <p><Link to="#">Thiết lập giá</Link></p>
+                      <p><Link to="#">Phiếu bảo hành</Link></p>
+                      <p><Link to="#">Kiểm kho</Link></p>
                     </li>
                     <li>
-                      <Link to="#">Infor</Link>
+                      <Link to="#">Giao dịch</Link>
+                      <p><Link to="#">Đơn đặt</Link></p>
+                      <p><Link to="#">Hoá đơn</Link></p>
+                      <p><Link to="#">Vận đơn</Link></p>
+                      <p><Link to="#">Trả hàng</Link></p>
+                      <p><Link to="#">Nhập hàng</Link></p>
+                      <p><Link to="#">Trả hàng nhập</Link></p>
+                      <p><Link to="#">Xuất huỷ</Link></p>
                     </li>
                     <li>
-                      <Link to="#">Contact</Link>
+                      <Link to="#">Đối tác</Link>
+                      <p><Link to="#">Khách hàng</Link></p>
+                      <p><Link to="#">Nhà cung cấp</Link></p>
+                      <p><Link to="#">Đối tác</Link></p>
+                    </li>
+                    <li>
+                      <Link to="#">Số quỹ</Link>
                     </li>
                   </ul>
                 </div>
