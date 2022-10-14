@@ -213,26 +213,26 @@ const Header = () => {
                     </li>
                     <li>
                       <Link to="#">Hàng hoá</Link>
-                      <p><Link to="#">Danh mục</Link></p>
-                      <p><Link to="#">Thiết lập giá</Link></p>
-                      <p><Link to="#">Phiếu bảo hành</Link></p>
-                      <p><Link to="#">Kiểm kho</Link></p>
+                      <p id="menu_children"><Link to="#">Danh mục</Link></p>
+                      <p id="menu_children"><Link to="#">Thiết lập giá</Link></p>
+                      <p id="menu_children"><Link to="#">Phiếu bảo hành</Link></p>
+                      <p id="menu_children"><Link to="#">Kiểm kho</Link></p>
                     </li>
                     <li>
                       <Link to="#">Giao dịch</Link>
-                      <p><Link to="#">Đơn đặt</Link></p>
-                      <p><Link to="#">Hoá đơn</Link></p>
-                      <p><Link to="#">Vận đơn</Link></p>
-                      <p><Link to="#">Trả hàng</Link></p>
-                      <p><Link to="#">Nhập hàng</Link></p>
-                      <p><Link to="#">Trả hàng nhập</Link></p>
-                      <p><Link to="#">Xuất huỷ</Link></p>
+                      <p id="menu_children"><Link to="#">Đơn đặt</Link></p>
+                      <p id="menu_children"><Link to="#">Hoá đơn</Link></p>
+                      <p id="menu_children"><Link to="#">Vận đơn</Link></p>
+                      <p id="menu_children"><Link to="#">Trả hàng</Link></p>
+                      <p id="menu_children"><Link to="#">Nhập hàng</Link></p>
+                      <p id="menu_children"><Link to="#">Trả hàng nhập</Link></p>
+                      <p id="menu_children"><Link to="#">Xuất huỷ</Link></p>
                     </li>
                     <li>
                       <Link to="#">Đối tác</Link>
-                      <p><Link to="#">Khách hàng</Link></p>
-                      <p><Link to="#">Nhà cung cấp</Link></p>
-                      <p><Link to="#">Đối tác</Link></p>
+                      <p id="menu_children"><Link to="#">Khách hàng</Link></p>
+                      <p id="menu_children"><Link to="#">Nhà cung cấp</Link></p>
+                      <p id="menu_children"><Link to="#">Đối tác</Link></p>
                     </li>
                     <li>
                       <Link to="#">Số quỹ</Link>
