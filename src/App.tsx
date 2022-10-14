@@ -4,6 +4,7 @@ import { appRoutes } from "./routes/routes.routes";
 import LayoutProduct from "./layouts/Layout";
 
 import IRoute from "./types/router.type";
+import Signin from "./modules/login/signIn/signin";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
             />
           ))}
         </Route>
+        <Route path="/signin" element={<Signin />}/>
       </Routes>
     </BrowserRouter>
   );

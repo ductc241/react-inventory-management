@@ -196,10 +196,10 @@ const Header = () => {
                         transition duration-150 ease-in-out origin-top text-black w-40 py-2 drop-shadow-xl -ml-28"
                   >
                     <li className="rounded-sm px-3 py-1 text-center hover:text-sky-700">
-                      Tài khoản
+                      <Link to="/signup">Tài khoản</Link>
                     </li>
                     <li className="rounded-sm px-3 py-1 text-center hover:text-sky-700">
-                      Đăng xuất
+                      <Link to="/signout">Đăng xuất</Link>
                     </li>
                   </ul>
                 </div>
