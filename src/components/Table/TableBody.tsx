@@ -25,9 +25,7 @@ const TableBody = ({
           className
         )}
       >
-        {column.render
-          ? column.render(record[column.dataIndex])
-          : record[column.dataIndex]}
+        {column.render ? column.render(record) : record[column.dataIndex]}
       </td>
     ));
 
@@ -48,7 +46,7 @@ const TableBody = ({
     return data.map((record: any, index) => (
       <tr
         key={index}
-        className="border-b border-[#f0f0f0] last:border-none text-lg leading-[27px] text-[#311339] font-semibold"
+        className="border border-gray-200 text-lg leading-[27px] text-[#311339] font-semibold hover:bg-emerald-50"
       >
         {renderRow(record)}
       </tr>

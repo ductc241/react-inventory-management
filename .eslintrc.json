@@ -8,7 +8,6 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
-    "standard-with-typescript",
     "prettier"
   ],
   "overrides": [],
@@ -30,16 +29,6 @@
     "semi": "off",
     "linebreak-style": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
-      }
-    ],
     "no-unused-vars": [
       "warn",
       {
