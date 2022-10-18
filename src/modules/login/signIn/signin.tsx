@@ -44,6 +44,7 @@ const Signin = () => {
                   Địa chỉ E-mail:
                 </label>
                 <div className="relative">
+                  {/* <TextField id="email" type="email" name="email" required /> */}
                   <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
                     <svg
                       className="h-6 w-6"

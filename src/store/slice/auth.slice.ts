@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { signin, signup } from "../../api/login.api";
 import { UserType } from "../../types/user.type";
+import { toast } from "react-toastify";
 
 interface InitialStateType {
   user: any;
@@ -47,6 +48,7 @@ const authSlice = createSlice({
         "token",
         JSON.stringify(payload.accessToken)
       );
+      toast.success("Đăng nhập thành công!");
     });
     builder.addCase(signIn.rejected, (state, action) => {
       state.isLoading = true;
@@ -57,10 +59,12 @@ const authSlice = createSlice({
     });
     builder.addCase(signUp.fulfilled, (state, { payload }) => {
       state.isLoading = false;
+      toast.success("Đăng ký thành công!");
     });
     builder.addCase(signUp.rejected, (state, action) => {
       state.isLoading = true;
       state.error = true;
+      toast.error("Lỗi");
     });
   }
 });

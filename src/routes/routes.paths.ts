@@ -10,4 +10,4 @@ export const PATH_PRODUCTS_UPDATE = "/products/update/:id";
 
 export const PATH_PRODUCTS_FORM = "/products/form";
 
-export const PATH_SIGN_IN = "/signin";
+export const PATH_SIGNIN = "/signin";

@@ -7,11 +7,15 @@ type Props = {
 };
 
 const PrivateRouter = (props: Props) => {
-  // const useSelector = useAppSelector;
+  const useSelector = useAppSelector;
 
-  // const { user } = useSelector((store) => store.auth);
+  const { user } = useSelector((store) => store.auth);
 
   if (!localStorage.getItem("user")) {
+    return <Navigate to="/signin" />;
+  }
+
+  if (user !== null) {
     return <Navigate to="/signin" />;
   }
 
