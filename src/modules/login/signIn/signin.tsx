@@ -1,29 +1,27 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { UserType } from "../../../types/user.type";
+import { authenticated } from "../../../utils/localStorage/localStorega";
+import { signIn } from "../../../store/slice/auth.slice";
+import { useAppDispatch } from "../../../hook/hook";
 
-type Props = {};
-
-type InputForm = {
-  userName: string;
-  password: string;
-};
-
-const Signin = (props: Props) => {
+const Signin = () => {
   const {
     formState: { errors },
     handleSubmit,
     register
-  } = useForm<InputForm>();
+  } = useForm<UserType>();
+  const navigate = useNavigate();
+  const disPatch = useAppDispatch();
 
-  const onSubmit: SubmitHandler<InputForm> = (data: InputForm) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<UserType> = async (user: UserType) => {
+    disPatch(signIn(user));
+    authenticated(user, () => {
+      navigate("/");
+    });
   };
   return (
     <>
-      <link
-        rel="stylesheet"
-        href="https://kit-pro.fontawesome.com/releases/v5.15.1/css/pro.min.css"
-      />
       <div className="min-h-screen flex flex-col items-center justify-center bg">
         <div className="flex flex-col bg-white shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md">
           <div className="font-medium self-center text-xl sm:text-2xl uppercase text-gray-800">
@@ -63,13 +61,13 @@ const Signin = (props: Props) => {
                   <input
                     id="email"
                     type="email"
-                    {...register("userName", { required: true })}
+                    {...register("email", { required: true })}
                     className="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
                     placeholder="Nhập địa chỉ E-mail"
                   />
                 </div>
                 <div className="pt-1">
-                  {errors.userName && (
+                  {errors.email && (
                     <span className="text-red-500 text-md">
                       Bạn chưa nhập e-mail
                     </span>
@@ -108,7 +106,7 @@ const Signin = (props: Props) => {
                   />
                 </div>
                 <div className="pt-1">
-                  {errors.userName && (
+                  {errors.password && (
                     <span className="text-red-500 text-md">
                       Bạn chưa nhập mật khẩu
                     </span>

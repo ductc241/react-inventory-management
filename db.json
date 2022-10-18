@@ -1,16 +1,10 @@
 {
   "users": [
     {
-      "email": "miktendinh11@gmail.com",
-      "password": "$2a$10$nWCwCdXhBmanEvLtBZcMzuXCRi4e4AmH/pQsN7oYSa6GdQa6eSNii",
-      "userName": "sdadsa@dsadsa",
-      "id": 1
-    },
-    {
-      "email": "asda@sda",
-      "password": "$2a$10$0d.skOIzS3TZnRYVXEUbW.rd5KG2UfPzt1QQD9.keHHsqL0uHm1hm",
-      "userName": "sdadsa@dsadsa",
-      "id": 2
+      "email": "admin@gmail.com",
+      "password": "$2a$10$GZRAx6Y4c7xFbSQLUpkh1.EfoN1attFMgw5JtgOJrcURPZL.3uExW",
+      "userName": "dinhbt",
+      "id": 3
     }
   ]
 }

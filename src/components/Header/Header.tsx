@@ -1,7 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../hook/hook";
+import { logOut } from "../../store/slice/auth.slice";
 import "./Header.styles.css";
 
 const Header = () => {
+  const disPatch = useAppDispatch();
+  const navigate = useNavigate();
+  const hanleLogOut = () => {
+    disPatch(logOut);
+    navigate("/signin");
+  };
   return (
     <div>
       <div className="flex flex-wrap place-items-center">
@@ -199,7 +207,7 @@ const Header = () => {
                       <Link to="/signup">Tài khoản</Link>
                     </li>
                     <li className="rounded-sm px-3 py-1 text-center hover:text-sky-700">
-                      <Link to="/signout">Đăng xuất</Link>
+                      <button onClick={hanleLogOut}>Đăng xuất</button>
                     </li>
                   </ul>
                 </div>
