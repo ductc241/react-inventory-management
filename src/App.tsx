@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { appRoutes } from "./routes/routes.routes";
-import LayoutProduct from "./layouts/Layout.product";
+import LayoutProduct from "./layouts/Layout";
 
 import IRoute from "./types/router.type";
 
