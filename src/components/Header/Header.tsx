@@ -1,7 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../hook/hook";
+import { logOut } from "../../store/slice/auth.slice";
 import "./Header.styles.css";
 
 const Header = () => {
+  const disPatch = useAppDispatch();
+  const navigate = useNavigate();
+  const hanleLogOut = () => {
+    disPatch(logOut);
+    navigate("/signin");
+  };
   return (
     <div>
       <div className="flex flex-wrap place-items-center">
@@ -9,14 +17,14 @@ const Header = () => {
           {/* navbar */}
           <nav className="flex justify-between bg-[#00263a] text-white w-screen">
             <div className="px-5 xl:px-12 py-6 flex w-full items-center">
-              <a className="w-20" href="#">
+              <Link to="/" className="w-20">
                 {/* <img class="h-9" src="logo.png" alt="logo"> */}
                 <img
                   src="https://res.cloudinary.com/dsirnbuyv/image/upload/v1664895627/poly_wareh_j06pfe.png"
                   alt=""
                   width="90px"
                 />
-              </a>
+              </Link>
               {/* Nav Links */}
               <ul className="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
                 <li>
@@ -143,8 +151,8 @@ const Header = () => {
                 </li>
               </ul>
               {/* Header Icons */}
-              <div className="hidden xl:flex items-center space-x-5 items-center">
-                <a className="flex items-center hover:text-gray-200" href="#">
+              <div className="hidden xl:flex space-x-5 items-center">
+                <Link className="flex items-center hover:text-gray-200" to="#">
                   <span className="inline-flex justify-center items-center ml-4">
                     <svg
                       className="w-6 h-6"
@@ -165,14 +173,14 @@ const Header = () => {
                     <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-pink-400 opacity-75" />
                     <span className="relative inline-flex rounded-full h-3 w-3 bg-pink-500" />
                   </span>
-                </a>
+                </Link>
 
                 <div className="group inline-block">
                   <ul className="outline-none focus:outline-none px-3 py-1 rounded-sm flex items-center min-w-32">
                     <span className="pr-1 font-semibold flex-1">
-                      <a
+                      <Link
                         className="flex items-center hover:text-gray-200"
-                        href="#"
+                        to="#"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -188,7 +196,7 @@ const Header = () => {
                             d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                           />
                         </svg>
-                      </a>
+                      </Link>
                     </span>
                   </ul>
                   <ul
@@ -196,17 +204,17 @@ const Header = () => {
                         transition duration-150 ease-in-out origin-top text-black w-40 py-2 drop-shadow-xl -ml-28"
                   >
                     <li className="rounded-sm px-3 py-1 text-center hover:text-sky-700">
-                      Tài khoản
+                      <Link to="/signup">Tài khoản</Link>
                     </li>
                     <li className="rounded-sm px-3 py-1 text-center hover:text-sky-700">
-                      Đăng xuất
+                      <button onClick={hanleLogOut}>Đăng xuất</button>
                     </li>
                   </ul>
                 </div>
               </div>
             </div>
             {/* Responsive navbar */}
-            <a className="navbar-burger self-center mr-12 xl:hidden" href="#">
+            <Link className="navbar-burger self-center mr-12 xl:hidden" to="#">
               <button
                 type="button"
                 className="text-white inline-flex p-3 rounded lg:hidden ml-auto hover:text-white outline-none nav-toggler"
@@ -278,7 +286,7 @@ const Header = () => {
                   </ul>
                 </div>
               </button>
-            </a>
+            </Link>
           </nav>
         </section>
       </div>
