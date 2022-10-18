@@ -1,23 +1,22 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { signup } from "../../../api/login.api";
+import { UserType } from "../../../types/user.type";
 
 type Props = {};
 
-type InputForm = {
-  userName: string;
-  userEmail: string;
-  password: string;
-};
-
 const Signup = (props: Props) => {
+  const navigate = useNavigate();
   const {
     formState: { errors },
     handleSubmit,
     register
-  } = useForm<InputForm>();
+  } = useForm<UserType>();
 
-  const onSubmit: SubmitHandler<InputForm> = (data: InputForm) => {
+  const onSubmit: SubmitHandler<UserType> = (data: UserType) => {
     console.log(data);
+    signup(data);
+    navigate(-1);
   };
   return (
     <>
@@ -65,11 +64,11 @@ const Signup = (props: Props) => {
                     type="email"
                     className="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
                     placeholder="Nhập địa chỉ E-mail"
-                    {...register("userEmail", { required: true })}
+                    {...register("email", { required: true })}
                   />
                 </div>
                 <div className="pt-1">
-                  {errors.userEmail && (
+                  {errors.email && (
                     <span className="text-red-500 text-md">
                       Bạn chưa nhập e-mail
                     </span>
