@@ -29,19 +29,21 @@ body {
   justify-content: flex-end;
   align-items: center;
   gap: 10px;
-  font-size: 11px;
+  font-size: 14px;
 }
 
-.pagination_item {
+.pagination_item a {
+  display: inline-block;
   padding: 4px 13px;
-  border-radius: 3px;
 }
 
 .pagination .pagination_item:hover {
+  cursor: pointer;
   background-color: #e5e5e5;
 }
 
 .pagination_active {
+  border-radius: 3px;
   background-color: #4cb050;
   color: white;
 }

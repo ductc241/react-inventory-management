@@ -3,8 +3,8 @@ import clsx from "clsx";
 
 const variantStyles = {
   contained: "bg-green-500 hover:bg-green-600",
-  warning: "bg-rose-500 hover:bg-rose-600",
-  error: "bg-gray-500 hover:bg-gray-600"
+  error: "bg-rose-500 hover:bg-rose-600",
+  warning: "bg-gray-500 hover:bg-gray-600"
 };
 
 interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
@@ -24,8 +24,7 @@ const Button = ({
   ...props
 }: ButtonProps) => {
   const defaultStyles = clsx(
-    "px-6 py-[7px] rounded-md leading-6 cursor-pointer text-white text-sm font-medium",
-    "inline-flex align-middle items-center justify-center",
+    "px-6 py-[12px] rounded-md leading-6 cursor-pointer text-white text-sm font-medium",
     "focus-visible:outline-2 focus-visible:outline-orange-secondary",
     fullWidth ? "w-full" : "max-w-fit",
 
