@@ -9,7 +9,7 @@ interface TableHeaderProps {
 
 const TableHeader = ({ tableHead, className }: TableHeaderProps) => {
   return (
-    <thead className="rounded-t text-left border border-[#c5e7f2]">
+    <thead className="text-left">
       <tr className="bg-gray-100">
         {tableHead.map((head, index) => (
           <th
