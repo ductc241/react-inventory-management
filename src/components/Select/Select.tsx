@@ -28,6 +28,7 @@ interface SelectProps extends ComponentPropsWithoutRef<"div"> {
   wrapperClassName?: string;
   position?: string;
   selectLabel?: LabelProps;
+  required?: boolean;
 }
 
 const Select = ({
@@ -39,11 +40,11 @@ const Select = ({
   position,
   handleClickChange,
   selectLabel,
+  required,
   ...props
 }: SelectProps) => {
   const [isDropDown, setIsDropDown] = useState<boolean>(false);
   const selectRef = useRef<HTMLDivElement>(null);
-
   const handleCLickOPen = () => {
     setIsDropDown(!isDropDown);
   };
@@ -68,10 +69,10 @@ const Select = ({
     if (option && Object.keys(option).length > 0) {
       return option.label;
     }
-    if (!option && !placeholderText) {
-      return options[0].label;
+    if (!option && placeholderText) {
+      return placeholderText;
     }
-    return placeholderText;
+    return options[0].label;
   };
 
   useEffect(() => {
@@ -84,8 +85,9 @@ const Select = ({
   return (
     <div>
       {selectLabel && (
-        <div className={clsx("font-semibold mb-1", selectLabel.labelClassName)}>
+        <div className={clsx("text-base mb-1", selectLabel.labelClassName)}>
           <label htmlFor={selectLabel.htmlFor}>{selectLabel.text}</label>
+          {required && <span className="ml-1 text-error">*</span>}
         </div>
       )}
       <div
@@ -94,7 +96,8 @@ const Select = ({
       >
         <div
           className={clsx(
-            "w-full flex justify-between items-center px-4 py-3 h-12 border border-solid border-[#DEDEDE] rounded-lg cursor-pointer",
+            "w-full flex justify-between items-center px-4 py-3 h-12 border border-solid rounded-lg cursor-pointer select-none",
+            isDropDown ? "border-orange-secondary" : "border-[#DEDEDE]",
             className
           )}
           onClick={handleCLickOPen}
@@ -114,7 +117,7 @@ const Select = ({
         </div>
         <div
           className={clsx(
-            "w-full absolute bg-white px-4 border border-solid border-[#DEDEDE] rounded-lg max-h-[340px] overflow-y-auto shadow-[0px_0px_10px_#7979791A] z-50",
+            "w-full absolute bg-white border border-solid border-[#DEDEDE] rounded-lg max-h-[340px] overflow-y-auto shadow-[0px_0px_10px_#7979791A] z-50",
             isDropDown ? "block mt-1" : "hidden",
             position && position
           )}
@@ -123,7 +126,7 @@ const Select = ({
             <div
               key={item.value}
               className={clsx(
-                "py-3 cursor-pointer",
+                "py-3 px-4 cursor-pointer hover:text-orange-primary transition duration-300 hover:bg-zinc-200",
                 item.value === option?.value && "text-orange-secondary"
               )}
               onClick={() => handleClickOption(item)}

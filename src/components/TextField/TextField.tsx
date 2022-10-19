@@ -19,7 +19,7 @@ const TextField = forwardRef(
     return (
       <div className={containerClass}>
         {label && (
-          <label htmlFor={name} className="block mb-1 font-semibold">
+          <label htmlFor={name} className="block mb-1 text-base">
             {label}
             {required && <span className="ml-1 text-red-secondary">*</span>}
           </label>
@@ -32,7 +32,7 @@ const TextField = forwardRef(
           className={clsx(
             "border border-[#DEDEDE] rounded-lg outline-none",
             "w-full px-4 py-3 h-12",
-            error ? "focus:border-error" : "focus:border-orange-secondary",
+            error ? "focus:border-red-500" : "focus:border-blue-500",
             className
           )}
           ref={ref}
