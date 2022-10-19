@@ -12,7 +12,7 @@ export const appRoutes: IRoute[] = [
   },
   {
     key: 2,
-    path: routerPaths.PATH_PRODUCTS_FORM,
-    component: <ProductForm />
+    path: routerPaths.PATH_PRODUCTS_ADD,
+    component: <ProductForm mode="create" />
   }
 ];
