@@ -1,6 +1,6 @@
 import { Table } from "../../components";
 import ReactPaginate from "react-paginate";
-import { Caret, EditIcon, TrashIcon } from "../../components/icons";
+import { Caret, EditIcon, EyesIcon, TrashIcon } from "../../components/icons";
 import { ITableColumn } from "../../components/Table/Table.types";
 
 const dataSource = [
@@ -62,6 +62,10 @@ const columns: ITableColumn[] = [
     dataIndex: "action",
     render: () => (
       <div className="flex gap-x-5">
+        <EyesIcon
+          className="cursor-pointer fill-green-400 hover:fill-green-600"
+          width={22}
+        />
         <EditIcon
           className="cursor-pointer fill-blue-400 hover:fill-blue-600"
           width={20}

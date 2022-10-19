@@ -46,7 +46,7 @@ const TableBody = ({
     return data.map((record: any, index) => (
       <tr
         key={index}
-        className="border border-gray-200 text-lg leading-[27px] text-[#311339] hover:bg-emerald-50"
+        className="border-b border-gray-200 text-lg leading-[27px] text-[#311339] hover:bg-emerald-50"
       >
         {renderRow(record)}
       </tr>

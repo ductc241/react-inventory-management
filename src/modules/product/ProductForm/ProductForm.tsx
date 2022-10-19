@@ -1,32 +1,62 @@
+import { useNavigate, useParams } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import { TextField, Select, Button } from "../../../components";
 import IOption from "../../../types/option.model";
 import { BrandOptions, GroupOptions } from "./ProductForm.constants";
+import { useEffect } from "react";
 interface IProductProps {
   mode: "create" | "update";
 }
 
 type Inputs = {
-  code: string;
+  sku: string;
   name: string;
   brand: string;
-  group: string;
+  category_id: string;
   price: number;
-  price_cost: number;
+  import_price: number;
   quantity: number;
   weight: number;
 };
 
 const ProductForm = ({ mode }: IProductProps) => {
-  const { register, handleSubmit } = useForm<Inputs>();
+  // const navigate = useNavigate();
+  const params = useParams();
 
-  const createProduct = (data: Inputs) => {
-    console.log("create: ", data);
+  const { register, handleSubmit, reset } = useForm<Inputs>();
+
+  const createProduct = (formData: Inputs) => {
+    console.log("create: ", formData);
   };
+
+  const updateProduct = (formData: Inputs) => {
+    console.log("update: ", formData);
+
+    if (params.id) {
+      console.log("id: ", params.id);
+    }
+  };
+
+  useEffect(() => {
+    if (params.id) {
+      console.log("id: ", params.id);
+      reset({
+        sku: "San pham 1",
+        name: "San pham 1",
+        brand: "San pham 1",
+        category_id: "San pham 1",
+        price: 10,
+        import_price: 10,
+        quantity: 10,
+        weight: 10
+      });
+    }
+  }, [params, reset]);
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     if (mode === "create") createProduct(data);
+    if (mode === "update") updateProduct(data);
   };
 
   return (
@@ -37,12 +67,12 @@ const ProductForm = ({ mode }: IProductProps) => {
           <TextField
             label="Mã sản phẩm"
             containerClass="basis-3/6"
-            {...register("code")}
+            {...register("category_id")}
           />
           <TextField
-            name="name"
             label="Tên sản phẩm"
             containerClass="basis-3/6"
+            {...register("name")}
           />
         </div>
         <Select
@@ -56,7 +86,7 @@ const ProductForm = ({ mode }: IProductProps) => {
         <Select
           className="mb-5"
           selectLabel={{
-            text: "Nhóm hàng"
+            text: "Danh mục"
           }}
           options={GroupOptions}
           handleClickChange={(data: IOption) => console.log(data)}
@@ -68,14 +98,26 @@ const ProductForm = ({ mode }: IProductProps) => {
 
         <div className="flex gap-6 mb-5">
           <TextField
-            name="price_cost"
-            label="Giá gốc"
+            label="Giá nhập"
             containerClass="basis-3/6"
+            {...register("import_price")}
           />
-          <TextField name="price" label="Giá bán" containerClass="basis-3/6" />
+          <TextField
+            label="Giá bán"
+            containerClass="basis-3/6"
+            {...register("price")}
+          />
         </div>
-        <TextField name="quantity" label="Tồn kho" containerClass="mb-5" />
-        <TextField name="weight" label="Trọng lượng" containerClass="mb-5" />
+        <TextField
+          label="Tồn kho"
+          containerClass="mb-5"
+          {...register("quantity")}
+        />
+        <TextField
+          label="Trọng lượng"
+          containerClass="mb-5"
+          {...register("weight")}
+        />
       </div>
 
       <div className="flex gap-5">
