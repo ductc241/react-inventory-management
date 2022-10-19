@@ -8,6 +8,16 @@
   user-select: none;
 }
 
+#menuToggle {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: 0;
+  left: 25px;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 #menuToggle input {
   display: flex;
   width: 40px;
@@ -72,8 +82,8 @@
   transform: translateX(100%);
   transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
 }
-p {
-  /* padding-left: 30px; */
+#menu_children {
+  padding-left: 30px;
   font-size: 16px;
 }
 #menu li {
