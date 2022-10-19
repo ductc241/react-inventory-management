@@ -1,7 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../hook/hook";
+import { logOut } from "../../store/slice/auth.slice";
 import "./Header.styles.css";
 
 const Header = () => {
+  const disPatch = useAppDispatch();
+  const navigate = useNavigate();
+  const hanleLogOut = () => {
+    disPatch(logOut);
+    navigate("/signin");
+  };
   return (
     <div>
       <div className="flex flex-wrap place-items-center">
@@ -9,7 +17,7 @@ const Header = () => {
           {/* navbar */}
           <nav className="flex justify-between bg-[#00263a] text-white w-screen">
             <div className="px-5 xl:px-12 py-6 flex w-full items-center">
-              <Link className="w-20" to="#">
+              <Link to="/" className="w-20">
                 {/* <img class="h-9" src="logo.png" alt="logo"> */}
                 <img
                   src="https://res.cloudinary.com/dsirnbuyv/image/upload/v1664895627/poly_wareh_j06pfe.png"
@@ -143,7 +151,7 @@ const Header = () => {
                 </li>
               </ul>
               {/* Header Icons */}
-              <div className="hidden xl:flex items-center space-x-5 items-center">
+              <div className="hidden xl:flex space-x-5 items-center">
                 <Link className="flex items-center hover:text-gray-200" to="#">
                   <span className="inline-flex justify-center items-center ml-4">
                     <svg
@@ -196,10 +204,10 @@ const Header = () => {
                         transition duration-150 ease-in-out origin-top text-black w-40 py-2 drop-shadow-xl -ml-28"
                   >
                     <li className="rounded-sm px-3 py-1 text-center hover:text-sky-700">
-                      Tài khoản
+                      <Link to="/signup">Tài khoản</Link>
                     </li>
                     <li className="rounded-sm px-3 py-1 text-center hover:text-sky-700">
-                      Đăng xuất
+                      <button onClick={hanleLogOut}>Đăng xuất</button>
                     </li>
                   </ul>
                 </div>
@@ -223,52 +231,52 @@ const Header = () => {
                     </li>
                     <li>
                       <Link to="#">Hàng hoá</Link>
-                      <p>
+                      <p id="menu_children">
                         <Link to="#">Danh mục</Link>
                       </p>
-                      <p>
+                      <p id="menu_children">
                         <Link to="#">Thiết lập giá</Link>
                       </p>
-                      <p>
+                      <p id="menu_children">
                         <Link to="#">Phiếu bảo hành</Link>
                       </p>
-                      <p>
+                      <p id="menu_children">
                         <Link to="#">Kiểm kho</Link>
                       </p>
                     </li>
                     <li>
                       <Link to="#">Giao dịch</Link>
-                      <p>
+                      <p id="menu_children">
                         <Link to="#">Đơn đặt</Link>
                       </p>
-                      <p>
+                      <p id="menu_children">
                         <Link to="#">Hoá đơn</Link>
                       </p>
-                      <p>
+                      <p id="menu_children">
                         <Link to="#">Vận đơn</Link>
                       </p>
-                      <p>
+                      <p id="menu_children">
                         <Link to="#">Trả hàng</Link>
                       </p>
-                      <p>
+                      <p id="menu_children">
                         <Link to="#">Nhập hàng</Link>
                       </p>
-                      <p>
+                      <p id="menu_children">
                         <Link to="#">Trả hàng nhập</Link>
                       </p>
-                      <p>
+                      <p id="menu_children">
                         <Link to="#">Xuất huỷ</Link>
                       </p>
                     </li>
                     <li>
                       <Link to="#">Đối tác</Link>
-                      <p>
+                      <p id="menu_children">
                         <Link to="#">Khách hàng</Link>
                       </p>
-                      <p>
+                      <p id="menu_children">
                         <Link to="#">Nhà cung cấp</Link>
                       </p>
-                      <p>
+                      <p id="menu_children">
                         <Link to="#">Đối tác</Link>
                       </p>
                     </li>
