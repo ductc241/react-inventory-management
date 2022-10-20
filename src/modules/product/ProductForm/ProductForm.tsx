@@ -40,10 +40,9 @@ const ProductForm = ({ mode }: IProductProps) => {
 
   useEffect(() => {
     if (params.id) {
-      console.log("id: ", params.id);
       reset({
-        sku: "San pham 1",
-        name: "San pham 1",
+        sku: "SP0001",
+        name: params.id,
         brand: "San pham 1",
         category_id: "San pham 1",
         price: 10,

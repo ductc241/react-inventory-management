@@ -52,8 +52,9 @@ const Modal = ({
             {showButtons && (
               <div className="flex justify-end items-center gap-x-2 text-sm">
                 <Button
+                  variant="error"
                   onClick={onCancel}
-                  className="py-[6px] px-[12px] bg-white text-black"
+                  className="py-[6px] px-[12px] bg-white text-red-500 hover:text-white"
                 >
                   {cancelText}
                 </Button>
