@@ -1,76 +1,130 @@
-import { Button, Table } from "../../../components";
-import ReactPaginate from "react-paginate";
-import { Caret, EditIcon, TrashIcon } from "../../../components/icons";
-import { ITableColumn } from "../../../components/Table/Table.types";
+import { useNavigate, useParams } from "react-router-dom";
+import { useForm, SubmitHandler } from "react-hook-form";
 
-const dataSource = [
-  {
-    key: "1",
-    name: "Mike",
-    age: 32,
-    address: "10 Downing Street"
-  },
-  {
-    key: "2",
-    name: "John",
-    age: 42,
-    address: "10 Downing Street"
-  },
-  {
-    key: "3",
-    name: "Dane",
-    age: 16,
-    address: "10 California Road"
-  }
-];
+import { TextField, Select, Button } from "../../../components";
+import IOption from "../../../types/option.model";
+import { BrandOptions, GroupOptions } from "./ProductForm.constants";
+import { useEffect } from "react";
+interface IProductProps {
+  mode: "create" | "update";
+}
 
-const columns: ITableColumn[] = [
-  {
-    key: 1,
-    title: "Name",
-    dataIndex: "name"
-  },
-  {
-    key: 2,
-    title: "Age",
-    dataIndex: "age"
-  },
-  {
-    key: 3,
-    title: "Address",
-    dataIndex: "address"
-  },
-  {
-    key: 4,
-    title: "Action",
-    dataIndex: "action",
-    render: () => (
-      <div className="flex gap-x-5">
-        <EditIcon className="cursor-pointer" />
-        <TrashIcon className="cursor-pointer" />
-      </div>
-    )
-  }
-];
+type Inputs = {
+  sku: string;
+  name: string;
+  brand: string;
+  category_id: string;
+  price: number;
+  import_price: number;
+  quantity: number;
+  weight: number;
+};
 
-const ProductForm = () => {
+const ProductForm = ({ mode }: IProductProps) => {
+  // const navigate = useNavigate();
+  const params = useParams();
+
+  const { register, handleSubmit, reset } = useForm<Inputs>();
+
+  const createProduct = (formData: Inputs) => {
+    console.log("create: ", formData);
+  };
+
+  const updateProduct = (formData: Inputs) => {
+    console.log("update: ", formData);
+
+    if (params.id) {
+      console.log("id: ", params.id);
+    }
+  };
+
+  useEffect(() => {
+    if (params.id) {
+      console.log("id: ", params.id);
+      reset({
+        sku: "San pham 1",
+        name: "San pham 1",
+        brand: "San pham 1",
+        category_id: "San pham 1",
+        price: 10,
+        import_price: 10,
+        quantity: 10,
+        weight: 10
+      });
+    }
+  }, [params, reset]);
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    if (mode === "create") createProduct(data);
+    if (mode === "update") updateProduct(data);
+  };
+
   return (
-    <>
-      <Button>Lưu</Button>
-      <Button variant="warning">Lưu & Thêm mới</Button>
-      <Button variant="error">Bỏ qua</Button>
+    <form className="w-9/12" onSubmit={handleSubmit(onSubmit)}>
+      <div className="mb-10">
+        <p className="mb-5 text-xl font-semibold">Thông tin cơ bản</p>
+        <div className="flex gap-6 mb-5">
+          <TextField
+            label="Mã sản phẩm"
+            containerClass="basis-3/6"
+            {...register("category_id")}
+          />
+          <TextField
+            label="Tên sản phẩm"
+            containerClass="basis-3/6"
+            {...register("name")}
+          />
+        </div>
+        <Select
+          className="mb-5"
+          selectLabel={{
+            text: "Thương hiệu"
+          }}
+          options={BrandOptions}
+          handleClickChange={(data: IOption) => console.log(data)}
+        />
+        <Select
+          className="mb-5"
+          selectLabel={{
+            text: "Danh mục"
+          }}
+          options={GroupOptions}
+          handleClickChange={(data: IOption) => console.log(data)}
+        />
+      </div>
 
-      <Table dataSource={dataSource} column={columns} />
+      <div>
+        <p className="mb-5 text-xl font-semibold">Thiết lập giá & kho</p>
 
-      <ReactPaginate
-        pageCount={10}
-        containerClassName="pagination mt-5"
-        pageClassName="pagination_item"
-        activeClassName="pagination_active"
-        previousLabel={<Caret width={"15px"} />}
-        nextLabel={<Caret className="rotate-180" width={"15px"} />}
-      />
-    </>
+        <div className="flex gap-6 mb-5">
+          <TextField
+            label="Giá nhập"
+            containerClass="basis-3/6"
+            {...register("import_price")}
+          />
+          <TextField
+            label="Giá bán"
+            containerClass="basis-3/6"
+            {...register("price")}
+          />
+        </div>
+        <TextField
+          label="Tồn kho"
+          containerClass="mb-5"
+          {...register("quantity")}
+        />
+        <TextField
+          label="Trọng lượng"
+          containerClass="mb-5"
+          {...register("weight")}
+        />
+      </div>
+
+      <div className="flex gap-5">
+        <Button type="submit">Thêm sản phẩm</Button>
+        <Button variant="warning">Hủy bỏ</Button>
+      </div>
+    </form>
   );
 };
 

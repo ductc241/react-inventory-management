@@ -1,8 +1,5 @@
 import clsx from "clsx";
-import { Spinner } from "..";
-
 import { ITableColumn } from "./Table.types";
-
 interface ITableBodyProps {
   data: any[];
   tableColumn: ITableColumn[];
@@ -46,7 +43,7 @@ const TableBody = ({
     return data.map((record: any, index) => (
       <tr
         key={index}
-        className="border border-gray-200 text-lg leading-[27px] text-[#311339] font-semibold hover:bg-emerald-50"
+        className="border-b border-gray-200 text-lg leading-[27px] text-[#311339] hover:bg-emerald-50"
       >
         {renderRow(record)}
       </tr>
@@ -54,13 +51,23 @@ const TableBody = ({
   };
 
   return loading ? (
-    <tr>
-      <td colSpan={tableColumn.length} className="py-32">
-        <div className="flex justify-center">
-          <Spinner />
-        </div>
-      </td>
-    </tr>
+    <tbody>
+      <tr className="animate-pulse">
+        <td className="p-[20px]" colSpan={tableColumn.length}>
+          <div className="h-2.5 w-[80%] bg-gray-200 rounded-full dark:bg-gray-500"></div>
+        </td>
+      </tr>
+      <tr className="animate-pulse">
+        <td className="p-[20px]" colSpan={tableColumn.length}>
+          <div className="h-2.5 w-[70%] bg-gray-200 rounded-full dark:bg-gray-500"></div>
+        </td>
+      </tr>
+      <tr className="animate-pulse">
+        <td className="p-[20px]" colSpan={tableColumn.length}>
+          <div className="h-2.5 w-[60%] bg-gray-200 rounded-full dark:bg-gray-500"></div>
+        </td>
+      </tr>
+    </tbody>
   ) : (
     <tbody>{renderBody()}</tbody>
   );
