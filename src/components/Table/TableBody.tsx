@@ -54,17 +54,17 @@ const TableBody = ({
     <tbody>
       <tr className="animate-pulse">
         <td className="p-[20px]" colSpan={tableColumn.length}>
-          <div className="h-2.5 w-[80%] bg-gray-200 rounded-full dark:bg-gray-500"></div>
+          <div className="h-2.5 w-[80%] bg-gray-200 rounded-full dark:bg-gray-300"></div>
         </td>
       </tr>
       <tr className="animate-pulse">
         <td className="p-[20px]" colSpan={tableColumn.length}>
-          <div className="h-2.5 w-[70%] bg-gray-200 rounded-full dark:bg-gray-500"></div>
+          <div className="h-2.5 w-[70%] bg-gray-200 rounded-full dark:bg-gray-300"></div>
         </td>
       </tr>
       <tr className="animate-pulse">
         <td className="p-[20px]" colSpan={tableColumn.length}>
-          <div className="h-2.5 w-[60%] bg-gray-200 rounded-full dark:bg-gray-500"></div>
+          <div className="h-2.5 w-[60%] bg-gray-200 rounded-full dark:bg-gray-300"></div>
         </td>
       </tr>
     </tbody>

@@ -1,7 +1,7 @@
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
 
-import { Table, Modal } from "../../components";
+import { Table, Modal, Button } from "../../components";
 import { Caret, EditIcon, TrashIcon } from "../../components/icons";
 import { ITableColumn } from "../../components/Table/Table.types";
 
@@ -82,6 +82,12 @@ const columns: ITableColumn[] = [
 const ProductList = () => {
   return (
     <>
+      <div className="flex justify-end mb-5">
+        <Link to="/products/add">
+          <Button>Thêm sản phẩm</Button>
+        </Link>
+      </div>
+
       <Table dataSource={dataSource} column={columns} />
 
       <ReactPaginate
