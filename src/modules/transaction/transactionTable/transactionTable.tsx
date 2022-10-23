@@ -1,18 +1,7 @@
 import { Button, Table } from "../../../components";
 import { ITableColumn } from "../../../components/Table/Table.types";
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-type Props = {};
-
-interface DataType {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-  tags: string[];
-}
-
-const TransactionTable = (props: Props) => {
+const TransactionTable = () => {
   const columns: ITableColumn[] = [
     {
       title: "Mã nhập hàng",
@@ -37,15 +26,62 @@ const TransactionTable = (props: Props) => {
     {
       title: "Trạng thái",
       dataIndex: "status",
-      key: "status"
+      key: "status",
+      render: ({ status }) => {
+        return (
+          <>
+            {status === true ? (
+              <div className="text-green-500">Đã thanh toán</div>
+            ) : (
+              <div className="text-red-500">Chưa thanh toán</div>
+            )}
+          </>
+        );
+      }
     }
   ];
 
-  const dataSource = [{}];
+  const dataSource = [
+    {
+      id: "1",
+      time_import: "20/10/2022",
+      supplier: "VietTel",
+      supplier_pay: "19000000",
+      status: true
+    },
+    {
+      id: "2",
+      time_import: "20/10/2022",
+      supplier: "VietTel",
+      supplier_pay: "19000000",
+      status: false
+    },
+    {
+      id: "3",
+      time_import: "20/10/2022",
+      supplier: "VietTel",
+      supplier_pay: "19000000",
+      status: false
+    },
+    {
+      id: "4",
+      time_import: "20/10/2022",
+      supplier: "VietTel",
+      supplier_pay: "19000000",
+      status: true
+    },
+    {
+      id: "5",
+      time_import: "20/10/2022",
+      supplier: "VietTel",
+      supplier_pay: "19000000",
+      status: true
+    }
+  ];
 
   return (
-    <div className="border">
-      <div className="flex justify-end">
+    <div>
+      <div className="flex justify-end mb-5">
         <Button>Tạo phiếu</Button>
       </div>
       <div>
