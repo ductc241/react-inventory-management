@@ -1,7 +1,8 @@
+import Transaction from "../modules/transaction";
 import DashboardPage from "../pages/DashboardPage";
 import {
-  ProductListPage,
   ProductCreatePage,
+  ProductListPage,
   ProductUpdatePage
 } from "../pages/product";
 
@@ -29,5 +30,10 @@ export const appRoutes: IRoute[] = [
     key: 4,
     path: routerPaths.PATH_PRODUCTS_UPDATE,
     component: <ProductUpdatePage />
+  },
+  {
+    key: 5,
+    path: routerPaths.PATH_IMPORT_SHIPMENT,
+    component: <Transaction />
   }
 ];
