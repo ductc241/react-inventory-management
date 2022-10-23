@@ -99,13 +99,13 @@ const Header = () => {
                         Trả hàng
                       </li>
                       <li className="rounded-sm px-3 py-1 hover:text-sky-700">
-                        Nhập hàng
+                        <Link to="/import_shipments">Nhập hàng</Link>
                       </li>
                       <li className="rounded-sm px-3 py-1 hover:text-sky-700">
                         Trả hàng nhập
                       </li>
                       <li className="rounded-sm px-3 py-1 hover:text-sky-700">
-                        <Link to="export_order">Xuất huỷ</Link>
+                        <Link to="#">Xuất huỷ</Link>
                       </li>
                     </ul>
                   </div>
@@ -256,10 +256,10 @@ const Header = () => {
                         <Link to="#">Trả hàng</Link>
                       </p>
                       <p id="menu_children">
-                        <Link to="#">Nhập hàng</Link>
+                        <Link to="/import_shipments">Nhập hàng</Link>
                       </p>
                       <p id="menu_children">
-                        <Link to="#">Trả hàng nhập</Link>
+                        <Link to="/import_shipments">Trả hàng nhập</Link>
                       </p>
                       <p id="menu_children">
                         <Link to="#">Xuất huỷ</Link>
