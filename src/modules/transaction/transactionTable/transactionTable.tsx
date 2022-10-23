@@ -1,7 +1,10 @@
-import { Button, Table } from "../../../components";
+import { useState } from "react";
+import { Button, Select, Table } from "../../../components";
 import { ITableColumn } from "../../../components/Table/Table.types";
+import { BrandOptions } from "../../product/ProductForm/ProductForm.constants";
 
 const TransactionTable = () => {
+  const [valueSelect, setValueSelect] = useState("");
   const columns: ITableColumn[] = [
     {
       title: "Mã nhập hàng",
@@ -81,7 +84,13 @@ const TransactionTable = () => {
 
   return (
     <div>
-      <div className="flex justify-end mb-5">
+      <div className="flex justify-between mb-5">
+        <Select
+          className="w-96"
+          options={BrandOptions}
+          handleClickChange={(data) => setValueSelect(data.value)}
+          defaultValue={valueSelect}
+        />
         <Button>Tạo phiếu</Button>
       </div>
       <div>
