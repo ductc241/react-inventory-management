@@ -4,6 +4,7 @@ import {
   ProductCreatePage,
   ProductUpdatePage
 } from "../pages/product";
+import SuplierPage from "../pages/supplier/SupllierPage";
 
 import IRoute from "../types/router.type";
 import * as routerPaths from "./routes.paths";
@@ -29,5 +30,10 @@ export const appRoutes: IRoute[] = [
     key: 4,
     path: routerPaths.PATH_PRODUCTS_UPDATE,
     component: <ProductUpdatePage />
+  },
+  {
+    key: 5,
+    path: routerPaths.PATH_SUPPLIER,
+    component: <SuplierPage />
   }
 ];
