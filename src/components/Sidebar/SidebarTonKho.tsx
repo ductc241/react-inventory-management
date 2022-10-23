@@ -6,7 +6,7 @@ const SidebarTonKho = () => {
   return (
     <div>
       <aside className="w-auto border rounded" aria-label="Sidebar">
-        <div className="overflow-y-auto bg-gray-50 rounded dark:bg-slate-300 drop-shadow-xl">
+        <div className="overflow-y-auto bg-white rounded dark:bg-slate-300 drop-shadow-xl">
           <ul className="space-y-2">
             <li>
               <div
