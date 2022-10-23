@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import { appRoutes } from "./routes/routes.routes";
@@ -6,7 +6,7 @@ import LayoutProduct from "./layouts/Layout";
 import PrivateRouter from "./routes/PrivateRouter";
 
 import IRoute from "./types/router.type";
-import { PATH_SIGNIN } from "./routes/routes.paths";
+import { PATH_SIGNIN, PATH_SIGNUP } from "./routes/routes.paths";
 
 import Signup from "./modules/login/signup/signup";
 import Signin from "./modules/login/signIn/signin";
@@ -38,7 +38,7 @@ const App = () => {
           </Route> */}
 
           <Route path={PATH_SIGNIN} element={<Signin />} />
-          <Route path="signup" element={<Signup />} />
+          <Route path={PATH_SIGNUP} element={<Signup />} />
           <Route path="*" element={<h1>Page not found</h1>} />
         </Routes>
       </BrowserRouter>

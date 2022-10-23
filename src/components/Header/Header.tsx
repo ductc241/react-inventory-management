@@ -14,18 +14,15 @@ const Header = () => {
     <div>
       <div className="flex flex-wrap place-items-center">
         <section className="relative mx-auto">
-          {/* navbar */}
           <nav className="flex justify-between bg-[#00263a] text-white w-screen">
             <div className="px-5 xl:px-12 py-6 flex w-full items-center">
               <Link to="/" className="w-20">
-                {/* <img class="h-9" src="logo.png" alt="logo"> */}
                 <img
                   src="https://res.cloudinary.com/dsirnbuyv/image/upload/v1664895627/poly_wareh_j06pfe.png"
                   alt=""
                   width="90px"
                 />
               </Link>
-              {/* Nav Links */}
               <ul className="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
                 <li>
                   <div className="group inline-block">
@@ -108,7 +105,7 @@ const Header = () => {
                         Trả hàng nhập
                       </li>
                       <li className="rounded-sm px-3 py-1 hover:text-sky-700">
-                        Xuất huỷ
+                        <Link to="export_order">Xuất huỷ</Link>
                       </li>
                     </ul>
                   </div>
