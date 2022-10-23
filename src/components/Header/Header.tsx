@@ -12,9 +12,10 @@ const Header = () => {
   };
   return (
     <div>
-      <div className="flex flex-wrap place-items-center">
+      <div>
         <section className="relative mx-auto">
-          <nav className="flex justify-between bg-[#00263a] text-white w-screen">
+          {/* navbar */}
+          <nav className="flex justify-between bg-[#00263a] text-white">
             <div className="px-5 xl:px-12 py-6 flex w-full items-center">
               <Link to="/" className="w-20">
                 <img
