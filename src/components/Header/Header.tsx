@@ -214,7 +214,7 @@ const Header = () => {
               </div>
             </div>
             {/* Responsive navbar */}
-            <Link className="navbar-burger self-center mr-12 xl:hidden" to="#">
+            <a className="navbar-burger self-center mr-12 xl:hidden">
               <button
                 type="button"
                 className="text-white inline-flex p-3 rounded lg:hidden ml-auto hover:text-white outline-none nav-toggler"
@@ -286,7 +286,7 @@ const Header = () => {
                   </ul>
                 </div>
               </button>
-            </Link>
+            </a>
           </nav>
         </section>
       </div>
