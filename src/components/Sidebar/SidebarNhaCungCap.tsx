@@ -6,7 +6,7 @@ const SidebarNhaCungCap = () => {
   return (
     <div>
       <aside className="w-auto border rounded" aria-label="Sidebar">
-        <div className="overflow-y-auto bg-gray-50 rounded dark:bg-slate-300 drop-shadow-xl">
+        <div className="overflow-y-auto bg-white rounded dark:bg-slate-300 drop-shadow-xl">
           <ul className="space-y-2">
             <li>
               <div
@@ -14,10 +14,7 @@ const SidebarNhaCungCap = () => {
                 aria-controls="dropdown-example"
                 data-collapse-toggle="dropdown-example"
               >
-                <span
-                  className="flex-1 ml-3 text-left whitespace-nowrap"
-                  sidebar-toggle-item
-                >
+                <span className="flex-1 ml-3 text-left whitespace-nowrap">
                   Nhà Cung Cấp
                 </span>
                 <div className="add_sidebar mr-2">
