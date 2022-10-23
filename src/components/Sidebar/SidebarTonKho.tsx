@@ -14,10 +14,7 @@ const SidebarTonKho = () => {
                 aria-controls="dropdown-example"
                 data-collapse-toggle="dropdown-example"
               >
-                <span
-                  className="flex-1 ml-3 text-left whitespace-nowrap"
-                  sidebar-toggle-item
-                >
+                <span className="flex-1 ml-3 text-left whitespace-nowrap">
                   Tồn Kho
                 </span>
                 <div className="add_sidebar mr-2">

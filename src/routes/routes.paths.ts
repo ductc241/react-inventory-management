@@ -9,6 +9,8 @@ export const PATH_PRODUCTS_ADD = "/products/add";
 export const PATH_PRODUCTS_UPDATE = "/products/update/:id";
 
 export const PATH_SIGNIN = "/signin";
+
+export const PATH_SUPPLIER = "/supplier";
 export const PATH_SIGNUP = "/signup";
 
 export const PATH_IMPORT_SHIPMENT = "/import_shipments";
