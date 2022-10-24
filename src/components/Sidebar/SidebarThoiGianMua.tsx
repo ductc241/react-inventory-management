@@ -16,6 +16,7 @@ const SidebarThoiGianMua = () => {
               >
                 <span className="flex-1 ml-3 text-left whitespace-nowrap">
                   Thời gain mua
+                  
                 </span>
                 <div className="add_sidebar mr-2">
                   <Link to="#">
