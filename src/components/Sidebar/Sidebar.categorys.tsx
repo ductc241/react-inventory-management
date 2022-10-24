@@ -7,20 +7,14 @@ import SidebarThoiGianMua from "./Sidevar_Children/SidebarThoiGianMua";
 import SidebarThuocTinh from "./Sidevar_Children/SidebarThuocTinh";
 import SidebarTonKho from "./Sidevar_Children/SidebarTonKho";
 
-const SidebarProduct = () => {
+const SidebarCategorys = () => {
   return (
     <div>
       <div className="space-y-4">
         <SidebarCategory />
-        <SidebarNhaCungCap />
-        <SidebarTonKho />
-        <SidebarThuocTinh />
-        <SidebarHienThi />
-        <SidebarThoiGianMua />
-        <SidebarBaoHanh />
       </div>
     </div>
   );
 };
 
-export default SidebarProduct;
+export default SidebarCategorys;
