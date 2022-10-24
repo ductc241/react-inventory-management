@@ -1,4 +1,4 @@
-import SidebarNhaCungCap from "../../components/Sidebar/SidebarNhaCungCap";
+import SidebarNhaCungCap from "../../components/Sidebar/Sidevar_Children/SidebarNhaCungCap";
 import TableSupplier from "../../modules/supplier/TableSupplier";
 
 const SuplierPage = () => {
