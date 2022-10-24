@@ -23,7 +23,6 @@ const SidebarThoiGianMua = () => {
                       src="https://res.cloudinary.com/dsirnbuyv/image/upload/v1666464107/plus-symbol-button_vkbpat.png"
                       width="10px"
                     />
-                    
                   </Link>
                 </div>
               </div>
