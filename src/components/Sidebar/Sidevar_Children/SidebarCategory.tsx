@@ -10,7 +10,7 @@ const SidebarCategory = () => {
           <ul className="space-y-2">
             <li>
               <div
-                className="flex items-center p-2 w-full text-lg font-normal text-gray-900 transition duration-75 group  bg-[#F3F4F6]"
+                className="flex items-center p-2 w-full text-lg font-normal text-gray-900 transition duration-75 group bg-[#F3F4F6]"
                 aria-controls="dropdown-example"
                 data-collapse-toggle="dropdown-example"
               >
