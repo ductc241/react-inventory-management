@@ -18,7 +18,7 @@ const SidebarCategory = () => {
                   Nhóm hàng
                 </span>
                 <div className="add_sidebar mr-2">
-                  <Link to="/categories">
+                  <Link to="/category">
                     <img
                       src="https://res.cloudinary.com/dsirnbuyv/image/upload/v1666464107/plus-symbol-button_vkbpat.png"
                       width="10px"

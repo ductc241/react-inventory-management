@@ -24,5 +24,22 @@
       "userName": "admin",
       "id": 4
     }
+  ],
+  "category": [
+    {
+      "id": 1,
+      "name": "Tai nghe",
+      "parent_id": 1
+    },
+    {
+      "id": 2,
+      "name": "Củ sạc",
+      "parent_id": 2
+    },
+    {
+      "id": 3,
+      "name": "Dây sạc",
+      "parent_id": 3
+    }
   ]
 }

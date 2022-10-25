@@ -1,30 +1,26 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import { TextField, Select, Button } from "../../../components";
 import IOption from "../../../types/option.model";
-import { BrandOptions, GroupOptions } from "./CategoryForm.constants";
-import { useEffect } from "react";
+import { GroupOptions } from "./CategoryForm.constants";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../../../store/slice/category.slice";
 interface ICategoryProps {
   mode: "create" | "update";
 }
 
 type Inputs = {
-  sku: string;
   name: string;
-  brand: string;
-  category_id: string;
-  price: number;
-  import_price: number;
-  quantity: number;
-  weight: number;
+  parent_id: number;
 };
 
 const CategoryForm = ({ mode }: ICategoryProps) => {
   // const navigate = useNavigate();
   const params = useParams();
 
-  const { register, handleSubmit, reset } = useForm<Inputs>();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<Inputs>();
 
   const createCategory = (formData: Inputs) => {
     console.log("create: ", formData);
@@ -42,14 +38,8 @@ const CategoryForm = ({ mode }: ICategoryProps) => {
     if (params.id) {
       console.log("id: ", params.id);
       reset({
-        sku: "San pham 1",
         name: "San pham 1",
-        brand: "San pham 1",
-        category_id: "San pham 1",
-        price: 10,
-        import_price: 10,
-        quantity: 10,
-        weight: 10
+        parent_id: 1
       });
     }
   }, [params, reset]);
@@ -59,72 +49,55 @@ const CategoryForm = ({ mode }: ICategoryProps) => {
     if (mode === "update") updateCategory(data);
   };
 
+
+  const dispatch = useDispatch<any>();
+  const navigate = useNavigate();
+
+  const onAdd: SubmitHandler<Inputs> = async (product: Inputs) => {
+    try {
+      await dispatch(addProduct(product))
+      alert("Add Product thành công!")
+      navigate("/category")
+
+    } catch (error) {
+      console.log(error);
+
+    }
+  }
+
   return (
-    <form className="w-9/12" onSubmit={handleSubmit(onSubmit)}>
-      <div className="mb-10">
-        <p className="mb-5 text-xl font-semibold">Thông tin cơ bản</p>
-        <div className="flex gap-6 mb-5">
-          <TextField
-            label="Mã sản phẩm"
-            containerClass="basis-3/6"
-            {...register("category_id")}
-          />
-          <TextField
-            label="Tên sản phẩm"
-            containerClass="basis-3/6"
-            {...register("name")}
-          />
-        </div>
-        <Select
-          className="mb-5"
-          selectLabel={{
-            text: "Thương hiệu"
-          }}
-          options={BrandOptions}
-          handleClickChange={(data: IOption) => console.log(data)}
-        />
-        <Select
-          className="mb-5"
-          selectLabel={{
-            text: "Danh mục"
-          }}
-          options={GroupOptions}
-          handleClickChange={(data: IOption) => console.log(data)}
-        />
-      </div>
 
-      <div>
-        <p className="mb-5 text-xl font-semibold">Thiết lập giá & kho</p>
-
-        <div className="flex gap-6 mb-5">
-          <TextField
-            label="Giá nhập"
-            containerClass="basis-3/6"
-            {...register("import_price")}
-          />
-          <TextField
-            label="Giá bán"
-            containerClass="basis-3/6"
-            {...register("price")}
-          />
-        </div>
-        <TextField
-          label="Tồn kho"
-          containerClass="mb-5"
-          {...register("quantity")}
-        />
-        <TextField
-          label="Trọng lượng"
-          containerClass="mb-5"
-          {...register("weight")}
-        />
+    <div className="flex items-center justify-center p-12 w-12/12 border p-8 rounded-l shadow-lg">
+      <div className="mx-auto w-full max-w-[1000px]">
+        <p className="mb-5 text-xl text-black font-semibold">Thêm nhóm hàng</p>  
+        <form method="POST" onSubmit={handleSubmit(onAdd)}>
+          <div className="mb-5">
+            <label htmlFor="name" className="mb-3 block text-base font-medium text-[#07074D]">
+              Tên nhóm
+            </label>
+            <input type="text" id="name" placeholder="Tên nhóm" {...register('name', { required: true })}
+            className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#4cb050] focus:shadow-md" />
+          </div>
+          <div>
+            <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Nhóm cha</label>
+            <select id="countries" className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#4cb050] focus:shadow-md">
+              <option selected>___ Lựa chọn ___</option>
+              <option value="US">Củ sạc</option>
+              <option value="CA">Tai Nghe</option>
+              <option value="FR">Dây sạc</option>
+            </select>
+          </div>
+          <br />
+          <div>
+            <button className="hover:shadow-form rounded-md bg-[#4cb050] py-3 px-8 text-base font-semibold text-white outline-none">
+              Submit
+            </button>
+          </div>
+        </form>
       </div>
+    </div>
 
-      <div className="flex gap-5">
-        <Button type="submit">Thêm sản phẩm</Button>
-        <Button variant="warning">Hủy bỏ</Button>
-      </div>
-    </form>
+
   );
 };
 
