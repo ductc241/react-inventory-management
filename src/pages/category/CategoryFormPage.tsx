@@ -1,6 +1,6 @@
 import CategoryForm from "../../modules/category/CategoryForm/CategoryForm";
 const CategoryCreatePage = () => {
-  return <CategorytForm mode="create" />;
+  return <CategoryForm mode="create" />;
 };
 
 const CategoryUpdatePage = () => {
