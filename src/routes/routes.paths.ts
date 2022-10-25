@@ -14,3 +14,4 @@ export const PATH_SUPPLIER = "/supplier";
 export const PATH_SIGNUP = "/signup";
 
 export const PATH_IMPORT_SHIPMENT = "/import_shipments";
+export const PATH_IMPORT_SHIPMENT_ADD = "/import_shipments/add";

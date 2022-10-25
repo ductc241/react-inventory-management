@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Button, Select, Table } from "../../../components";
+import { Link } from "react-router-dom";
+import { Select, Table } from "../../../components";
 import { ITableColumn } from "../../../components/Table/Table.types";
 import IOption from "../../../types/option.model";
 import { BrandOptions } from "../../product/ProductForm/ProductForm.constants";
 
-const TransactionTable = () => {
+const ShipmentsTable = () => {
   const [valueSelect, setValueSelect] = useState<IOption>();
   const columns: ITableColumn[] = [
     {
@@ -92,7 +93,11 @@ const TransactionTable = () => {
           handleClickChange={(data) => setValueSelect(data)}
           option={valueSelect}
         />
-        <Button>Tạo phiếu</Button>
+        <Link to="/import_shipments/add">
+          <div className="bg-green-500 hover:bg-green-600 px-6 py-[12px] rounded-md leading-6 cursor-pointer text-white text-sm font-medium">
+            Tạo Phiếu
+          </div>
+        </Link>
       </div>
       <div>
         <Table column={columns} dataSource={dataSource} />
@@ -101,4 +106,4 @@ const TransactionTable = () => {
   );
 };
 
-export default TransactionTable;
+export default ShipmentsTable;
