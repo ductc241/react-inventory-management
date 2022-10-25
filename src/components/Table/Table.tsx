@@ -12,15 +12,17 @@ const Table = ({
   loading
 }: ITableProps) => {
   return (
-    <table className={clsx("w-full border border-gray-200", className)}>
-      <TableHeader tableHead={column} className={`text-${textAlign}`} />
-      <TableBody
-        tableColumn={column}
-        data={dataSource}
-        className={`text-${textAlign}`}
-        loading={loading}
-      />
-    </table>
+    <div className="overflow-hidden shadow-md rounded-lg border border-gray-200">
+      <table className={clsx("w-full", className)}>
+        <TableHeader tableHead={column} className={`text-${textAlign}`} />
+        <TableBody
+          tableColumn={column}
+          data={dataSource}
+          className={`text-${textAlign}`}
+          loading={loading}
+        />
+      </table>
+    </div>
   );
 };
 

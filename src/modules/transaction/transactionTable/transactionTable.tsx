@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Button, Select, Table } from "../../../components";
 import { ITableColumn } from "../../../components/Table/Table.types";
+import IOption from "../../../types/option.model";
 import { BrandOptions } from "../../product/ProductForm/ProductForm.constants";
 
 const TransactionTable = () => {
-  const [valueSelect, setValueSelect] = useState("");
+  const [valueSelect, setValueSelect] = useState<IOption>();
   const columns: ITableColumn[] = [
     {
       title: "Mã nhập hàng",
@@ -88,8 +89,8 @@ const TransactionTable = () => {
         <Select
           className="w-96"
           options={BrandOptions}
-          handleClickChange={(data) => setValueSelect(data.value)}
-          defaultValue={valueSelect}
+          handleClickChange={(data) => setValueSelect(data)}
+          option={valueSelect}
         />
         <Button>Tạo phiếu</Button>
       </div>

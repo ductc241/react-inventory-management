@@ -23,3 +23,27 @@ body {
   padding-left: 10px;
   padding-right: 10px;
 }
+
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.pagination_item a {
+  display: inline-block;
+  padding: 4px 13px;
+}
+
+.pagination .pagination_item:hover {
+  cursor: pointer;
+  background-color: #e5e5e5;
+}
+
+.pagination_active {
+  border-radius: 3px;
+  background-color: #4cb050;
+  color: white;
+}
