@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import { appRoutes } from "./routes/routes.routes";
-import LayoutProduct from "./layouts/Layout";
+import LayoutMain from "./layouts/Layout";
 import PrivateRouter from "./routes/PrivateRouter";
 
 import IRoute from "./types/router.type";
@@ -20,7 +20,7 @@ const App = () => {
           <Route
             element={
               <PrivateRouter>
-                <LayoutProduct />
+                <LayoutMain />
               </PrivateRouter>
             }
           >
