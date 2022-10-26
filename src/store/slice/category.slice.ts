@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { add, list, read, remove, update } from "../../api/category";
+import { add, list, get, remove, update } from "../../api/category";
 import { ICategory } from './../../types/category.type';
 
 
@@ -15,23 +15,23 @@ const initialState: ICategoryState = {
 }
 
 
-export const addProduct = createAsyncThunk("product/add", async (product: ICategory) => {
-  const res = await add(product)
+export const addCategory = createAsyncThunk("category/add", async (category: ICategory) => {
+  const res = await add(category)
   return res.data;
 })
-export const listProducts = createAsyncThunk("product/list", async () => {
+export const listCategory = createAsyncThunk("category/list", async () => {
   const res = await list()
   return res.data;
 })
-export const readProduct = createAsyncThunk("product/read", async (id: number) => {
-  const res = await read(id)
+export const readCategory = createAsyncThunk("category/read", async (id: number) => {
+  const res = await get(id)
   return res.data;
 })
-export const removeProduct = createAsyncThunk("product/remove", async (id: number) => {
+export const removeCategory = createAsyncThunk("category/remove", async (id: number) => {
   await remove(id);
 })
-export const updateProduct = createAsyncThunk("product/update", async (product: ICategory) => {
-  const res = await update(product);
+export const updateCategory = createAsyncThunk("category/update", async (category: ICategory) => {
+  const res = await update(category);
   return res
 })
 const categorySlice = createSlice({
@@ -39,19 +39,19 @@ const categorySlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (build) => {
-    build.addCase(addProduct.fulfilled, (state, { payload }) => {
+    build.addCase(addCategory.fulfilled, (state, { payload }) => {
       state.categorys.push(payload as ICategory)
     }),
-      build.addCase(listProducts.fulfilled, (state, { payload }) => {
+      build.addCase(listCategory.fulfilled, (state, { payload }) => {
         state.categorys = payload as any
       }),
-      build.addCase(readProduct.fulfilled, (state, { payload }) => {
+      build.addCase(readCategory.fulfilled, (state, { payload }) => {
         state.category = payload
       }),
-      build.addCase(removeProduct.fulfilled, (state, { payload }) => {
+      build.addCase(removeCategory.fulfilled, (state, { payload }) => {
         // state.products = state.products.filter((item) => item._id !== payload.id)
       })
-    build.addCase(updateProduct.fulfilled, (state, { payload }) => {
+    build.addCase(updateCategory.fulfilled, (state, { payload }) => {
       // const user = action.payload
       state.category = payload as any
       console.log(payload)

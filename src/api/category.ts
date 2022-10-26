@@ -14,11 +14,11 @@ export const list = () => {
   const url = "category";
   return instance.get(url);
 }
-export const read = (id: number) => {
+export const get = (id: number | string | undefined) => {
   const url = `category/${id}`;
   return instance.get(url);
 }
-export const remove = (id: number | undefined) => {
+export const remove = (id: number) => {
   const url = `category/${id}`;
   return instance.delete(url);
 }

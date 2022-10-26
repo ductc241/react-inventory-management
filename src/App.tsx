@@ -10,6 +10,7 @@ import { PATH_SIGNIN, PATH_SIGNUP } from "./routes/routes.paths";
 
 import Signup from "./modules/login/signup/signup";
 import Signin from "./modules/login/signIn/signin";
+import NotFound404 from "./pages/not_found/404";
 
 const App = () => {
   return (
@@ -39,7 +40,7 @@ const App = () => {
 
           <Route path={PATH_SIGNIN} element={<Signin />} />
           <Route path={PATH_SIGNUP} element={<Signup />} />
-          <Route path="*" element={<h1>Page not found</h1>} />
+          <Route path="*" element={<NotFound404 />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer />

@@ -1,5 +1,5 @@
 import Transaction from "../modules/transaction";
-import { CategoryCreatePage, CategoryListPage } from "../pages/category";
+import { CategoryCreatePage, CategoryListPage, CategoryUpdatePage } from "../pages/category";
 import DashboardPage from "../pages/DashboardPage";
 import {
   ProductCreatePage,
@@ -52,5 +52,10 @@ export const appRoutes: IRoute[] = [
     key: 8,
     path: routerPaths.PATH_CATEGORY_ADD,
     component: <CategoryCreatePage />
+  },
+  {
+    key: 9,
+    path: routerPaths.PATH_CATEGORY_UPDATE,
+    component: <CategoryUpdatePage />
   }
 ];
