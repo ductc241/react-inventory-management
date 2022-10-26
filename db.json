@@ -35,12 +35,11 @@
     {
       "id": 3,
       "name": "Củ sạc",
-      "child_id": []
+      "parent_id": 3
     },
     {
       "name": "Tai Nghe",
-      "id": 4,
-      "parent_id": 2
+      "id": 4
     },
     {
       "name": "Dây sạc",
@@ -53,10 +52,6 @@
     {
       "name": "Cường lực",
       "id": 7
-    },
-    {
-      "name": "jgjjgfsafsaf",
-      "id": 8
     }
   ]
 }

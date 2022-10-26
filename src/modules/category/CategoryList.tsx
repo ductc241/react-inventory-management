@@ -58,7 +58,7 @@ const CategoryList = () => {
           </Link>
 
           <TrashIcon
-            onClick={() => alert(item.id)}
+            onClick={() => onRemove(item.id)}
             className="cursor-pointer fill-red-400 hover:fill-red-600"
             width={20}
           />
