@@ -53,5 +53,14 @@
       "name": "Cường lực",
       "id": 7
     }
+  ],
+  "supplier": [
+    {
+      "id": 1,
+      "supplierName": "Hieu",
+      "email": "thienhotdog@gmail.com",
+      "phone": "0866485651",
+      "address": "Yên Hồng Ý Yên Nam Định"
+    }
   ]
 }

@@ -4,7 +4,7 @@ import Header from "../components/Header/Header";
 
 import "./Layout.style.css";
 
-const LayoutProduct = () => {
+const LayoutMain = () => {
   return (
     <>
       <Header />
@@ -15,4 +15,4 @@ const LayoutProduct = () => {
   );
 };
 
-export default LayoutProduct;
+export default LayoutMain;

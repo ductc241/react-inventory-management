@@ -1,5 +1,9 @@
 import Transaction from "../modules/transaction";
-import { CategoryCreatePage, CategoryListPage, CategoryUpdatePage } from "../pages/category";
+import {
+  CategoryCreatePage,
+  CategoryListPage,
+  CategoryUpdatePage
+} from "../pages/category";
 import DashboardPage from "../pages/DashboardPage";
 import {
   ProductCreatePage,
