@@ -1,11 +1,11 @@
 import React from "react";
-import SidebarBaoHanh from "./SidebarBaoHanh";
-import SidebarCategory from "./SidebarCategory";
-import SidebarHienThi from "./SidebarHienThi";
-import SidebarNhaCungCap from "./SidebarNhaCungCap";
-import SidebarThoiGianMua from "./SidebarThoiGianMua";
-import SidebarThuocTinh from "./SidebarThuocTinh";
-import SidebarTonKho from "./SidebarTonKho";
+import SidebarBaoHanh from "./Sidevar_Children/SidebarBaoHanh";
+import SidebarCategory from "./Sidevar_Children/SidebarCategory";
+import SidebarHienThi from "./Sidevar_Children/SidebarHienThi";
+import SidebarNhaCungCap from "./Sidevar_Children/SidebarNhaCungCap";
+import SidebarThoiGianMua from "./Sidevar_Children/SidebarThoiGianMua";
+import SidebarThuocTinh from "./Sidevar_Children/SidebarThuocTinh";
+import SidebarTonKho from "./Sidevar_Children/SidebarTonKho";
 
 const SidebarProduct = () => {
   return (

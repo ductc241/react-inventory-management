@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import { TextField, Select, Button } from "../../../components";
