@@ -83,7 +83,7 @@ const ProductList = () => {
   return (
     <>
       <div className="flex justify-end mb-5">
-        <Link to="/products/add">
+        <Link to="/products/add" className="contents">
           <Button>Thêm sản phẩm</Button>
         </Link>
       </div>

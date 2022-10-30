@@ -11,9 +11,14 @@ const productServices = {
     return instance.get(url);
   },
 
+  createProduct: (data: any) => {
+    const url = `/products`;
+    return instance.post(url, data);
+  },
+
   updateProduct: (id: number, data: any) => {
     const url = `/products/${id}`;
-    return instance.post(url, data);
+    return instance.patch(url, data);
   }
 };
 
