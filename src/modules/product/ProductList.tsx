@@ -1,85 +1,71 @@
+import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import productServices from "../../api/product.api";
 
 import { Table, Modal, Button } from "../../components";
 import { Caret, EditIcon, TrashIcon } from "../../components/icons";
 import { ITableColumn } from "../../components/Table/Table.types";
-
-const dataSource = [
-  {
-    key: "1",
-    code: "SP0001",
-    name: "	Cáp IPhone 2M Microcom",
-    price: 70000,
-    price_cost: 25000,
-    quantity: 20
-  },
-  {
-    key: "2",
-    code: "SP0001",
-    name: "	Cáp IPhone 2M Microcom",
-    price: 70000,
-    price_cost: 25000,
-    quantity: 20
-  },
-  {
-    key: "3",
-    code: "SP0001",
-    name: "	Cáp IPhone 2M Microcom",
-    price: 70000,
-    price_cost: 25000,
-    quantity: 20
-  }
-];
-
-const columns: ITableColumn[] = [
-  {
-    key: 1,
-    title: "Mã hàng",
-    dataIndex: "code"
-  },
-  {
-    key: 2,
-    title: "Tên hàng",
-    dataIndex: "name"
-  },
-  {
-    key: 3,
-    title: "Giá bán",
-    dataIndex: "price"
-  },
-  {
-    key: 4,
-    title: "Giá vốn",
-    dataIndex: "price_cost"
-  },
-  {
-    key: 5,
-    title: "Tồn kho",
-    dataIndex: "quantity"
-  },
-  {
-    key: 6,
-    title: "Action",
-    dataIndex: "action",
-    render: () => (
-      <div className="flex gap-x-5">
-        <Link to="/products/update/1">
-          <EditIcon
-            className="cursor-pointer fill-green-400 hover:fill-green-600"
-            width={22}
-          />
-        </Link>
-        <TrashIcon
-          className="cursor-pointer fill-red-400 hover:fill-red-600"
-          width={20}
-        />
-      </div>
-    )
-  }
-];
+import { IProduct } from "../../types/product.type";
 
 const ProductList = () => {
+  const navigate = useNavigate();
+  const [products, setProducts] = useState<IProduct[]>([]);
+
+  const columns: ITableColumn[] = [
+    {
+      key: 1,
+      title: "Mã hàng",
+      dataIndex: "sku"
+    },
+    {
+      key: 2,
+      title: "Tên hàng",
+      dataIndex: "name"
+    },
+    {
+      key: 3,
+      title: "Giá bán",
+      dataIndex: "price"
+    },
+    {
+      key: 4,
+      title: "Giá vốn",
+      dataIndex: "import_price"
+    },
+    {
+      key: 5,
+      title: "Tồn kho",
+      dataIndex: "quantity"
+    },
+    {
+      key: 6,
+      title: "Action",
+      dataIndex: "action",
+      render: (record: IProduct) => (
+        <div className="flex gap-x-5">
+          <Link to="/products/update/1">
+            <EditIcon
+              className="cursor-pointer fill-green-400 hover:fill-green-600"
+              width={22}
+              onClick={() => navigate(`update/${record.id}`)}
+            />
+          </Link>
+          <TrashIcon
+            className="cursor-pointer fill-red-400 hover:fill-red-600"
+            width={20}
+          />
+        </div>
+      )
+    }
+  ];
+
+  useEffect(() => {
+    productServices.getProducts().then(({ data }: { data: IProduct[] }) => {
+      setProducts(data);
+    });
+  }, []);
+
   return (
     <>
       <div className="flex justify-end mb-5">
@@ -88,7 +74,7 @@ const ProductList = () => {
         </Link>
       </div>
 
-      <Table dataSource={dataSource} column={columns} />
+      <Table dataSource={products} column={columns} />
 
       <ReactPaginate
         pageCount={10}
