@@ -54,6 +54,19 @@
       "id": 7
     }
   ],
+  "products": [
+    {
+      "weight": 5,
+      "quantity": 12,
+      "import_price": 321,
+      "price": "321",
+      "category_id": "4",
+      "brand_id": 1,
+      "name": "dwqdwq",
+      "sku": "dwq",
+      "id": 1
+    }
+  ],
   "supplier": [
     {
       "id": 1,

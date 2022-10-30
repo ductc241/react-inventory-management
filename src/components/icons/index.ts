@@ -5,3 +5,4 @@ export { default as PencilIcon } from "./PencilIcon";
 export { default as TrashIcon } from "./TrashIcon";
 export { default as Caret } from "./Caret";
 export { default as EyesIcon } from "./EyesIcon";
+export { default as WarningIcon } from "./WarningIcon";
