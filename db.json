@@ -23,6 +23,57 @@
       "password": "$2a$10$T2L58O1HpGHmN9C8uIhuG.OkfQMoHyLXNiFGkoFozg0XISmbzy7wS",
       "userName": "admin",
       "id": 4
+    },
+    {
+      "email": "theanh@gmail.com",
+      "password": "$2a$10$4NOljzLEu.FZ8unRVG9nU.h.A7jaiTXfnWD6zJsPdxv0zW2QHVU2e",
+      "userName": "theanh",
+      "id": 5
+    }
+  ],
+  "category": [
+    {
+      "id": 3,
+      "name": "Củ sạc",
+      "parent_id": 3
+    },
+    {
+      "name": "Tai Nghe",
+      "id": 4
+    },
+    {
+      "name": "Dây sạc",
+      "id": 5
+    },
+    {
+      "name": "Pin dự phòng",
+      "id": 6
+    },
+    {
+      "name": "Cường lực",
+      "id": 7
+    }
+  ],
+  "products": [
+    {
+      "weight": 5,
+      "quantity": 12,
+      "import_price": 321,
+      "price": "321",
+      "category_id": "4",
+      "brand_id": 1,
+      "name": "dwqdwq",
+      "sku": "dwq",
+      "id": 1
+    }
+  ],
+  "supplier": [
+    {
+      "id": 1,
+      "supplierName": "Hieu",
+      "email": "thienhotdog@gmail.com",
+      "phone": "0866485651",
+      "address": "Yên Hồng Ý Yên Nam Định"
     }
   ],
   "import_shipments": [

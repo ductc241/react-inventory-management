@@ -1,5 +1,9 @@
 import ShipmentsForm from "../modules/transaction/shipments/ShipmentsForm";
-import { CategoryListPage } from "../pages/category";
+import {
+  CategoryCreatePage,
+  CategoryListPage,
+  CategoryUpdatePage
+} from "../pages/category";
 import DashboardPage from "../pages/DashboardPage";
 import {
   ProductCreatePage,
@@ -36,7 +40,6 @@ export const appRoutes: IRoute[] = [
   },
   {
     key: 5,
-
     path: routerPaths.PATH_IMPORT_SHIPMENT,
     component: <ShipmentPage />
   },
@@ -47,7 +50,7 @@ export const appRoutes: IRoute[] = [
   },
   {
     key: 7,
-    path: routerPaths.PATH_CATEGORIES,
+    path: routerPaths.PATH_CATEGORY,
     component: <CategoryListPage />
   },
   {
@@ -59,5 +62,15 @@ export const appRoutes: IRoute[] = [
     key: 9,
     path: routerPaths.PATH_IMPORT_SHIPMENT_UPDATE,
     component: <ShipmentsForm />
+  },
+  {
+    key: 10,
+    path: routerPaths.PATH_CATEGORY_ADD,
+    component: <CategoryCreatePage />
+  },
+  {
+    key: 10,
+    path: routerPaths.PATH_CATEGORY_UPDATE,
+    component: <CategoryUpdatePage />
   }
 ];

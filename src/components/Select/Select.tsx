@@ -25,7 +25,7 @@ interface SelectProps extends ComponentPropsWithoutRef<"div"> {
   option?: IOption;
   placeholderText?: ReactNode;
   className?: string;
-  wrapperClassName?: string;
+  containerClass?: string;
   position?: string;
   selectLabel?: LabelProps;
   required?: boolean;
@@ -36,7 +36,7 @@ const Select = ({
   option,
   placeholderText,
   className,
-  wrapperClassName,
+  containerClass,
   position,
   handleClickChange,
   selectLabel,
@@ -90,10 +90,7 @@ const Select = ({
           {required && <span className="ml-1 text-error">*</span>}
         </div>
       )}
-      <div
-        className={clsx("relative w-full", wrapperClassName)}
-        ref={selectRef}
-      >
+      <div className={clsx("relative w-full", containerClass)} ref={selectRef}>
         <div
           className={clsx(
             "w-full flex justify-between items-center px-4 py-3 h-12 border border-solid rounded-lg cursor-pointer select-none",

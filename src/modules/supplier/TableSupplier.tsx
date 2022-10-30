@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { add, list, remove, update } from "../../api/supplier.api";
 import { Modal, Table } from "../../components";
 import Button from "../../components/Button/Button";
 import { EditIcon, TrashIcon } from "../../components/icons";
@@ -17,8 +18,8 @@ const TableSupplier = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const [visibleModal, setvisibleModal] = useState<boolean>(false);
   const [data, setData] = useState<any>([]);
-  const update = (item: any) => {
-    setData([...data, item]);
+  const addSupplier = (item: ISupplier) => {
+    add(item);
   };
   const [itemUpdate, setItemUpdate] = useState<any>([]);
   const [id, setId] = useState<number>();
@@ -27,6 +28,17 @@ const TableSupplier = () => {
     await setItemUpdate(item);
     setVisible(true);
   };
+  const getSupplier = async () => {
+    try {
+      const { data } = await list();
+      setData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getSupplier();
+  }, [data]);
   const columns: ITableColumn[] = [
     {
       key: 1,
@@ -73,28 +85,13 @@ const TableSupplier = () => {
     }
   ];
 
-  const remove = () => {
-    const newData: any = [];
-    data.map((item: any) => {
-      if (item.id != id) {
-        newData.push(item);
-      }
-    });
-    setData(newData);
+  const removeSupplier = () => {
+    remove(id != undefined ? id : 0);
     setvisibleModal(false);
   };
 
   const updateItemUpdate = (e: ISupplier) => {
-    data.forEach((element: ISupplier) => {
-      if (element.id == e.id) {
-        element.id = e.id;
-        element.supplierName = e.supplierName;
-        element.phone = e.phone;
-        element.email = e.email;
-        element.address = e.address;
-      }
-    });
-    setData(data);
+    update(e);
     setItemUpdate([]);
   };
 
@@ -108,7 +105,7 @@ const TableSupplier = () => {
         hidenModal={visible}
         upload={(e: boolean) => setVisible(e)}
         uploadData={(e: any) => {
-          update(e);
+          addSupplier(e);
         }}
         data={data}
         itemUpdate={itemUpdate}
@@ -122,7 +119,7 @@ const TableSupplier = () => {
         content="bạn có muốn xóa hay không ?"
         onCancel={() => setvisibleModal(false)}
         onOk={() => {
-          remove();
+          removeSupplier();
         }}
       />
     </>
