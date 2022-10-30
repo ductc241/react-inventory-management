@@ -54,5 +54,10 @@ export const appRoutes: IRoute[] = [
     key: 8,
     path: routerPaths.PATH_IMPORT_SHIPMENT_ADD,
     component: <ShipmentsForm />
+  },
+  {
+    key: 9,
+    path: routerPaths.PATH_IMPORT_SHIPMENT_UPDATE,
+    component: <ShipmentsForm />
   }
 ];

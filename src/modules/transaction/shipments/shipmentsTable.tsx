@@ -1,37 +1,68 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Select, Table } from "../../../components";
+import { EditIcon, EyesIcon, TrashIcon } from "../../../components/icons";
 import { ITableColumn } from "../../../components/Table/Table.types";
+import { useAppDispatch, useAppSelector } from "../../../hook/hook";
+import { getShipmentThunk } from "../../../store/slice/shipments";
 import IOption from "../../../types/option.model";
 import { BrandOptions } from "../../product/ProductForm/ProductForm.constants";
 
 const ShipmentsTable = () => {
   const [valueSelect, setValueSelect] = useState<IOption>();
+  const useSelector = useAppSelector;
+  const useDispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { shipments } = useSelector((store) => store.shipment);
+
+  useEffect(() => {
+    useDispatch(getShipmentThunk());
+  }, [useDispatch]);
+
+  // {
+  //   "id": 2,
+  //   "supplier_id": "20/10/2022",
+  //   "import_date": "11/10/2022",
+  //   "import_price_totail": "19000000",
+  //   "product_id": 2,
+  //   "status": true
+  // }
+
   const columns: ITableColumn[] = [
     {
       title: "Mã nhập hàng",
       dataIndex: "id",
-      key: "id"
-    },
-    {
-      title: "Thời gian",
-      dataIndex: "time_import",
-      key: "item_import"
+      key: 1
     },
     {
       title: "Nhà cung cấp",
-      dataIndex: "supplier",
-      key: "supplier"
+      dataIndex: "supplierId",
+      key: 2
     },
     {
-      title: "Nhà cung cấp cần trả",
-      dataIndex: "supplier_pay",
-      key: "supplier_pay"
+      title: "Thời gian",
+      dataIndex: "import_date",
+      key: 3
+    },
+    {
+      title: "Tổng số tiền nhập hàng",
+      dataIndex: "import_price_totail",
+      key: 4,
+      render: ({ import_price_totail }) => (
+        <span>
+          {new Intl.NumberFormat("de-DE").format(import_price_totail)} VND
+        </span>
+      )
+    },
+    {
+      title: "Tên sản phẩm",
+      dataIndex: "productId",
+      key: 5
     },
     {
       title: "Trạng thái",
       dataIndex: "status",
-      key: "status",
+      key: 6,
       render: ({ status }) => {
         return (
           <>
@@ -43,44 +74,28 @@ const ShipmentsTable = () => {
           </>
         );
       }
-    }
-  ];
-
-  const dataSource = [
-    {
-      id: "1",
-      time_import: "20/10/2022",
-      supplier: "VietTel",
-      supplier_pay: "19000000",
-      status: true
     },
     {
-      id: "2",
-      time_import: "20/10/2022",
-      supplier: "VietTel",
-      supplier_pay: "19000000",
-      status: false
-    },
-    {
-      id: "3",
-      time_import: "20/10/2022",
-      supplier: "VietTel",
-      supplier_pay: "19000000",
-      status: false
-    },
-    {
-      id: "4",
-      time_import: "20/10/2022",
-      supplier: "VietTel",
-      supplier_pay: "19000000",
-      status: true
-    },
-    {
-      id: "5",
-      time_import: "20/10/2022",
-      supplier: "VietTel",
-      supplier_pay: "19000000",
-      status: true
+      title: "Action",
+      dataIndex: "action",
+      key: 7,
+      render: ({ id }) => (
+        <div className="flex gap-x-5">
+          <EyesIcon
+            className="cursor-pointer fill-green-400 hover:fill-green-600"
+            width={22}
+          />
+          <EditIcon
+            className="cursor-pointer fill-blue-400 hover:fill-blue-600"
+            width={20}
+            onClick={() => navigate(`update/${id}`)}
+          />
+          <TrashIcon
+            className="cursor-pointer fill-red-400 hover:fill-red-600"
+            width={20}
+          />
+        </div>
+      )
     }
   ];
 
@@ -100,7 +115,7 @@ const ShipmentsTable = () => {
         </Link>
       </div>
       <div>
-        <Table column={columns} dataSource={dataSource} />
+        <Table column={columns} dataSource={shipments} />
       </div>
     </div>
   );
