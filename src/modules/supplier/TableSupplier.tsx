@@ -14,12 +14,14 @@ type ISupplier = {
   phone?: string;
   address?: string;
 };
+
 const TableSupplier = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const [visibleModal, setvisibleModal] = useState<boolean>(false);
   const [data, setData] = useState<any>([]);
-  const addSupplier = (item: ISupplier) => {
-    add(item);
+  const addSupplier = async (item: ISupplier) => {
+    await add(item);
+    setItemAdd(item == itemAdd ? null : item);
   };
   const [itemUpdate, setItemUpdate] = useState<any>([]);
   const [id, setId] = useState<number>();
@@ -28,6 +30,7 @@ const TableSupplier = () => {
     await setItemUpdate(item);
     setVisible(true);
   };
+  const [itemAdd, setItemAdd] = useState<any>();
   const getSupplier = async () => {
     try {
       const { data } = await list();
@@ -38,7 +41,7 @@ const TableSupplier = () => {
   };
   useEffect(() => {
     getSupplier();
-  }, [data]);
+  }, [itemAdd, id, itemUpdate]);
   const columns: ITableColumn[] = [
     {
       key: 1,
