@@ -7,6 +7,8 @@ import { GroupOptions } from "./CategoryForm.constants";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addCategory, listCategory } from "../../../store/slice/category.slice";
+import { add } from "../../../api/category";
+import { toast } from "react-toastify";
 interface ICategoryProps {
   mode: "create" | "update";
 }
@@ -53,14 +55,20 @@ const CategoryAdd = ({ mode }: ICategoryProps) => {
   const dispatch = useDispatch<any>();
   const navigate = useNavigate();
 
+  
+
   const onAdd: SubmitHandler<Inputs> = async (product: Inputs) => {
     try {
       await dispatch(addCategory(product))
-      alert("Thêm thành công!")
-      navigate("/category")
+      toast.success("Thêm nhóm hàng thành công!", {
+        onClose: () => {
+        }
+      });
+      navigate("/category");
+
 
     } catch (error) {
-      console.log(error);
+      toast.error("Có lỗi xảy ra, vui lòng thử lại sau!");
 
     }
   }

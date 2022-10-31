@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addCategory, listCategory, updateCategory } from "../../../store/slice/category.slice";
 import { get } from "../../../api/category";
+import { toast } from "react-toastify";
 interface ICategoryProps {
   mode: "create" | "update";
 }
@@ -41,11 +42,15 @@ const CategoryUpdate = ({ mode }: ICategoryProps) => {
   const onAdd: SubmitHandler<Inputs> = async (product: Inputs) => {
     try {
       await dispatch(updateCategory(product))
-      alert("Cập nhập thành công!")
-      navigate("/category")
+      toast.success("Cập nhập nhóm hàng thành công!", {
+        onClose: () => {
+        }
+      });
+      navigate("/category");
+
 
     } catch (error) {
-      console.log(error);
+      toast.error("Có lỗi xảy ra, vui lòng thử lại sau!");
 
     }
   }
