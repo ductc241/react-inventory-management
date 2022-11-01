@@ -29,7 +29,7 @@ const Header = () => {
                   <div className="group inline-block">
                     <ul className="outline-none focus:outline-none px-3 py-1 rounded-sm flex items-center min-w-32">
                       <span className="pr-1 font-semibold flex-1">
-                        Tổng quan
+                        <Link to="/">Tổng quan</Link>
                       </span>
                     </ul>
                   </div>
@@ -54,7 +54,7 @@ const Header = () => {
                         transition duration-150 ease-in-out origin-top text-black w-48 py-2 drop-shadow-xl"
                     >
                       <li className="rounded-sm px-3 py-1 hover:text-sky-700">
-                        Danh mục
+                        <Link to="/products"> Danh mục </Link>
                       </li>
                       <li className="rounded-sm px-3 py-1 hover:text-sky-700">
                         Thiết lập giá
