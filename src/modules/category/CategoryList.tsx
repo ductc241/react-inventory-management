@@ -1,6 +1,6 @@
 import { Table, Button } from "../../components";
 import ReactPaginate from "react-paginate";
-import { Caret, EditIcon, EyesIcon, TrashIcon } from "../../components/icons";
+import { Caret, EditIcon, TrashIcon } from "../../components/icons";
 import { ITableColumn } from "../../components/Table/Table.types";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";

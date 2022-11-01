@@ -29,6 +29,12 @@
       "password": "$2a$10$4NOljzLEu.FZ8unRVG9nU.h.A7jaiTXfnWD6zJsPdxv0zW2QHVU2e",
       "userName": "theanh",
       "id": 5
+    },
+    {
+      "email": "nguyentheanh@gmail.com",
+      "password": "$2a$10$.hv1ZKEnjmF/q/J9jUdO7e0m/.1sogmmstI/xBBRPf0piLv7FfIg6",
+      "userName": "nguyentheanh",
+      "id": 6
     }
   ],
   "category": [

@@ -1,13 +1,9 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 
-import { TextField, Select, Button } from "../../../components";
-import IOption from "../../../types/option.model";
-import { GroupOptions } from "./CategoryForm.constants";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addCategory, listCategory } from "../../../store/slice/category.slice";
-import { add } from "../../../api/category";
 import { toast } from "react-toastify";
 interface ICategoryProps {
   mode: "create" | "update";

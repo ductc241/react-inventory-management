@@ -9,7 +9,7 @@ import { BrandOptions } from "./ProductForm.constants";
 import IOption from "../../../types/option.model";
 import { ICategory } from "../../../types/category.type";
 import { IProduct } from "../../../types/product.type";
-import { list } from "../../../api/category";
+import { listCategoryAPI } from "../../../api/category";
 
 import productServices from "../../../api/product.api";
 import { getValueFromOptions } from "../../../utils/select";
@@ -67,7 +67,7 @@ const ProductForm = ({ mode }: IProductProps) => {
   };
 
   useEffect(() => {
-    list().then(({ data }) => {
+    listCategoryAPI().then(({ data }) => {
       const categoryOptions: IOption[] = data.map((category: ICategory) => {
         return {
           label: category.name,
