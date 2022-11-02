@@ -2,7 +2,7 @@ import React from "react";
 import ReactPaginate from "react-paginate";
 import BanChay from "./BanChay";
 import KhachHang from "./KhachHang";
-import SpTrongKho from "./spTrongKho";
+import SpTrongKho from "./SpTrongKho";
 import TienLai from "./TienLai";
 import TienVon from "./TienVon";
 
