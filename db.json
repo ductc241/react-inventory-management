@@ -91,6 +91,13 @@
       "email": "thienhotdog@gmail.com",
       "phone": "0866485651",
       "address": "Yên Hồng Ý Yên Nam Định"
+    },
+    {
+      "id": 2,
+      "supplierName": "325",
+      "email": "a@gmai.com",
+      "phone": "5346",
+      "address": "6373"
     }
   ]
 }

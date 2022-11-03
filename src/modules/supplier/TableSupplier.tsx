@@ -4,30 +4,27 @@ import { Modal, Table } from "../../components";
 import Button from "../../components/Button/Button";
 import { EditIcon, TrashIcon } from "../../components/icons";
 import { ITableColumn } from "../../components/Table/Table.types";
+import { ISupplier } from "../../types/supplier.type";
 
 import FormSupplier from "./FormSupplier";
 
-type ISupplier = {
-  id: number;
-  supplierName?: string;
-  email?: string;
-  phone?: string;
-  address?: string;
-};
 const TableSupplier = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const [visibleModal, setvisibleModal] = useState<boolean>(false);
   const [data, setData] = useState<any>([]);
-  const addSupplier = (item: ISupplier) => {
-    add(item);
+  const addSupplier = async (item: ISupplier) => {
+    await add(item);
+    setItemAdd(item == itemAdd ? null : item);
   };
   const [itemUpdate, setItemUpdate] = useState<any>([]);
   const [id, setId] = useState<number>();
+
   const itemEdit = async (id: number) => {
     const item = data.filter((item: ISupplier) => item.id == id);
     await setItemUpdate(item);
     setVisible(true);
   };
+  const [itemAdd, setItemAdd] = useState<any>();
   const getSupplier = async () => {
     try {
       const { data } = await list();
@@ -38,7 +35,7 @@ const TableSupplier = () => {
   };
   useEffect(() => {
     getSupplier();
-  }, [data]);
+  }, [itemAdd, id, itemUpdate]);
   const columns: ITableColumn[] = [
     {
       key: 1,
