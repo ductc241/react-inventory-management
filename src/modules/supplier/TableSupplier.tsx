@@ -18,6 +18,7 @@ const TableSupplier = () => {
   };
   const [itemUpdate, setItemUpdate] = useState<any>([]);
   const [id, setId] = useState<number>();
+
   const itemEdit = async (id: number) => {
     const item = data.filter((item: ISupplier) => item.id == id);
     await setItemUpdate(item);
