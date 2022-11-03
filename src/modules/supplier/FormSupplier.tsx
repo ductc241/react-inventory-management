@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import Button from "../../components/Button/Button";
 import Modal from "../../components/Modal/Modal";
 import TextField from "../../components/TextField/TextField";
+import { ISupplier } from "../../types/supplier.type";
 
 type Inputs = {
   supplierCode: string;
@@ -15,13 +16,6 @@ type Inputs = {
   group: string;
   wards: string;
   note: string;
-};
-type ISupplier = {
-  id: number;
-  supplierName?: string;
-  email?: string;
-  phone?: string;
-  address?: string;
 };
 
 type Props = {
