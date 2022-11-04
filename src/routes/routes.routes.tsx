@@ -5,6 +5,7 @@ import {
   CategoryUpdatePage
 } from "../pages/category";
 import DashboardPage from "../pages/DashboardPage";
+import NewSalePage from "../pages/new_sale/NewSalePage";
 import {
   ProductCreatePage,
   ProductListPage,
