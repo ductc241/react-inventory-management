@@ -10,13 +10,17 @@ interface InitialStateType {
   shipment: any;
   error: boolean;
   isLoading: boolean;
+  total: number;
+  quantity: number;
 }
 
 const initialState: InitialStateType = {
   shipments: [],
   shipment: "",
   isLoading: false,
-  error: false
+  error: false,
+  total: 0,
+  quantity: 0
 };
 
 export const getShipmentThunk = createAsyncThunk(

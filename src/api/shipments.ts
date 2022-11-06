@@ -34,3 +34,8 @@ export const getDataSupplierProductApi = (id: number) => {
   const url = `suppliers/${id}?_embed=products`;
   return instance.get(url);
 };
+
+export const getProFormShipments = () => {
+  const url = `/products`;
+  return instance.get(url);
+};

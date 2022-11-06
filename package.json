@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "vite",
-    "server": "json-server db.json -p 3001 -m ./node_modules/json-server-auth",
+    "server": "json-server db.json -p 3002 -m ./node_modules/json-server-auth",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },

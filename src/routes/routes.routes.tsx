@@ -10,7 +10,7 @@ import {
   ProductListPage,
   ProductUpdatePage
 } from "../pages/product";
-import ShipmentPage from "../pages/shipments/ShipmentsList";
+import ShipmentPage from "../pages/shipments/ShipmentsPages";
 import SuplierPage from "../pages/supplier/SupllierPage";
 
 import IRoute from "../types/router.type";
@@ -69,7 +69,7 @@ export const appRoutes: IRoute[] = [
     component: <CategoryCreatePage />
   },
   {
-    key: 10,
+    key: 11,
     path: routerPaths.PATH_CATEGORY_UPDATE,
     component: <CategoryUpdatePage />
   }

@@ -4,16 +4,9 @@ import { Modal, Table } from "../../components";
 import Button from "../../components/Button/Button";
 import { EditIcon, TrashIcon } from "../../components/icons";
 import { ITableColumn } from "../../components/Table/Table.types";
-
+import { ISupplier } from "../../types/supplier.type";
 import FormSupplier from "./FormSupplier";
 
-type ISupplier = {
-  id: number;
-  supplierName?: string;
-  email?: string;
-  phone?: string;
-  address?: string;
-};
 const TableSupplier = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const [visibleModal, setvisibleModal] = useState<boolean>(false);
