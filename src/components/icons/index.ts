@@ -9,3 +9,4 @@ export { default as WarningIcon } from "./WarningIcon";
 export { default as SearchIcon } from "./SearchIcon";
 export { default as NavbarIcon } from "./NavbarIcon";
 export { default as PictureIcon } from "./PictureIcon";
+export { default as PlusIcon } from "./PlusIcon";
