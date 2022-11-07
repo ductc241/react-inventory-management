@@ -1,11 +1,12 @@
-import { Table } from "../../components";
+import { Table, Button } from "../../components";
 import ReactPaginate from "react-paginate";
-import { Caret, EditIcon, EyesIcon, TrashIcon } from "../../components/icons";
+import { Caret, EditIcon, TrashIcon } from "../../components/icons";
 import { ITableColumn } from "../../components/Table/Table.types";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { listCategory, removeCategory } from "../../store/slice/category.slice";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 
 
@@ -21,10 +22,20 @@ const CategoryList = () => {
   const navigate = useNavigate();
 
   const onRemove = (id: number) => {
-    const confirm = window.confirm("Chắc chắn muốn xoá?")
-    if (confirm) {
+    if (confirm("Bạn chắc chắn muốn xoá?")) {
       dispatch(removeCategory(id))
-      navigate("/category");
+      try {
+        toast.success("Xoá nhóm hàng thành công!", {
+          onClose: () => {
+          }
+        });
+        navigate("/category");
+
+
+      } catch (error) {
+        toast.error("Có lỗi xảy ra, vui lòng thử lại sau!");
+
+      }
     }
   }
 
@@ -45,14 +56,11 @@ const CategoryList = () => {
       dataIndex: "action",
       render: (item) => (
         <div className="flex gap-x-5">
-          <EyesIcon
-            className="cursor-pointer fill-green-400 hover:fill-green-600"
-            width={22}
-          />
+          
           <Link to={`update/${item.id}`}>
             <EditIcon
 
-              className="cursor-pointer fill-blue-400 hover:fill-blue-600"
+              className="cursor-pointer fill-green-400 hover:fill-green-600"
               width={20}
             />
           </Link>
@@ -75,7 +83,11 @@ const CategoryList = () => {
         column={columns} />
       )
     })} */}
-
+      <div className="flex justify-end mb-5">
+        <Link to="/category/add" className="contents">
+          <Button>Thêm nhóm hàng</Button>
+        </Link>
+      </div>
       <Table
         dataSource={categorys}
         column={columns} />

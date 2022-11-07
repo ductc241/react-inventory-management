@@ -31,11 +31,11 @@ export const getSuppliersApi = () => {
 };
 
 export const getDataSupplierProductApi = (id: number) => {
-  const url = `suppliers/${id}?_embed=products`;
+  const url = `suppliers/${id}?_embed=products1`;
   return instance.get(url);
 };
 
 export const getProFormShipments = () => {
-  const url = `/products`;
+  const url = `/products1`;
   return instance.get(url);
 };

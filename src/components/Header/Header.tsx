@@ -29,7 +29,7 @@ const Header = () => {
                   <div className="group inline-block">
                     <ul className="outline-none focus:outline-none px-3 py-1 rounded-sm flex items-center min-w-32">
                       <span className="pr-1 font-semibold flex-1">
-                        Tổng quan
+                        <Link to="/">Tổng quan</Link>
                       </span>
                     </ul>
                   </div>
@@ -54,7 +54,7 @@ const Header = () => {
                         transition duration-150 ease-in-out origin-top text-black w-48 py-2 drop-shadow-xl"
                     >
                       <li className="rounded-sm px-3 py-1 hover:text-sky-700">
-                        Danh mục
+                        <Link to="/products"> Danh mục </Link>
                       </li>
                       <li className="rounded-sm px-3 py-1 hover:text-sky-700">
                         Thiết lập giá
@@ -150,29 +150,53 @@ const Header = () => {
               </ul>
               {/* Header Icons */}
               <div className="hidden xl:flex space-x-5 items-center">
-                <Link className="flex items-center hover:text-gray-200" to="#">
-                  <span className="inline-flex justify-center items-center ml-4">
-                    <svg
-                      className="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                      ></path>
-                    </svg>
-                  </span>
-                  <span className="flex absolute -mt-5 ml-4">
-                    <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-pink-400 opacity-75" />
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-pink-500" />
-                  </span>
-                </Link>
-
+                { /* Thông báo */}
+                <div className="group inline-block">
+                  <ul className="outline-none focus:outline-none px-3 py-1 rounded-sm flex items-center min-w-32">
+                    <span className="pr-1 font-semibold flex-1">
+                      <Link className="flex items-center hover:text-gray-200" to="#">
+                        <span className="inline-flex justify-center items-center ml-4">
+                          <svg
+                            className="w-6 h-6"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                            ></path>
+                          </svg>
+                        </span>
+                        <span className="flex absolute -mt-5 ml-4">
+                          <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-pink-400 opacity-75" />
+                          <span className="relative inline-flex rounded-full h-3 w-3 bg-pink-500" />
+                        </span>
+                      </Link>
+                    </span>
+                  </ul>
+                  <ul
+                    className="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute 
+                        transition duration-150 ease-in-out origin-top text-black w-40 py-2 drop-shadow-xl -ml-28"
+                  >
+                    <li className="rounded-sm px-3 py-1 text-center hover:text-sky-700">
+                      <Link to="/signup">Thông báo 1</Link>
+                    </li>
+                    <li className="rounded-sm px-3 py-1 text-center hover:text-sky-700">
+                      <Link to="/signup">Thông báo 1</Link>
+                    </li>
+                    <li className="rounded-sm px-3 py-1 text-center hover:text-sky-700">
+                      <Link to="/signup">Thông báo 1</Link>
+                    </li>
+                    <li className="rounded-sm px-3 py-1 text-center hover:text-sky-700">
+                      <Link to="/signup">Thông báo 1</Link>
+                    </li>
+                  </ul>
+                </div>
+                { /* User */}
                 <div className="group inline-block">
                   <ul className="outline-none focus:outline-none px-3 py-1 rounded-sm flex items-center min-w-32">
                     <span className="pr-1 font-semibold flex-1">
@@ -197,10 +221,9 @@ const Header = () => {
                       </Link>
                     </span>
                   </ul>
-                  <ul
-                    className="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute 
-                        transition duration-150 ease-in-out origin-top text-black w-40 py-2 drop-shadow-xl -ml-28"
-                  >
+                  <ul className="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute 
+                        transition duration-150 ease-in-out origin-top text-black w-40 py-2 drop-shadow-xl -ml-[124px]"
+                    >
                     <li className="rounded-sm px-3 py-1 text-center hover:text-sky-700">
                       <Link to="/signup">Tài khoản</Link>
                     </li>

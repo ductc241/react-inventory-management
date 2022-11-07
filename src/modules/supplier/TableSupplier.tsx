@@ -11,11 +11,14 @@ const TableSupplier = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const [visibleModal, setvisibleModal] = useState<boolean>(false);
   const [data, setData] = useState<any>([]);
-  const addSupplier = (item: ISupplier) => {
-    add(item);
+  const [itemAdd, setItemAdd] = useState<any>();
+  const addSupplier = async (item: ISupplier) => {
+    await add(item);
+    setItemAdd(item == itemAdd ? null : item);
   };
   const [itemUpdate, setItemUpdate] = useState<any>([]);
   const [id, setId] = useState<number>();
+
   const itemEdit = async (id: number) => {
     const item = data.filter((item: ISupplier) => item.id == id);
     await setItemUpdate(item);
@@ -31,7 +34,7 @@ const TableSupplier = () => {
   };
   useEffect(() => {
     getSupplier();
-  }, [data]);
+  }, [itemAdd, id, itemUpdate]);
   const columns: ITableColumn[] = [
     {
       key: 1,

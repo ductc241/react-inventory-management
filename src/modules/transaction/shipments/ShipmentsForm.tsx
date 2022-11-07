@@ -67,7 +67,7 @@ const ShipMentsForm = () => {
     const getShipemnteProductsAPI = async () => {
       if (valueSelect !== 0) {
         const { data } = await getDataSupplierProductApi(valueSelect);
-        setProductsSelects(data.products);
+        setProductsSelects(data.products1);
       }
     };
     getShipemnteProductsAPI();

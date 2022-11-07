@@ -1,8 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { add, list, get, remove, update } from "../../api/category";
+import {
+  addCategoryAPI,
+  updateCategoryAPI,
+  removeCategoryAPI,
+  getCategoryAPI,
+  listCategoryAPI
+} from "../../api/category";
 import { ICategory } from "./../../types/category.type";
 
 interface ICategoryState {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   category: ICategory | {};
   categorys: ICategory[];
 }
@@ -15,31 +22,31 @@ const initialState: ICategoryState = {
 export const addCategory = createAsyncThunk(
   "category/add",
   async (category: ICategory) => {
-    const res = await add(category);
+    const res = await addCategoryAPI(category);
     return res.data;
   }
 );
 export const listCategory = createAsyncThunk("category/list", async () => {
-  const res = await list();
+  const res = await listCategoryAPI();
   return res.data;
 });
 export const readCategory = createAsyncThunk(
   "category/read",
   async (id: number) => {
-    const res = await get(id);
+    const res = await getCategoryAPI(id);
     return res.data;
   }
 );
 export const removeCategory = createAsyncThunk(
   "category/remove",
   async (id: number) => {
-    await remove(id);
+    await removeCategoryAPI(id);
   }
 );
 export const updateCategory = createAsyncThunk(
   "category/update",
   async (category: ICategory) => {
-    const res = await update(category);
+    const res = await updateCategoryAPI(category);
     return res;
   }
 );

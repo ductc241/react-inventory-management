@@ -1,13 +1,11 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 
-import { TextField, Select, Button } from "../../../components";
-import IOption from "../../../types/option.model";
-import { GroupOptions } from "./CategoryForm.constants";
-import { useEffect, useState } from "react";
+import { useEffect, } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addCategory, listCategory, updateCategory } from "../../../store/slice/category.slice";
-import { get } from "../../../api/category";
+import { listCategory, updateCategory } from "../../../store/slice/category.slice";
+import { toast } from "react-toastify";
+import { getCategoryAPI } from "../../../api/category";
 interface ICategoryProps {
   mode: "create" | "update";
 }
@@ -21,13 +19,12 @@ const CategoryUpdate = ({ mode }: ICategoryProps) => {
 
   const dispatch = useDispatch<any>();
   const { register, handleSubmit, reset, formState: { errors } } = useForm<Inputs>()
-  
   const navigate = useNavigate();
   const { id } = useParams()
   
   useEffect(() => {
     const getOneProduct = async () => {
-      const { data } = await get(id)
+      const { data } = await getCategoryAPI(id)
       reset(data)
     }
     getOneProduct()
@@ -41,11 +38,15 @@ const CategoryUpdate = ({ mode }: ICategoryProps) => {
   const onAdd: SubmitHandler<Inputs> = async (product: Inputs) => {
     try {
       await dispatch(updateCategory(product))
-      alert("Cập nhập thành công!")
-      navigate("/category")
+      toast.success("Cập nhập nhóm hàng thành công!", {
+        onClose: () => {
+        }
+      });
+      navigate("/category");
+
 
     } catch (error) {
-      console.log(error);
+      toast.error("Có lỗi xảy ra, vui lòng thử lại sau!");
 
     }
   }
