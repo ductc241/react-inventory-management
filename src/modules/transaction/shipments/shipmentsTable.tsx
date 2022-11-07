@@ -72,15 +72,6 @@ const ShipmentsTable = () => {
       key: 7,
       render: ({ id }) => (
         <div className="flex justify-start">
-          {/* <EyesIcon
-            className="cursor-pointer fill-green-400 hover:fill-green-600"
-            width={22}
-          />
-          <EditIcon
-            className="cursor-pointer fill-blue-400 hover:fill-blue-600"
-            width={20}
-            onClick={() => navigate(`update/${id}`)}
-          /> */}
           <TrashIcon
             className="cursor-pointer fill-red-400 hover:fill-red-600"
             width={20}

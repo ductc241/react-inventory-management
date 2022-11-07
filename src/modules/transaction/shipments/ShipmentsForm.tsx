@@ -33,7 +33,6 @@ const ShipMentsForm = () => {
   const [suppliersOptions, setSuppliersOptions] = useState([]);
   const [productsSelects, setProductsSelects] = useState<any | undefined>([]);
   const { id } = useParams();
-  const [total, setTotal] = useState(0);
   // const useDispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -120,7 +119,6 @@ const ShipMentsForm = () => {
     const date = new Date();
     const dataSubmit = [
       {
-        import_total_price: total,
         supplier_id: +valueSelect,
         import_date: date.toLocaleDateString(),
         ...data
