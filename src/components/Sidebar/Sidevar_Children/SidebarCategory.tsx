@@ -11,7 +11,6 @@ const SidebarCategory = () => {
 
   useEffect(() => {
     dispatch(listCategory());
-    console.log(categorys);
   }, [dispatch]);
 
   return (

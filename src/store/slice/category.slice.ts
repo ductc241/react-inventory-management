@@ -9,6 +9,7 @@ import {
 import { ICategory } from "./../../types/category.type";
 
 interface ICategoryState {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   category: ICategory | {};
   categorys: ICategory[];
 }

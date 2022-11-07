@@ -1,3 +1,4 @@
+import { ICreateProduct } from "../types/product.type";
 import instance from "./instance";
 
 const productServices = {
@@ -11,7 +12,7 @@ const productServices = {
     return instance.get(url);
   },
 
-  createProduct: (data: any) => {
+  createProduct: (data: ICreateProduct) => {
     const url = `/products`;
     return instance.post(url, data);
   },
