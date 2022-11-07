@@ -1,16 +1,16 @@
-import TransactionTable from "./transactionTable/transactionTable";
+import ShipmentsTable from "../../modules/transaction/shipments/shipmentsTable";
 
-const Transaction = () => {
+const ShipmentPage = () => {
   return (
     <div className="container">
       <div className="grid grid-cols-[1fr,4fr] gap-5">
         <div>side bar</div>
         <div>
-          <TransactionTable />
+          <ShipmentsTable />
         </div>
       </div>
     </div>
   );
 };
 
-export default Transaction;
+export default ShipmentPage;

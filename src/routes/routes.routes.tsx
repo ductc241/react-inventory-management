@@ -1,4 +1,4 @@
-import Transaction from "../modules/transaction";
+import ShipmentsForm from "../modules/transaction/shipments/ShipmentsForm";
 import {
   CategoryCreatePage,
   CategoryListPage,
@@ -10,6 +10,7 @@ import {
   ProductListPage,
   ProductUpdatePage
 } from "../pages/product";
+import ShipmentPage from "../pages/shipments/ShipmentsPages";
 import SuplierPage from "../pages/supplier/SupllierPage";
 
 import IRoute from "../types/router.type";
@@ -40,7 +41,7 @@ export const appRoutes: IRoute[] = [
   {
     key: 5,
     path: routerPaths.PATH_IMPORT_SHIPMENT,
-    component: <Transaction />
+    component: <ShipmentPage />
   },
   {
     key: 6,
@@ -54,11 +55,21 @@ export const appRoutes: IRoute[] = [
   },
   {
     key: 8,
+    path: routerPaths.PATH_IMPORT_SHIPMENT_ADD,
+    component: <ShipmentsForm />
+  },
+  {
+    key: 9,
+    path: routerPaths.PATH_IMPORT_SHIPMENT_UPDATE,
+    component: <ShipmentsForm />
+  },
+  {
+    key: 10,
     path: routerPaths.PATH_CATEGORY_ADD,
     component: <CategoryCreatePage />
   },
   {
-    key: 9,
+    key: 11,
     path: routerPaths.PATH_CATEGORY_UPDATE,
     component: <CategoryUpdatePage />
   }
