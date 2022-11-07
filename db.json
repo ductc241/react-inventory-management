@@ -62,26 +62,16 @@
   ],
   "products": [
     {
-      "weight": 5,
-      "quantity": 12,
-      "import_price": 321,
-      "price": "321",
-      "category_id": "4",
-      "brand_id": 1,
-      "name": "dwqdwq",
-      "sku": "dwq",
+      "warranty_date": 30,
+      "quantity": 50,
+      "import_price": 190000,
+      "price": 250000,
+      "category_id": 3,
+      "name": "Sạc điện thoại",
+      "sku": "SP0001",
+      "description": "Sạc nhanh xiaomi 120W",
+      "status": 1,
       "id": 1
-    },
-    {
-      "weight": 1000,
-      "quantity": 5210,
-      "import_price": 1,
-      "price": "10",
-      "category_id": "4",
-      "brand_id": 2,
-      "name": "hahdsdasdasd33",
-      "sku": "fdssf4",
-      "id": 2
     }
   ],
   "supplier": [
