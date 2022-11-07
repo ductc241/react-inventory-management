@@ -17,6 +17,7 @@ import {
 } from "../../../api/shipments";
 import { TrashIcon } from "../../../components/icons";
 import { toast } from "react-toastify";
+import FormatNumber from "../../../components/formatNumber/formatNumber";
 
 type Inputs = {
   supplier_id: number;
@@ -32,6 +33,7 @@ const ShipMentsForm = () => {
   const [suppliersOptions, setSuppliersOptions] = useState([]);
   const [productsSelects, setProductsSelects] = useState<any | undefined>([]);
   const { id } = useParams();
+  const [total, setTotal] = useState(0);
   // const useDispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -72,18 +74,6 @@ const ShipMentsForm = () => {
     getShipemnteProductsAPI();
   }, [valueSelect]);
 
-  const onSubmit: SubmitHandler<Inputs> = (data: any) => {
-    const date = new Date();
-    const dataSubmit = [
-      {
-        supplier_id: +valueSelect,
-        import_date: date.toLocaleDateString(),
-        ...data
-      }
-    ];
-    console.log(dataSubmit);
-  };
-
   const handleChangValue = (e: any) => {
     setValueSelect(e.target.value);
     remove();
@@ -101,30 +91,47 @@ const ShipMentsForm = () => {
     }
   };
 
-  function getTotal(payload: Inputs["products"]) {
-    let total = 0;
-    if (payload !== undefined) {
-      for (const item of payload) {
-        total += item.quantity * item.import_price;
-      }
-    }
-    return total;
-  }
-
-  function TotalAmout({ control }: { control: Control<Inputs> }) {
-    const cartValues = useWatch({
+  const TotalAmout = ({ control }: { control: Control<Inputs> }) => {
+    const totalShipments = useWatch({
       control,
       name: "products"
     });
+    let totalArr = 0;
+
+    if (totalShipments !== undefined) {
+      totalArr = totalShipments.reduce(
+        (a, b) =>
+          a +
+          (Number.isNaN(b.quantity) ? 0 : b.quantity) *
+            (Number.isNaN(b.import_price) ? 0 : b.import_price),
+        0
+      );
+    }
+
     return (
       <p>
-        <strong className="mx-2">
-          {new Intl.NumberFormat("de-DE").format(getTotal(cartValues))}
-        </strong>
+        <strong className="mx-2">{<FormatNumber number={totalArr} />}</strong>
         VND
       </p>
     );
-  }
+  };
+
+  const onSubmit: SubmitHandler<Inputs> = (data: any) => {
+    const date = new Date();
+    const dataSubmit = [
+      {
+        import_total_price: total,
+        supplier_id: +valueSelect,
+        import_date: date.toLocaleDateString(),
+        ...data
+      }
+    ];
+    if (valueSelect === 0) {
+      toast.warning("Phiếu chưa có sản phẩm nào");
+    } else if (valueSelect !== 0) {
+      console.log(dataSubmit);
+    }
+  };
 
   return (
     <form className="w-6/12 mx-auto" onSubmit={handleSubmit(onSubmit)}>
