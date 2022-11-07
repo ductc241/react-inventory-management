@@ -32,7 +32,6 @@ const ShipMentsForm = () => {
   const [suppliersOptions, setSuppliersOptions] = useState([]);
   const [productsSelects, setProductsSelects] = useState<any | undefined>([]);
   const { id } = useParams();
-  const [totalPrice, setTotalPrice] = useState<any>([]);
   // const useDispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -102,24 +101,30 @@ const ShipMentsForm = () => {
     }
   };
 
-  // function getTotal(payload: Inputs["products"]) {
-  //   let total = 0;
+  function getTotal(payload: Inputs["products"]) {
+    let total = 0;
+    if (payload !== undefined) {
+      for (const item of payload) {
+        total += item.quantity * item.import_price;
+      }
+    }
+    return total;
+  }
 
-  //   for (const item of payload) {
-  //     total = total + (Number.isNaN(item.import_price) ? 0 : item.import_price);
-  //   }
-
-  //   return total;
-  // }
-
-  // function TotalAmout({ control }: { control: Control<Inputs> }) {
-  //   const cartValues = useWatch({
-  //     control,
-  //     name: "products"
-  //   });
-
-  //   return <p>{getTotal(cartValues)}</p>;
-  // }
+  function TotalAmout({ control }: { control: Control<Inputs> }) {
+    const cartValues = useWatch({
+      control,
+      name: "products"
+    });
+    return (
+      <p>
+        <strong className="mx-2">
+          {new Intl.NumberFormat("de-DE").format(getTotal(cartValues))}
+        </strong>
+        VND
+      </p>
+    );
+  }
 
   return (
     <form className="w-6/12 mx-auto" onSubmit={handleSubmit(onSubmit)}>
@@ -174,7 +179,7 @@ const ShipMentsForm = () => {
                 scope="col"
                 className="p-[14px] first:pl-[24px] last:pr-[24px] leading-[27px] text-[#311339] text-[14px] font-bold uppercase"
               >
-                Giá nhập/ 1 sản phẩm
+                Giá nhập/ 1 SP
               </th>
               <th
                 scope="col"
@@ -257,10 +262,7 @@ const ShipMentsForm = () => {
       {/* Tính tổng số tiền */}
       <span className="flex justify-end mb-5 text-lg">
         Tổng số tiền nhập hàng:
-        {/* <TotalAmout control={control} /> */}
-        <span className="ml-2 font-bold">
-          {new Intl.NumberFormat().format(totalPrice)} VND
-        </span>
+        <TotalAmout control={control} />
       </span>
       {/* Button Submit and cencal */}
       <div className="flex gap-5 mb-5 justify-end">
