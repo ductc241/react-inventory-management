@@ -3,7 +3,7 @@ import { AppDispatch } from "../../../store/store";
 
 import { Button } from "../../../components";
 import { PictureIcon } from "../../../components/icons";
-import { updateOrder } from "../../../store/slice/order.slice";
+import { updateOrderItem } from "../../../store/slice/order.slice";
 
 const products = [
   { id: 1, name: "Sạc điện thoại", price: 150000 },
@@ -16,7 +16,11 @@ const products = [
   { id: 8, name: "Sạc điện thoại", price: 150000 }
 ];
 
-const ProductFilter = () => {
+interface IProps {
+  toggleCheckout: () => void;
+}
+
+const ProductFilter = ({ toggleCheckout }: IProps) => {
   const dispatch: AppDispatch = useDispatch();
 
   return (
@@ -31,7 +35,7 @@ const ProductFilter = () => {
                 key={index}
                 onClick={() =>
                   dispatch(
-                    updateOrder({
+                    updateOrderItem({
                       type: "increase",
                       productId: item.id,
                       name: item.name,
@@ -57,7 +61,11 @@ const ProductFilter = () => {
       </div>
 
       <div className="p-5">
-        <Button fullWidth className="py-4 text-xl">
+        <Button
+          fullWidth
+          className="py-4 text-xl"
+          onClick={() => toggleCheckout()}
+        >
           Đặt hàng
         </Button>
       </div>

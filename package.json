@@ -6,7 +6,7 @@
   "scripts": {
     "start": "vite",
     "server": "json-server db.json -p 3001 -m ./node_modules/json-server-auth",
-    "server-auth" : "npx json-server-auth db.json -p 3001 --watch",
+    "server-auth": "npx json-server-auth db.json -p 3001 --watch",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
@@ -15,6 +15,7 @@
     "@reduxjs/toolkit": "^1.8.5",
     "axios": "^0.27.2",
     "clsx": "^1.2.1",
+    "nanoid": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.36.1",

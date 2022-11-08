@@ -1,7 +1,11 @@
 import OrderList from "./OrderList";
 import ProductFilter from "./ProductFilter";
 
-const NewSale_Order = () => {
+interface IProps {
+  toggleCheckout: () => void;
+}
+
+const NewSale_Order = ({ toggleCheckout }: IProps) => {
   return (
     <div className="p-4 bg-gray-100 h-full">
       <div className="grid grid-cols-12 gap-4 h-full">
@@ -9,7 +13,7 @@ const NewSale_Order = () => {
           <OrderList />
         </div>
         <div className="col-span-5">
-          <ProductFilter />
+          <ProductFilter toggleCheckout={toggleCheckout} />
         </div>
       </div>
     </div>

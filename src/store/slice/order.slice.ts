@@ -28,6 +28,7 @@ interface IUpdateOrder {
 
 interface IDeleteItemOrder {
   productId: number;
+  monney: number;
 }
 
 const initialState: InitialStateType = {
@@ -43,18 +44,46 @@ const orderSlice = createSlice({
       state.currentOrder = action.payload.id;
     },
 
-    createOrder: (state) => {
-      const newOrder: IOrder = {
-        id: state.orderList.length + 1,
-        products: [],
-        total: 0
-      };
+    deleteOrder: (
+      state: InitialStateType,
+      action: PayloadAction<{ id: number }>
+    ) => {
+      const newOrders = state.orderList.filter(
+        (order) => order.id !== action.payload.id
+      );
 
-      state.orderList = [...state.orderList, newOrder];
-      state.currentOrder = newOrder.id;
+      state.orderList = newOrders;
+
+      if (newOrders.length === 0) return;
+      state.currentOrder = state.orderList[state.orderList.length - 1].id;
     },
 
-    updateOrder: (
+    createOrder: (state) => {
+      if (state.orderList.length === 0) {
+        const newOrder: IOrder = {
+          id: state.orderList.length + 1,
+          products: [],
+          total: 0
+        };
+
+        state.orderList = [...state.orderList, newOrder];
+        state.currentOrder = newOrder.id;
+        return;
+      }
+
+      if (state.orderList.length > 0) {
+        const newOrder: IOrder = {
+          id: state.orderList[state.orderList.length - 1].id + 1,
+          products: [],
+          total: 0
+        };
+
+        state.orderList = [...state.orderList, newOrder];
+        state.currentOrder = newOrder.id;
+      }
+    },
+
+    updateOrderItem: (
       state: InitialStateType,
       action: PayloadAction<IUpdateOrder>
     ) => {
@@ -77,15 +106,19 @@ const orderSlice = createSlice({
             quantity: quantity
           });
         }
+
+        state.orderList[currentOrder - 1].total += price;
       }
 
       if (type === "decrease") {
-        orderUpdate.products[index].quantity > 0 &&
-          (orderUpdate.products[index].quantity -= quantity);
+        if (orderUpdate.products[index].quantity > 0) {
+          orderUpdate.products[index].quantity -= quantity;
+          state.orderList[currentOrder - 1].total -= price;
+        }
       }
     },
 
-    deleteItemOrder: (
+    deleteOrderItem: (
       state: InitialStateType,
       action: PayloadAction<IDeleteItemOrder>
     ) => {
@@ -94,10 +127,16 @@ const orderSlice = createSlice({
       );
 
       state.orderList[state.currentOrder - 1].products = newOrder;
+      state.orderList[state.currentOrder - 1].total -= action.payload.monney;
     }
   }
 });
 
 export default orderSlice;
-export const { selectOrder, createOrder, updateOrder, deleteItemOrder } =
-  orderSlice.actions;
+export const {
+  selectOrder,
+  deleteOrder,
+  createOrder,
+  updateOrderItem,
+  deleteOrderItem
+} = orderSlice.actions;

@@ -2,7 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../store/store";
 
 import { TrashIcon } from "../../../components/icons";
-import { deleteItemOrder } from "../../../store/slice/order.slice";
+import { deleteOrderItem } from "../../../store/slice/order.slice";
+import { numberWithCommas } from "../../../utils/funtion";
 
 const OrderList = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -51,7 +52,12 @@ const OrderList = () => {
                 fill="red"
                 className="hover:cursor-pointer"
                 onClick={() =>
-                  dispatch(deleteItemOrder({ productId: item.id }))
+                  dispatch(
+                    deleteOrderItem({
+                      productId: item.id,
+                      monney: item.price * item.quantity
+                    })
+                  )
                 }
               />
             </div>
@@ -62,7 +68,7 @@ const OrderList = () => {
       <div className="absolute bottom-[14px] w-full">
         <div className="flex justify-between p-5 bg-white text-xl font-medium rounded-md">
           <p>Tổng tiền hàng</p>
-          <p>150.000 VNĐ</p>
+          <p>{numberWithCommas(orderList[currentOrder - 1]?.total)} VNĐ</p>
         </div>
       </div>
     </div>
