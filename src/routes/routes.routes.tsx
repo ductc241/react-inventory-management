@@ -10,6 +10,7 @@ import {
   ProductListPage,
   ProductUpdatePage
 } from "../pages/product";
+import SoQuyListPage from "../pages/SoQuy/SoQuyListPage";
 import SuplierPage from "../pages/supplier/SupllierPage";
 
 import IRoute from "../types/router.type";
@@ -61,5 +62,10 @@ export const appRoutes: IRoute[] = [
     key: 9,
     path: routerPaths.PATH_CATEGORY_UPDATE,
     component: <CategoryUpdatePage />
+  },
+  {
+    key: 10,
+    path: routerPaths.PATH_SoQuy,
+    component: <SoQuyListPage />
   }
 ];

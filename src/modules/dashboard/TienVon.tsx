@@ -13,8 +13,10 @@ const TienVon = () => {
             </h3>
           </div>
           {/* Snippet */}
-
-          Sơ đồ thống kê Tiền vốn
+          <div className="border mt-4 rounded-lg">
+            Sơ đồ thống kê Tiền vốn
+            
+          </div>
 
 
         </div>

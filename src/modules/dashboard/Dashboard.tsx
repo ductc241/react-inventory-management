@@ -110,7 +110,7 @@ const Dashboard = () => {
         <SpTrongKho />
 
         {/* Đồ thị tiền tệ */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 p-4 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 p-4 gap-4 mt-6">
           <TienLai />
           <TienVon />
         </div>
