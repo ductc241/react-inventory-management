@@ -30,7 +30,7 @@ const CategoryUpdate = ({ mode }: ICategoryProps) => {
     getOneProduct()
   }, [])
   
-  const categorys = useSelector((state: any) => state.category.categorys)
+  const categorys = useSelector((state: any) => state.category?.categorys)
   useEffect(() => {
     dispatch(listCategory())
     console.log(categorys)

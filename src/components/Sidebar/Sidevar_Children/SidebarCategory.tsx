@@ -11,6 +11,7 @@ const SidebarCategory = () => {
 
   useEffect(() => {
     dispatch(listCategory());
+    console.log(categorys);
   }, [dispatch]);
 
   return (
@@ -27,6 +28,7 @@ const SidebarCategory = () => {
                 <span className="flex-1 ml-3 text-left whitespace-nowrap">
                   Nhóm hàng
                 </span>
+                <a href="https://res.cloudinary.com/dsirnbuyv/image/upload/v1666464107/plus-symbol-button_vkbpat.png" download></a>
                 <div className="add_sidebar mr-2">
                   <Link to="/category">
                     <img

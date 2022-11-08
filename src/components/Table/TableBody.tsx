@@ -18,7 +18,7 @@ const TableBody = ({
       <td
         key={column.key}
         className={clsx(
-          "p-[14px] first:pl-[24px] last:pr-[24px] text-sm",
+          "p-[14px] first:pl-[24px] last:pr-[24px] text-sm",  
           className
         )}
       >
@@ -27,7 +27,7 @@ const TableBody = ({
     ));
 
   const renderBody = () => {
-    if (data.length === 0) {
+    if (data?.length === 0) {
       return (
         <tr>
           <td
@@ -40,7 +40,7 @@ const TableBody = ({
       );
     }
 
-    return data.map((record: any, index) => (
+    return data?.map((record: any, index) => (
       <tr
         key={index}
         className="border-b border-gray-200 text-lg leading-[27px] text-[#311339] hover:bg-emerald-50"
