@@ -98,14 +98,6 @@
       "import_price_totail": "19000000",
       "productId": 1,
       "status": true
-    },
-    {
-      "id": 2,
-      "supplierId": 2,
-      "import_date": "11/10/2022",
-      "import_price_totail": "19000000",
-      "productId": 2,
-      "status": true
     }
   ],
   "suppliers": [

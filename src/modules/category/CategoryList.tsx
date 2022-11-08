@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 
 const CategoryList = () => {
 
-  const categorys = useSelector((state: any) => state.category.categorys)
+  const categorys = useSelector((state: any) => state.category?.categorys)
   const dispatch = useDispatch<any>()
   useEffect(() => {
     dispatch(listCategory())
