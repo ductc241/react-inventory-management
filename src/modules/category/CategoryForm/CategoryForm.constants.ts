@@ -1,35 +1,20 @@
 import IOption from "../../../types/option.model";
 
-export const BrandOptions: IOption[] = [
-  {
-    label: "Apple",
-    value: "apple"
-  },
-  {
-    label: "Samsung",
-    value: "samsung"
-  },
-  {
-    label: "Oppo",
-    value: "Oppo"
-  },
-  {
-    label: "Xiaomi",
-    value: "xiaomi"
-  }
-];
-
 export const GroupOptions: IOption[] = [
   {
-    label: "Điện thoại",
-    value: "phone"
+    label: "--- Chọn nhóm cha ---",
+    value: "_",
   },
   {
-    label: "Phụ kiện",
-    value: "accessory"
+    label: "Củ sạc",
+    value: "cuSac"
   },
   {
-    label: "Sim thẻ",
-    value: "card"
+    label: "Tai nghe",
+    value: "tainghe"
+  },
+  {
+    label: "Dây sạc",
+    value: "daySac"
   }
 ];

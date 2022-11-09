@@ -1,11 +1,16 @@
 import Transaction from "../modules/transaction";
-import { CategoryListPage } from "../pages/category";
+import {
+  CategoryCreatePage,
+  CategoryListPage,
+  CategoryUpdatePage
+} from "../pages/category";
 import DashboardPage from "../pages/DashboardPage";
 import {
   ProductCreatePage,
   ProductListPage,
   ProductUpdatePage
 } from "../pages/product";
+import SoQuyListPage from "../pages/SoQuy/SoQuyListPage";
 import SuplierPage from "../pages/supplier/SupllierPage";
 
 import IRoute from "../types/router.type";
@@ -35,7 +40,6 @@ export const appRoutes: IRoute[] = [
   },
   {
     key: 5,
-
     path: routerPaths.PATH_IMPORT_SHIPMENT,
     component: <Transaction />
   },
@@ -46,7 +50,22 @@ export const appRoutes: IRoute[] = [
   },
   {
     key: 7,
-    path: routerPaths.PATH_CATEGORIES,
+    path: routerPaths.PATH_CATEGORY,
     component: <CategoryListPage />
+  },
+  {
+    key: 8,
+    path: routerPaths.PATH_CATEGORY_ADD,
+    component: <CategoryCreatePage />
+  },
+  {
+    key: 9,
+    path: routerPaths.PATH_CATEGORY_UPDATE,
+    component: <CategoryUpdatePage />
+  },
+  {
+    key: 10,
+    path: routerPaths.PATH_SoQuy,
+    component: <SoQuyListPage />
   }
 ];

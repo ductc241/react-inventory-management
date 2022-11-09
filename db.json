@@ -23,6 +23,165 @@
       "password": "$2a$10$T2L58O1HpGHmN9C8uIhuG.OkfQMoHyLXNiFGkoFozg0XISmbzy7wS",
       "userName": "admin",
       "id": 4
+    },
+    {
+      "email": "theanh@gmail.com",
+      "password": "$2a$10$4NOljzLEu.FZ8unRVG9nU.h.A7jaiTXfnWD6zJsPdxv0zW2QHVU2e",
+      "userName": "theanh",
+      "id": 5
+    },
+    {
+      "email": "nguyentheanh@gmail.com",
+      "password": "$2a$10$.hv1ZKEnjmF/q/J9jUdO7e0m/.1sogmmstI/xBBRPf0piLv7FfIg6",
+      "userName": "nguyentheanh",
+      "id": 6
+    }
+  ],
+  "category": [
+    {
+      "id": 3,
+      "name": "Củ sạc",
+      "parent_id": 3
+    },
+    {
+      "name": "Tai Nghe",
+      "id": 4
+    },
+    {
+      "name": "Dây sạc",
+      "id": 5
+    },
+    {
+      "name": "Pin dự phòng",
+      "id": 6
+    },
+    {
+      "name": "Cường lực",
+      "id": 7
+    }
+  ],
+  "products": [
+    {
+      "warranty_date": 30,
+      "quantity": 50,
+      "import_price": 190000,
+      "price": 250000,
+      "category_id": 3,
+      "name": "Sạc điện thoại",
+      "sku": "SP0001",
+      "description": "Sạc nhanh xiaomi 120W",
+      "status": 1,
+      "id": 1
+    }
+  ],
+  "supplier": [
+    {
+      "id": 1,
+      "supplierName": "Hieu",
+      "email": "thienhotdog@gmail.com",
+      "phone": "0866485651",
+      "address": "Yên Hồng Ý Yên Nam Định"
+    },
+    {
+      "id": 2,
+      "supplierName": "325",
+      "email": "a@gmai.com",
+      "phone": "5346",
+      "address": "6373"
+    }
+  ],
+  "import_shipments": [
+    {
+      "id": 1,
+      "supplierId": 1,
+      "import_date": "11/10/2022",
+      "import_price_totail": "19000000",
+      "productId": 1,
+      "status": true
+    }
+  ],
+  "suppliers": [
+    {
+      "id": 1,
+      "name": "Apple",
+      "address": "Ha Noi"
+    },
+    {
+      "id": 2,
+      "name": "Sam Sung",
+      "address": "Ha Noi"
+    },
+    {
+      "id": 3,
+      "name": "NOKIA",
+      "address": "Ha Noi"
+    }
+  ],
+  "products1": [
+    {
+      "id": 1,
+      "name": "Sam Sung",
+      "category_id": 1,
+      "impost_price": 150000,
+      "price": 200000,
+      "quantity": 10,
+      "description": "Dien thoai rat dep",
+      "status": 1,
+      "warranty_date": "11/10/2022",
+      "sku": 1,
+      "supplierId": 1
+    },
+    {
+      "id": 2,
+      "name": "IPhone",
+      "category_id": 1,
+      "impost_price": 250000,
+      "price": 300000,
+      "quantity": 10,
+      "description": "Dien thoai rat dep",
+      "status": 1,
+      "warranty_date": "11/10/2022",
+      "sku": 1,
+      "supplierId": 2
+    },
+    {
+      "id": 3,
+      "name": "IPhone 14 pro",
+      "category_id": 1,
+      "impost_price": 1500000,
+      "price": 1000000,
+      "quantity": 5,
+      "description": "Dien thoai rat dep",
+      "status": 1,
+      "warranty_date": "11/10/2022",
+      "sku": 1,
+      "supplierId": 1
+    },
+    {
+      "id": 4,
+      "name": "IPhone 14 pro Max",
+      "category_id": 1,
+      "impost_price": 1500000,
+      "price": 1000000,
+      "quantity": 5,
+      "description": "Dien thoai rat dep",
+      "status": 1,
+      "warranty_date": "11/10/2022",
+      "sku": 1,
+      "supplierId": 1
+    },
+    {
+      "id": 5,
+      "name": "Nokia 6300",
+      "category_id": 1,
+      "impost_price": 1500000,
+      "price": 1000000,
+      "quantity": 100,
+      "description": "Dien thoai rat dep",
+      "status": 1,
+      "warranty_date": "11/10/2022",
+      "sku": 1,
+      "supplierId": 3
     }
   ]
 }
