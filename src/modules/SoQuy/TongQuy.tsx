@@ -8,7 +8,7 @@ const TongQuy = (props: Props) => {
       <div className="grid grid-cols-2 lg:grid-cols-4 p-8 border rounded mb-5 py-4 flex -space-x-4">
         <div className="text-right">
           <p className='text-sm'>Quỹ đầu kỳ</p>
-          <p className='text-yellow-500 font-mono text-sm font-semibold'>10000</p>
+          <p className='text-yellow-500 font-mono text-sm font-semibold'>100.000.000</p>
         </div>
         <div className="text-right">
           <p className='text-sm'>Tổng thu</p>
