@@ -4,8 +4,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import ImagePreview from "./component/ImagePreview";
 import { TextField, Select, Button } from "../../../components";
+import { BrandOptions } from "./ProductForm.constants";
 import IOption from "../../../types/option.model";
 import { ICategory } from "../../../types/category.type";
 import { IProduct } from "../../../types/product.type";
@@ -15,7 +15,6 @@ import productServices from "../../../api/product.api";
 import { getValueFromOptions } from "../../../utils/select";
 import ProductSchema from "./ProductForm.schema";
 import { WarningIcon } from "../../../components/icons";
-import { StatusOptions } from "./ProductForm.constants";
 
 interface IProductProps {
   mode: "create" | "update";
@@ -24,13 +23,12 @@ interface IProductProps {
 type Inputs = {
   sku: string;
   name: string;
+  brand_id: string | null;
   category_id: number | null;
   price: number;
   import_price: number;
   quantity: number;
-  description: string;
-  warranty_date: number;
-  status: 0 | 1;
+  weight: number;
 };
 
 const ProductForm = ({ mode }: IProductProps) => {
@@ -81,8 +79,6 @@ const ProductForm = ({ mode }: IProductProps) => {
     });
   }, []);
 
-  console.log(errors);
-
   useEffect(() => {
     if (params.id) {
       productServices
@@ -91,12 +87,12 @@ const ProductForm = ({ mode }: IProductProps) => {
           reset({
             sku: data.sku,
             name: data.name,
+            brand_id: data.brand_id,
             category_id: data.category_id,
             price: data.price,
             import_price: data.import_price,
             quantity: data.quantity,
-            description: data.description,
-            warranty_date: data.warranty_date
+            weight: data.weight
           });
         });
     }
@@ -129,6 +125,26 @@ const ProductForm = ({ mode }: IProductProps) => {
         <div className="mb-5">
           <Select
             selectLabel={{
+              text: "Thương hiệu"
+            }}
+            options={BrandOptions}
+            option={getValueFromOptions(BrandOptions, watch("brand_id"))}
+            handleClickChange={(brand) => setValue("brand_id", brand.value)}
+          />
+
+          {errors.brand_id && (
+            <div className="flex mt-1 items-center">
+              <WarningIcon />
+              <span className="block text-error ml-1.5">
+                {errors.brand_id.message}
+              </span>
+            </div>
+          )}
+        </div>
+
+        <div className="mb-5">
+          <Select
+            selectLabel={{
               text: "Danh mục"
             }}
             options={categories}
@@ -147,18 +163,40 @@ const ProductForm = ({ mode }: IProductProps) => {
           )}
         </div>
 
-        <div className="mb-5">
-          <label className="block mb-1 text-base">Mô tả</label>
-          <textarea
-            {...register("description")}
-            className="w-full border border-[#DEDEDE] rounded-lg outline-none px-4 py-3"
-            rows={5}
-          ></textarea>
-        </div>
-
         <div>
           <p className="mb-1 text-base">Hình ảnh</p>
-          <ImagePreview />
+          <div className="flex justify-center items-center w-full">
+            <label
+              htmlFor="dropzone-file"
+              className="flex flex-col justify-center items-center w-full h-64  rounded-lg border-2 border-gray-300 border-dashed cursor-pointer  hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 "
+            >
+              <div className="flex flex-col justify-center items-center pt-5 pb-6">
+                <svg
+                  aria-hidden="true"
+                  className="mb-3 w-10 h-10 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                  ></path>
+                </svg>
+                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                  <span className="font-semibold">Click to upload</span> or drag
+                  and drop
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  SVG, PNG, JPG or GIF (MAX. 800x400px)
+                </p>
+              </div>
+              <input id="dropzone-file" type="file" className="hidden" />
+            </label>
+          </div>
         </div>
       </div>
 
@@ -185,28 +223,11 @@ const ProductForm = ({ mode }: IProductProps) => {
           {...register("quantity")}
           error={errors.quantity}
         />
-        <div className="flex gap-6 mb-5">
-          <div className="basis-3/6">
-            <label className="block mb-1 text-base">Số ngày bảo hành</label>
-            <input
-              type="number"
-              className="w-full px-4 py-3 border border-[#DEDEDE] rounded-lg outline-none"
-              {...register("warranty_date")}
-            />
-          </div>
-
-          <div className="basis-3/6">
-            <Select
-              selectLabel={{
-                text: "Trạng thái"
-              }}
-              options={StatusOptions}
-              option={getValueFromOptions(StatusOptions, watch("status"))}
-              handleClickChange={(status) => setValue("status", status.value)}
-              placeholderText="Chọn trạng thái"
-            />
-          </div>
-        </div>
+        <TextField
+          label="Trọng lượng"
+          containerClass="mb-5"
+          {...register("weight")}
+        />
       </div>
 
       <div className="flex gap-5">
