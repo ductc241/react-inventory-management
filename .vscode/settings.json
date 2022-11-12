@@ -10,9 +10,5 @@
   },
   "eslint.validate": [
     "javascript"
-  ],
-  "cSpell.words": [
-    "categorys",
-    "phẩm"
-  ],
+  ]
 }
