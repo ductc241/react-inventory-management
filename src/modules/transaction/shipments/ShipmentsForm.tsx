@@ -18,6 +18,8 @@ import {
 import { TrashIcon } from "../../../components/icons";
 import { toast } from "react-toastify";
 import FormatNumber from "../../../components/formatNumber/formatNumber";
+import { useAppDispatch } from "../../../hook/hook";
+import { addShipmentsThunks } from "../../../store/slice/shipments";
 
 type Inputs = {
   supplier_id: number;
@@ -33,7 +35,7 @@ const ShipMentsForm = () => {
   const [suppliersOptions, setSuppliersOptions] = useState([]);
   const [productsSelects, setProductsSelects] = useState<any | undefined>([]);
   const { id } = useParams();
-  // const useDispatch = useAppDispatch();
+  const useDispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const { handleSubmit, reset, register, control } = useForm<Inputs>();
@@ -117,17 +119,24 @@ const ShipMentsForm = () => {
 
   const onSubmit: SubmitHandler<Inputs> = (data: any) => {
     const date = new Date();
-    const dataSubmit = [
-      {
-        supplier_id: +valueSelect,
-        import_date: date.toLocaleDateString(),
-        ...data
-      }
-    ];
+    const dataSubmit = {
+      supplierId: 1,
+      import_price_totail: 1000000,
+      status: true,
+      productId: 1,
+      ////////
+      supplier_id: +valueSelect,
+      import_date: date.toLocaleDateString(),
+      ...data
+    };
     if (valueSelect === 0) {
       toast.warning("Phiếu chưa có sản phẩm nào");
     } else if (valueSelect !== 0) {
       console.log(dataSubmit);
+      navigate(-1);
+      toast.success("Thêm sản phẩm thành công");
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useDispatch(addShipmentsThunks(dataSubmit));
     }
   };
 

@@ -10,11 +10,6 @@ export const addShipments = (data: any) => {
   return instance.post(url, data);
 };
 
-export const updateShipments = (data: any) => {
-  const url = `/import_shipments/${data.id}`;
-  return instance.put(url, data);
-};
-
 export const getOneShipment = (id: number | string | undefined) => {
   const url = `/import_shipments/${id}`;
   return instance.get(url);

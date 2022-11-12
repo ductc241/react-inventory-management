@@ -1,4 +1,5 @@
 import PriceSetting from "../modules/priceSetting/priceSetting";
+import ShipMentsForm from "../modules/transaction/shipments/ShipmentsForm";
 import ShipmentsTable from "../modules/transaction/shipments/shipmentsTable";
 import {
   CategoryCreatePage,
@@ -73,5 +74,10 @@ export const appRoutes: IRoute[] = [
     key: 11,
     path: routerPaths.PATH_PRICE_SETTING,
     component: <PriceSetting />
+  },
+  {
+    key: 12,
+    path: routerPaths.PATH_IMPORT_SHIPMENT_ADD,
+    component: <ShipMentsForm />
   }
 ];
