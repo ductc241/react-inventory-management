@@ -5,13 +5,13 @@ import Button from "../../components/Button/Button";
 import { EditIcon, TrashIcon } from "../../components/icons";
 import { ITableColumn } from "../../components/Table/Table.types";
 import { ISupplier } from "../../types/supplier.type";
+
 import FormSupplier from "./FormSupplier";
 
 const TableSupplier = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const [visibleModal, setvisibleModal] = useState<boolean>(false);
   const [data, setData] = useState<any>([]);
-  const [itemAdd, setItemAdd] = useState<any>();
   const addSupplier = async (item: ISupplier) => {
     await add(item);
     setItemAdd(item == itemAdd ? null : item);
@@ -24,6 +24,7 @@ const TableSupplier = () => {
     await setItemUpdate(item);
     setVisible(true);
   };
+  const [itemAdd, setItemAdd] = useState<any>();
   const getSupplier = async () => {
     try {
       const { data } = await list();

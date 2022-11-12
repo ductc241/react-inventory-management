@@ -26,10 +26,11 @@ export const addCategory = createAsyncThunk(
     return res.data;
   }
 );
-export const listCategory = createAsyncThunk("category/list", async () => {
-  const res = await listCategoryAPI();
-  return res.data;
-});
+export const listCategory = createAsyncThunk(
+  "category/list", async () => {
+    const res = await listCategoryAPI();
+    return res.data;
+  });
 export const readCategory = createAsyncThunk(
   "category/read",
   async (id: number) => {
@@ -74,4 +75,4 @@ const categorySlice = createSlice({
     });
   }
 });
-export default categorySlice.reducer;
+export default categorySlice;

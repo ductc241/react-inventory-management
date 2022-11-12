@@ -7,13 +7,14 @@ import { useEffect } from "react";
 import { listCategory, removeCategory } from "../../store/slice/category.slice";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import TongQuy from "./TongQuy";
 
 
 
 
-const CategoryList = () => {
+const SoQuyList = () => {
 
-  const categorys = useSelector((state: any) => state.category?.categorys)
+  const categorys = useSelector((state: any) => state.category.categorys)
   const dispatch = useDispatch<any>()
   useEffect(() => {
     dispatch(listCategory())
@@ -42,8 +43,18 @@ const CategoryList = () => {
   const columns: ITableColumn[] = [
     {
       key: 'id',
-      title: "ID",
+      title: "ID phiếu",
       dataIndex: "id"
+    },
+    {
+      key: 'date',
+      title: "Thời gian",
+      dataIndex: "date"
+    },
+    {
+      key: 'type',
+      title: "Loại thu chi",
+      dataIndex: "type"
     },
     {
       key: 'name',
@@ -56,7 +67,7 @@ const CategoryList = () => {
       dataIndex: "action",
       render: (item) => (
         <div className="flex gap-x-5">
-          
+
           <Link to={`update/${item.id}`}>
             <EditIcon
 
@@ -85,9 +96,12 @@ const CategoryList = () => {
     })} */}
       <div className="flex justify-end mb-5">
         <Link to="/category/add" className="contents">
-          <Button>Thêm nhóm hàng</Button>
+          <Button>Thêm </Button>
         </Link>
       </div>
+
+      <TongQuy />
+
       <Table
         dataSource={categorys}
         column={columns} />
@@ -105,4 +119,4 @@ const CategoryList = () => {
   );
 };
 
-export default CategoryList;
+export default SoQuyList;

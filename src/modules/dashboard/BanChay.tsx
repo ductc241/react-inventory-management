@@ -5,12 +5,12 @@ const BanChay = () => {
   return (
     <div>
       <div className="p-4">
-        <div className="md:col-span-2 xl:col-span-3">
+        <div className="md:col-span-2 xl:col-span-3 mt-2">
           <h3 className="text-lg font-semibold">
             Sản phẩm bán chạy
           </h3>
         </div>
-        <div className="relative flex flex-col min-w-0 mb-4 mt-4 lg:mb-0 break-words bg-gray-50 dark:bg-gray-800 w-full shadow-lg rounded">
+        <div className="relative flex flex-col min-w-0 mb-4 mt-4 lg:mb-0 break-words bg-gray-50 dark:bg-gray-800 w-full shadow-lg rounded border">
           <div className="rounded-t mb-0 px-0 border-0">
             <div className="block w-full overflow-x-auto">
               <table className="items-center w-full bg-transparent border-collapse">

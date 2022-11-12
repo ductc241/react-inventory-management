@@ -18,14 +18,3 @@ export const BrandOptions: IOption[] = [
     value: 4
   }
 ];
-
-export const StatusOptions: IOption[] = [
-  {
-    label: "Active",
-    value: 1
-  },
-  {
-    label: "Inactive",
-    value: 0
-  }
-];

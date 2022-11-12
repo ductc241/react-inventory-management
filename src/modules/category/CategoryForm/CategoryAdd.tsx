@@ -68,7 +68,7 @@ const CategoryAdd = ({ mode }: ICategoryProps) => {
 
     }
   }
-  const categorys = useSelector((state: any) => state.category.categorys)
+  const categorys = useSelector((state: any) => state.category?.categorys)
 
   useEffect(() => {
     dispatch(listCategory())
