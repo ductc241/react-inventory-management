@@ -14,7 +14,7 @@ import { listCategoryAPI } from "../../../api/category";
 import productServices from "../../../api/product.api";
 import { getValueFromOptions } from "../../../utils/select";
 import ProductSchema from "./ProductForm.schema";
-import WarningIcon from "../../../components/icons/WarningIcon";
+import { WarningIcon } from "../../../components/icons";
 
 interface IProductProps {
   mode: "create" | "update";

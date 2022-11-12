@@ -15,7 +15,7 @@ const SidebarThoiGianMua = () => {
                 data-collapse-toggle="dropdown-example"
               >
                 <span className="flex-1 ml-3 text-left whitespace-nowrap">
-                  Thời gain mua
+                  Thời gian mua
                 </span>
                 <div className="add_sidebar mr-2">
                   <Link to="#">
