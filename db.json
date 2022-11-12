@@ -191,5 +191,6 @@
       "sku": 1,
       "supplierId": 3
     }
-  ]
+  ],
+  "orders": []
 }

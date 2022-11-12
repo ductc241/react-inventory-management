@@ -1,18 +1,53 @@
-import { RootState } from "../../../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { AppDispatch, RootState } from "../../../store/store";
 
-import { useSelector } from "react-redux";
 import { Button } from "../../../components";
 import { CloseIcon } from "../../../components/icons";
-import { numberWithCommas } from "../../../utils/funtion";
+import orderServices from "../../../api/order";
+import { deleteOrder } from "../../../store/slice/order.slice";
+import { getDateNow, numberWithCommas } from "../../../utils/funtion";
 
 interface IProps {
   toggleCheckout: () => void;
 }
 
 const NewSale_Checkout = ({ toggleCheckout }: IProps) => {
+  const dispatch: AppDispatch = useDispatch();
   const { currentOrder, orderList } = useSelector(
     (state: RootState) => state.order
   );
+
+  const handleCheckout = async () => {
+    const order = orderList.find((i) => i.id === currentOrder);
+
+    if (!order) return;
+
+    if (order.products.length === 0) {
+      toggleCheckout();
+      toast.warning("Đơn hàng đang trống");
+      return;
+    }
+
+    const orderProducts = order.products.map((item) => {
+      return {
+        id: item.id,
+        quantity: item.quantity,
+        price: item.price
+      };
+    });
+
+    await orderServices.creatOrder({
+      user_id: 1,
+      export_date: getDateNow(),
+      products: orderProducts,
+      total_price: order.total,
+      status: "completed"
+    });
+    toggleCheckout();
+    toast.success("Hoàn thành hóa đơn");
+    dispatch(deleteOrder({ id: currentOrder }));
+  };
 
   return (
     <div className="absolute inset-0 z-[999] bg-[#00000087]">
@@ -31,8 +66,8 @@ const NewSale_Checkout = ({ toggleCheckout }: IProps) => {
             />
           </div>
 
-          <div className="pt-5">
-            <p className="mb-5 text-lg font-semibold">Khách lẻ</p>
+          <div className="pt-5 text-lg">
+            <p className="mb-5 text-xl font-semibold">Khách lẻ</p>
             <div className="flex justify-between mb-3">
               <p>Tổng tiền hàng</p>
               <p className="text-[17px]">
@@ -58,7 +93,9 @@ const NewSale_Checkout = ({ toggleCheckout }: IProps) => {
           </div>
 
           <div className="absolute bottom-5 w-full">
-            <Button fullWidth>Thanh toán</Button>
+            <Button fullWidth onClick={handleCheckout}>
+              Thanh toán
+            </Button>
           </div>
         </div>
       </div>
