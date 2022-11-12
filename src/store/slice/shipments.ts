@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
+  addShipments,
+  deleteShipment,
   getOneShipment,
-  listShipments,
-  updateShipments
+  listShipments
 } from "../../api/shipments";
 
 interface InitialStateType {
@@ -39,11 +40,18 @@ export const getOneShipmentThunk = createAsyncThunk(
   }
 );
 
-export const updateShipmentsThuck = createAsyncThunk(
-  "shipment/updateShipmentsThuck",
-  async (id: number | string | undefined) => {
-    const { data } = await updateShipments(id);
-    return data;
+export const addShipmentsThunks = createAsyncThunk(
+  "shipment/addShipmentsThunks",
+  async (dataShipments: any) => {
+    await addShipments(dataShipments);
+    return dataShipments;
+  }
+);
+
+export const deleteShipmentsThunk = createAsyncThunk(
+  "shipment/removeShipmentsThunk",
+  async (id: any) => {
+    await deleteShipment(id);
   }
 );
 
@@ -57,21 +65,14 @@ const shipmentsSlice = createSlice({
       state.error = false;
       state.shipments = action.payload;
     });
-    builder.addCase(getOneShipmentThunk.fulfilled, (state, action: any) => {
+    builder.addCase(addShipmentsThunks.fulfilled, (state, action) => {
       state.isLoading = false;
       state.error = false;
-      state.shipment = state.shipments.find(
-        (item: any) => item.id === action.payload.id
-      );
     });
-    builder.addCase(
-      updateShipmentsThuck.fulfilled,
-      (state: any, action: any) => {
-        state.isLoading = false;
-        state.error = false;
-        state.shipments = action.payload;
-      }
-    );
+    builder.addCase(deleteShipmentsThunk.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.error = false;
+    });
   }
 });
 

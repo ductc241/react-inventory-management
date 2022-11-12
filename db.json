@@ -102,7 +102,7 @@
   ],
   "import_shipments": [
     {
-      "id": 1,
+      "id": 2,
       "supplierId": 1,
       "import_date": "11/10/2022",
       "import_price_totail": "19000000",
@@ -110,11 +110,27 @@
       "status": true
     },
     {
-      "id": 2,
-      "supplierId": 2,
+      "id": 3,
+      "supplierId": 1,
       "import_date": "11/10/2022",
       "import_price_totail": "19000000",
-      "productId": 2,
+      "productId": 1,
+      "status": true
+    },
+    {
+      "id": 4,
+      "supplierId": 1,
+      "import_date": "11/10/2022",
+      "import_price_totail": "19000000",
+      "productId": 1,
+      "status": true
+    },
+    {
+      "id": 5,
+      "supplierId": 1,
+      "import_date": "11/10/2022",
+      "import_price_totail": "19000000",
+      "productId": 1,
       "status": true
     }
   ],
