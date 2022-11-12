@@ -1,4 +1,5 @@
-import Transaction from "../modules/transaction";
+import PriceSetting from "../modules/priceSetting/priceSetting";
+import ShipmentsTable from "../modules/transaction/shipments/shipmentsTable";
 import {
   CategoryCreatePage,
   CategoryListPage,
@@ -41,7 +42,7 @@ export const appRoutes: IRoute[] = [
   {
     key: 5,
     path: routerPaths.PATH_IMPORT_SHIPMENT,
-    component: <Transaction />
+    component: <ShipmentsTable />
   },
   {
     key: 6,
@@ -67,5 +68,10 @@ export const appRoutes: IRoute[] = [
     key: 10,
     path: routerPaths.PATH_SoQuy,
     component: <SoQuyListPage />
+  },
+  {
+    key: 11,
+    path: routerPaths.PATH_PRICE_SETTING,
+    component: <PriceSetting />
   }
 ];
