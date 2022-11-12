@@ -8,10 +8,12 @@ export const PATH_PRODUCTS = "/products";
 export const PATH_PRODUCTS_ADD = "/products/add";
 export const PATH_PRODUCTS_UPDATE = "/products/update/:id";
 
-export const PATH_SIGNIN = "/signin";
-
 export const PATH_SUPPLIER = "/supplier";
+
+export const PATH_SIGNIN = "/signin";
 export const PATH_SIGNUP = "/signup";
+
+export const PATH_NEW_SALE = "/new-sale";
 
 export const PATH_IMPORT_SHIPMENT = "/import_shipments";
 export const PATH_IMPORT_SHIPMENT_ADD = "/import_shipments/add";

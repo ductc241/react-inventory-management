@@ -31,7 +31,7 @@ const TextField = forwardRef(
           name={name}
           className={clsx(
             "border border-[#DEDEDE] rounded-lg outline-none",
-            "w-full px-4 py-3 h-12",
+            "w-full px-4 py-3 py-5 h-12",
             error ? "focus:border-red-500" : "focus:border-blue-500",
             className
           )}
