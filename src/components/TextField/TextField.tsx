@@ -21,7 +21,7 @@ const TextField = forwardRef(
         {label && (
           <label htmlFor={name} className="block mb-1 text-base">
             {label}
-            {required && <span className="ml-1 text-red-500">*</span>}
+            {required && <span className="ml-1 text-red-secondary">*</span>}
           </label>
         )}
 

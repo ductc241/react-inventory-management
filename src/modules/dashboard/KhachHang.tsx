@@ -12,7 +12,7 @@ const KhachHang = () => {
             Khách hàng
           </h3>
         </div>
-        <div className="w-full overflow-hidden rounded-lg shadow-xs py-4">
+        <div className="w-full overflow-hidden rounded-lg shadow-xs mt-4 border shadow-lg">
           <div className="w-full overflow-x-auto">
             <table className="w-full">
               <thead>

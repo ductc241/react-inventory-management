@@ -143,7 +143,7 @@ const Header = () => {
                 <li>
                   <div className="group inline-block">
                     <ul className="outline-none focus:outline-none px-3 py-1 rounded-sm flex items-center min-w-32">
-                      <span className="pr-1 font-semibold flex-1">Số quỹ</span>
+                      <Link to="soquy" className="pr-1 font-semibold flex-1">Số quỹ</Link>
                     </ul>
                   </div>
                 </li>
@@ -302,7 +302,7 @@ const Header = () => {
                       </p>
                     </li>
                     <li>
-                      <Link to="#">Số quỹ</Link>
+                      <Link to="/soquy">Số quỹ</Link>
                     </li>
                   </ul>
                 </div>
