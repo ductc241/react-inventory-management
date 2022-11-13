@@ -1,4 +1,5 @@
 import PriceSetting from "../modules/priceSetting/priceSetting";
+import DetailReceipt from "../modules/receipt/DetailReceipt";
 import ShipMentsForm from "../modules/transaction/shipments/ShipmentsForm";
 import ShipmentsTable from "../modules/transaction/shipments/shipmentsTable";
 import {
@@ -12,6 +13,7 @@ import {
   ProductListPage,
   ProductUpdatePage
 } from "../pages/product";
+import ReceiptPages from "../pages/receipt/ReceiptPages";
 import SoQuyListPage from "../pages/SoQuy/SoQuyListPage";
 import SuplierPage from "../pages/supplier/SupllierPage";
 
@@ -79,5 +81,15 @@ export const appRoutes: IRoute[] = [
     key: 12,
     path: routerPaths.PATH_IMPORT_SHIPMENT_ADD,
     component: <ShipMentsForm />
+  },
+  {
+    key: 13,
+    path: routerPaths.PATH_RECEIPT,
+    component: <ReceiptPages />
+  },
+  {
+    key: 14,
+    path: routerPaths.PATH_RECEIPT_ID,
+    component: <DetailReceipt />
   }
 ];

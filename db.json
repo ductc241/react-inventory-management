@@ -208,5 +208,42 @@
       "supplierId": 3
     }
   ],
-  "orders": []
+  "orders": [
+    {
+      "id": "HD000046",
+      "codeBill": "HD000046",
+      "product": [
+        {
+          "plu": "NB003",
+          "product_name": "Nồi cơm điện Sharp KSH-322V",
+          "quantity": 19,
+          "unit_price": 750000,
+          "Discount": "",
+          "price": 750000,
+          "into_money": 14250000
+        },
+        {
+          "plu": "TBDCN002",
+          "product_name": "Máy phát điện Hyundai DHY9KSEM",
+          "quantity": 20,
+          "unit_price": 170800000,
+          "Discount": "",
+          "price": 170800000,
+          "into_money": 3416000000
+        }
+      ]
+    }
+  ],
+  "receipt": [
+    {
+      "id": 1,
+      "codeBill": "HD000046",
+      "Time": "2022-07-22",
+      "PayingCode": "",
+      "Client": "Chị Lý - Kim Mã",
+      "TotalAmount": 3430250000,
+      "Discount": "",
+      "CustomerPaid": 3430250000
+    }
+  ]
 }

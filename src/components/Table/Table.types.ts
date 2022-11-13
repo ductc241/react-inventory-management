@@ -6,6 +6,7 @@ export interface ITableProps {
   textAlign?: "left" | "center" | "right";
   className?: string;
   loading?: boolean;
+  link?: boolean;
 }
 
 export interface ITableColumn {

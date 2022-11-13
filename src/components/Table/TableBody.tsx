@@ -1,28 +1,46 @@
 import clsx from "clsx";
+import { Link } from "react-router-dom";
 import { ITableColumn } from "./Table.types";
 interface ITableBodyProps {
   data: any[];
   tableColumn: ITableColumn[];
   className?: string;
   loading?: boolean;
+  link?: boolean;
 }
 
 const TableBody = ({
   data,
   tableColumn,
   className,
-  loading
+  loading,
+  link
 }: ITableBodyProps) => {
+  console.log(link, "gdfhdf");
   const renderRow = (record: any) =>
     tableColumn.map((column) => (
       <td
         key={column.key}
         className={clsx(
-          "p-[14px] first:pl-[24px] last:pr-[24px] text-sm",  
+          "p-[14px] first:pl-[24px] last:pr-[24px] text-sm",
           className
         )}
       >
         {column.render ? column.render(record) : record[column.dataIndex]}
+      </td>
+    ));
+
+  const renderRowLink = (record: any) =>
+    tableColumn.map((column) => (
+      <td
+        className={clsx(
+          "p-[14px] first:pl-[24px] last:pr-[24px] text-sm",
+          className
+        )}
+      >
+        <Link to={`/receipt/${record.id}`}>
+          {column.render ? column.render(record) : record[column.dataIndex]}
+        </Link>
       </td>
     ));
 
@@ -45,7 +63,7 @@ const TableBody = ({
         key={index}
         className="border-b border-gray-200 text-lg leading-[27px] text-[#311339] hover:bg-emerald-50"
       >
-        {renderRow(record)}
+        {link == true ? renderRowLink(record) : renderRow(record)}
       </tr>
     ));
   };
