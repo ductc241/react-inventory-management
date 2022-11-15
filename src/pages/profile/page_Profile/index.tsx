@@ -1,5 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
+import { Modal } from '../../../components'
+import ListQuyen from '../ListQuyen'
 
 type Props = {}
 
@@ -45,7 +47,7 @@ const Profile = (props: Props) => {
                 </div>
                 <div className="text-center mt-24 md:text-left md:-mt-12 md:ml-[350px]">
                   <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-                    Tên cửa hàng
+                    Tên Admin
                   </h3>
                   <div className="text-base leading-normal mt-0 mb-2 text-blueGray-400 font-bold">
                     <i className="far fa-envelope mr-2 text-lg text-blueGray-400" />
@@ -62,26 +64,19 @@ const Profile = (props: Props) => {
 
                   <div className="md:text-right md:-mt-44">
                     <div className="py-2 px-3 sm:mt-0">
-                      <button className="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
+                      <button className="bg-[#00263a] active:bg-teal-800 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
                         Chỉnh sửa thông tin
                       </button>
                     </div>
                   </div>
                 </div>
                 <div className="mt-10 py-10 border-t border-blueGray-200 text-center md:mt-48">
-                  <div className="flex flex-wrap justify-center">
-                    <div className="w-full lg:w-9/12 px-4">
-                      <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
-                        An artist of considerable range, Jenna the name taken by
-                        Melbourne-raised, Brooklyn-based Nick Murphy writes,
-                        performs and records all of his own music, giving it a
-                        warm, intimate feel with a solid groove structure. An
-                        artist of considerable range.
-                        fas fa-undo
-                      </p>
-                      <a href="#pablo" className="font-normal text-pink-500">Show more</a>
-                    </div>
+                  <div className="md:col-span-2 xl:col-span-3">
+                    <h3 className="text-2xl font-semibold">
+                      Quản lý quyền
+                    </h3>
                   </div>
+                  <ListQuyen />
                 </div>
               </div>
             </div>

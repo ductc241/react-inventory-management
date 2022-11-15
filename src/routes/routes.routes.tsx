@@ -1,3 +1,4 @@
+import { Children } from "react";
 import Transaction from "../modules/transaction";
 import {
   CategoryCreatePage,
@@ -10,12 +11,14 @@ import {
   ProductListPage,
   ProductUpdatePage
 } from "../pages/product";
-import Profile from "../pages/profile";
+import Profile from "../pages/profile/page_Profile";
+import ListQuyen from "../pages/profile/ListQuyen";
 import SoQuyListPage from "../pages/SoQuy/SoQuyListPage";
 import SuplierPage from "../pages/supplier/SupllierPage";
 
 import IRoute from "../types/router.type";
 import * as routerPaths from "./routes.paths";
+import PhanQuyenPage from "../pages/profile/page_Profile/PhanQuyenPage";
 
 export const appRoutes: IRoute[] = [
   {
@@ -73,5 +76,15 @@ export const appRoutes: IRoute[] = [
     key: 11,
     path: routerPaths.PATH_Profile,
     component: <Profile />
+  },
+  {
+    key: 12,
+    path: routerPaths.PATH_ListQuyen,
+    component: <ListQuyen />
+  },
+  {
+    key: 13,
+    path: routerPaths.PATH_PhanQuyen,
+    component: <PhanQuyenPage />
   }
 ];
