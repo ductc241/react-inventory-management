@@ -10,6 +10,7 @@ import {
   ProductListPage,
   ProductUpdatePage
 } from "../pages/product";
+import Profile from "../pages/profile";
 import SoQuyListPage from "../pages/SoQuy/SoQuyListPage";
 import SuplierPage from "../pages/supplier/SupllierPage";
 
@@ -67,5 +68,10 @@ export const appRoutes: IRoute[] = [
     key: 10,
     path: routerPaths.PATH_SoQuy,
     component: <SoQuyListPage />
+  },
+  {
+    key: 11,
+    path: routerPaths.PATH_Profile,
+    component: <Profile />
   }
 ];

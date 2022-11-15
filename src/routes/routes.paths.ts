@@ -18,3 +18,6 @@ export const PATH_IMPORT_SHIPMENT_ADD = "/import_shipments/add";
 export const PATH_IMPORT_SHIPMENT_UPDATE = "/import_shipments/update/:id";
 
 export const PATH_SoQuy = "/soquy";
+
+export const PATH_Profile = "/profile";
+
