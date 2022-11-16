@@ -22,3 +22,7 @@ export const PATH_IMPORT_SHIPMENT_UPDATE = "/import_shipments/update/:id";
 export const PATH_SoQuy = "/soquy";
 
 export const PATH_PRICE_SETTING = "/price-setting";
+
+export const  PATH_RECEIPT = "/receipt"
+
+export const PATH_RECEIPT_ID = "/receipt/:id";
