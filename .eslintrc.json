@@ -18,6 +18,7 @@
     "project": ["./tsconfig.json"]
   },
   "plugins": ["react", "@typescript-eslint", "prettier", "react-hooks"],
+  "ignorePatterns": ["tailwind.config.cjs"],
   "rules": {
     "prettier/prettier": ["warn"],
     "react/jsx-filename-extension": [

@@ -1,5 +1,8 @@
 import { Children } from "react";
-import Transaction from "../modules/transaction";
+import PriceSetting from "../modules/priceSetting/priceSetting";
+import DetailReceipt from "../modules/receipt/DetailReceipt";
+import ShipMentsForm from "../modules/transaction/shipments/ShipmentsForm";
+import ShipmentsTable from "../modules/transaction/shipments/shipmentsTable";
 import {
   CategoryCreatePage,
   CategoryListPage,
@@ -13,6 +16,7 @@ import {
 } from "../pages/product";
 import Profile from "../pages/profile/page_Profile";
 import ListQuyen from "../pages/profile/ListQuyen";
+import ReceiptPages from "../pages/receipt/ReceiptPages";
 import SoQuyListPage from "../pages/SoQuy/SoQuyListPage";
 import SuplierPage from "../pages/supplier/SupllierPage";
 
@@ -45,7 +49,7 @@ export const appRoutes: IRoute[] = [
   {
     key: 5,
     path: routerPaths.PATH_IMPORT_SHIPMENT,
-    component: <Transaction />
+    component: <ShipmentsTable />
   },
   {
     key: 6,
@@ -86,5 +90,26 @@ export const appRoutes: IRoute[] = [
     key: 13,
     path: routerPaths.PATH_PhanQuyen,
     component: <PhanQuyenPage />
+  },
+  {
+    key: 14,
+    path: routerPaths.PATH_PRICE_SETTING,
+    component: <PriceSetting />
+  },
+  {
+    key: 15,
+    path: routerPaths.PATH_IMPORT_SHIPMENT_ADD,
+    component: <ShipMentsForm />
+  },
+  {
+    key: 16,
+    path: routerPaths.PATH_RECEIPT,
+    component: <ReceiptPages />
+  },
+  {
+    key: 17,
+    path: routerPaths.PATH_RECEIPT_ID,
+    component: <DetailReceipt />
   }
+
 ];

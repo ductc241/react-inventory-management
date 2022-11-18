@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Select, Table } from "../../../components";
-import { TrashIcon } from "../../../components/icons";
+import ReactPaginate from "react-paginate";
+import { Link } from "react-router-dom";
+import { Modal, Select, Table } from "../../../components";
+import { Caret, TrashIcon } from "../../../components/icons";
 import { ITableColumn } from "../../../components/Table/Table.types";
 import { useAppDispatch, useAppSelector } from "../../../hook/hook";
-import { getShipmentThunk } from "../../../store/slice/shipments";
+import {
+  deleteShipmentsThunk,
+  getShipmentThunk
+} from "../../../store/slice/shipments";
 import IOption from "../../../types/option.model";
 import { BrandOptions } from "../../product/ProductForm/ProductForm.constants";
 
@@ -12,12 +16,26 @@ const ShipmentsTable = () => {
   const [valueSelect, setValueSelect] = useState<IOption>();
   const useSelector = useAppSelector;
   const useDispatch = useAppDispatch();
-  const navigate = useNavigate();
   const { shipments } = useSelector((store) => store.shipment);
+  const [open, setOpen] = useState(false);
+  const [idDelete, setIdDelete] = useState(0);
 
+  const handleConfirm = () => {
+    if (idDelete !== 0) {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useDispatch(deleteShipmentsThunk(+idDelete));
+    }
+    setOpen(false);
+  };
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useDispatch(getShipmentThunk());
-  }, [useDispatch]);
+  }, [idDelete, useDispatch]);
+
+  const handleDelete = (id: any) => {
+    setOpen(true);
+    setIdDelete(id);
+  };
 
   const columns: ITableColumn[] = [
     {
@@ -75,6 +93,7 @@ const ShipmentsTable = () => {
           <TrashIcon
             className="cursor-pointer fill-red-400 hover:fill-red-600"
             width={20}
+            onClick={() => handleDelete(id)}
           />
         </div>
       )
@@ -96,8 +115,22 @@ const ShipmentsTable = () => {
           </div>
         </Link>
       </div>
+      <Modal
+        visible={open}
+        title="Xoá phiếu nhập"
+        onCancel={() => setOpen(false)}
+        onOk={() => handleConfirm()}
+      />
       <div>
         <Table column={columns} dataSource={shipments} />
+        <ReactPaginate
+          pageCount={10}
+          containerClassName="pagination mt-5"
+          pageClassName="pagination_item"
+          activeClassName="pagination_active"
+          previousLabel={<Caret width={"15px"} />}
+          nextLabel={<Caret className="rotate-180" width={"15px"} />}
+        />
       </div>
     </div>
   );

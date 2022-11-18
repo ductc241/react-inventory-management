@@ -6,11 +6,12 @@ import LayoutMain from "./layouts/Layout";
 import PrivateRouter from "./routes/PrivateRouter";
 
 import IRoute from "./types/router.type";
-import { PATH_SIGNIN, PATH_SIGNUP } from "./routes/routes.paths";
+import { PATH_SIGNIN, PATH_SIGNUP, PATH_NEW_SALE } from "./routes/routes.paths";
 
 import Signup from "./modules/login/signup/signup";
 import Signin from "./modules/login/signIn/signin";
 import NotFound404 from "./pages/not_found/404";
+import NewSalePage from "./pages/new_sale/NewSalePage";
 
 const App = () => {
   return (
@@ -37,6 +38,8 @@ const App = () => {
             <Route index element={<Navigate to="dashboard" />} />
             <Route path="dashboard" element={<DashboardPage />} />
           </Route> */}
+
+          <Route path={PATH_NEW_SALE} element={<NewSalePage />} />
 
           <Route path={PATH_SIGNIN} element={<Signin />} />
           <Route path={PATH_SIGNUP} element={<Signup />} />
