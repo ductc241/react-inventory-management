@@ -2,13 +2,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   addShipments,
   deleteShipment,
-  getOneShipment,
   listShipments
 } from "../../api/shipments";
 
 interface InitialStateType {
   shipments: any;
-  shipment: any;
   error: boolean;
   isLoading: boolean;
   total: number;
@@ -17,7 +15,6 @@ interface InitialStateType {
 
 const initialState: InitialStateType = {
   shipments: [],
-  shipment: "",
   isLoading: false,
   error: false,
   total: 0,
@@ -28,14 +25,6 @@ export const getShipmentThunk = createAsyncThunk(
   "shipment/getShipmentThunk",
   async () => {
     const { data } = await listShipments();
-    return data;
-  }
-);
-
-export const getOneShipmentThunk = createAsyncThunk(
-  "shipment/getOneShipmentThunk",
-  async (id: number | string) => {
-    const { data } = await getOneShipment(id);
     return data;
   }
 );
