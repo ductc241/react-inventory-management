@@ -9,8 +9,10 @@ const Table = ({
   column,
   textAlign = "left",
   className,
-  loading
+  loading,
+  link
 }: ITableProps) => {
+  console.log(column, "fsdg");
   return (
     <div className="overflow-hidden shadow-md rounded-lg border border-gray-200">
       <table className={clsx("w-full", className)}>
@@ -20,6 +22,7 @@ const Table = ({
           data={dataSource}
           className={`text-${textAlign}`}
           loading={loading}
+          link={link}
         />
       </table>
     </div>

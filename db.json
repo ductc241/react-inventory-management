@@ -92,12 +92,46 @@
   ],
   "import_shipments": [
     {
-      "id": 1,
+      "id": 2,
       "supplierId": 1,
       "import_date": "11/10/2022",
       "import_price_totail": "19000000",
       "productId": 1,
       "status": true
+    },
+    {
+      "id": 6,
+      "supplierId": 1,
+      "import_date": "11/10/2022",
+      "import_price_totail": "19000000",
+      "productId": 1,
+      "status": true
+    },
+    {
+      "id": 3,
+      "supplierId": 1,
+      "import_date": "11/10/2022",
+      "import_price_totail": "19000000",
+      "productId": 1,
+      "status": true
+    },
+    {
+      "id": 4,
+      "supplierId": 1,
+      "import_date": "11/10/2022",
+      "import_price_totail": "19000000",
+      "productId": 1,
+      "status": true
+    },
+    {
+      "supplierId": 1,
+      "import_price_totail": 1000000,
+      "status": true,
+      "productId": 1,
+      "supplier_id": 0,
+      "import_date": "11/17/2022",
+      "products": [],
+      "id": 7
     }
   ],
   "suppliers": [
@@ -122,7 +156,7 @@
       "id": 1,
       "name": "Sam Sung",
       "category_id": 1,
-      "impost_price": 150000,
+      "import_price": 150000,
       "price": 200000,
       "quantity": 10,
       "description": "Dien thoai rat dep",
@@ -135,7 +169,7 @@
       "id": 2,
       "name": "IPhone",
       "category_id": 1,
-      "impost_price": 250000,
+      "import_price": 250000,
       "price": 300000,
       "quantity": 10,
       "description": "Dien thoai rat dep",
@@ -148,7 +182,7 @@
       "id": 3,
       "name": "IPhone 14 pro",
       "category_id": 1,
-      "impost_price": 1500000,
+      "import_price": 1500000,
       "price": 1000000,
       "quantity": 5,
       "description": "Dien thoai rat dep",
@@ -161,7 +195,7 @@
       "id": 4,
       "name": "IPhone 14 pro Max",
       "category_id": 1,
-      "impost_price": 1500000,
+      "import_price": 1500000,
       "price": 1000000,
       "quantity": 5,
       "description": "Dien thoai rat dep",
@@ -174,7 +208,7 @@
       "id": 5,
       "name": "Nokia 6300",
       "category_id": 1,
-      "impost_price": 1500000,
+      "import_price": 1500000,
       "price": 1000000,
       "quantity": 100,
       "description": "Dien thoai rat dep",
@@ -182,7 +216,57 @@
       "warranty_date": "11/10/2022",
       "sku": 1,
       "supplierId": 3
+    },
+    {
+      "id": 6,
+      "name": "Sam Sung",
+      "category_id": 1,
+      "import_price": 150000,
+      "price": 200000,
+      "quantity": 10,
+      "description": "Dien thoai rat dep",
+      "status": 1,
+      "warranty_date": "11/10/2022",
+      "sku": 1,
+      "supplierId": 1
     }
   ],
-  "orders": []
+  "orders": [
+    {
+      "id": "HD000046",
+      "codeBill": "HD000046",
+      "product": [
+        {
+          "plu": "NB003",
+          "product_name": "Nồi cơm điện Sharp KSH-322V",
+          "quantity": 19,
+          "unit_price": 750000,
+          "Discount": "",
+          "price": 750000,
+          "into_money": 14250000
+        },
+        {
+          "plu": "TBDCN002",
+          "product_name": "Máy phát điện Hyundai DHY9KSEM",
+          "quantity": 20,
+          "unit_price": 170800000,
+          "Discount": "",
+          "price": 170800000,
+          "into_money": 3416000000
+        }
+      ]
+    }
+  ],
+  "receipt": [
+    {
+      "id": 1,
+      "codeBill": "HD000046",
+      "Time": "2022-07-22",
+      "PayingCode": "",
+      "Client": "Chị Lý - Kim Mã",
+      "TotalAmount": 3430250000,
+      "Discount": "",
+      "CustomerPaid": 3430250000
+    }
+  ]
 }

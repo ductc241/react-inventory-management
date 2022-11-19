@@ -1,13 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
-  getOneShipment,
-  listShipments,
-  updateShipments
+  addShipments,
+  deleteShipment,
+  listShipments
 } from "../../api/shipments";
 
 interface InitialStateType {
   shipments: any;
-  shipment: any;
   error: boolean;
   isLoading: boolean;
   total: number;
@@ -16,7 +15,6 @@ interface InitialStateType {
 
 const initialState: InitialStateType = {
   shipments: [],
-  shipment: "",
   isLoading: false,
   error: false,
   total: 0,
@@ -31,19 +29,18 @@ export const getShipmentThunk = createAsyncThunk(
   }
 );
 
-export const getOneShipmentThunk = createAsyncThunk(
-  "shipment/getOneShipmentThunk",
-  async (id: number | string) => {
-    const { data } = await getOneShipment(id);
-    return data;
+export const addShipmentsThunks = createAsyncThunk(
+  "shipment/addShipmentsThunks",
+  async (dataShipments: any) => {
+    await addShipments(dataShipments);
+    return dataShipments;
   }
 );
 
-export const updateShipmentsThuck = createAsyncThunk(
-  "shipment/updateShipmentsThuck",
-  async (id: number | string | undefined) => {
-    const { data } = await updateShipments(id);
-    return data;
+export const deleteShipmentsThunk = createAsyncThunk(
+  "shipment/removeShipmentsThunk",
+  async (id: any) => {
+    await deleteShipment(id);
   }
 );
 
@@ -57,21 +54,14 @@ const shipmentsSlice = createSlice({
       state.error = false;
       state.shipments = action.payload;
     });
-    builder.addCase(getOneShipmentThunk.fulfilled, (state, action: any) => {
+    builder.addCase(addShipmentsThunks.fulfilled, (state, action) => {
       state.isLoading = false;
       state.error = false;
-      state.shipment = state.shipments.find(
-        (item: any) => item.id === action.payload.id
-      );
     });
-    builder.addCase(
-      updateShipmentsThuck.fulfilled,
-      (state: any, action: any) => {
-        state.isLoading = false;
-        state.error = false;
-        state.shipments = action.payload;
-      }
-    );
+    builder.addCase(deleteShipmentsThunk.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.error = false;
+    });
   }
 });
 
