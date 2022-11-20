@@ -28,7 +28,6 @@ const ShipmentsTable = () => {
     setOpen(false);
   };
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     useDispatch(getShipmentThunk());
   }, [idDelete, useDispatch]);
 
