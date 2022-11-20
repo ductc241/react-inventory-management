@@ -1,89 +1,88 @@
 import { useEffect, useState } from "react";
-import { list } from "../../api/receipt.api";
+import { useForm } from "react-hook-form";
+import { listRecei } from "../../api/receipt.api";
+import { list } from "../../api/supplier.api";
 import { Modal, Table } from "../../components";
 import Button from "../../components/Button/Button";
 import { ITableColumn } from "../../components/Table/Table.types";
 
-const TableReceipt = () => {
-  const [visible, setVisible] = useState<boolean>(false);
-  const [visibleModal, setvisibleModal] = useState<boolean>(false);
+type Props = {
+  visible?: boolean;
+  updateVisible?: (e: boolean) => void;
+};
+
+type Inputs = {
+  supplierCode: string;
+  name: string;
+  email: string;
+  phone: string;
+  company: string;
+  address: string;
+  taxCode: string;
+  area: string;
+  group: string;
+  wards: string;
+  note: string;
+};
+
+const TableReceipt = (props: Props) => {
   const [data, setData] = useState<any>([]);
 
-  const getSupplier = async () => {
+  const getReceipt = async () => {
     try {
-      const { data } = await list();
+      const { data } = await listRecei();
+
       setData(data);
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
-    getSupplier();
+    getReceipt();
   }, []);
+
   const columns: ITableColumn[] = [
     {
       key: 1,
-      title: "Mã hóa dơn",
+      title: "ID",
       dataIndex: "codeBill"
     },
     {
       key: 2,
-      title: "Thời gian",
+      title: "Ngày",
       dataIndex: "Time"
     },
     {
       key: 3,
-      title: "Mã trả hàng",
-      dataIndex: "PayingCode"
+      title: "Kho hàng",
+      dataIndex: "Kho hàng"
     },
     {
       key: 4,
-      title: "Khách hàng",
+      title: "Sản phẩm",
       dataIndex: "Client"
     },
     {
       key: 5,
-      title: "Tổng tiền hàng",
+      title: "Số lượng",
       dataIndex: "TotalAmount"
     },
     {
       key: 6,
-      title: "Giảm giá",
+      title: "Tổng tiền",
       dataIndex: "Discount"
     },
     {
       key: 7,
-      title: "Khách hàng đã trả",
+      title: "Người tạo",
       dataIndex: "CustomerPaid"
     }
-
-    // {
-    //   key: 5,
-    //   title: "Action",
-    //   dataIndex: "action",
-    //   render: (item: ISupplier) => (
-    //     <div className="flex gap-x-5">
-    //       <EditIcon
-    //         className="cursor-pointer fill-blue-400 hover:fill-blue-600"
-    //         width={20}
-    //         onClick={() => itemEdit(item.id)}
-    //       />
-    //       <TrashIcon
-    //         className="cursor-pointer fill-red-400 hover:fill-red-600"
-    //         width={20}
-    //         onClick={() => {
-    //           setvisibleModal(true);
-    //           setId(item.id);
-    //         }}
-    //       />
-    //     </div>
-    //   )
-    // }
   ];
-  console.log(data);
+
   return (
     <>
-      <Table dataSource={data} column={columns} link={true} />
+      List Table
+      {/* <Table dataSource={data} column={columns} link={true} /> */}
     </>
   );
 };

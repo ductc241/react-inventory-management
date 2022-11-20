@@ -1,7 +1,9 @@
 import PriceSetting from "../modules/priceSetting/priceSetting";
 import DetailReceipt from "../modules/receipt/DetailReceipt";
+import ExportShipments from "../modules/transaction/ExportShipments/Index";
 import ShipMentsForm from "../modules/transaction/shipments/ShipmentsForm";
 import ShipmentsTable from "../modules/transaction/shipments/shipmentsTable";
+import TransactionTable from "../modules/transaction/TransactionTable";
 import {
   CategoryCreatePage,
   CategoryListPage,
@@ -85,11 +87,16 @@ export const appRoutes: IRoute[] = [
   {
     key: 13,
     path: routerPaths.PATH_RECEIPT,
-    component: <ReceiptPages />
+    component: <TransactionTable />
   },
   {
     key: 14,
     path: routerPaths.PATH_RECEIPT_ID,
     component: <DetailReceipt />
+  },
+  {
+    key: 15,
+    path: routerPaths.PATH_EXPORT_SHIPMENT,
+    component: <ExportShipments />
   }
 ];
