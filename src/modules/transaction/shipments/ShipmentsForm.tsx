@@ -16,7 +16,7 @@ import {
 import { TrashIcon } from "../../../components/icons";
 import { toast } from "react-toastify";
 import FormatNumber from "../../../components/formatNumber/formatNumber";
-import { useAppDispatch, useAppSelector } from "../../../hook/hook";
+import { useAppDispatch } from "../../../hook/hook";
 import { addShipmentsThunks } from "../../../store/slice/shipments";
 import { IProduct } from "../../../types/product.type";
 
@@ -101,6 +101,17 @@ const ShipMentsForm = () => {
     });
     let totalArr = 0;
 
+    const arr1 = [...totalShipments];
+
+    const arr2 = arr1.map((item) => {
+      return {
+        ...item,
+        total: item.import_price * item.quantity
+      };
+    });
+
+    console.log(arr2);
+
     if (totalShipments !== undefined) {
       totalArr = totalShipments.reduce(
         (a, b) =>
@@ -149,7 +160,6 @@ const ShipMentsForm = () => {
         <NavLink to="/import_shipments">
           <span className="text-xl font-bold mb-5 inline-block">Nhập hàng</span>
         </NavLink>
-        {/* <Table dataSource={listProduct} column={columns} /> */}
         <div className="mb-5">
           <table className="w-full table border">
             <thead className="text-left">
