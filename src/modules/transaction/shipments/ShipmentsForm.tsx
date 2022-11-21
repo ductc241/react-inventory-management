@@ -9,16 +9,14 @@ import {
 
 import { Button, TextField } from "../../../components";
 import React, { useEffect, useState } from "react";
-import {
-  getDataSupplierProductApi,
-  getSuppliersApi
-} from "../../../api/shipments";
+import { getSuppliersApi } from "../../../api/shipments";
 import { TrashIcon } from "../../../components/icons";
 import { toast } from "react-toastify";
 import FormatNumber from "../../../components/formatNumber/formatNumber";
 import { useAppDispatch } from "../../../hook/hook";
 import { addShipmentsThunks } from "../../../store/slice/shipments";
 import { IProduct } from "../../../types/product.type";
+import productServices from "../../../api/product.api";
 
 type Inputs = {
   supplier_id: number;
@@ -33,9 +31,9 @@ type Inputs = {
 const ShipMentsForm = () => {
   const [valueSelect, setValueSelect] = useState<any>("");
   const [suppliersOptions, setSuppliersOptions] = useState([]);
+  const [idNcc, setIdNCC] = useState(0);
   const [showSuggest, setShowSuggest] = useState(false);
   const [productsSelects, setProductsSelects] = useState<any | undefined>([]);
-  const [number, setNumber] = useState(0);
   const useDispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -57,13 +55,11 @@ const ShipMentsForm = () => {
   // Call API theo nhà cung cấp
   useEffect(() => {
     const getShipemnteProductsAPI = async () => {
-      if (number !== 0) {
-        const { data } = await getDataSupplierProductApi(number);
-        setProductsSelects(data.products1);
-      }
+      const { data } = await productServices.getProducts();
+      setProductsSelects(data.data);
     };
     getShipemnteProductsAPI();
-  }, [number]);
+  }, []);
 
   const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValueSelect(e.target.value);
@@ -75,23 +71,23 @@ const ShipMentsForm = () => {
   });
 
   const hanldeClick = (item: any) => {
+    setIdNCC(item.id);
     setValueSelect(item.name);
     setShowSuggest(false);
-    setNumber(item.id);
     remove();
   };
 
+  const handleBlur = () => {
+    setShowSuggest(false);
+  };
+
   const hanldeAddProduct = (item: IProduct) => {
-    if (valueSelect !== 0) {
-      prepend({
-        id: item.id,
-        name: item.name,
-        quantity: item.quantity,
-        import_price: item.import_price
-      });
-    } else if (valueSelect == 0) {
-      toast.warning("Bạn cần nhập nhà cung cấp!!");
-    }
+    prepend({
+      id: item.id,
+      name: item.name,
+      quantity: item.quantity,
+      import_price: item.import_price
+    });
   };
 
   const TotalAmout = ({ control }: { control: Control<Inputs> }) => {
@@ -100,17 +96,6 @@ const ShipMentsForm = () => {
       name: "products"
     });
     let totalArr = 0;
-
-    const arr1 = [...totalShipments];
-
-    const arr2 = arr1.map((item) => {
-      return {
-        ...item,
-        total: item.import_price * item.quantity
-      };
-    });
-
-    console.log(arr2);
 
     if (totalShipments !== undefined) {
       totalArr = totalShipments.reduce(
@@ -128,27 +113,25 @@ const ShipMentsForm = () => {
       </p>
     );
   };
-
   const onSubmit: SubmitHandler<Inputs> = (data: any) => {
+    if (idNcc === 0) {
+      return;
+    }
+
     const date = new Date();
+
+    const d = date.getDate();
+    const y = date.getFullYear();
+    const m = date.getMonth();
     const dataSubmit = {
-      supplierId: 1,
-      import_price_totail: 1000000,
-      status: true,
-      productId: 1,
-      supplier_id: +number,
-      import_date: date.toLocaleDateString(),
+      supplier_id: +idNcc,
+      import_date: `${d}/${+m + 1}/${y}`,
       ...data
     };
-    if (number === 0) {
-      toast.warning("Phiếu chưa có sản phẩm nào");
-    } else if (number !== 0) {
-      console.log(dataSubmit);
-      navigate(-1);
-      toast.success("Thêm sản phẩm thành công");
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useDispatch(addShipmentsThunks(dataSubmit));
-    }
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useDispatch(addShipmentsThunks(dataSubmit));
+    toast.success("Tạo phiếu nhập hàng thành công");
+    navigate(-1);
   };
 
   return (
@@ -251,20 +234,21 @@ const ShipMentsForm = () => {
         </div>
         <span className="flex justify-end mb-5 text-lg">
           Tổng số tiền nhập hàng:
-          <TotalAmout control={control} />
+          {control && <TotalAmout control={control} />}
         </span>
       </div>
       <div className="p-3 border flex flex-col mt-8 h-[65vh] justify-between">
-        <div className="overflow-auto">
+        <div className="overflow-auto relative">
           <TextField
             value={valueSelect}
             label="Nhà cung cấp"
             placeholder="Tìm kiếm nhà cung cấp..."
             onChange={handleChangeValue}
             name="supplior"
+            onBlur={handleBlur}
           />
           {showSuggest && valueSelect !== "" && (
-            <ul className="mt-2 rounded">
+            <ul className="mt-2 rounded z-50 absolute w-full cursor-pointer">
               {matchs.map((item: any, key) => {
                 return (
                   <li
@@ -279,11 +263,11 @@ const ShipMentsForm = () => {
             </ul>
           )}
           <div className="overflow-y-scroll">
-            <h4 className="mt-5 text-md">Sản phẩm của nhà cung cấp:</h4>
+            <h4 className="mt-5 text-md">Sản phẩm hiện có:</h4>
             {productsSelects?.map((item: any) => (
               <div
                 key={item.id}
-                className="flex gap-5 p-4 cursor-pointer w-full border-2 hover:bg-slate-200 shadow-sm mt-1"
+                className="flex gap-5 p-4 cursor-pointer w-full border-2  shadow-sm mt-1 py-3 px-4 hover:text-orange-primary transition duration-300 hover:bg-zinc-200"
                 onClick={() => hanldeAddProduct(item)}
               >
                 <div>

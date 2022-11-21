@@ -1,12 +1,12 @@
 import instance from "./instance";
 
 export const listShipments = () => {
-  const url = `/import_shipments`;
+  const url = `import-shipment`;
   return instance.get(url);
 };
 
 export const addShipments = (data: any) => {
-  const url = `/import_shipments`;
+  const url = `import-shipment`;
   return instance.post(url, data);
 };
 
@@ -22,11 +22,6 @@ export const deleteShipment = (id: number | string | undefined) => {
 
 export const getSuppliersApi = () => {
   const url = `/suppliers`;
-  return instance.get(url);
-};
-
-export const getDataSupplierProductApi = (id: number) => {
-  const url = `suppliers/${id}?_embed=products1`;
   return instance.get(url);
 };
 

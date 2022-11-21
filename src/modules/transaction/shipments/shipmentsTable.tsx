@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
+import { listShipments } from "../../../api/shipments";
 import { Modal, Select, Table } from "../../../components";
 import { Caret, TrashIcon } from "../../../components/icons";
 import { ITableColumn } from "../../../components/Table/Table.types";
@@ -19,6 +20,7 @@ const ShipmentsTable = () => {
   const { shipments } = useSelector((store) => store.shipment);
   const [open, setOpen] = useState(false);
   const [idDelete, setIdDelete] = useState(0);
+  const [data, setData] = useState([]);
 
   const handleConfirm = () => {
     if (idDelete !== 0) {
@@ -28,8 +30,12 @@ const ShipmentsTable = () => {
     setOpen(false);
   };
   useEffect(() => {
-    useDispatch(getShipmentThunk());
-  }, [idDelete, useDispatch]);
+    const getShipmentData = async () => {
+      const { data } = await listShipments();
+      setData(data.data);
+    };
+    getShipmentData();
+  }, []);
 
   const handleDelete = (id: any) => {
     setOpen(true);
@@ -82,20 +88,6 @@ const ShipmentsTable = () => {
           </>
         );
       }
-    },
-    {
-      title: "Action",
-      dataIndex: "action",
-      key: 7,
-      render: ({ id }) => (
-        <div className="flex justify-start">
-          <TrashIcon
-            className="cursor-pointer fill-red-400 hover:fill-red-600"
-            width={20}
-            onClick={() => handleDelete(id)}
-          />
-        </div>
-      )
     }
   ];
 
@@ -121,7 +113,7 @@ const ShipmentsTable = () => {
         onOk={() => handleConfirm()}
       />
       <div>
-        <Table column={columns} dataSource={shipments} />
+        <Table column={columns} dataSource={data} />
         <ReactPaginate
           pageCount={10}
           containerClassName="pagination mt-5"
