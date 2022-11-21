@@ -7,7 +7,7 @@ export const add = (supplier: ISupplier) => {
 };
 
 export const list = () => {
-  const url = "/supplier";
+  const url = "/suppliers";
   return instance.get(url);
 };
 

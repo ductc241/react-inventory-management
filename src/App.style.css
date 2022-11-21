@@ -16,14 +16,13 @@ body {
 
 *::-webkit-scrollbar,
 *::-webkit-scrollbar-thumb {
-  width: 24px;
-  border-radius: 13px;
-  background-clip: padding-box;
+  width: 5px;
+  background-color: rgb(189, 187, 187);
   border: 10px solid transparent;
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #cacaca;
+  background-color: rgb(56, 56, 56);
 }
 
 .grid {
