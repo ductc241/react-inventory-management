@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { number } from "yup";
 import { getOrder } from "../../api/order.api";
-import { get } from "../../api/receipt.api";
+import { getRecei } from "../../api/receipt.api";
 import { Button, Table } from "../../components";
 import SidebarHienThi from "../../components/Sidebar/Sidevar_Children/SidebarHienThi";
 import { ITableColumn } from "../../components/Table/Table.types";
@@ -12,7 +12,7 @@ const DetailReceipt = () => {
   const [dataOrder, setDataorder] = useState<any>([]);
   const { id } = useParams();
   const getReceiptId = async () => {
-    const { data } = await get(Number(id));
+    const { data } = await getRecei(Number(id));
     const { data: dataOrders } = await getOrder(data.codeBill);
     setDataorder(dataOrders);
     setDatas(data);

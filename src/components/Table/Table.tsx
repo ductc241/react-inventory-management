@@ -12,7 +12,6 @@ const Table = ({
   loading,
   link
 }: ITableProps) => {
-  console.log(column, "fsdg");
   return (
     <div className="overflow-hidden shadow-md rounded-lg border border-gray-200">
       <table className={clsx("w-full", className)}>
