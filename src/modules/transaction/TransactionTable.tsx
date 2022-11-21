@@ -1,10 +1,8 @@
-import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button, TextField } from "../../components";
-import SidebarHienThi from "../../components/Sidebar/Sidevar_Children/SidebarHienThi";
-import TableReceipt from "../../modules/receipt/TableReceipt";
+import TableReceipt from "../receipt/TableReceipt";
 
-const ReceiptPages = () => {
-  const [visible, setVisible] = useState<boolean>(false);
+const TransactionTable = () => {
   return (
     <div>
       <div className="flex pt-3 pb-3">
@@ -42,12 +40,12 @@ const ReceiptPages = () => {
       </div>
 
       <div className="mb-3 flex">
-        <TextField name="" placeholder="ID"></TextField>
+        <TextField name="" placeholder="ID" />
         {/* <input
-          className="shadow appearance-none border rounded w-1/12 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          type="text"
-          placeholder="ID"
-        /> */}
+        className="shadow appearance-none border rounded w-1/12 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        type="text"
+        placeholder="ID"
+      /> */}
 
         <select
           id="countries"
@@ -61,9 +59,9 @@ const ReceiptPages = () => {
         </select>
 
         {/* <input
-          className="shadow appearance-none border rounded w-2/12 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-3"
-          type="date"
-        /> */}
+        className="shadow appearance-none border rounded w-2/12 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-3"
+        type="date"
+      /> */}
         <TextField name="" type="date" className="ml-3" />
         <TextField name="" type="date" className="ml-3" />
 
@@ -74,19 +72,21 @@ const ReceiptPages = () => {
         </div>
       </div>
       <div className="mt-3 mb-3 flex">
-        <Button onClick={() => setVisible(true)}>Thêm mới</Button>
+        <Link
+          to="/export_shipment"
+          className="focus-visible:outline-2 focus-visible:outline-orange-secondary px-6 py-[12px] rounded-md leading-6 cursor-pointer text-white text-sm font-medium max-w-fit bg-green-500"
+        >
+          Thêm Mới
+        </Link>
       </div>
 
       <div className="w-full">
         <div className="w-full">
-          <TableReceipt
-            visible={visible}
-            updateVisible={(e: boolean) => setVisible(e)}
-          />
+          <TableReceipt />
         </div>
       </div>
     </div>
   );
 };
 
-export default ReceiptPages;
+export default TransactionTable;

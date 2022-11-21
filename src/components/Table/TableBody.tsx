@@ -16,7 +16,6 @@ const TableBody = ({
   loading,
   link
 }: ITableBodyProps) => {
-  console.log(link, "gdfhdf");
   const renderRow = (record: any) =>
     tableColumn.map((column) => (
       <td
