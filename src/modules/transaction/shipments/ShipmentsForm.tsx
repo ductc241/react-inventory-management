@@ -77,10 +77,6 @@ const ShipMentsForm = () => {
     remove();
   };
 
-  const handleBlur = () => {
-    setShowSuggest(false);
-  };
-
   const hanldeAddProduct = (item: IProduct) => {
     prepend({
       id: item.id,
@@ -128,6 +124,8 @@ const ShipMentsForm = () => {
       import_date: `${d}/${+m + 1}/${y}`,
       ...data
     };
+    console.log(dataSubmit);
+
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useDispatch(addShipmentsThunks(dataSubmit));
     toast.success("Tạo phiếu nhập hàng thành công");
@@ -245,7 +243,6 @@ const ShipMentsForm = () => {
             placeholder="Tìm kiếm nhà cung cấp..."
             onChange={handleChangeValue}
             name="supplior"
-            onBlur={handleBlur}
           />
           {showSuggest && valueSelect !== "" && (
             <ul className="mt-2 rounded z-50 absolute w-full cursor-pointer">

@@ -3,21 +3,16 @@ import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
 import { listShipments } from "../../../api/shipments";
 import { Modal, Select, Table } from "../../../components";
-import { Caret, TrashIcon } from "../../../components/icons";
+import { Caret } from "../../../components/icons";
 import { ITableColumn } from "../../../components/Table/Table.types";
-import { useAppDispatch, useAppSelector } from "../../../hook/hook";
-import {
-  deleteShipmentsThunk,
-  getShipmentThunk
-} from "../../../store/slice/shipments";
+import { useAppDispatch } from "../../../hook/hook";
+import { deleteShipmentsThunk } from "../../../store/slice/shipments";
 import IOption from "../../../types/option.model";
 import { BrandOptions } from "../../product/ProductForm/ProductForm.constants";
 
 const ShipmentsTable = () => {
   const [valueSelect, setValueSelect] = useState<IOption>();
-  const useSelector = useAppSelector;
   const useDispatch = useAppDispatch();
-  const { shipments } = useSelector((store) => store.shipment);
   const [open, setOpen] = useState(false);
   const [idDelete, setIdDelete] = useState(0);
   const [data, setData] = useState([]);
@@ -37,11 +32,6 @@ const ShipmentsTable = () => {
     getShipmentData();
   }, []);
 
-  const handleDelete = (id: any) => {
-    setOpen(true);
-    setIdDelete(id);
-  };
-
   const columns: ITableColumn[] = [
     {
       title: "Mã nhập hàng",
@@ -50,7 +40,7 @@ const ShipmentsTable = () => {
     },
     {
       title: "Nhà cung cấp",
-      dataIndex: "supplierId",
+      dataIndex: "supplier_name",
       key: 2
     },
     {
@@ -69,8 +59,8 @@ const ShipmentsTable = () => {
       )
     },
     {
-      title: "Tên sản phẩm",
-      dataIndex: "productId",
+      title: "Mã lô hàng",
+      dataIndex: "import_code",
       key: 5
     },
     {
