@@ -32,7 +32,7 @@ const TableReceipt = (props: Props) => {
     try {
       const { data } = await listRecei();
 
-      setData(data);
+      setData(data.data);
     } catch (error) {
       console.log(error);
     }
@@ -40,12 +40,12 @@ const TableReceipt = (props: Props) => {
   useEffect(() => {
     getReceipt();
   }, []);
-
+  console.log(data);
   const columns: ITableColumn[] = [
     {
       key: 1,
       title: "ID",
-      dataIndex: "codeBill"
+      dataIndex: "id"
     },
     {
       key: 2,
@@ -65,12 +65,12 @@ const TableReceipt = (props: Props) => {
     {
       key: 5,
       title: "Số lượng",
-      dataIndex: "TotalAmount"
+      dataIndex: "quantity"
     },
     {
       key: 6,
-      title: "Tổng tiền",
-      dataIndex: "Discount"
+      title: "Giá tiền",
+      dataIndex: "import_price"
     },
     {
       key: 7,
@@ -81,8 +81,7 @@ const TableReceipt = (props: Props) => {
 
   return (
     <>
-      List Table
-      {/* <Table dataSource={data} column={columns} link={true} /> */}
+      <Table dataSource={data} column={columns} link={true} />
     </>
   );
 };
