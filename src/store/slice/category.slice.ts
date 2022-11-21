@@ -23,19 +23,19 @@ export const addCategory = createAsyncThunk(
   "category/add",
   async (category: ICategory) => {
     const res = await addCategoryAPI(category);
-    return res.data;
+    return res.data.data;
   }
 );
 export const listCategory = createAsyncThunk(
   "category/list", async () => {
     const res = await listCategoryAPI();
-    return res.data;
+    return res.data.data;
   });
 export const readCategory = createAsyncThunk(
   "category/read",
   async (id: number) => {
     const res = await getCategoryAPI(id);
-    return res.data;
+    return res.data.data;
   }
 );
 export const removeCategory = createAsyncThunk(
@@ -52,7 +52,7 @@ export const updateCategory = createAsyncThunk(
   }
 );
 const categorySlice = createSlice({
-  name: "product",
+  name: "category",
   initialState,
   reducers: {},
   extraReducers: (build) => {

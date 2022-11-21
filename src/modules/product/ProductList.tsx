@@ -61,8 +61,8 @@ const ProductList = () => {
   ];
 
   useEffect(() => {
-    productServices.getProducts().then(({ data }: { data: IProduct[] }) => {
-      setProducts(data);
+    productServices.getProducts().then(({ data }) => {
+      setProducts(data.data);
     });
   }, []);
 

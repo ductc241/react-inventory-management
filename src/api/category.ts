@@ -3,11 +3,11 @@ import { ICategory } from './../types/category.type';
 import instance from "./instance";
 
 export const addCategoryAPI = (category: ICategory) => {
-  const url = `category`;
+  const url = `categories`;
   return instance.post(url, category);
 }
 export const listCategoryAPI = () => {
-  const url = "category";
+  const url = "categories";
   return instance.get(url);
 }
 export const getCategoryAPI = (id: number | string | undefined) => {
