@@ -1,24 +1,21 @@
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
+import { listShipments } from "../../../api/shipments";
 import { Modal, Select, Table } from "../../../components";
-import { Caret, TrashIcon } from "../../../components/icons";
+import { Caret } from "../../../components/icons";
 import { ITableColumn } from "../../../components/Table/Table.types";
-import { useAppDispatch, useAppSelector } from "../../../hook/hook";
-import {
-  deleteShipmentsThunk,
-  getShipmentThunk
-} from "../../../store/slice/shipments";
+import { useAppDispatch } from "../../../hook/hook";
+import { deleteShipmentsThunk } from "../../../store/slice/shipments";
 import IOption from "../../../types/option.model";
 import { BrandOptions } from "../../product/ProductForm/ProductForm.constants";
 
 const ShipmentsTable = () => {
   const [valueSelect, setValueSelect] = useState<IOption>();
-  const useSelector = useAppSelector;
   const useDispatch = useAppDispatch();
-  const { shipments } = useSelector((store) => store.shipment);
   const [open, setOpen] = useState(false);
   const [idDelete, setIdDelete] = useState(0);
+  const [data, setData] = useState([]);
 
   const handleConfirm = () => {
     if (idDelete !== 0) {
@@ -28,13 +25,12 @@ const ShipmentsTable = () => {
     setOpen(false);
   };
   useEffect(() => {
-    useDispatch(getShipmentThunk());
-  }, [idDelete, useDispatch]);
-
-  const handleDelete = (id: any) => {
-    setOpen(true);
-    setIdDelete(id);
-  };
+    const getShipmentData = async () => {
+      const { data } = await listShipments();
+      setData(data.data);
+    };
+    getShipmentData();
+  }, []);
 
   const columns: ITableColumn[] = [
     {
@@ -44,7 +40,7 @@ const ShipmentsTable = () => {
     },
     {
       title: "Nhà cung cấp",
-      dataIndex: "supplierId",
+      dataIndex: "supplier_name",
       key: 2
     },
     {
@@ -63,8 +59,8 @@ const ShipmentsTable = () => {
       )
     },
     {
-      title: "Tên sản phẩm",
-      dataIndex: "productId",
+      title: "Mã lô hàng",
+      dataIndex: "import_code",
       key: 5
     },
     {
@@ -82,20 +78,6 @@ const ShipmentsTable = () => {
           </>
         );
       }
-    },
-    {
-      title: "Action",
-      dataIndex: "action",
-      key: 7,
-      render: ({ id }) => (
-        <div className="flex justify-start">
-          <TrashIcon
-            className="cursor-pointer fill-red-400 hover:fill-red-600"
-            width={20}
-            onClick={() => handleDelete(id)}
-          />
-        </div>
-      )
     }
   ];
 
@@ -121,7 +103,7 @@ const ShipmentsTable = () => {
         onOk={() => handleConfirm()}
       />
       <div>
-        <Table column={columns} dataSource={shipments} />
+        <Table column={columns} dataSource={data} />
         <ReactPaginate
           pageCount={10}
           containerClassName="pagination mt-5"
