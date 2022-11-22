@@ -13,7 +13,7 @@ const CategoryList = () => {
   const dispatch = useDispatch<any>();
   useEffect(() => {
     dispatch(listCategory());
-    console.log(categorys);
+    // console.log(categorys);
   }, [dispatch]);
   const navigate = useNavigate();
 

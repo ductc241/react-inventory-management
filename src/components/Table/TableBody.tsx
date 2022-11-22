@@ -17,8 +17,11 @@ const TableBody = ({
   link
 }: ITableBodyProps) => {
   const renderRow = (record: any) =>
-    tableColumn.map((column) => (
-      <td
+    tableColumn.map((column) => {
+      if (!column || !record) {
+        return ''
+      }
+      return <td
         key={column.key}
         className={clsx(
           "p-[14px] first:pl-[24px] last:pr-[24px] text-sm",
@@ -27,7 +30,7 @@ const TableBody = ({
       >
         {column.render ? column.render(record) : record[column.dataIndex]}
       </td>
-    ));
+    });
 
   const renderRowLink = (record: any) =>
     tableColumn.map((column) => (
