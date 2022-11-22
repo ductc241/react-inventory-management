@@ -6,13 +6,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { TextField, Select, Button } from "../../../components";
 import IOption from "../../../types/option.model";
-import { ICategory } from "../../../types/category.type";
 import { IProduct, IProductCreate } from "../../../types/product.type";
 import { listCategoryAPI } from "../../../api/category";
 import * as SupplierServices from "../../../api/supplier.api";
 
 import productServices from "../../../api/product.api";
-import { getValueFromOptions } from "../../../utils/select";
+import {
+  convertDataToOption,
+  getValueFromOptions
+} from "../../../utils/select";
 import ProductSchema from "./ProductForm.schema";
 import { WarningIcon } from "../../../components/icons";
 import ImagePreview from "./component/ImagePreview";
@@ -65,26 +67,11 @@ const ProductForm = ({ mode }: IProductProps) => {
         SupplierServices.list()
       ]);
 
-      setCategories(valueOptions[0].data.data);
-      setSuppliers(valueOptions[1].data);
+      setCategories(convertDataToOption(valueOptions[0].data.data));
+      setSuppliers(convertDataToOption(valueOptions[1].data));
     };
 
     getOptions();
-
-    // listCategoryAPI().then(({ data }) => {
-    //   const categoryOptions: IOption[] = data.data.map(
-    //     (category: ICategory) => {
-    //       console.log(category);
-
-    //       return {
-    //         label: category.name,
-    //         value: category.id
-    //       };
-    //     }
-    //   );
-
-    //   setCategories(categoryOptions);
-    // });
   }, []);
 
   useEffect(() => {
@@ -150,6 +137,11 @@ const ProductForm = ({ mode }: IProductProps) => {
 
               <div className="mb-5">
                 <p className="mb-1 text-base">Ảnh đại diện</p>
+                <TextField
+                  containerClass="mb-5"
+                  {...register("image")}
+                  error={errors.name}
+                />
                 <ImagePreview />
               </div>
 
@@ -176,13 +168,22 @@ const ProductForm = ({ mode }: IProductProps) => {
                 )}
               </div>
 
+              <TextField
+                label="Số tháng bảo hành"
+                containerClass="mb-5"
+                {...register("warranty_date")}
+                error={errors.name}
+              />
+
               <div>
-                <TextField
-                  label="Số tháng bảo hành"
-                  containerClass="mb-5"
-                  {...register("warranty_date")}
-                  error={errors.name}
-                />
+                <label htmlFor="description" className="block mb-1 text-base">
+                  Ghi chú
+                </label>
+                <textarea
+                  id="description"
+                  {...register("description")}
+                  className="w-full py-3 px-5 border border-[#DEDEDE] rounded-lg outline-none"
+                ></textarea>
               </div>
             </div>
           </div>

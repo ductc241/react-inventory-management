@@ -30,8 +30,9 @@ const TableBody = ({
     ));
 
   const renderRowLink = (record: any) =>
-    tableColumn.map((column) => (
+    tableColumn.map((column, index) => (
       <td
+        key={index}
         className={clsx(
           "p-[14px] first:pl-[24px] last:pr-[24px] text-sm",
           className
