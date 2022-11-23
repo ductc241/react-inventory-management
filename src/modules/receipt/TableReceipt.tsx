@@ -9,6 +9,7 @@ import { ITableColumn } from "../../components/Table/Table.types";
 type Props = {
   visible?: boolean;
   updateVisible?: (e: boolean) => void;
+  data: any;
 };
 
 type Inputs = {
@@ -26,21 +27,6 @@ type Inputs = {
 };
 
 const TableReceipt = (props: Props) => {
-  const [data, setData] = useState<any>([]);
-
-  const getReceipt = async () => {
-    try {
-      const { data } = await listRecei();
-
-      setData(data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    getReceipt();
-  }, []);
-  console.log(data);
   const columns: ITableColumn[] = [
     {
       key: 1,
@@ -50,7 +36,7 @@ const TableReceipt = (props: Props) => {
     {
       key: 2,
       title: "Ngày",
-      dataIndex: "Time"
+      dataIndex: "export_date"
     },
     {
       key: 3,
@@ -59,8 +45,8 @@ const TableReceipt = (props: Props) => {
     },
     {
       key: 4,
-      title: " Sản phẩm",
-      dataIndex: "Client"
+      title: " Số điện thoại",
+      dataIndex: "receve_phone"
     },
     {
       key: 5,
@@ -70,12 +56,12 @@ const TableReceipt = (props: Props) => {
     {
       key: 6,
       title: "Tổng tiền",
-      dataIndex: "import_price"
+      dataIndex: "totall_price"
     },
     {
       key: 7,
       title: "Người tạo",
-      dataIndex: "CustomerPaid"
+      dataIndex: "user_name"
     },
     {
       key: 8,
@@ -86,7 +72,7 @@ const TableReceipt = (props: Props) => {
 
   return (
     <>
-      <Table dataSource={data} column={columns} link={true} />
+      <Table dataSource={props.data} column={columns} link={true} />
     </>
   );
 };

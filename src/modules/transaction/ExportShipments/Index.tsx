@@ -12,7 +12,6 @@ import IOption from "../../../types/option.model";
 import { ISupplier } from "../../../types/supplier.type";
 import { getDateNow } from "../../../utils/funtion";
 import { getValueFromOptions } from "../../../utils/select";
-import { BrandOptionsSupplier } from "../../receipt/ReceiForm.constants";
 import { IProduct } from "./../../../types/product.type";
 
 type Inputs = {
@@ -246,8 +245,9 @@ const ExportShipments = () => {
     const export_product = formValue.data.map((item) => {
       return {
         id: item.id,
-        quantity: item.quantity,
-        price: item.price
+        quantity: item.amount,
+        price: item.price,
+        barcode: null
       };
     });
     const newItem = {
@@ -395,10 +395,10 @@ const ExportShipments = () => {
               <thead>
                 <tr>
                   <th className="text-left pb-5">Tên sản phẩm</th>
-                  <th className="text-left pb-5">Tên sản phẩm</th>
-                  <th className="text-left pb-5">Tên sản phẩm</th>
-                  <th className="text-left pb-5">Tên sản phẩm</th>
-                  <th className="text-left pb-5">Tên sản phẩm</th>
+                  <th className="text-left pb-5">Giá</th>
+                  <th className="text-left pb-5">Tồn kho</th>
+                  <th className="text-left pb-5">Số lượng</th>
+                  <th className="text-left pb-5">Thao tác</th>
                 </tr>
               </thead>
               <tbody>
@@ -415,7 +415,7 @@ const ExportShipments = () => {
                       <td className="pr-10">
                         <TextField
                           {...register(`data.${index}.price`)}
-                          value={`${item.price} VNĐ`}
+                          value={item.price}
                         />
                       </td>
                       <td className="pr-10">
