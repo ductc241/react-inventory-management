@@ -11,7 +11,7 @@ const SidebarCategory = () => {
 
   useEffect(() => {
     dispatch(listCategory());
-    console.log(categorys);
+    // console.log(categorys);
   }, [dispatch]);
 
   return (
@@ -40,6 +40,7 @@ const SidebarCategory = () => {
               </div>
             </li>
             {categorys?.map((item: any) => {
+              if (!item) return;
               return (
                 <li className="px-3" key={item.id}>
                   <Link

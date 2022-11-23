@@ -23,18 +23,6 @@ const CategoryAdd = ({ mode }: ICategoryProps) => {
     formState: { errors }
   } = useForm<Inputs>();
 
-  // const createCategory = (formData: Inputs) => {
-  //   console.log("create: ", formData);
-  // };
-
-  // const updateCategory = (formData: Inputs) => {
-  //   console.log("update: ", formData);
-
-  //   if (params.id) {
-  //     console.log("id: ", params.id);
-  //   }
-  // };
-
   useEffect(() => {
     if (params.id) {
       console.log("id: ", params.id);
@@ -44,11 +32,6 @@ const CategoryAdd = ({ mode }: ICategoryProps) => {
       });
     }
   }, [params, reset]);
-
-  // const onSubmit: SubmitHandler<Inputs> = (data) => {
-  //   if (mode === "create") createCategory(data);
-  //   if (mode === "update") updateCategory(data);
-  // };
 
   const dispatch = useDispatch<any>();
   const navigate = useNavigate();
@@ -66,7 +49,7 @@ const CategoryAdd = ({ mode }: ICategoryProps) => {
 
   useEffect(() => {
     dispatch(listCategory());
-    console.log(categorys);
+    // console.log(categorys);
   }, [dispatch]);
 
   return (
@@ -102,6 +85,7 @@ const CategoryAdd = ({ mode }: ICategoryProps) => {
             >
               <option selected>___ Lựa chọn ___</option>
               {categorys?.map((item: any) => {
+                if (!item) return "";
                 return (
                   <option key={item.id} value={item.name}>
                     {item.name}
