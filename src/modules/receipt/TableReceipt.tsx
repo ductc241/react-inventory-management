@@ -54,12 +54,12 @@ const TableReceipt = (props: Props) => {
     },
     {
       key: 3,
-      title: "Kho hàng",
-      dataIndex: "Kho hàng"
+      title: "Loại ",
+      dataIndex: ""
     },
     {
       key: 4,
-      title: "Sản phẩm",
+      title: " Sản phẩm",
       dataIndex: "Client"
     },
     {
@@ -69,13 +69,18 @@ const TableReceipt = (props: Props) => {
     },
     {
       key: 6,
-      title: "Giá tiền",
+      title: "Tổng tiền",
       dataIndex: "import_price"
     },
     {
       key: 7,
       title: "Người tạo",
       dataIndex: "CustomerPaid"
+    },
+    {
+      key: 8,
+      title: "Ghi chú",
+      dataIndex: ""
     }
   ];
 

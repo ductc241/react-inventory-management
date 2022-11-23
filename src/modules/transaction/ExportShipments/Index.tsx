@@ -1,31 +1,57 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useFieldArray, useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
 import productServices from "../../../api/product.api";
+import { addRecei } from "../../../api/receipt.api";
+import { list } from "../../../api/supplier.api";
 import { Button, Select, Table, TextField } from "../../../components";
 import { ArrowDownIcon, EditIcon, TrashIcon } from "../../../components/icons";
 import { ITableColumn } from "../../../components/Table/Table.types";
+import index from "../../../pages/priceSetting";
+import IOption from "../../../types/option.model";
+import { ISupplier } from "../../../types/supplier.type";
+import { getDateNow } from "../../../utils/funtion";
+import { getValueFromOptions } from "../../../utils/select";
+import { BrandOptionsSupplier } from "../../receipt/ReceiForm.constants";
 import { IProduct } from "./../../../types/product.type";
-type Data = {
-  quantity: number;
-  price: number;
-  amount: number;
-  name: string;
-};
+
 type Inputs = {
-  warehouse: string;
   sectors: string;
   supplier: string;
   note: string;
   payment: string;
-  date: Date;
-  data: Data[];
+  export_date: Date;
+  data: {
+    quantity: number;
+    price: number;
+    amount: number;
+    name: string;
+    id: number;
+  }[];
 };
 
 const ExportShipments = () => {
   const [product, setProduct] = useState<any>();
   const [items, setItems] = useState<any>(null);
-  const [data, setData] = useState<any>([]);
+  const [supplier, setSupplier] = useState<any>([]);
+  const [suplierOption, setSuplierOption] = useState<IOption[]>([]);
+  const navigate = useNavigate();
+  const getDataSupplier = async () => {
+    const { data } = await list();
+    setSupplier(data);
+    console.log(data);
+    const array: IOption[] = data.map((item: ISupplier) => {
+      return {
+        label: item.name,
+        value: item.id
+      };
+    });
+    setSuplierOption(array);
+  };
+
+  useEffect(() => {
+    getDataSupplier();
+  }, []);
 
   const getProduct = async (e: string) => {
     try {
@@ -43,6 +69,8 @@ const ExportShipments = () => {
       console.log(error);
     }
   };
+
+  // console.log(items);
 
   const columns: ITableColumn[] = [
     {
@@ -168,29 +196,73 @@ const ExportShipments = () => {
 
   const addPoduct = () => {
     // setData([...data, items]);
-    if (data?.length > 0) {
-      let array: any = [];
-      for (let i = 0; i < data?.length; i++) {
-        if (array.indexOf(data[i]) == -1) {
-          array.push(data[i]);
+    if (fields?.length > 0) {
+      let count = 0;
+      for (let i = 0; i < fields.length; i++) {
+        if (
+          fields[i].name == items.name &&
+          fields[i].price == items.price &&
+          fields[i].quantity == items.quantity
+        ) {
+          count++;
         }
       }
-      setData(array);
+      if (count == 0) {
+        append({
+          name: items.name,
+          price: items.price,
+          quantity: items.quantity,
+          amount: 0,
+          id: items.id
+        });
+      }
     } else {
-      setData([items]);
+      append({
+        name: items.name,
+        price: items.price,
+        quantity: items.quantity,
+        amount: 0,
+        id: items.id
+      });
     }
   };
 
   const {
     register,
+    control,
     handleSubmit,
     reset,
+    setValue,
+    watch,
     formState: { errors }
   } = useForm<Inputs>();
-
-  const onSubmit = (item: any) => {
-    console.log(item);
+  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
+    {
+      name: "data",
+      control
+    }
+  );
+  const onSubmit = async (formValue: Inputs) => {
+    const export_product = formValue.data.map((item) => {
+      return {
+        id: item.id,
+        quantity: item.quantity,
+        price: item.price
+      };
+    });
+    const newItem = {
+      products: export_product,
+      // type: 1,
+      export_date: getDateNow(),
+      user_id: 1,
+      address: "HN",
+      receve_phone: "1234562345"
+    };
+    await addRecei(newItem);
+    console.log(newItem);
+    navigate("/receipt");
   };
+
   return (
     <form className="grid grid-cols-2 gap-10" onSubmit={handleSubmit(onSubmit)}>
       <div className="col-span-1 shadow-md rounded-lg">
@@ -199,14 +271,6 @@ const ExportShipments = () => {
         </div>
         <div className="p-5">
           <TextField
-            label="Kho hàng"
-            {...register("warehouse", {
-              required: "bạn chưa nhập form này"
-            })}
-            error={errors.warehouse}
-            className="mb-5"
-          />
-          <TextField
             label="Loại hàng trả"
             {...register("sectors", {
               required: "bạn chưa nhập form này"
@@ -214,15 +278,18 @@ const ExportShipments = () => {
             error={errors.sectors}
             className="mb-5"
           />
-          <TextField
-            {...register("supplier", {
-              required: "bạn chưa nhập form này"
-            })}
-            error={errors.supplier}
-            label="Nhà cung cấp"
-            className="mb-5"
+
+          <Select
+            selectLabel={{
+              text: "Nhà cung cấp"
+            }}
+            options={suplierOption}
+            option={getValueFromOptions(suplierOption, watch("supplier"))}
+            handleClickChange={(brand) => setValue("supplier", brand.value)}
+            placeholderText="chọn nhà cung cấp"
           />
-          <div>
+
+          <div className="mt-5">
             <p className="mb-1">Ghi chú</p>
             <textarea
               className="w-full border-2 h-[80px] border-[#DEDEDE] rounded-lg outline-none"
@@ -249,74 +316,148 @@ const ExportShipments = () => {
           <TextField
             label="Ngày hẹn thanh toán"
             type="date"
-            {...register("date", {
+            {...register("export_date", {
               required: "bạn chưa nhập form này"
             })}
-            error={errors.date}
+            error={errors.export_date}
           />
         </div>
       </div>
 
-      <div className="col-span-2">
-        <div className="mb-3">
-          <p>Sản phẩm</p>
-        </div>
-        {items != null ? (
-          <>
-            <TextField
-              name=""
-              type="text"
-              onChange={(e: any) => {
-                getProduct(e.target.value);
-              }}
-              value={items?.name}
-              className="w-11/12"
-            />
-            <Button onClick={() => addPoduct()} className="mt-3">
-              Tạo
-            </Button>
-          </>
-        ) : (
-          <TextField
-            name=""
-            type="text"
-            onChange={(e: any) => {
-              getProduct(e.target.value);
-            }}
-            defaultValue={items?.name}
-          />
-        )}
-        {product?.length > 0 ? (
-          <>
+      <div className="col-span-2 shadow-md  ">
+        <div className="p-5 border-b relative">
+          <p className="mb-3">Thêm Sản phẩm</p>
+
+          {items != null ? (
+            <div className="flex gap-10 ">
+              <TextField
+                name=""
+                type="text"
+                onChange={(e: any) => {
+                  getProduct(e.target.value);
+                }}
+                value={items?.name}
+                containerClass="grow"
+              />
+              <Button
+                onClick={() => {
+                  addPoduct();
+                }}
+              >
+                Tạo
+              </Button>
+            </div>
+          ) : (
+            <div className="flex gap-10 ">
+              <TextField
+                name=""
+                type="text"
+                onChange={(e: any) => {
+                  getProduct(e.target.value);
+                }}
+                defaultValue={items?.name}
+                containerClass="grow"
+              />
+              <Button
+                onClick={() => {
+                  addPoduct();
+                }}
+              >
+                Tạo
+              </Button>
+            </div>
+          )}
+          {product?.length > 0 ? (
             <select
               multiple
-              id="countries_multiple"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-3 h-max"
+              className="bg-gray-50 border border-gray-300 
+              text-gray-900 text-sm rounded-lg focus:ring-blue-500 
+              focus:border-blue-500 block p-5 dark:bg-gray-700 
+              dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+              dark:focus:ring-blue-500 dark:focus:border-blue-500  
+              absolute bottom-0 left-5 right-5 top-full h-max
+              "
             >
               {product?.map((item: IProduct) => {
                 return (
-                  <option onClick={() => setItem(item)}>{item.name}</option>
+                  <option onClick={() => setItem(item)} key={item.id}>
+                    {item.name}
+                  </option>
                 );
               })}
             </select>
-          </>
-        ) : null}
+          ) : null}
+        </div>
 
-        {data.length > 0 ? (
-          <>
-            <div className="mt-3">
-              <Table dataSource={data} column={columns} />
-            </div>
+        {fields.length > 0 ? (
+          <div className="p-5">
+            <table className="mt-3 w-full">
+              <thead>
+                <tr>
+                  <th className="text-left pb-5">Tên sản phẩm</th>
+                  <th className="text-left pb-5">Tên sản phẩm</th>
+                  <th className="text-left pb-5">Tên sản phẩm</th>
+                  <th className="text-left pb-5">Tên sản phẩm</th>
+                  <th className="text-left pb-5">Tên sản phẩm</th>
+                </tr>
+              </thead>
+              <tbody>
+                {fields.map((item, index) => {
+                  return (
+                    <tr key={item.id}>
+                      <td className="pr-10">
+                        <TextField
+                          {...register(`data.${index}.name`)}
+                          type="text"
+                          value={item.name}
+                        />
+                      </td>
+                      <td className="pr-10">
+                        <TextField
+                          {...register(`data.${index}.price`)}
+                          value={`${item.price} VNĐ`}
+                        />
+                      </td>
+                      <td className="pr-10">
+                        <TextField
+                          {...register(`data.${index}.quantity`)}
+                          value={item.quantity}
+                          type="number"
+                        />
+                      </td>
+                      <td className="pr-10">
+                        <TextField
+                          {...register(`data.${index}.amount`)}
+                          type="number"
+                          min={0}
+                          max={item.quantity}
+                        />
+                      </td>
+                      <td>
+                        {" "}
+                        <Button
+                          onClick={() => remove(index)}
+                          className="h-max "
+                          variant="error"
+                        >
+                          Delete
+                        </Button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
 
             <div>
               <Button type="submit" className="mt-3">
                 Lưu
               </Button>
               <Button variant="warning" className="mt-3  ml-3">
-                Hủy
+                <Link to="/receipt">Hủy</Link>
               </Button>
             </div>
-          </>
+          </div>
         ) : null}
       </div>
     </form>
