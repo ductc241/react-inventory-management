@@ -32,7 +32,7 @@ type Inputs = {
 const ExportShipments = () => {
   const [product, setProduct] = useState<any>();
   const [items, setItems] = useState<any>(null);
-  const [supplier, setSupplier] = useState<any>();
+  const [supplier, setSupplier] = useState<any>(null);
   const [suplierOption, setSuplierOption] = useState<IOption[]>([]);
   const navigate = useNavigate();
   const getDataSupplier = async () => {

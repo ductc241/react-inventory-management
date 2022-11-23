@@ -81,24 +81,10 @@ const DetailReceipt = () => {
           </div>
           <hr />
           <div className="m-3 flex">
-            <label>Thời gian :</label>
-            <p>{datas[0]?.export_date}</p>
+            <label>Thời gian: </label>
+            <p className="ml-6 "> {datas[0]?.export_date}</p>
           </div>
           <hr />
-          <div className="m-3 flex">
-            <label>Số điện thoại khách hàng :</label>
-            <p className="ml-6 ">{datas[0]?.receve_phone}</p>
-          </div>
-          <hr />
-          <div className="m-3 flex">
-            <label>Bảng giá :</label>
-            <p className="ml-6 text-blue-600">Bảng giá chung</p>
-          </div>
-          <hr />
-          <div className="m-3 flex">
-            <label>Mã đặt hàng :</label>
-            <p className="ml-6 text-blue-600"></p>
-          </div>
         </div>
         <div className="col-span-4">
           <div className="m-3 flex">
@@ -111,20 +97,13 @@ const DetailReceipt = () => {
             <p className="ml-6">Chi nhánh trung tâm</p>
           </div>
           <hr />
-          <div className="m-3 flex">
-            <label>Người bán:</label>
-            <p className="ml-6">{datas[0]?.user_name}</p>
-          </div>
+
           <hr />
           <div className="m-3 flex">
             <label>Người tạo:</label>
             <p className="ml-6">{datas[0]?.user_name}</p>
           </div>
           <hr />
-          <div className="m-3 flex">
-            <label>Kênh bán:</label>
-            <p className="ml-6">Bán trực tiếp</p>
-          </div>
         </div>
         <div className="col-span-4">
           <div className="m-3 flex">
@@ -151,6 +130,7 @@ const DetailReceipt = () => {
             <label>Khách đã trả: </label>
             <p className="ml-6">....</p>
           </div>
+          <hr />
         </div>
       </div>
       <div className="mt-3 mb-3">
