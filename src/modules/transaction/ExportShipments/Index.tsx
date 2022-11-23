@@ -26,6 +26,7 @@ type Inputs = {
     amount: number;
     name: string;
     id: number;
+    image: string;
   }[];
 };
 
@@ -100,7 +101,8 @@ const ExportShipments = () => {
           price: items.price,
           quantity: items.quantity,
           amount: 0,
-          id: items.id
+          id: items.id,
+          image: items.image
         });
       }
     } else {
@@ -109,7 +111,8 @@ const ExportShipments = () => {
         price: items.price,
         quantity: items.quantity,
         amount: 0,
-        id: items.id
+        id: items.id,
+        image: items.image
       });
     }
   };
@@ -284,7 +287,7 @@ const ExportShipments = () => {
             <table className="mt-3 w-full">
               <thead>
                 <tr>
-                  <th className="text-left pb-5">Tên sản phẩm</th>
+                  <th className="text-left pb-5">ảnh</th>
                   <th className="text-left pb-5">Giá</th>
                   <th className="text-left pb-5">Tồn kho</th>
                   <th className="text-left pb-5">Số lượng</th>
@@ -294,26 +297,24 @@ const ExportShipments = () => {
               <tbody>
                 {fields.map((item, index) => {
                   return (
-                    <tr key={item.id}>
-                      <td className="pr-10">
-                        <TextField
-                          {...register(`data.${index}.name`)}
-                          type="text"
-                          value={item.name}
+                    <tr key={item.id} className="mt-3">
+                      <td className="flex items-center">
+                        <img
+                          src={`${item.image}`}
+                          alt="đang load"
+                          width="100"
+                          height="100"
                         />
+                        <p>{item.name}</p>
                       </td>
                       <td className="pr-10">
                         <TextField
                           {...register(`data.${index}.price`)}
-                          value={item.price}
+                          defaultValue={item.price}
                         />
                       </td>
                       <td className="pr-10">
-                        <TextField
-                          {...register(`data.${index}.quantity`)}
-                          value={item.quantity}
-                          type="number"
-                        />
+                        <p>{item.quantity}</p>
                       </td>
                       <td className="pr-10">
                         <TextField
@@ -321,6 +322,7 @@ const ExportShipments = () => {
                           type="number"
                           min={0}
                           max={item.quantity}
+                          className="border-white"
                         />
                       </td>
                       <td>
