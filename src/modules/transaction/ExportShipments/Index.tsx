@@ -32,17 +32,16 @@ type Inputs = {
 const ExportShipments = () => {
   const [product, setProduct] = useState<any>();
   const [items, setItems] = useState<any>(null);
-  const [supplier, setSupplier] = useState<any>([]);
+  const [supplier, setSupplier] = useState<any>();
   const [suplierOption, setSuplierOption] = useState<IOption[]>([]);
   const navigate = useNavigate();
   const getDataSupplier = async () => {
     const { data } = await list();
-    setSupplier(data);
     console.log(data);
     const array: IOption[] = data.map((item: ISupplier) => {
       return {
         label: item.name,
-        value: item.id
+        value: item.status
       };
     });
     setSuplierOption(array);
@@ -56,9 +55,14 @@ const ExportShipments = () => {
     try {
       setItems(null);
       const { data } = await productServices.getProducts();
+      console.log(data);
       let getProduct: any = [];
       for (let i = 0; i < data.data.length; i++) {
-        if (data.data[i].name.includes(e) == true && e != "") {
+        if (
+          data.data[i].name.toLowerCase().includes(e) == true &&
+          e != "" &&
+          data.data[i].category_id == supplier
+        ) {
           getProduct.push(data.data[i]);
         }
       }
@@ -70,123 +74,7 @@ const ExportShipments = () => {
   };
 
   // console.log(items);
-
-  const columns: ITableColumn[] = [
-    {
-      key: 1,
-      title: "ID",
-      dataIndex: "",
-      render: (item: IProduct) => <div className="flex gap-x-5">{item.id}</div>
-    },
-    {
-      key: 2,
-      title: "Sản phẩm",
-      dataIndex: "",
-      render: (item: IProduct) => (
-        <>
-          <TextField
-            className="w-5/12"
-            //@ts-ignore
-            {...register("data.name", {
-              required: "bạn chưa nhập form này"
-            })}
-            value={item.name}
-          />
-        </>
-      )
-    },
-    {
-      key: 3,
-      title: "Tồn",
-      dataIndex: "",
-      render: (item: IProduct) => (
-        <div className="flex gap-x-5">{item.quantity}</div>
-      )
-    },
-    {
-      key: 4,
-      title: "Số lượng",
-      dataIndex: "",
-      render: (item: IProduct) => (
-        <TextField
-          type="number"
-          className="w-5/12"
-          //@ts-ignore
-          {...register("data.quantity", {
-            required: "bạn chưa nhập form này"
-          })}
-          // error={errors.data}
-        />
-      )
-    },
-    {
-      key: 5,
-      title: "Giá",
-      dataIndex: "",
-      render: (item: IProduct) => (
-        <TextField
-          type="number"
-          className="w-5/12"
-          //@ts-ignore
-          {...register("data.price", {
-            required: "bạn chưa nhập form này"
-          })}
-          // error={errors.data.price}
-        />
-      )
-    },
-    {
-      key: 6,
-      title: "Thành tiền",
-      dataIndex: "",
-      render: (item: IProduct) => (
-        <TextField
-          type="number"
-          className="w-5/12"
-          //@ts-ignore
-          {...register("data.amount", {
-            required: "bạn chưa nhập form này"
-          })}
-          // error={errors.amount}
-        />
-      )
-    },
-    {
-      key: 7,
-      title: "Thao tác",
-      dataIndex: "",
-      render: (item: IProduct) => (
-        <div className="group inline-block">
-          <ul className="outline-none focus:outline-none px-3 py-1 rounded-sm flex items-center min-w-32">
-            <span className="pr-1 font-semibold flex-1">
-              <Link className="flex items-center hover:text-gray-200" to="#">
-                <span className="inline-flex justify-center items-center ml-4">
-                  <ArrowDownIcon width={20} />
-                </span>
-              </Link>
-            </span>
-          </ul>
-          <ul
-            className="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute 
-                        transition duration-150 ease-in-out origin-top text-black w-40 py-2 drop-shadow-xl -ml-28"
-          >
-            <li className="rounded-sm px-3 py-1 text-center hover:text-sky-700">
-              <Button>In</Button>
-            </li>
-            <li className="rounded-sm px-3 py-1 text-center hover:text-sky-700">
-              <Button>Xuất</Button>
-            </li>
-            <li className="rounded-sm px-3 py-1 text-center hover:text-sky-700">
-              <Button>...</Button>
-            </li>
-            <li className="rounded-sm px-3 py-1 text-center hover:text-sky-700">
-              <Button>...</Button>
-            </li>
-          </ul>
-        </div>
-      )
-    }
-  ];
+  console.log(supplier);
 
   const setItem = (e: IProduct) => {
     setProduct([]);
@@ -285,7 +173,9 @@ const ExportShipments = () => {
             }}
             options={suplierOption}
             option={getValueFromOptions(suplierOption, watch("supplier"))}
-            handleClickChange={(brand) => setValue("supplier", brand.value)}
+            handleClickChange={(brand) => (
+              setValue("supplier", brand.value), setSupplier(brand.value)
+            )}
             placeholderText="chọn nhà cung cấp"
           />
 

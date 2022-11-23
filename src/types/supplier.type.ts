@@ -4,4 +4,5 @@ export type ISupplier = {
   email?: string;
   phone?: string;
   address?: string;
+  status?:number
 };
