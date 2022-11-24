@@ -39,6 +39,7 @@ const TableBody = ({
           "p-[14px] first:pl-[24px] last:pr-[24px] text-sm",
           className
         )}
+        key={column.key}
       >
         <Link to={`/receipt/${record.id}`}>
           {column.render ? column.render(record) : record[column.dataIndex]}
