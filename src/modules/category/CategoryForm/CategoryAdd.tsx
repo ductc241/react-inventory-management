@@ -85,7 +85,7 @@ const CategoryAdd = ({ mode }: ICategoryProps) => {
             >
               <option selected>___ Lựa chọn ___</option>
               {categorys?.map((item: any) => {
-                if (!item) return '';
+                if (!item) return "";
                 return (
                   <option key={item.id} value={item.name}>
                     {item.name}

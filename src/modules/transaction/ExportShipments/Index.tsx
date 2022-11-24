@@ -83,7 +83,7 @@ const ExportShipments = () => {
         }
       }
 
-      setProduct(getProduct);
+      setProduct(data);
     } catch (error) {
       console.log(error);
     }
