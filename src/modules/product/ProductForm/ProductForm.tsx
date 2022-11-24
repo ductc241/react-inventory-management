@@ -4,21 +4,22 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+import ImagePreview from "./component/ImagePreview";
 import { TextField, Select, Button } from "../../../components";
-import IOption from "../../../types/option.model";
+import { WarningIcon } from "../../../components/icons";
+
 import { IProduct, IProductCreate } from "../../../types/product.type";
+import IOption from "../../../types/option.model";
+import ProductSchema from "./ProductForm.schema";
+import { StatusOptions } from "./ProductForm.constants";
+
 import { listCategoryAPI } from "../../../api/category";
 import * as SupplierServices from "../../../api/supplier.api";
-
 import productServices from "../../../api/product.api";
 import {
   convertDataToOption,
   getValueFromOptions
 } from "../../../utils/select";
-import ProductSchema from "./ProductForm.schema";
-import { WarningIcon } from "../../../components/icons";
-import ImagePreview from "./component/ImagePreview";
-import { StatusOptions } from "./ProductForm.constants";
 
 interface IProductProps {
   mode: "create" | "update";
@@ -43,8 +44,12 @@ const ProductForm = ({ mode }: IProductProps) => {
   });
 
   const createProduct = (data: IProductCreate) => {
+    const productInfor = new FormData();
+
+    productInfor.append("data", { ...data });
+
     try {
-      productServices.createProduct(data);
+      productServices.createProduct(productInfor);
 
       toast.success("Thêm sản phẩm thành công", {
         onClose: () => {
