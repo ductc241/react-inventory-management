@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+
+import { TrashIcon } from "../../../components/icons";
+import { Button, Select, TextField } from "../../../components";
+import ProductPlaceholder from "../../../assets/product-placeholder.png";
+
 import productServices from "../../../api/product.api";
 import { addRecei } from "../../../api/receipt.api";
 import { list } from "../../../api/supplier.api";
-import { Button, Select, TextField } from "../../../components";
-import IOption from "../../../types/option.model";
-import { ISupplier } from "../../../types/supplier.type";
 import { getDateNow } from "../../../utils/funtion";
 import { getValueFromOptions } from "../../../utils/select";
-import { IProduct } from "./../../../types/product.type";
-import ProductPlaceholder from "../../../assets/product-placeholder.png";
 import FormatNumber from "../../../components/formatNumber/formatNumber";
-import { TrashIcon } from "../../../components/icons";
-import EXPORT_TYPES from "./export.constants";
+import IOption from "../../../types/option.model";
+import { ISupplier } from "../../../types/supplier.type";
+import { IProduct } from "./../../../types/product.type";
+import { EXPORT_TYPES, PAYMENT_TYPES } from "./export.constants";
 
 type Inputs = {
   export_type: string;
@@ -22,9 +24,9 @@ type Inputs = {
   exporter_phone: string | null;
 
   supplier: string;
-  note: string;
-  payment: string;
+  payment_type: string;
   export_date: Date;
+  note: string;
   data: {
     quantity: number;
     price: number;
@@ -36,7 +38,7 @@ type Inputs = {
 };
 
 const ExportShipments = () => {
-  const [product, setProduct] = useState<any>();
+  const [product, setProduct] = useState<IProduct[]>();
   const [items, setItems] = useState<any>(null);
   const [supplier, setSupplier] = useState<any>(null);
   const [suplierOption, setSuplierOption] = useState<IOption[]>([]);
@@ -60,7 +62,7 @@ const ExportShipments = () => {
     const array: IOption[] = data.map((item: ISupplier) => {
       return {
         label: item.name,
-        value: item.status
+        value: item.id
       };
     });
     setSuplierOption(array);
@@ -76,11 +78,7 @@ const ExportShipments = () => {
       const { data } = await productServices.getProducts();
       const getProduct: any = [];
       for (let i = 0; i < data.data.length; i++) {
-        if (
-          data.data[i].name.toLowerCase().includes(e) == true &&
-          e != "" &&
-          data.data[i].category_id == supplier
-        ) {
+        if (data.data[i].name.toLowerCase().includes(e) == true && e != "") {
           getProduct.push(data.data[i]);
         }
       }
@@ -141,7 +139,6 @@ const ExportShipments = () => {
     });
     const newItem = {
       products: export_product,
-      // type: 1,
       export_date: getDateNow(),
       user_id: 1,
       address: "HN",
@@ -202,14 +199,20 @@ const ExportShipments = () => {
           <p className="font-semibold">Thanh toán</p>
         </div>
         <div className="p-5">
-          <TextField
-            label="Hình thức thanh toán"
-            className="mb-5"
-            {...register("payment", {
-              required: "bạn chưa nhập form này"
-            })}
-            error={errors.payment}
+          <Select
+            selectLabel={{
+              text: "Hình thức thanh toán"
+            }}
+            containerClass="mb-5"
+            options={PAYMENT_TYPES}
+            option={getValueFromOptions(PAYMENT_TYPES, watch("payment_type"))}
+            handleClickChange={(payment) => (
+              setValue("payment_type", payment.value),
+              setSupplier(payment.value)
+            )}
+            placeholderText="-- Chọn hình thức --"
           />
+
           <TextField
             label="Ngày hẹn thanh toán"
             type="date"
@@ -254,6 +257,7 @@ const ExportShipments = () => {
                 }}
                 defaultValue={items?.name}
                 containerClass="grow"
+                placeholder="-- Tìm kiếm --"
               />
               <Button
                 onClick={() => {
@@ -264,20 +268,31 @@ const ExportShipments = () => {
               </Button>
             </div>
           )}
-          {product?.length > 0 ? (
-            <select
-              multiple
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-5 absolute bottom-0 left-5 right-5 top-full h-max"
-            >
-              {product?.map((item: IProduct) => {
-                return (
-                  <option onClick={() => setItem(item)} key={item.id}>
-                    {item.name}
-                  </option>
-                );
-              })}
-            </select>
-          ) : null}
+
+          {product && product.length > 0 && (
+            <div className="absolute left-5 right-5">
+              <div className="w-1/2 bg-white border shadow-lg">
+                {product.map((item) => {
+                  return (
+                    <div
+                      key={item.id}
+                      className="flex justify-between items-center px-4 py-2 cursor-pointer hover:bg-gray-100"
+                      onClick={() => setItem(item)}
+                    >
+                      <div className="flex items-center gap-x-5">
+                        <img src={ProductPlaceholder} className="w-[50px]" />
+                        <p>{item.name}</p>
+                      </div>
+
+                      <div>
+                        {item.price} VNĐ --- (Tồn: {item.quantity})
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
         <div className="p-5">
           <table className="mt-3 w-full border">
