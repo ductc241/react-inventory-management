@@ -3,7 +3,7 @@ type Props = {
 };
 
 const FormatNumber = ({ number }: Props) => {
-  return <span>{new Intl.NumberFormat("de-DE").format(number)} VND</span>;
+  return <span>{new Intl.NumberFormat("de-DE").format(number)}</span>;
 };
 
 export default FormatNumber;
