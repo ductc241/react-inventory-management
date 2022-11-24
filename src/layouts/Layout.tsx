@@ -9,7 +9,7 @@ const LayoutMain = () => {
   return (
     <>
       <Header />
-      <div className="container mx-auto mt-6">
+      <div className="container mx-auto">
         <Outlet />
       </div>
       <Footer />
