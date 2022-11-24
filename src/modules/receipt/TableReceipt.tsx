@@ -7,9 +7,7 @@ import Button from "../../components/Button/Button";
 import { ITableColumn } from "../../components/Table/Table.types";
 
 type Props = {
-  visible?: boolean;
-  updateVisible?: (e: boolean) => void;
-  data: any;
+  data?: any;
 };
 
 type Inputs = {
@@ -72,7 +70,7 @@ const TableReceipt = (props: Props) => {
 
   return (
     <>
-      <Table dataSource={props.data} column={columns} link={true} />
+      <Table dataSource={props?.data} column={columns} link={true} />
     </>
   );
 };
