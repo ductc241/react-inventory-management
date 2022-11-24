@@ -44,12 +44,8 @@ const ProductForm = ({ mode }: IProductProps) => {
   });
 
   const createProduct = (data: IProductCreate) => {
-    const productInfor = new FormData();
-
-    productInfor.append("data", { ...data });
-
     try {
-      productServices.createProduct(productInfor);
+      productServices.createProduct(data);
 
       toast.success("Thêm sản phẩm thành công", {
         onClose: () => {
