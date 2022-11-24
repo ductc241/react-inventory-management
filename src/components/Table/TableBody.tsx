@@ -19,17 +19,19 @@ const TableBody = ({
   const renderRow = (record: any) =>
     tableColumn.map((column) => {
       if (!column || !record) {
-        return ''
+        return "";
       }
-      return <td
-        key={column.key}
-        className={clsx(
-          "p-[14px] first:pl-[24px] last:pr-[24px] text-sm",
-          className
-        )}
-      >
-        {column.render ? column.render(record) : record[column.dataIndex]}
-      </td>
+      return (
+        <td
+          key={column.key}
+          className={clsx(
+            "p-[14px] first:pl-[24px] last:pr-[24px] text-sm",
+            className
+          )}
+        >
+          {column.render ? column.render(record) : record[column.dataIndex]}
+        </td>
+      );
     });
 
   const renderRowLink = (record: any) =>
@@ -40,7 +42,6 @@ const TableBody = ({
           "p-[14px] first:pl-[24px] last:pr-[24px] text-sm",
           className
         )}
-        key={column.key}
       >
         <Link to={`/receipt/${record.id}`}>
           {column.render ? column.render(record) : record[column.dataIndex]}
