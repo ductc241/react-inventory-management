@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -8,12 +8,14 @@ import ProductPlaceholder from "../../../assets/product-placeholder.png";
 
 import productServices from "../../../api/product.api";
 import { addRecei } from "../../../api/receipt.api";
-import { list } from "../../../api/supplier.api";
+import * as supplierServices from "../../../api/supplier.api";
 import { getDateNow } from "../../../utils/funtion";
-import { getValueFromOptions } from "../../../utils/select";
+import {
+  convertDataToOption,
+  getValueFromOptions
+} from "../../../utils/select";
 import FormatNumber from "../../../components/formatNumber/formatNumber";
 import IOption from "../../../types/option.model";
-import { ISupplier } from "../../../types/supplier.type";
 import { IProduct } from "./../../../types/product.type";
 import { EXPORT_TYPES, PAYMENT_TYPES } from "./export.constants";
 
@@ -39,6 +41,7 @@ type Inputs = {
 
 const ExportShipments = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
+  const [productFilter, setProductFilter] = useState<IProduct[]>([]);
   const [suplierOption, setSuplierOption] = useState<IOption[]>([]);
   const navigate = useNavigate();
 
@@ -50,20 +53,67 @@ const ExportShipments = () => {
     watch,
     formState: { errors }
   } = useForm<Inputs>();
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, update, remove } = useFieldArray({
     name: "data",
     control
   });
 
   const getInitData = async () => {
-    const initData = await Promise.all([list(), productServices.getProducts()]);
+    const initData = await Promise.all([
+      supplierServices.list(),
+      productServices.getProducts()
+    ]);
 
-    setProducts(initData[0].data);
+    setSuplierOption(convertDataToOption(initData[0].data));
+    setProducts(initData[1].data.data);
   };
 
-  useEffect(() => {
-    getInitData();
-  }, []);
+  const handleSearchProduct = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.value) {
+      setProductFilter([]);
+      return;
+    }
+
+    const searchResult = products.filter((product) =>
+      product.name.includes(e.target.value)
+    );
+    setProductFilter(searchResult);
+  };
+
+  const handleAddProduct = (item: IProduct) => {
+    const isExistItem = fields.findIndex(
+      (product) => product.product_id === item.id
+    );
+
+    if (isExistItem < 0) {
+      append({
+        product_id: item.id,
+        name: item.name,
+        image: item.image,
+        inventory: item.quantity,
+        price: item.price,
+        quantity: 1
+      });
+      setProductFilter([]);
+      return;
+    }
+
+    update(isExistItem, {
+      ...fields[isExistItem],
+      quantity: Number(fields[isExistItem].quantity) + 1
+    });
+    setProductFilter([]);
+  };
+
+  const handleChageQuantity = (
+    e: ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    update(index, {
+      ...fields[index],
+      quantity: Number(e.target.value)
+    });
+  };
 
   const onSubmit = async (formValue: Inputs) => {
     const export_product = formValue.data.map((item) => {
@@ -75,16 +125,35 @@ const ExportShipments = () => {
       };
     });
 
-    const newItem = {
+    const exportShipment = {
       user_id: 1,
+
+      // export_type: 1,
+      // payment_type: 1,
+      // payment_date: "11/11/2022",
+      // payment_status: "unpaid",
+
       products: export_product,
       export_date: getDateNow(),
       address: "HN",
       receve_phone: "1234562345"
     };
-    await addRecei(newItem);
+
+    await addRecei(exportShipment);
     navigate("/receipt");
   };
+
+  useEffect(() => {
+    getInitData();
+  }, []);
+
+  const totalPrice = useMemo(() => {
+    const total = fields.reduce((total, product) => {
+      return total + product.price * product.quantity;
+    }, 0);
+
+    return total;
+  }, [fields]);
 
   return (
     <form
@@ -163,22 +232,24 @@ const ExportShipments = () => {
 
           <div className="flex gap-10">
             <TextField
-              name=""
-              type="text"
+              name="search"
               containerClass="grow"
               placeholder="-- Tìm kiếm --"
+              onChange={(e) => handleSearchProduct(e)}
+              autoComplete="off"
             />
             <Button>Thêm sản phẩm</Button>
           </div>
 
-          {products.length > 0 && (
+          {productFilter && productFilter.length > 0 && (
             <div className="absolute left-5 right-5">
               <div className="w-1/2 bg-white border shadow-lg">
-                {products.map((item) => {
+                {productFilter.map((item) => {
                   return (
                     <div
                       key={item.id}
                       className="flex justify-between items-center px-4 py-2 cursor-pointer hover:bg-gray-100"
+                      onClick={() => handleAddProduct(item)}
                     >
                       <div className="flex items-center gap-x-5">
                         <img src={ProductPlaceholder} className="w-[50px]" />
@@ -236,22 +307,21 @@ const ExportShipments = () => {
                           {...register(`data.${index}.quantity`)}
                           type="number"
                           min={0}
-                          max={item.quantity}
+                          max={item.inventory}
+                          onChange={(e) => handleChageQuantity(e, index)}
                         />
                       </td>
                       <td className="p-5 border">
                         <TextField
-                          {...register(`data.${index}.price`)}
-                          className="text-right"
-                          defaultValue={item.price}
+                          {...register(`data.${index}.price` as const)}
+                          className="text-right cursor-not-allowed"
+                          disabled
                         />
                       </td>
                       <td className="p-5 border">
-                        <TextField
-                          name="total-price"
-                          className="text-right"
-                          defaultValue={item.price * item.quantity}
-                        />
+                        <p className="text-right">
+                          {watch(`data.${index}.quantity`) * item.price}
+                        </p>
                       </td>
                       <td className="border p-5 text-right">
                         <Button onClick={() => remove(index)} variant="error">
@@ -271,8 +341,8 @@ const ExportShipments = () => {
                 >
                   Tổng tiền
                 </td>
-                <td className="pr-[26px] border font-semibold text-right text-lg">
-                  {FormatNumber({ number: 0 })} VNĐ
+                <td className="pr-5 border font-semibold text-right text-lg">
+                  {FormatNumber({ number: totalPrice })}
                 </td>
               </tr>
             </tfoot>
