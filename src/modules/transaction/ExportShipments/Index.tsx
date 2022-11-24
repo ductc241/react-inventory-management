@@ -60,7 +60,7 @@ const ExportShipments = () => {
     const array: IOption[] = data.map((item: ISupplier) => {
       return {
         label: item.name,
-        value: item.status
+        value: item.id
       };
     });
     setSuplierOption(array);
@@ -76,16 +76,12 @@ const ExportShipments = () => {
       const { data } = await productServices.getProducts();
       const getProduct: any = [];
       for (let i = 0; i < data.data.length; i++) {
-        if (
-          data.data[i].name.toLowerCase().includes(e) == true &&
-          e != "" &&
-          data.data[i].category_id == supplier
-        ) {
+        if (data.data[i].name.toLowerCase().includes(e) == true && e != "") {
           getProduct.push(data.data[i]);
         }
       }
 
-      setProduct(getProduct);
+      setProduct(data);
     } catch (error) {
       console.log(error);
     }
