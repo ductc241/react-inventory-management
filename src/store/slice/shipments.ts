@@ -1,9 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {
-  addShipments,
-  deleteShipment,
-  listShipments
-} from "../../api/shipments";
+import { toast } from "react-toastify";
+import { addShipments, listShipments } from "../../api/shipments";
 
 interface InitialStateType {
   shipments: any;
@@ -24,23 +21,16 @@ const initialState: InitialStateType = {
 export const getShipmentThunk = createAsyncThunk(
   "shipment/getShipmentThunk",
   async () => {
-    const { data } = await listShipments();
-    return data;
+    const res = await listShipments();
+    return res;
   }
 );
 
 export const addShipmentsThunks = createAsyncThunk(
   "shipment/addShipmentsThunks",
   async (dataShipments: any) => {
-    await addShipments(dataShipments);
-    return dataShipments;
-  }
-);
-
-export const deleteShipmentsThunk = createAsyncThunk(
-  "shipment/removeShipmentsThunk",
-  async (id: any) => {
-    await deleteShipment(id);
+    const res = await addShipments(dataShipments);
+    return res;
   }
 );
 
@@ -55,12 +45,14 @@ const shipmentsSlice = createSlice({
       state.shipments = action.payload;
     });
     builder.addCase(addShipmentsThunks.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.error = false;
-    });
-    builder.addCase(deleteShipmentsThunk.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.error = false;
+      if (action.payload.status === 200) {
+        toast.success("Tạo phiếu nhập thành công");
+        state.isLoading = false;
+        state.error = false;
+        return;
+      } else {
+        toast.success("Tạo phiếu nhập không thành công");
+      }
     });
   }
 });
