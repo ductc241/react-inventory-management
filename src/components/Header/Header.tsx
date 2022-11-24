@@ -106,7 +106,7 @@ const Header = () => {
                         Trả hàng nhập
                       </li>
                       <li className="rounded-sm px-3 py-1 hover:text-sky-700">
-                        <Link to="#">Xuất huỷ</Link>
+                        <Link to="/receipt">Xuất huỷ</Link>
                       </li>
                     </ul>
                   </div>
@@ -132,7 +132,7 @@ const Header = () => {
                         Khách hàng
                       </li>
                       <li className="rounded-sm px-3 py-1 hover:text-sky-700">
-                        Nhà cung cấp
+                        <Link to="/supplier">Nhà cung cấp</Link>
                       </li>
                       <li className="rounded-sm px-3 py-1 hover:text-sky-700">
                         Đối tác
@@ -143,18 +143,23 @@ const Header = () => {
                 <li>
                   <div className="group inline-block">
                     <ul className="outline-none focus:outline-none px-3 py-1 rounded-sm flex items-center min-w-32">
-                      <Link to="soquy" className="pr-1 font-semibold flex-1">Số quỹ</Link>
+                      <Link to="soquy" className="pr-1 font-semibold flex-1">
+                        Số quỹ
+                      </Link>
                     </ul>
                   </div>
                 </li>
               </ul>
               {/* Header Icons */}
               <div className="hidden xl:flex space-x-5 items-center">
-                { /* Thông báo */}
+                {/* Thông báo */}
                 <div className="group inline-block">
                   <ul className="outline-none focus:outline-none px-3 py-1 rounded-sm flex items-center min-w-32">
                     <span className="pr-1 font-semibold flex-1">
-                      <Link className="flex items-center hover:text-gray-200" to="#">
+                      <Link
+                        className="flex items-center hover:text-gray-200"
+                        to="#"
+                      >
                         <span className="inline-flex justify-center items-center ml-4">
                           <svg
                             className="w-6 h-6"
@@ -196,7 +201,7 @@ const Header = () => {
                     </li>
                   </ul>
                 </div>
-                { /* User */}
+                {/* User */}
                 <div className="group inline-block">
                   <ul className="outline-none focus:outline-none px-3 py-1 rounded-sm flex items-center min-w-32">
                     <span className="pr-1 font-semibold flex-1">
@@ -221,9 +226,10 @@ const Header = () => {
                       </Link>
                     </span>
                   </ul>
-                  <ul className="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute 
+                  <ul
+                    className="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute 
                         transition duration-150 ease-in-out origin-top text-black w-40 py-2 drop-shadow-xl -ml-[124px]"
-                    >
+                  >
                     <li className="rounded-sm px-3 py-1 text-center hover:text-sky-700">
                       <Link to="/signup">Tài khoản</Link>
                     </li>
@@ -286,7 +292,7 @@ const Header = () => {
                         <Link to="/import_shipments">Trả hàng nhập</Link>
                       </p>
                       <p id="menu_children">
-                        <Link to="#">Xuất huỷ</Link>
+                        <Link to="/receipt">Xuất huỷ</Link>
                       </p>
                     </li>
                     <li>

@@ -17,12 +17,14 @@ import { useAppDispatch } from "../../../hook/hook";
 import { addShipmentsThunks } from "../../../store/slice/shipments";
 import { IProduct } from "../../../types/product.type";
 import productServices from "../../../api/product.api";
+import { getDateNow } from "../../../utils/funtion";
 
 type Inputs = {
   supplier_id: number;
   products: {
     id: number;
     quantity: number;
+    quantity_import: number;
     name: string;
     import_price: number;
   }[];
@@ -35,7 +37,6 @@ const ShipMentsForm = () => {
   const [showSuggest, setShowSuggest] = useState(false);
   const [productsSelects, setProductsSelects] = useState<any | undefined>([]);
   const useDispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const { handleSubmit, register, control } = useForm<Inputs>();
   const { fields, prepend, remove } = useFieldArray({
@@ -74,16 +75,40 @@ const ShipMentsForm = () => {
     setIdNCC(item.id);
     setValueSelect(item.name);
     setShowSuggest(false);
-    remove();
   };
 
   const hanldeAddProduct = (item: IProduct) => {
-    prepend({
-      id: item.id,
-      name: item.name,
-      quantity: item.quantity,
-      import_price: item.import_price
-    });
+    if (fields?.length > 0) {
+      let count = 0;
+      for (let i = 0; i < fields.length; i++) {
+        if (
+          fields[i].name === item.name &&
+          fields[i].import_price === item.import_price &&
+          fields[i].quantity === item.quantity
+        ) {
+          toast.warning("Sản phẩm đã có trong danh sách");
+          // eslint-disable-next-line no-plusplus
+          count++;
+        }
+      }
+      if (count === 0) {
+        prepend({
+          id: item.id,
+          name: item.name,
+          quantity: item.quantity,
+          quantity_import: 0,
+          import_price: item.import_price
+        });
+      }
+    } else {
+      prepend({
+        id: item.id,
+        name: item.name,
+        quantity: item.quantity,
+        quantity_import: 0,
+        import_price: item.import_price
+      });
+    }
   };
 
   const TotalAmout = ({ control }: { control: Control<Inputs> }) => {
@@ -97,7 +122,7 @@ const ShipMentsForm = () => {
       totalArr = totalShipments.reduce(
         (a, b) =>
           a +
-          (Number.isNaN(b.quantity) ? 0 : b.quantity) *
+          (Number.isNaN(b.quantity_import) ? 0 : b.quantity_import) *
             (Number.isNaN(b.import_price) ? 0 : b.import_price),
         0
       );
@@ -109,27 +134,32 @@ const ShipMentsForm = () => {
       </p>
     );
   };
-  const onSubmit: SubmitHandler<Inputs> = (data: any) => {
-    if (idNcc === 0) {
+  const onSubmit: SubmitHandler<Inputs> = ({ products }: any) => {
+    if (+idNcc === 0) {
+      toast.warning("Bạn chưa chọn nhà cung cấp");
       return;
     }
 
-    const date = new Date();
+    const dataSuccsess = products?.map((item: any) => ({
+      id: item.id,
+      quantity: item.quantity_import,
+      import_price: item.import_price
+    }));
 
-    const d = date.getDate();
-    const y = date.getFullYear();
-    const m = date.getMonth();
+    if (dataSuccsess.length === 0) {
+      toast.warning("Bạn chưa nhập sẩn phẩm nào");
+      return;
+    }
+
     const dataSubmit = {
       supplier_id: +idNcc,
-      import_date: `${d}/${+m + 1}/${y}`,
-      ...data
+      import_date: getDateNow(),
+      products: [...dataSuccsess]
     };
-    console.log(dataSubmit);
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useDispatch(addShipmentsThunks(dataSubmit));
-    toast.success("Tạo phiếu nhập hàng thành công");
-    navigate(-1);
+    // toast.success("Tạo phiếu nhập hàng thành công");
   };
 
   return (
@@ -150,6 +180,12 @@ const ShipMentsForm = () => {
                   className="p-[14px] first:pl-[24px] last:pr-[24px] leading-[27px] text-[#311339] text-[14px] font-bold uppercase"
                 >
                   Tên sản phẩm
+                </th>
+                <th
+                  scope="col"
+                  className="p-[14px] first:pl-[24px] last:pr-[24px] leading-[27px] text-[#311339] text-[14px] font-bold uppercase"
+                >
+                  Số lượng / Kho
                 </th>
                 <th
                   scope="col"
@@ -188,7 +224,17 @@ const ShipMentsForm = () => {
                       </td>
                       <td className="p-[14px] first:pl-[24px] last:pr-[24px] text-sm">
                         <TextField
+                          disabled
                           {...register(`products.${index}.quantity`, {
+                            valueAsNumber: true
+                          })}
+                          type="number"
+                          className="border"
+                        />
+                      </td>
+                      <td className="p-[14px] first:pl-[24px] last:pr-[24px] text-sm">
+                        <TextField
+                          {...register(`products.${index}.quantity_import`, {
                             valueAsNumber: true
                           })}
                           type="number"
@@ -243,6 +289,7 @@ const ShipMentsForm = () => {
             placeholder="Tìm kiếm nhà cung cấp..."
             onChange={handleChangeValue}
             name="supplior"
+            autoComplete="off"
           />
           {showSuggest && valueSelect !== "" && (
             <ul className="mt-2 rounded z-50 absolute w-full cursor-pointer">
@@ -251,7 +298,7 @@ const ShipMentsForm = () => {
                   <li
                     key={key}
                     onClick={() => hanldeClick(item)}
-                    className="p-4 bg-[#f2f2f2] hover:bg-[#e6e6e6]"
+                    className="p-4 bg-gray-100 hover:bg-gray-200 rounded-md border-b-2 mx-1"
                   >
                     {item.name}
                   </li>
@@ -268,12 +315,21 @@ const ShipMentsForm = () => {
                 onClick={() => hanldeAddProduct(item)}
               >
                 <div>
-                  <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKzb4gnmKpX56VcVmlAeY78X6pORRE6VCBug&usqp=CAU"
-                    alt="ảnh sản phẩm"
-                    width="50px"
-                    height="50px"
-                  />
+                  {item.image !== null ? (
+                    <img
+                      src={item.image}
+                      alt="ảnh sản phẩm"
+                      width="50px"
+                      height="50px"
+                    />
+                  ) : (
+                    <img
+                      src="http://linhkienzin.vn/images/iconCartPro_.png"
+                      alt="ảnh sản phẩm"
+                      width="50px"
+                      height="50px"
+                    />
+                  )}
                 </div>
                 <div className="flex flex-col">
                   <span>{item.name}</span>

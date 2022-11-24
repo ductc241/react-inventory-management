@@ -13,5 +13,5 @@ export interface ITableColumn {
   key: string | number;
   title: string;
   dataIndex: string;
-  render?: (record: any) => ReactNode;
+  render?: (record: any,index?:any) => ReactNode;
 }
