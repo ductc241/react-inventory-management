@@ -28,19 +28,17 @@ type Inputs = {
   export_date: Date;
   note: string;
   data: {
-    quantity: number;
-    price: number;
-    amount: number;
+    product_id: number;
     name: string;
-    id: number;
     image: string;
+    inventory: number;
+    price: number;
+    quantity: number;
   }[];
 };
 
 const ExportShipments = () => {
-  const [product, setProduct] = useState<IProduct[]>();
-  const [items, setItems] = useState<any>(null);
-  const [supplier, setSupplier] = useState<any>(null);
+  const [products, setProducts] = useState<IProduct[]>([]);
   const [suplierOption, setSuplierOption] = useState<IOption[]>([]);
   const navigate = useNavigate();
 
@@ -57,90 +55,30 @@ const ExportShipments = () => {
     control
   });
 
-  const getDataSupplier = async () => {
-    const { data } = await list();
-    const array: IOption[] = data.map((item: ISupplier) => {
-      return {
-        label: item.name,
-        value: item.id
-      };
-    });
-    setSuplierOption(array);
+  const getInitData = async () => {
+    const initData = await Promise.all([list(), productServices.getProducts()]);
+
+    setProducts(initData[0].data);
   };
 
   useEffect(() => {
-    getDataSupplier();
+    getInitData();
   }, []);
-
-  const getProduct = async (e: string) => {
-    try {
-      setItems(null);
-      const { data } = await productServices.getProducts();
-      const getProduct: any = [];
-      for (let i = 0; i < data.data.length; i++) {
-        if (data.data[i].name.toLowerCase().includes(e) == true && e != "") {
-          getProduct.push(data.data[i]);
-        }
-      }
-
-      setProduct(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const setItem = (e: IProduct) => {
-    setProduct([]);
-    setItems(e);
-  };
-
-  const addPoduct = () => {
-    if (fields?.length > 0) {
-      let count = 0;
-      for (let i = 0; i < fields.length; i++) {
-        if (
-          fields[i].name == items.name &&
-          fields[i].price == items.price &&
-          fields[i].quantity == items.quantity
-        ) {
-          count += 1;
-        }
-      }
-      if (count == 0) {
-        append({
-          name: items.name,
-          price: items.price,
-          quantity: items.quantity,
-          amount: 0,
-          id: items.id,
-          image: items.image
-        });
-      }
-    } else {
-      append({
-        name: items.name,
-        price: items.price,
-        quantity: items.quantity,
-        amount: 0,
-        id: items.id,
-        image: items.image
-      });
-    }
-  };
 
   const onSubmit = async (formValue: Inputs) => {
     const export_product = formValue.data.map((item) => {
       return {
-        id: item.id,
-        quantity: item.amount,
+        id: item.product_id,
+        quantity: item.quantity,
         price: item.price,
         barcode: null
       };
     });
+
     const newItem = {
+      user_id: 1,
       products: export_product,
       export_date: getDateNow(),
-      user_id: 1,
       address: "HN",
       receve_phone: "1234562345"
     };
@@ -165,9 +103,7 @@ const ExportShipments = () => {
             containerClass="mb-5"
             options={EXPORT_TYPES}
             option={getValueFromOptions(EXPORT_TYPES, watch("export_type"))}
-            handleClickChange={(type) => (
-              setValue("export_type", type.value), setSupplier(type.value)
-            )}
+            handleClickChange={(type) => setValue("export_type", type.value)}
             placeholderText="-- Chọn kiểu xuất hàng --"
           />
 
@@ -177,9 +113,7 @@ const ExportShipments = () => {
             }}
             options={suplierOption}
             option={getValueFromOptions(suplierOption, watch("supplier"))}
-            handleClickChange={(brand) => (
-              setValue("supplier", brand.value), setSupplier(brand.value)
-            )}
+            handleClickChange={(brand) => setValue("supplier", brand.value)}
             placeholderText="-- Chọn nhà cung cấp --"
           />
 
@@ -206,10 +140,9 @@ const ExportShipments = () => {
             containerClass="mb-5"
             options={PAYMENT_TYPES}
             option={getValueFromOptions(PAYMENT_TYPES, watch("payment_type"))}
-            handleClickChange={(payment) => (
-              setValue("payment_type", payment.value),
-              setSupplier(payment.value)
-            )}
+            handleClickChange={(payment) =>
+              setValue("payment_type", payment.value)
+            }
             placeholderText="-- Chọn hình thức --"
           />
 
@@ -228,56 +161,24 @@ const ExportShipments = () => {
         <div className="p-5 border-b relative">
           <p className="mb-3 font-semibold">Thêm Sản phẩm</p>
 
-          {items != null ? (
-            <div className="flex gap-10 ">
-              <TextField
-                name=""
-                type="text"
-                onChange={(e: any) => {
-                  getProduct(e.target.value);
-                }}
-                value={items?.name}
-                containerClass="grow"
-              />
-              <Button
-                onClick={() => {
-                  addPoduct();
-                }}
-              >
-                Tạo
-              </Button>
-            </div>
-          ) : (
-            <div className="flex gap-10 ">
-              <TextField
-                name=""
-                type="text"
-                onChange={(e: any) => {
-                  getProduct(e.target.value);
-                }}
-                defaultValue={items?.name}
-                containerClass="grow"
-                placeholder="-- Tìm kiếm --"
-              />
-              <Button
-                onClick={() => {
-                  addPoduct();
-                }}
-              >
-                Tạo
-              </Button>
-            </div>
-          )}
+          <div className="flex gap-10">
+            <TextField
+              name=""
+              type="text"
+              containerClass="grow"
+              placeholder="-- Tìm kiếm --"
+            />
+            <Button>Thêm sản phẩm</Button>
+          </div>
 
-          {product && product.length > 0 && (
+          {products.length > 0 && (
             <div className="absolute left-5 right-5">
               <div className="w-1/2 bg-white border shadow-lg">
-                {product.map((item) => {
+                {products.map((item) => {
                   return (
                     <div
                       key={item.id}
                       className="flex justify-between items-center px-4 py-2 cursor-pointer hover:bg-gray-100"
-                      onClick={() => setItem(item)}
                     >
                       <div className="flex items-center gap-x-5">
                         <img src={ProductPlaceholder} className="w-[50px]" />
@@ -294,6 +195,7 @@ const ExportShipments = () => {
             </div>
           )}
         </div>
+
         <div className="p-5">
           <table className="mt-3 w-full border">
             <thead>
@@ -303,6 +205,7 @@ const ExportShipments = () => {
                 <th className="w-[100px] border text-left p-5">Tồn kho</th>
                 <th className="w-[200px] border text-left p-5">Số lượng</th>
                 <th className="w-[300px] border p-5">Giá</th>
+                <th className="w-[300px] border p-5">Thành tiền</th>
                 <th className="w-[120px] border text-left p-5 text-center">
                   Thao tác
                 </th>
@@ -314,6 +217,7 @@ const ExportShipments = () => {
                   return (
                     <tr key={item.id}>
                       <td className="p-5 border">{index}</td>
+
                       <td className="p-5 flex items-center gap-5">
                         <img
                           src={ProductPlaceholder}
@@ -322,12 +226,14 @@ const ExportShipments = () => {
                         />
                         <p className="text-lg capitalize">{item.name}</p>
                       </td>
+
                       <td className="p-5 border text-center">
-                        <p>{item.quantity}</p>
+                        <p>{item.inventory}</p>
                       </td>
+
                       <td className="p-5 border">
                         <TextField
-                          {...register(`data.${index}.amount`)}
+                          {...register(`data.${index}.quantity`)}
                           type="number"
                           min={0}
                           max={item.quantity}
@@ -338,6 +244,13 @@ const ExportShipments = () => {
                           {...register(`data.${index}.price`)}
                           className="text-right"
                           defaultValue={item.price}
+                        />
+                      </td>
+                      <td className="p-5 border">
+                        <TextField
+                          name="total-price"
+                          className="text-right"
+                          defaultValue={item.price * item.quantity}
                         />
                       </td>
                       <td className="border p-5 text-right">
@@ -354,7 +267,7 @@ const ExportShipments = () => {
               <tr>
                 <td
                   className="py-5 pr-[26px] border text-right font-semibold text-lg"
-                  colSpan={4}
+                  colSpan={5}
                 >
                   Tổng tiền
                 </td>
