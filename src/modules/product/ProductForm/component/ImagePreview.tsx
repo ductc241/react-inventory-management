@@ -37,10 +37,10 @@ const ImagePreview = ({ value, handleChangeImage }: IImagePreview) => {
               fill="none"
               className="mb-3 w-10 h-10 text-gray-400"
             />
-            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+            <p className="mb-2 text-sm text-gray-500">
               <span className="font-semibold">Click to upload</span>
             </p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">PNG, JPG</p>
+            <p className="text-xs text-gray-500">PNG, JPG</p>
           </div>
         )}
 

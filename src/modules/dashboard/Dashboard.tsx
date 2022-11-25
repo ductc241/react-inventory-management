@@ -12,7 +12,7 @@ const Dashboard = () => {
       <div>
         {/* Thống kê tổng quan */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 p-4 gap-4">
-          <div className="bg-green-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-green-600 dark:border-gray-600 text-white font-medium group">
+          <div className="bg-green-500 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-green-600 text-white font-medium group">
             <div className="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 group-hover:rotate-12">
               <svg
                 width={30}
@@ -20,7 +20,7 @@ const Dashboard = () => {
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
-                className="stroke-current text-green-800 dark:text-gray-800 duration-500 ease-in-out"
+                className="stroke-current text-green-800 duration-500 ease-in-out"
               >
                 <path
                   strokeLinecap="round"
@@ -35,7 +35,7 @@ const Dashboard = () => {
               <p>Thống kê sản phẩm trong kho</p>
             </div>
           </div>
-          <div className="bg-rose-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-rose-600 dark:border-gray-600 text-white font-medium group">
+          <div className="bg-rose-500 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-rose-600 text-white font-medium group">
             <div className="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 group-hover:rotate-12">
               <svg
                 width={30}
@@ -43,7 +43,7 @@ const Dashboard = () => {
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
-                className="stroke-current text-rose-800 dark:text-gray-800 duration-500 ease-in-out"
+                className="stroke-current text-rose-800 duration-500 ease-in-out"
               >
                 <path
                   strokeLinecap="round"
@@ -58,7 +58,7 @@ const Dashboard = () => {
               <p>Tiền lãi</p>
             </div>
           </div>
-          <div className="bg-yellow-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-yellow-600 dark:border-gray-600 text-white font-medium group">
+          <div className="bg-yellow-500 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-yellow-600 text-white font-medium group">
             <div className="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 group-hover:rotate-12">
               <svg
                 width={30}
@@ -66,7 +66,7 @@ const Dashboard = () => {
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
-                className="stroke-current text-yellow-800 dark:text-gray-800 duration-500 ease-in-out"
+                className="stroke-current text-yellow-800 duration-500 ease-in-out"
               >
                 <path
                   strokeLinecap="round"
@@ -81,7 +81,7 @@ const Dashboard = () => {
               <p>Tiền vốn</p>
             </div>
           </div>
-          <div className="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
+          <div className="bg-blue-500 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 text-white font-medium group">
             <div className="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 group-hover:rotate-12">
               <svg
                 width={30}
@@ -89,7 +89,7 @@ const Dashboard = () => {
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
-                className="stroke-current text-blue-800 dark:text-gray-800 duration-500 ease-in-out"
+                className="stroke-current text-blue-800 duration-500 ease-in-out"
               >
                 <path
                   strokeLinecap="round"
