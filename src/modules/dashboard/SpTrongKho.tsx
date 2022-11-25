@@ -1,17 +1,14 @@
-import React from 'react'
-import ReactPaginate from 'react-paginate'
-import { Caret } from '../../components/icons'
+import React from "react";
+import ReactPaginate from "react-paginate";
+import { Caret } from "../../components/icons";
 
-type Props = {}
 
-const SpTrongKho = (props: Props) => {
+const SpTrongKho = () => {
   return (
     <div>
       <div className="mt-4 mx-4">
         <div className="md:col-span-2 xl:col-span-3">
-          <h3 className="text-lg font-semibold">
-            Thống kê sản phẩm trong kho
-          </h3>
+          <h3 className="text-lg font-semibold">Sản phẩm bán trong tháng</h3>
         </div>
         <div className="w-full overflow-hidden rounded-lg shadow-xs mt-4 border shadow-lg">
           <div className="w-full overflow-x-auto">
@@ -40,18 +37,20 @@ const SpTrongKho = (props: Props) => {
                         />
                       </div>
                       <div>
-                        <p className="font-semibold">Củ Sạc iPhone Origin 20W</p>
+                        <p className="font-semibold">
+                          Củ Sạc iPhone Origin 20W
+                        </p>
                         <p className="text-xs text-gray-600 dark:text-gray-400">
                           Củ sạc
                         </p>
                       </div>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-sm">25.000 <span className="font-mono">VNĐ</span></td>
+                  <td className="px-4 py-3 text-sm">
+                    25.000 <span className="font-mono">VNĐ</span>
+                  </td>
                   <td className="px-4 py-3 text-xs">
-                    <span className="text-sm">
-                      100
-                    </span>
+                    <span className="text-sm">100</span>
                   </td>
                   <td className="px-4 py-3 text-sm">19</td>
                 </tr>
@@ -70,18 +69,20 @@ const SpTrongKho = (props: Props) => {
                         />
                       </div>
                       <div>
-                        <p className="font-semibold">Tai nghe Apple AirPods Pro - Chính hãng Apple</p>
+                        <p className="font-semibold">
+                          Tai nghe Apple AirPods Pro - Chính hãng Apple
+                        </p>
                         <p className="text-xs text-gray-600 dark:text-gray-400">
                           Tai nghe {/* Nhóm hàng */}
                         </p>
                       </div>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-sm">3.500.000 <span className="font-mono">VNĐ</span></td>
+                  <td className="px-4 py-3 text-sm">
+                    3.500.000 <span className="font-mono">VNĐ</span>
+                  </td>
                   <td className="px-4 py-3 text-xs">
-                    <span className="text-sm">
-                      100
-                    </span>
+                    <span className="text-sm">100</span>
                   </td>
                   <td className="px-4 py-3 text-sm">19</td>
                 </tr>
@@ -100,18 +101,20 @@ const SpTrongKho = (props: Props) => {
                         />
                       </div>
                       <div>
-                        <p className="font-semibold">Củ Sạc iPhone Origin 20W</p>
+                        <p className="font-semibold">
+                          Củ Sạc iPhone Origin 20W
+                        </p>
                         <p className="text-xs text-gray-600 dark:text-gray-400">
                           Củ sạc
                         </p>
                       </div>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-sm">25.000 <span className="font-mono">VNĐ</span></td>
+                  <td className="px-4 py-3 text-sm">
+                    25.000 <span className="font-mono">VNĐ</span>
+                  </td>
                   <td className="px-4 py-3 text-xs">
-                    <span className="text-sm">
-                      100
-                    </span>
+                    <span className="text-sm">100</span>
                   </td>
                   <td className="px-4 py-3 text-sm">19</td>
                 </tr>
@@ -130,18 +133,20 @@ const SpTrongKho = (props: Props) => {
                         />
                       </div>
                       <div>
-                        <p className="font-semibold">Tai nghe Apple AirPods Pro - Chính hãng Apple</p>
+                        <p className="font-semibold">
+                          Tai nghe Apple AirPods Pro - Chính hãng Apple
+                        </p>
                         <p className="text-xs text-gray-600 dark:text-gray-400">
                           Tai nghe {/* Nhóm hàng */}
                         </p>
                       </div>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-sm">3.500.000 <span className="font-mono">VNĐ</span></td>
+                  <td className="px-4 py-3 text-sm">
+                    3.500.000 <span className="font-mono">VNĐ</span>
+                  </td>
                   <td className="px-4 py-3 text-xs">
-                    <span className="text-sm">
-                      100
-                    </span>
+                    <span className="text-sm">100</span>
                   </td>
                   <td className="px-4 py-3 text-sm">19</td>
                 </tr>
@@ -160,18 +165,20 @@ const SpTrongKho = (props: Props) => {
                         />
                       </div>
                       <div>
-                        <p className="font-semibold">Củ Sạc iPhone Origin 20W</p>
+                        <p className="font-semibold">
+                          Củ Sạc iPhone Origin 20W
+                        </p>
                         <p className="text-xs text-gray-600 dark:text-gray-400">
                           Củ sạc
                         </p>
                       </div>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-sm">25.000 <span className="font-mono">VNĐ</span></td>
+                  <td className="px-4 py-3 text-sm">
+                    25.000 <span className="font-mono">VNĐ</span>
+                  </td>
                   <td className="px-4 py-3 text-xs">
-                    <span className="text-sm">
-                      100
-                    </span>
+                    <span className="text-sm">100</span>
                   </td>
                   <td className="px-4 py-3 text-sm">19</td>
                 </tr>
@@ -190,18 +197,20 @@ const SpTrongKho = (props: Props) => {
                         />
                       </div>
                       <div>
-                        <p className="font-semibold">Tai nghe Apple AirPods Pro - Chính hãng Apple</p>
+                        <p className="font-semibold">
+                          Tai nghe Apple AirPods Pro - Chính hãng Apple
+                        </p>
                         <p className="text-xs text-gray-600 dark:text-gray-400">
                           Tai nghe {/* Nhóm hàng */}
                         </p>
                       </div>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-sm">3.500.000 <span className="font-mono">VNĐ</span></td>
+                  <td className="px-4 py-3 text-sm">
+                    3.500.000 <span className="font-mono">VNĐ</span>
+                  </td>
                   <td className="px-4 py-3 text-xs">
-                    <span className="text-sm">
-                      100
-                    </span>
+                    <span className="text-sm">100</span>
                   </td>
                   <td className="px-4 py-3 text-sm">19</td>
                 </tr>
@@ -220,18 +229,20 @@ const SpTrongKho = (props: Props) => {
                         />
                       </div>
                       <div>
-                        <p className="font-semibold">Củ Sạc iPhone Origin 20W</p>
+                        <p className="font-semibold">
+                          Củ Sạc iPhone Origin 20W
+                        </p>
                         <p className="text-xs text-gray-600 dark:text-gray-400">
                           Củ sạc
                         </p>
                       </div>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-sm">25.000 <span className="font-mono">VNĐ</span></td>
+                  <td className="px-4 py-3 text-sm">
+                    25.000 <span className="font-mono">VNĐ</span>
+                  </td>
                   <td className="px-4 py-3 text-xs">
-                    <span className="text-sm">
-                      100
-                    </span>
+                    <span className="text-sm">100</span>
                   </td>
                   <td className="px-4 py-3 text-sm">19</td>
                 </tr>
@@ -250,18 +261,20 @@ const SpTrongKho = (props: Props) => {
                         />
                       </div>
                       <div>
-                        <p className="font-semibold">Tai nghe Apple AirPods Pro - Chính hãng Apple</p>
+                        <p className="font-semibold">
+                          Tai nghe Apple AirPods Pro - Chính hãng Apple
+                        </p>
                         <p className="text-xs text-gray-600 dark:text-gray-400">
                           Tai nghe {/* Nhóm hàng */}
                         </p>
                       </div>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-sm">3.500.000 <span className="font-mono">VNĐ</span></td>
+                  <td className="px-4 py-3 text-sm">
+                    3.500.000 <span className="font-mono">VNĐ</span>
+                  </td>
                   <td className="px-4 py-3 text-xs">
-                    <span className="text-sm">
-                      100
-                    </span>
+                    <span className="text-sm">100</span>
                   </td>
                   <td className="px-4 py-3 text-sm">19</td>
                 </tr>
@@ -282,13 +295,11 @@ const SpTrongKho = (props: Props) => {
                 nextLabel={<Caret className="rotate-180" width={"15px"} />}
               />
             </span>
-
           </div>
         </div>
-
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SpTrongKho
+export default SpTrongKho;
