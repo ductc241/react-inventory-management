@@ -43,8 +43,6 @@ const ShipmentsTable = () => {
     getSupplier();
   }, []);
 
-  console.log(dataSource);
-
   const columns: ITableColumn[] = [
     {
       title: "Mã nhập hàng",
