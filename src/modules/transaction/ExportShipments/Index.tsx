@@ -20,13 +20,12 @@ import { EXPORT_TYPES, PAYMENT_TYPES } from "./export.constants";
 import { toast } from "react-toastify";
 
 type Inputs = {
-  export_type: string;
+  export_type: number;
+  user_name: string | null;
+  phone_number: string | null;
+  supplier: number | null;
 
-  exporter_name: string | null;
-  exporter_phone: string | null;
-
-  supplier: string;
-  payment_type: string;
+  payment_type: number;
   export_date: Date;
   note: string;
   data: {
@@ -50,9 +49,18 @@ const ExportShipments = () => {
     control,
     handleSubmit,
     setValue,
+    getValues,
     watch,
     formState: { errors }
-  } = useForm<Inputs>();
+  } = useForm<Inputs>({
+    defaultValues: {
+      export_type: 1,
+      supplier: null,
+      user_name: null,
+      phone_number: null,
+      payment_type: 1
+    }
+  });
   const { fields, append, update, remove } = useFieldArray({
     name: "data",
     control
@@ -132,22 +140,23 @@ const ExportShipments = () => {
       products: export_product,
 
       supplier_id: formValue.supplier,
-      user_name: null,
-      phone_number: null,
+      user_name: formValue.user_name,
+      phone_number: formValue.phone_number,
       address: null,
+      description: formValue.note,
 
       // export_date: formValue.export_date,
       export_date: "24/11/2022",
       receve_phone: null
     };
 
-    try {
-      await addRecei(export_order);
-      toast.success("Tạo đơn thành công");
-      navigate("/receipt");
-    } catch (error) {
-      toast.error("Có lỗi xảy ra, không thể tạo đơn");
-    }
+    // try {
+    //   await addRecei(export_order);
+    //   toast.success("Tạo đơn thành công");
+    //   navigate("/receipt");
+    // } catch (error) {
+    //   toast.error("Có lỗi xảy ra, không thể tạo đơn");
+    // }
     console.log(export_order);
   };
 
@@ -180,27 +189,41 @@ const ExportShipments = () => {
             containerClass="mb-5"
             options={EXPORT_TYPES}
             option={getValueFromOptions(EXPORT_TYPES, watch("export_type"))}
-            handleClickChange={(type) => setValue("export_type", type.value)}
+            handleClickChange={(type) => {
+              setValue("export_type", type.value),
+                setValue("supplier", null),
+                setValue("user_name", null),
+                setValue("phone_number", null);
+            }}
             placeholderText="-- Chọn kiểu xuất hàng --"
           />
 
-          <Select
-            selectLabel={{
-              text: "Nhà cung cấp"
-            }}
-            options={suplierOption}
-            option={getValueFromOptions(suplierOption, watch("supplier"))}
-            handleClickChange={(brand) => setValue("supplier", brand.value)}
-            placeholderText="-- Chọn nhà cung cấp --"
-          />
+          {watch("export_type") === 1 ? (
+            <Select
+              selectLabel={{
+                text: "Nhà cung cấp"
+              }}
+              options={suplierOption}
+              option={getValueFromOptions(suplierOption, watch("supplier"))}
+              handleClickChange={(brand) => setValue("supplier", brand.value)}
+              placeholderText="-- Chọn nhà cung cấp --"
+            />
+          ) : (
+            <>
+              <TextField
+                label="Khách hàng"
+                {...register("user_name")}
+                containerClass="mb-5"
+              />
+              <TextField label="Số điện thoại" {...register("phone_number")} />
+            </>
+          )}
 
           <div className="mt-5">
             <p className="mb-1">Ghi chú</p>
             <textarea
               className="w-full border-2 h-[80px] p-4 border-[#DEDEDE] rounded-lg outline-none"
-              {...register("note", {
-                required: "bạn chưa nhập form này"
-              })}
+              {...register("note")}
             />
           </div>
         </div>
@@ -226,9 +249,7 @@ const ExportShipments = () => {
           <TextField
             label="Ngày hẹn thanh toán"
             type="date"
-            {...register("export_date", {
-              required: "bạn chưa nhập form này"
-            })}
+            {...register("export_date")}
             error={errors.export_date}
           />
         </div>

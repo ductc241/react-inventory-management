@@ -43,9 +43,9 @@ const ProductForm = ({ mode }: IProductProps) => {
     resolver: yupResolver(ProductSchema)
   });
 
-  const createProduct = (data: IProductCreate) => {
+  const createProduct = async (data: IProductCreate) => {
     try {
-      productServices.createProduct(data);
+      await productServices.createProduct(data);
 
       toast.success("Thêm sản phẩm thành công", {
         onClose: () => {
