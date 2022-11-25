@@ -6,6 +6,7 @@ import { Footer } from "../Footer";
 import "./Header.styles.css";
 
 const Header = () => {
+
   const disPatch = useAppDispatch();
   const navigate = useNavigate();
   const hanleLogOut = () => {
@@ -26,10 +27,10 @@ const Header = () => {
   return (
     <div>
       <div>
-        <div className="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white dark:bg-gray-700 text-black dark:text-white">
+        <div className="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white text-black">
           {/* Header */}
           <div className="fixed w-full flex items-center justify-between h-14 text-white z-10">
-            <div className="flex items-center justify-start md:justify-center pl-3 w-14 md:w-52 h-14 bg-slate-800 dark:bg-gray-800 border-none">
+            <div className="flex items-center justify-start md:justify-center pl-3 w-14 md:w-52 h-14 bg-slate-800 border-none">
               <Link to="/" className="w-20">
                 <img
                   src="https://res.cloudinary.com/dsirnbuyv/image/upload/v1664895627/poly_wareh_j06pfe.png"
@@ -38,7 +39,7 @@ const Header = () => {
                 />
               </Link>
             </div>
-            <div className="flex justify-between items-center h-14 bg-slate-800 dark:bg-gray-800 header-right">
+            <div className="flex justify-between items-center h-14 bg-slate-800 header-right">
               <div className="bg-white rounded flex items-center w-full max-w-xl mr-4 ml-4 p-2 shadow-sm border border-gray-200">
                 <button className="outline-none focus:outline-none">
                   <svg
@@ -109,7 +110,7 @@ const Header = () => {
                   </ul>
                 </div>
                 <li>
-                  <div className="block w-px h-6 bg-gray-400 dark:bg-gray-700" />
+                  <div className="block w-px h-6 bg-gray-400" />
                 </li>
                 <div className="group inline-block md:mr-8">
                   <ul className="outline-none focus:outline-none px-2 py-1 rounded-sm flex items-center min-w-32 -ml-2">
@@ -154,7 +155,7 @@ const Header = () => {
           </div>
           {/* ./Header */}
           {/* Sidebar */}
-          <div className="fixed flex flex-col top-14 left-0 w-14 hover:w-52 md:w-52 bg-slate-800 dark:bg-gray-900 h-full text-white transition-all duration-300 border-none z-10 sidebar">
+          <div className="fixed flex flex-col top-14 left-0 w-14 hover:w-52 md:w-52 bg-slate-800 h-full text-white transition-all duration-300 border-none z-10 sidebar">
             <div className="overflow-y-auto overflow-x-hidden flex flex-col justify-between flex-grow">
               <ul className="flex flex-col py-4 space-y-1">
                 <li className="px-5 hidden md:block">
@@ -162,13 +163,13 @@ const Header = () => {
                     {/* <div className="text-sm font-light tracking-wide text-gray-400 uppercase">
                       Menu
                     </div> */}
-                    <div className="block w-full h-px bg-gray-400 dark:bg-gray-700" />
+                    <div className="block w-full h-px bg-gray-400" />
                   </div>
                 </li>
                 <li>
                   <Link
                     to="/"
-                    className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-green-700 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-green-400 dark:hover:border-gray-800 pr-6"
+                    className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-green-700 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-green-400 pr-6"
                   >
                     <span className="inline-flex justify-center items-center ml-4">
                       <svg
@@ -197,7 +198,7 @@ const Header = () => {
                       <button
                         onClick={() => setMenuValue(0)}
                         className="text-white flex items-center w-full py-2 w-[600px]
-                        relative flex flex-row items-center h-11 focus:outline-none hover:bg-green-700 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-green-400 dark:hover:border-gray-800 pr-6 "
+                        relative flex flex-row items-center h-11 focus:outline-none hover:bg-green-700 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-green-400 pr-6 "
                       >
                         <span className="inline-flex justify-center items-center ml-4">
                           <img
@@ -275,7 +276,7 @@ const Header = () => {
                       <button
                         onClick={() => setMenuValue(1)}
                         className="text-white flex items-center w-full py-2 w-[600px]
-                        relative flex flex-row items-center h-11 focus:outline-none hover:bg-green-700 hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-green-500 dark:hover:border-gray-800 pr-6 "
+                        relative flex flex-row items-center h-11 focus:outline-none hover:bg-green-700 hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-green-500 pr-6 "
                       >
                         <span className="inline-flex justify-center items-center ml-4">
                           <img
@@ -369,7 +370,7 @@ const Header = () => {
                       <button
                         onClick={() => setMenuValue(2)}
                         className="text-white flex items-center w-full py-2 w-[600px]
-                        relative flex flex-row items-center h-11 focus:outline-none hover:bg-green-700 hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-green-500 dark:hover:border-gray-800 pr-6 "
+                        relative flex flex-row items-center h-11 focus:outline-none hover:bg-green-700 hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-green-500 pr-6 "
                       >
                         <span className="inline-flex justify-center items-center ml-4">
                           <img
@@ -437,10 +438,10 @@ const Header = () => {
                   <div>
                     <div>
                       <Link
-                        to="#"
+                        to="/soquy"
                         onClick={() => setMenuValue(2)}
                         className="text-white flex items-center w-full py-2 w-[600px]
-                        relative flex flex-row items-center h-11 focus:outline-none hover:bg-green-700 hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-green-500 dark:hover:border-gray-800 pr-6 "
+                        relative flex flex-row items-center h-11 focus:outline-none hover:bg-green-700 hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-green-500 pr-6 "
                       >
                         <span className="inline-flex justify-center items-center ml-4">
                           <img
