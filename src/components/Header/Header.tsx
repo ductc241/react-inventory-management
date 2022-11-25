@@ -113,7 +113,7 @@ const Header = () => {
                 <li>
                   <div className="block w-px h-6 bg-gray-400 dark:bg-gray-700" />
                 </li>
-                <div className="group inline-block mr-8">
+                <div className="group inline-block md:mr-8">
                   <ul className="outline-none focus:outline-none px-2 py-1 rounded-sm flex items-center min-w-32 -ml-2">
                     <span className="pr-1 font-semibold flex-1">
                       <Link
@@ -151,7 +151,6 @@ const Header = () => {
                     </li>
                   </ul>
                 </div>
-
               </ul>
             </div>
           </div>
@@ -162,9 +161,10 @@ const Header = () => {
               <ul className="flex flex-col py-4 space-y-1">
                 <li className="px-5 hidden md:block">
                   <div className="flex flex-row items-center h-8">
-                    <div className="text-sm font-light tracking-wide text-gray-400 uppercase">
+                    {/* <div className="text-sm font-light tracking-wide text-gray-400 uppercase">
                       Menu
-                    </div>
+                    </div> */}
+                    <div className="block w-full h-px bg-gray-400 dark:bg-gray-700" />
                   </div>
                 </li>
                 <li>
@@ -188,7 +188,7 @@ const Header = () => {
                         />
                       </svg>
                     </span>
-                    <span className="ml-2 text-sm tracking-wide truncate">
+                    <span className="ml-4 text-sm tracking-wide truncate">
                       Tổng quan
                     </span>
                   </a>
@@ -204,7 +204,7 @@ const Header = () => {
                         <span className="inline-flex justify-center items-center ml-4">
                           <img src="https://res.cloudinary.com/dsirnbuyv/image/upload/v1669396689/shopping-bag_1_qeoipo.svg" alt="" width="17px" />
                         </span>
-                        <p className="ml-2 text-sm tracking-wide truncate">
+                        <p className="ml-5 text-sm tracking-wide truncate">
                           Hàng hoá
                         </p>
                         <div className="ml-8">
@@ -265,7 +265,7 @@ const Header = () => {
                           <img src="https://res.cloudinary.com/dsirnbuyv/image/upload/v1669396970/apps-sort_cbsixy.svg" alt="" width="17px" />
 
                         </span>
-                        <p className="ml-2 text-sm tracking-wide truncate">
+                        <p className="ml-5 text-sm tracking-wide truncate">
                           Giao dịch
                         </p>
                         <div className="ml-[34px]">
@@ -332,7 +332,7 @@ const Header = () => {
                         <span className="inline-flex justify-center items-center ml-4">
                           <img src="https://res.cloudinary.com/dsirnbuyv/image/upload/v1669397066/users-alt_1_xanuwe.svg" alt="" width="17px" />
                         </span>
-                        <p className="ml-2 text-sm tracking-wide truncate">
+                        <p className="ml-5 text-sm tracking-wide truncate">
                           Đối tác
                         </p>
                         <div className="ml-[49px]">
@@ -376,19 +376,25 @@ const Header = () => {
                     </div>
                   </div>
                 </li>
-                <li>
-                  <a
-                    href="#"
-                    className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-green-700 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-green-500 dark:hover:border-gray-800 pr-6"
-                  >
-                    <span className="inline-flex justify-center items-center ml-4">
-                      <img src="https://res.cloudinary.com/dsirnbuyv/image/upload/v1669397210/usd-circle_q1yme2.svg" alt="" width="17px" />
-                    </span>
-                    <span className="ml-2 text-sm tracking-wide truncate">
-                      Số quỹ
-                    </span>
-                  </a>
+                <li className="mr-3 flex-1">
+                  <div>
+                    <div>
+                      <button
+                        onClick={() => setMenuValue(2)}
+                        className="text-white flex items-center w-full py-2 w-[600px]
+                        relative flex flex-row items-center h-11 focus:outline-none hover:bg-green-700 hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-green-500 dark:hover:border-gray-800 pr-6 "
+                      >
+                        <span className="inline-flex justify-center items-center ml-4">
+                          <img src="https://res.cloudinary.com/dsirnbuyv/image/upload/v1669397210/usd-circle_q1yme2.svg" alt="" width="17px" />
+                        </span>
+                        <p className="ml-5 text-sm tracking-wide truncate">
+                          Số quỹ
+                        </p>
+                      </button>
+                    </div>
+                  </div>
                 </li>
+
               </ul>
               <p className="mb-14 px-5 py-3 hidden md:block text-center text-xs">
                 Copyright @2022
