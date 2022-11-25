@@ -6,9 +6,20 @@ const EXPORT_TYPES: IOption[] = [
     value: 1
   },
   {
-    label: "Khác",
+    label: "Nguồn khác",
     value: 2
   }
 ];
 
-export default EXPORT_TYPES;
+const PAYMENT_TYPES: IOption[] = [
+  {
+    label: "Thanh toán trực tiếp",
+    value: 1
+  },
+  {
+    label: "Chuyển khoản",
+    value: 2
+  }
+];
+
+export { EXPORT_TYPES, PAYMENT_TYPES };

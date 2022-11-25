@@ -57,8 +57,15 @@ const ProductForm = ({ mode }: IProductProps) => {
     }
   };
 
-  const updateProduct = (data: IProductCreate) => {
-    console.log("update: ", data);
+  const updateProduct = async (data: IProductCreate) => {
+    try {
+      if (params.id)
+        await productServices.updateProduct(Number(params.id), data);
+      toast.success("Cập nhật thành công");
+      navigate("/products");
+    } catch (error) {
+      toast.error("Có lỗi xảy ra, vui lòng thử lại sau");
+    }
   };
 
   useEffect(() => {
@@ -79,13 +86,16 @@ const ProductForm = ({ mode }: IProductProps) => {
     if (params.id) {
       productServices
         .getProductById(params.id)
-        .then(({ data }: { data: IProduct }) => {
+        .then(({ data }: { data: any }) => {
           reset({
-            name: data.name,
-            category_id: data.category_id,
-            price: data.price,
-            import_price: data.import_price,
-            quantity: data.quantity
+            name: data.data.name,
+            category_id: data.data.category_id,
+            price: data.data.price,
+            import_price: data.data.import_price,
+            quantity: data.data.quantity,
+            image: data.data.image,
+            warranty_date: data.data.warranty_date,
+            description: data.data.description
           });
         });
     }
@@ -266,7 +276,9 @@ const ProductForm = ({ mode }: IProductProps) => {
       </div>
 
       <div className="flex gap-5 mt-10">
-        <Button type="submit">Thêm sản phẩm</Button>
+        <Button type="submit">
+          {mode === "create" ? "Thêm sản phẩm" : "Cập nhật"}
+        </Button>
         <Button variant="warning">Hủy bỏ</Button>
       </div>
     </form>

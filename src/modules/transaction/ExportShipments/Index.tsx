@@ -1,19 +1,23 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+
+import { TrashIcon } from "../../../components/icons";
+import { Button, Select, TextField } from "../../../components";
+import ProductPlaceholder from "../../../assets/product-placeholder.png";
+
 import productServices from "../../../api/product.api";
 import { addRecei } from "../../../api/receipt.api";
-import { list } from "../../../api/supplier.api";
-import { Button, Select, TextField } from "../../../components";
-import IOption from "../../../types/option.model";
-import { ISupplier } from "../../../types/supplier.type";
-import { getDateNow } from "../../../utils/funtion";
-import { getValueFromOptions } from "../../../utils/select";
-import { IProduct } from "./../../../types/product.type";
-import ProductPlaceholder from "../../../assets/product-placeholder.png";
+import * as supplierServices from "../../../api/supplier.api";
+import {
+  convertDataToOption,
+  getValueFromOptions
+} from "../../../utils/select";
 import FormatNumber from "../../../components/formatNumber/formatNumber";
-import { TrashIcon } from "../../../components/icons";
-import EXPORT_TYPES from "./export.constants";
+import IOption from "../../../types/option.model";
+import { IProduct } from "./../../../types/product.type";
+import { EXPORT_TYPES, PAYMENT_TYPES } from "./export.constants";
+import { toast } from "react-toastify";
 
 type Inputs = {
   export_type: string;
@@ -22,23 +26,22 @@ type Inputs = {
   exporter_phone: string | null;
 
   supplier: string;
-  note: string;
-  payment: string;
+  payment_type: string;
   export_date: Date;
+  note: string;
   data: {
-    quantity: number;
-    price: number;
-    amount: number;
+    product_id: number;
     name: string;
-    id: number;
     image: string;
+    inventory: number;
+    price: number;
+    quantity: number;
   }[];
 };
 
 const ExportShipments = () => {
-  const [product, setProduct] = useState<any>();
-  const [items, setItems] = useState<any>(null);
-  const [supplier, setSupplier] = useState<any>(null);
+  const [products, setProducts] = useState<IProduct[]>([]);
+  const [productFilter, setProductFilter] = useState<IProduct[]>([]);
   const [suplierOption, setSuplierOption] = useState<IOption[]>([]);
   const navigate = useNavigate();
 
@@ -50,102 +53,115 @@ const ExportShipments = () => {
     watch,
     formState: { errors }
   } = useForm<Inputs>();
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, update, remove } = useFieldArray({
     name: "data",
     control
   });
 
-  const getDataSupplier = async () => {
-    const { data } = await list();
-    const array: IOption[] = data.map((item: ISupplier) => {
-      return {
-        label: item.name,
-        value: item.id
-      };
-    });
-    setSuplierOption(array);
+  const getInitData = async () => {
+    const initData = await Promise.all([
+      supplierServices.list(),
+      productServices.getProducts()
+    ]);
+
+    setSuplierOption(convertDataToOption(initData[0].data));
+    setProducts(initData[1].data.data);
   };
 
-  useEffect(() => {
-    getDataSupplier();
-  }, []);
-
-  const getProduct = async (e: string) => {
-    try {
-      setItems(null);
-      const { data } = await productServices.getProducts();
-      const getProduct: any = [];
-      for (let i = 0; i < data.data.length; i++) {
-        if (data.data[i].name.toLowerCase().includes(e) == true && e != "") {
-          getProduct.push(data.data[i]);
-        }
-      }
-
-      setProduct(data);
-    } catch (error) {
-      console.log(error);
+  const handleSearchProduct = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.value) {
+      setProductFilter([]);
+      return;
     }
+
+    const searchResult = products.filter((product) =>
+      product.name.includes(e.target.value)
+    );
+    setProductFilter(searchResult);
   };
 
-  const setItem = (e: IProduct) => {
-    setProduct([]);
-    setItems(e);
-  };
+  const handleAddProduct = (item: IProduct) => {
+    const isExistItem = fields.findIndex(
+      (product) => product.product_id === item.id
+    );
 
-  const addPoduct = () => {
-    if (fields?.length > 0) {
-      let count = 0;
-      for (let i = 0; i < fields.length; i++) {
-        if (
-          fields[i].name == items.name &&
-          fields[i].price == items.price &&
-          fields[i].quantity == items.quantity
-        ) {
-          count += 1;
-        }
-      }
-      if (count == 0) {
-        append({
-          name: items.name,
-          price: items.price,
-          quantity: items.quantity,
-          amount: 0,
-          id: items.id,
-          image: items.image
-        });
-      }
-    } else {
+    if (isExistItem < 0) {
       append({
-        name: items.name,
-        price: items.price,
-        quantity: items.quantity,
-        amount: 0,
-        id: items.id,
-        image: items.image
+        product_id: item.id,
+        name: item.name,
+        image: item.image,
+        inventory: item.quantity,
+        price: item.price,
+        quantity: 1
       });
+      setProductFilter([]);
+      return;
     }
+
+    update(isExistItem, {
+      ...fields[isExistItem],
+      quantity: Number(fields[isExistItem].quantity) + 1
+    });
+    setProductFilter([]);
+  };
+
+  const handleChageQuantity = (
+    e: ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    update(index, {
+      ...fields[index],
+      quantity: Number(e.target.value)
+    });
   };
 
   const onSubmit = async (formValue: Inputs) => {
     const export_product = formValue.data.map((item) => {
       return {
-        id: item.id,
-        quantity: item.amount,
+        id: item.product_id,
+        quantity: item.quantity,
         price: item.price,
         barcode: null
       };
     });
-    const newItem = {
-      products: export_product,
-      // type: 1,
-      export_date: getDateNow(),
+
+    const export_order = {
       user_id: 1,
-      address: "HN",
-      receve_phone: "1234562345"
+      export_type: formValue.export_type,
+      payment: formValue.payment_type,
+      products: export_product,
+
+      supplier_id: formValue.supplier,
+      user_name: null,
+      phone_number: null,
+      address: null,
+
+      // export_date: formValue.export_date,
+      export_date: "24/11/2022",
+      receve_phone: null
     };
-    await addRecei(newItem);
-    navigate("/receipt");
+
+    try {
+      await addRecei(export_order);
+      toast.success("Tạo đơn thành công");
+      navigate("/receipt");
+    } catch (error) {
+      toast.error("Có lỗi xảy ra, không thể tạo đơn");
+    }
+    console.log(export_order);
   };
+
+  useEffect(() => {
+    getInitData();
+  }, []);
+
+  const totalPrice = useMemo(() => {
+    const total = fields.reduce((total, product) => {
+      return total + product.price * product.quantity;
+    }, 0);
+
+    return total;
+  }, [fields]);
 
   return (
     <form
@@ -164,9 +180,7 @@ const ExportShipments = () => {
             containerClass="mb-5"
             options={EXPORT_TYPES}
             option={getValueFromOptions(EXPORT_TYPES, watch("export_type"))}
-            handleClickChange={(type) => (
-              setValue("export_type", type.value), setSupplier(type.value)
-            )}
+            handleClickChange={(type) => setValue("export_type", type.value)}
             placeholderText="-- Chọn kiểu xuất hàng --"
           />
 
@@ -176,9 +190,7 @@ const ExportShipments = () => {
             }}
             options={suplierOption}
             option={getValueFromOptions(suplierOption, watch("supplier"))}
-            handleClickChange={(brand) => (
-              setValue("supplier", brand.value), setSupplier(brand.value)
-            )}
+            handleClickChange={(brand) => setValue("supplier", brand.value)}
             placeholderText="-- Chọn nhà cung cấp --"
           />
 
@@ -198,14 +210,19 @@ const ExportShipments = () => {
           <p className="font-semibold">Thanh toán</p>
         </div>
         <div className="p-5">
-          <TextField
-            label="Hình thức thanh toán"
-            className="mb-5"
-            {...register("payment", {
-              required: "bạn chưa nhập form này"
-            })}
-            error={errors.payment}
+          <Select
+            selectLabel={{
+              text: "Hình thức thanh toán"
+            }}
+            containerClass="mb-5"
+            options={PAYMENT_TYPES}
+            option={getValueFromOptions(PAYMENT_TYPES, watch("payment_type"))}
+            handleClickChange={(payment) =>
+              setValue("payment_type", payment.value)
+            }
+            placeholderText="-- Chọn hình thức --"
           />
+
           <TextField
             label="Ngày hẹn thanh toán"
             type="date"
@@ -221,60 +238,43 @@ const ExportShipments = () => {
         <div className="p-5 border-b relative">
           <p className="mb-3 font-semibold">Thêm Sản phẩm</p>
 
-          {items != null ? (
-            <div className="flex gap-10 ">
-              <TextField
-                name=""
-                type="text"
-                onChange={(e: any) => {
-                  getProduct(e.target.value);
-                }}
-                value={items?.name}
-                containerClass="grow"
-              />
-              <Button
-                onClick={() => {
-                  addPoduct();
-                }}
-              >
-                Tạo
-              </Button>
-            </div>
-          ) : (
-            <div className="flex gap-10 ">
-              <TextField
-                name=""
-                type="text"
-                onChange={(e: any) => {
-                  getProduct(e.target.value);
-                }}
-                defaultValue={items?.name}
-                containerClass="grow"
-              />
-              <Button
-                onClick={() => {
-                  addPoduct();
-                }}
-              >
-                Tạo
-              </Button>
+          <div className="flex gap-10">
+            <TextField
+              name="search"
+              containerClass="grow"
+              placeholder="-- Tìm kiếm --"
+              onChange={(e) => handleSearchProduct(e)}
+              autoComplete="off"
+            />
+            <Button>Thêm sản phẩm</Button>
+          </div>
+
+          {productFilter && productFilter.length > 0 && (
+            <div className="absolute left-5 right-5">
+              <div className="w-1/2 bg-white border shadow-lg">
+                {productFilter.map((item) => {
+                  return (
+                    <div
+                      key={item.id}
+                      className="flex justify-between items-center px-4 py-2 cursor-pointer hover:bg-gray-100"
+                      onClick={() => handleAddProduct(item)}
+                    >
+                      <div className="flex items-center gap-x-5">
+                        <img src={ProductPlaceholder} className="w-[50px]" />
+                        <p>{item.name}</p>
+                      </div>
+
+                      <div>
+                        {item.price} VNĐ --- (Tồn: {item.quantity})
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           )}
-          {product?.length > 0 ? (
-            <select
-              multiple
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-5 absolute bottom-0 left-5 right-5 top-full h-max"
-            >
-              {product?.map((item: IProduct) => {
-                return (
-                  <option onClick={() => setItem(item)} key={item.id}>
-                    {item.name}
-                  </option>
-                );
-              })}
-            </select>
-          ) : null}
         </div>
+
         <div className="p-5">
           <table className="mt-3 w-full border">
             <thead>
@@ -284,6 +284,7 @@ const ExportShipments = () => {
                 <th className="w-[100px] border text-left p-5">Tồn kho</th>
                 <th className="w-[200px] border text-left p-5">Số lượng</th>
                 <th className="w-[300px] border p-5">Giá</th>
+                <th className="w-[300px] border p-5">Thành tiền</th>
                 <th className="w-[120px] border text-left p-5 text-center">
                   Thao tác
                 </th>
@@ -295,6 +296,7 @@ const ExportShipments = () => {
                   return (
                     <tr key={item.id}>
                       <td className="p-5 border">{index}</td>
+
                       <td className="p-5 flex items-center gap-5">
                         <img
                           src={ProductPlaceholder}
@@ -303,23 +305,31 @@ const ExportShipments = () => {
                         />
                         <p className="text-lg capitalize">{item.name}</p>
                       </td>
+
                       <td className="p-5 border text-center">
-                        <p>{item.quantity}</p>
+                        <p>{item.inventory}</p>
                       </td>
+
                       <td className="p-5 border">
                         <TextField
-                          {...register(`data.${index}.amount`)}
+                          {...register(`data.${index}.quantity`)}
                           type="number"
                           min={0}
-                          max={item.quantity}
+                          max={item.inventory}
+                          onChange={(e) => handleChageQuantity(e, index)}
                         />
                       </td>
                       <td className="p-5 border">
                         <TextField
-                          {...register(`data.${index}.price`)}
-                          className="text-right"
-                          defaultValue={item.price}
+                          {...register(`data.${index}.price` as const)}
+                          className="text-right cursor-not-allowed"
+                          disabled
                         />
+                      </td>
+                      <td className="p-5 border">
+                        <p className="text-right">
+                          {watch(`data.${index}.quantity`) * item.price}
+                        </p>
                       </td>
                       <td className="border p-5 text-right">
                         <Button onClick={() => remove(index)} variant="error">
@@ -335,12 +345,12 @@ const ExportShipments = () => {
               <tr>
                 <td
                   className="py-5 pr-[26px] border text-right font-semibold text-lg"
-                  colSpan={4}
+                  colSpan={5}
                 >
                   Tổng tiền
                 </td>
-                <td className="pr-[26px] border font-semibold text-right text-lg">
-                  {FormatNumber({ number: 0 })} VNĐ
+                <td className="pr-5 border font-semibold text-right text-lg">
+                  {FormatNumber({ number: totalPrice })}
                 </td>
               </tr>
             </tfoot>
