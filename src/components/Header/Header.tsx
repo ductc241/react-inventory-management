@@ -242,13 +242,13 @@ const Header = () => {
                           to="/products"
                           className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
                         >
-                          <p className="text-base leading-4 ml-6">Danh mục</p>
+                          <p className="text-base leading-4 ml-8">Danh mục</p>
                         </Link>
                         <Link
                           to="#"
                           className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
                         >
-                          <p className="text-base leading-4 ml-6">
+                          <p className="text-base leading-4 ml-8">
                             Thiết lập giá
                           </p>
                         </Link>
@@ -256,7 +256,7 @@ const Header = () => {
                           to="#"
                           className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
                         >
-                          <p className="text-base leading-4 ml-6">
+                          <p className="text-base leading-4 ml-8">
                             Phiếu bảo hành
                           </p>
                         </Link>
@@ -264,7 +264,7 @@ const Header = () => {
                           to="#"
                           className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
                         >
-                          <p className="text-base leading-4 ml-6">Kiểm kho</p>
+                          <p className="text-base leading-4 ml-8">Kiểm kho</p>
                         </Link>
                       </div>
                     </div>
@@ -320,37 +320,37 @@ const Header = () => {
                           to="#"
                           className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
                         >
-                          <p className="text-base leading-4 ml-6">Đơn đặt</p>
+                          <p className="text-base leading-4 ml-8">Đơn đặt</p>
                         </Link>
                         <Link
                           to="#"
                           className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
                         >
-                          <p className="text-base leading-4 ml-6">Hoá đơn</p>
+                          <p className="text-base leading-4 ml-8">Hoá đơn</p>
                         </Link>
                         <Link
                           to="#"
                           className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
                         >
-                          <p className="text-base leading-4 ml-6">Vận đơn</p>
+                          <p className="text-base leading-4 ml-8">Vận đơn</p>
                         </Link>
                         <Link
                           to="#"
                           className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
                         >
-                          <p className="text-base leading-4 ml-6">Trả hàng</p>
+                          <p className="text-base leading-4 ml-8">Trả hàng</p>
                         </Link>
                         <Link
                           to="/import_shipments"
                           className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
                         >
-                          <p className="text-base leading-4 ml-6">Nhập hàng</p>
+                          <p className="text-base leading-4 ml-8">Nhập hàng</p>
                         </Link>
                         <Link
                           to="#"
                           className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
                         >
-                          <p className="text-base leading-4 ml-6">
+                          <p className="text-base leading-4 ml-8">
                             Trả hàng nhập
                           </p>
                         </Link>
@@ -358,7 +358,7 @@ const Header = () => {
                           to="#"
                           className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
                         >
-                          <p className="text-base leading-4 ml-6">Xuất huỷ</p>
+                          <p className="text-base leading-4 ml-8">Xuất huỷ</p>
                         </Link>
                       </div>
                     </div>
@@ -414,13 +414,13 @@ const Header = () => {
                           to="#"
                           className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
                         >
-                          <p className="text-base leading-4 ml-6">Khách hàng</p>
+                          <p className="text-base leading-4 ml-8">Khách hàng</p>
                         </Link>
                         <Link
                           to="#"
                           className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
                         >
-                          <p className="text-base leading-4 ml-6">
+                          <p className="text-base leading-4 ml-8">
                             Nhà cung cấp
                           </p>
                         </Link>
@@ -428,7 +428,7 @@ const Header = () => {
                           to="#"
                           className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
                         >
-                          <p className="text-base leading-4 ml-6">Đối tác</p>
+                          <p className="text-base leading-4 ml-8">Đối tác</p>
                         </Link>
                       </div>
                     </div>
