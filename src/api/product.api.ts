@@ -18,7 +18,7 @@ const productServices = {
 
   updateProduct: (id: number, data: any) => {
     const url = `/products/${id}`;
-    return instance.patch(url, data);
+    return instance.put(url, data);
   }
 };
 

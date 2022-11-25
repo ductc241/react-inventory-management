@@ -1,21 +1,27 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { number } from "yup";
 import { getOrder } from "../../api/order.api";
-import { getRecei } from "../../api/receipt.api";
+import { getRecei, listRecei } from "../../api/receipt.api";
 import { Button, Table } from "../../components";
 import SidebarHienThi from "../../components/Sidebar/Sidevar_Children/SidebarHienThi";
 import { ITableColumn } from "../../components/Table/Table.types";
 
 const DetailReceipt = () => {
   const [datas, setDatas] = useState<any>([]);
-  const [dataOrder, setDataorder] = useState<any>([]);
+  const [dataList, setDataList] = useState<any>([]);
   const { id } = useParams();
   const getReceiptId = async () => {
     const { data } = await getRecei(Number(id));
-    const { data: dataOrders } = await getOrder(data.codeBill);
-    setDataorder(dataOrders);
-    setDatas(data);
+    const { data: dataReceipt } = await listRecei();
+    let dataa: any = [];
+    for (let i = 0; i < dataReceipt.data.length; i++) {
+      if (dataReceipt.data[i].id == Number(id)) {
+        dataa.push(dataReceipt.data[i]);
+      }
+    }
+    setDatas(dataa);
+    setDataList(data.data);
   };
 
   useEffect(() => {
@@ -29,8 +35,8 @@ const DetailReceipt = () => {
   const columns: ITableColumn[] = [
     {
       key: 1,
-      title: "Mã hàng",
-      dataIndex: "plu"
+      title: "id",
+      dataIndex: "id"
     },
     {
       key: 2,
@@ -45,7 +51,7 @@ const DetailReceipt = () => {
     {
       key: 4,
       title: "Đơn giá",
-      dataIndex: "unit_price"
+      dataIndex: "price"
     },
     {
       key: 5,
@@ -60,117 +66,88 @@ const DetailReceipt = () => {
     {
       key: 7,
       title: "Thành tiền",
-      dataIndex: "into_money"
+      dataIndex: "into_money",
+      render: (item: any) => <p>{item.price * item.quantity}</p>
     }
   ];
   return (
-    <>
-      <div className="grid grid-cols-12 gap-5">
-        <div className="col-span-2 border">
-          <SidebarHienThi />
+    <div className="p-5">
+      <h1 className="text-center text-2xl font-bold ">Thông tin</h1>
+      <div className="grid grid-cols-12 gap-10">
+        <div className="col-span-4">
+          <div className="m-3 flex">
+            <label>Mã hóa đơn :</label>
+            <p className="font-bold ml-6">{datas[0]?.export_code}</p>
+          </div>
+          <hr />
+          <div className="m-3 flex">
+            <label>Thời gian: </label>
+            <p className="ml-6 "> {datas[0]?.export_date}</p>
+          </div>
+          <hr />
         </div>
-        <div className="col-span-10">
-          <h1 className="text-center">Thông tin</h1>
-          <div className="grid grid-cols-12 gap-10">
-            <div className="col-span-4">
-              <div className="m-3 flex">
-                <label>Mã hóa đơn :</label>
-                <p className="font-bold ml-6">{datas.codeBill}</p>
-              </div>
-              <hr />
-              <div className="m-3 flex">
-                <label>Thời gian :</label>
-                <input
-                  className="hover:cursor-no-drop ml-6"
-                  type="date"
-                  value={datas.Time}
-                  min={datas.Time}
-                  max={datas.Time}
-                />
-              </div>
-              <hr />
-              <div className="m-3 flex">
-                <label>Khách hàng :</label>
-                <p className="ml-6 text-blue-600">{datas.Client}</p>
-              </div>
-              <hr />
-              <div className="m-3 flex">
-                <label>Bảng giá :</label>
-                <p className="ml-6 text-blue-600">Bảng giá chung</p>
-              </div>
-              <hr />
-              <div className="m-3 flex">
-                <label>Mã đặt hàng :</label>
-                <p className="ml-6 text-blue-600"></p>
-              </div>
-            </div>
-            <div className="col-span-4">
-              <div className="m-3 flex">
-                <label>Trạng thái:</label>
-                <p className="ml-6">Hoàn thành</p>
-              </div>
-              <hr />
-              <div className="m-3 flex">
-                <label>Chi nhánh:</label>
-                <p className="ml-6">Chi nhánh trung tâm</p>
-              </div>
-              <hr />
-              <div className="m-3 flex">
-                <label>Người bán:</label>
-                <p className="ml-6">Nguyễn Lê Hùng Cường</p>
-              </div>
-              <hr />
-              <div className="m-3 flex">
-                <label>Người tạo:</label>
-                <p className="ml-6">Nguyễn Lê Hùng Cường</p>
-              </div>
-              <hr />
-              <div className="m-3 flex">
-                <label>Kênh bán:</label>
-                <p className="ml-6">Bán trực tiếp</p>
-              </div>
-            </div>
-            <div className="col-span-4">
-              <div className="m-3 flex">
-                <label>Tổng số lượng:</label>
-                <p className="ml-6">39</p>
-              </div>
-              <hr />
-              <div className="m-3 flex">
-                <label>Tổng tiền hàng:</label>
-                <p className="ml-6">3,430,250,000</p>
-              </div>
-              <hr />
-              <div className="m-3 flex">
-                <label>Giảm giá hóa đơn:</label>
-                <p className="ml-6">0</p>
-              </div>
-              <hr />
-              <div className="m-3 flex">
-                <label>Khách cần trả:</label>
-                <p className="ml-6">3,430,250,000</p>
-              </div>
-              <hr />
-              <div className="m-3 flex">
-                <label>Khách đã trả: </label>
-                <p className="ml-6">3,430,250,000</p>
-              </div>
-            </div>
+        <div className="col-span-4">
+          <div className="m-3 flex">
+            <label>Trạng thái:</label>
+            <p className="ml-6">{datas[0]?.status}</p>
           </div>
-          <div className="mt-3 mb-3">
-            <Table dataSource={dataOrder.product} column={columns} />
+          <hr />
+          <div className="m-3 flex">
+            <label>Chi nhánh:</label>
+            <p className="ml-6">Chi nhánh trung tâm</p>
           </div>
-          <div className="flex  justify-end">
-            <Button variant="warning" className="m-3">
-              In
-            </Button>
-            <Button variant="warning" className="m-3 bg-gray-500">
-              Xuất
-            </Button>
+          <hr />
+
+          <hr />
+          <div className="m-3 flex">
+            <label>Người tạo:</label>
+            <p className="ml-6">{datas[0]?.user_name}</p>
           </div>
+          <hr />
+        </div>
+        <div className="col-span-4">
+          <div className="m-3 flex">
+            <label>Tổng số lượng:</label>
+            <p className="ml-6">{datas[0]?.quantity}</p>
+          </div>
+          <hr />
+          <div className="m-3 flex">
+            <label>Tổng tiền hàng:</label>
+            <p className="ml-6">{datas[0]?.totall_price} VNĐ</p>
+          </div>
+          <hr />
+          <div className="m-3 flex">
+            <label>Giảm giá hóa đơn:</label>
+            <p className="ml-6">0</p>
+          </div>
+          <hr />
+          <div className="m-3 flex">
+            <label>Khách cần trả:</label>
+            <p className="ml-6">{datas[0]?.totall_price} VNĐ</p>
+          </div>
+          <hr />
+          <div className="m-3 flex">
+            <label>Khách đã trả: </label>
+            <p className="ml-6">....</p>
+          </div>
+          <hr />
         </div>
       </div>
-    </>
+      <div className="mt-3 mb-3">
+        <Table dataSource={dataList} column={columns} />
+      </div>
+      <div className="flex  justify-end">
+        <Button variant="container" className="m-3" onClick={() => infile()}>
+          In
+        </Button>
+        <Button variant="warning" className="m-3 " onClick={() => infile()}>
+          Xuất
+        </Button>
+        <Button variant="container" onClick={() => infile()} className="m-3">
+          <Link to="/receipt"> Quay lại</Link>
+        </Button>
+      </div>
+    </div>
   );
 };
 

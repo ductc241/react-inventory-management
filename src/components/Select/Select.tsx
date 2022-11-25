@@ -119,9 +119,9 @@ const Select = ({
             position && position
           )}
         >
-          {options.map((item) => (
+          {options.map((item, index) => (
             <div
-              key={item.value}
+              key={index}
               className={clsx(
                 "py-3 px-4 cursor-pointer hover:text-orange-primary transition duration-300 hover:bg-zinc-200",
                 item.value === option?.value && "text-orange-secondary"

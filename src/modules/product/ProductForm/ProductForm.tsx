@@ -4,38 +4,33 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+import ImagePreview from "./component/ImagePreview";
 import { TextField, Select, Button } from "../../../components";
-import { BrandOptions } from "./ProductForm.constants";
-import IOption from "../../../types/option.model";
-import { ICategory } from "../../../types/category.type";
-import { IProduct } from "../../../types/product.type";
-import { listCategoryAPI } from "../../../api/category";
-
-import productServices from "../../../api/product.api";
-import { getValueFromOptions } from "../../../utils/select";
-import ProductSchema from "./ProductForm.schema";
 import { WarningIcon } from "../../../components/icons";
+
+import { IProduct, IProductCreate } from "../../../types/product.type";
+import IOption from "../../../types/option.model";
+import ProductSchema from "./ProductForm.schema";
+import { StatusOptions } from "./ProductForm.constants";
+
+import { listCategoryAPI } from "../../../api/category";
+import * as SupplierServices from "../../../api/supplier.api";
+import productServices from "../../../api/product.api";
+import {
+  convertDataToOption,
+  getValueFromOptions
+} from "../../../utils/select";
 
 interface IProductProps {
   mode: "create" | "update";
 }
-
-type Inputs = {
-  sku: string;
-  name: string;
-  brand_id: string | null;
-  category_id: number | null;
-  price: number;
-  import_price: number;
-  quantity: number;
-  weight: number;
-};
 
 const ProductForm = ({ mode }: IProductProps) => {
   const navigate = useNavigate();
   const params = useParams();
 
   const [categories, setCategories] = useState<IOption[]>([]);
+  const [suppliers, setSuppliers] = useState<IOption[]>([]);
 
   const {
     register,
@@ -44,11 +39,11 @@ const ProductForm = ({ mode }: IProductProps) => {
     watch,
     reset,
     formState: { errors }
-  } = useForm<Inputs>({
+  } = useForm<IProductCreate>({
     resolver: yupResolver(ProductSchema)
   });
 
-  const createProduct = (data: Inputs) => {
+  const createProduct = (data: IProductCreate) => {
     try {
       productServices.createProduct(data);
 
@@ -62,176 +57,228 @@ const ProductForm = ({ mode }: IProductProps) => {
     }
   };
 
-  const updateProduct = (data: Inputs) => {
-    console.log("update: ", data);
+  const updateProduct = async (data: IProductCreate) => {
+    try {
+      if (params.id)
+        await productServices.updateProduct(Number(params.id), data);
+      toast.success("Cập nhật thành công");
+      navigate("/products");
+    } catch (error) {
+      toast.error("Có lỗi xảy ra, vui lòng thử lại sau");
+    }
   };
 
   useEffect(() => {
-    listCategoryAPI().then(({ data }) => {
-      const categoryOptions: IOption[] = data.map((category: ICategory) => {
-        return {
-          label: category.name,
-          value: category.id
-        };
-      });
+    const getOptions = async () => {
+      const valueOptions = await Promise.all([
+        listCategoryAPI(),
+        SupplierServices.list()
+      ]);
 
-      setCategories(categoryOptions);
-    });
+      setCategories(convertDataToOption(valueOptions[0].data.data));
+      setSuppliers(convertDataToOption(valueOptions[1].data));
+    };
+
+    getOptions();
   }, []);
 
   useEffect(() => {
     if (params.id) {
       productServices
         .getProductById(params.id)
-        .then(({ data }: { data: IProduct }) => {
+        .then(({ data }: { data: any }) => {
           reset({
-            sku: data.sku,
-            name: data.name,
-            brand_id: data.brand_id,
-            category_id: data.category_id,
-            price: data.price,
-            import_price: data.import_price,
-            quantity: data.quantity,
-            weight: data.weight
+            name: data.data.name,
+            category_id: data.data.category_id,
+            price: data.data.price,
+            import_price: data.data.import_price,
+            quantity: data.data.quantity,
+            image: data.data.image,
+            warranty_date: data.data.warranty_date,
+            description: data.data.description
           });
         });
     }
   }, [params, reset]);
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<IProductCreate> = (data) => {
     if (mode === "create") createProduct(data);
     if (mode === "update") updateProduct(data);
   };
 
   return (
-    <form className="w-9/12 mx-auto" onSubmit={handleSubmit(onSubmit)}>
-      <div className="mb-10">
-        <p className="mb-5 text-xl font-semibold">Thông tin cơ bản</p>
-        <div className="flex gap-6 mb-5">
-          <TextField
-            label="Mã sản phẩm"
-            containerClass="basis-3/6"
-            {...register("sku")}
-            error={errors.sku}
-          />
-          <TextField
-            label="Tên sản phẩm"
-            containerClass="basis-3/6"
-            {...register("name")}
-            error={errors.name}
-          />
-        </div>
-
-        <div className="mb-5">
-          <Select
-            selectLabel={{
-              text: "Thương hiệu"
-            }}
-            options={BrandOptions}
-            option={getValueFromOptions(BrandOptions, watch("brand_id"))}
-            handleClickChange={(brand) => setValue("brand_id", brand.value)}
-          />
-
-          {errors.brand_id && (
-            <div className="flex mt-1 items-center">
-              <WarningIcon />
-              <span className="block text-error ml-1.5">
-                {errors.brand_id.message}
-              </span>
+    <form className="my-10" onSubmit={handleSubmit(onSubmit)}>
+      <div className="grid grid-cols-12 gap-10">
+        <div className="col-span-6">
+          <div className="shadow-md">
+            <div className="px-5 py-4 bg-gray-100">
+              <p className="text-xl font-semibold">Thông tin cơ bản</p>
             </div>
-          )}
-        </div>
 
-        <div className="mb-5">
-          <Select
-            selectLabel={{
-              text: "Danh mục"
-            }}
-            options={categories}
-            option={getValueFromOptions(categories, watch("category_id"))}
-            handleClickChange={(cate) => setValue("category_id", cate.value)}
-            placeholderText="Chọn danh mục"
-          />
+            <div className="px-5 py-7">
+              <TextField
+                label="Tên sản phẩm"
+                containerClass="mb-5"
+                {...register("name")}
+                error={errors.name}
+              />
 
-          {errors.category_id && (
-            <div className="flex mt-1 items-center">
-              <WarningIcon />
-              <span className="block text-error ml-1.5">
-                {errors.category_id.message}
-              </span>
-            </div>
-          )}
-        </div>
+              <div className="mb-5">
+                <Select
+                  selectLabel={{
+                    text: "Danh mục"
+                  }}
+                  options={categories}
+                  option={getValueFromOptions(categories, watch("category_id"))}
+                  handleClickChange={(cate) =>
+                    setValue("category_id", cate.value)
+                  }
+                  placeholderText="Chọn danh mục"
+                />
 
-        <div>
-          <p className="mb-1 text-base">Hình ảnh</p>
-          <div className="flex justify-center items-center w-full">
-            <label
-              htmlFor="dropzone-file"
-              className="flex flex-col justify-center items-center w-full h-64  rounded-lg border-2 border-gray-300 border-dashed cursor-pointer  hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 "
-            >
-              <div className="flex flex-col justify-center items-center pt-5 pb-6">
-                <svg
-                  aria-hidden="true"
-                  className="mb-3 w-10 h-10 text-gray-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                  ></path>
-                </svg>
-                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                  <span className="font-semibold">Click to upload</span> or drag
-                  and drop
-                </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                  SVG, PNG, JPG or GIF (MAX. 800x400px)
-                </p>
+                {errors.category_id && (
+                  <div className="flex mt-1 items-center">
+                    <WarningIcon />
+                    <span className="block text-error ml-1.5">
+                      {errors.category_id.message}
+                    </span>
+                  </div>
+                )}
               </div>
-              <input id="dropzone-file" type="file" className="hidden" />
-            </label>
+
+              <div className="mb-5">
+                <p className="mb-1 text-base">Ảnh đại diện</p>
+                <TextField
+                  containerClass="mb-5"
+                  {...register("image")}
+                  error={errors.name}
+                />
+                <ImagePreview />
+              </div>
+
+              <div className="mb-5">
+                <Select
+                  selectLabel={{
+                    text: "Trạng thái"
+                  }}
+                  options={StatusOptions}
+                  option={getValueFromOptions(StatusOptions, watch("status"))}
+                  handleClickChange={(cate) =>
+                    setValue("category_id", cate.value)
+                  }
+                  placeholderText="Chọn trạng thái"
+                />
+
+                {errors.category_id && (
+                  <div className="flex mt-1 items-center">
+                    <WarningIcon />
+                    <span className="block text-error ml-1.5">
+                      {errors.category_id.message}
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              <TextField
+                label="Số tháng bảo hành"
+                containerClass="mb-5"
+                {...register("warranty_date")}
+                error={errors.name}
+              />
+
+              <div>
+                <label htmlFor="description" className="block mb-1 text-base">
+                  Ghi chú
+                </label>
+                <textarea
+                  id="description"
+                  {...register("description")}
+                  className="w-full py-3 px-5 border border-[#DEDEDE] rounded-lg outline-none"
+                ></textarea>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div>
-        <p className="mb-5 text-xl font-semibold">Thiết lập giá & kho</p>
+        <div className="col-span-6 h-max">
+          <div className="shadow-md mb-10">
+            <div className="px-5 py-4 bg-gray-100">
+              <p className="text-xl font-semibold">Thiết lập giá</p>
+            </div>
 
-        <div className="flex gap-6 mb-5">
-          <TextField
-            label="Giá nhập"
-            containerClass="basis-3/6"
-            {...register("import_price")}
-            error={errors.import_price}
-          />
-          <TextField
-            label="Giá bán"
-            containerClass="basis-3/6"
-            {...register("price")}
-            error={errors.price}
-          />
+            <div className="px-5 py-7">
+              <div className="flex gap-6 mb-5">
+                <TextField
+                  label="Giá nhập"
+                  containerClass="basis-3/6"
+                  {...register("import_price")}
+                  error={errors.import_price}
+                />
+                <TextField
+                  label="Giá bán"
+                  containerClass="basis-3/6"
+                  {...register("price")}
+                  error={errors.price}
+                />
+              </div>
+              <TextField
+                label="Tồn kho"
+                containerClass="mb-5"
+                {...register("quantity")}
+                error={errors.quantity}
+              />
+            </div>
+          </div>
+
+          {mode === "create" && (
+            <div className="shadow-md">
+              <div className="px-5 py-4 bg-gray-100">
+                <p className="text-xl font-semibold">Tồn kho</p>
+              </div>
+
+              <div className="px-5 py-7">
+                <TextField
+                  name="test-1"
+                  label="Số lượng"
+                  containerClass="mb-5"
+                />
+                <TextField name="test-2" label="Nhà cung cấp" />
+
+                <div className="mb-5">
+                  <Select
+                    selectLabel={{
+                      text: "Nhà cung cấp"
+                    }}
+                    options={suppliers}
+                    option={getValueFromOptions(
+                      suppliers,
+                      watch("supplier_id")
+                    )}
+                    handleClickChange={(supplier) =>
+                      setValue("supplier_id", supplier.value)
+                    }
+                    placeholderText="Chọn nhà cung cấp"
+                  />
+
+                  {errors.supplier_id && (
+                    <div className="flex mt-1 items-center">
+                      <WarningIcon />
+                      <span className="block text-error ml-1.5">
+                        {errors.supplier_id.message}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
-        <TextField
-          label="Tồn kho"
-          containerClass="mb-5"
-          {...register("quantity")}
-          error={errors.quantity}
-        />
-        <TextField
-          label="Trọng lượng"
-          containerClass="mb-5"
-          {...register("weight")}
-        />
       </div>
 
-      <div className="flex gap-5">
-        <Button type="submit">Thêm sản phẩm</Button>
+      <div className="flex gap-5 mt-10">
+        <Button type="submit">
+          {mode === "create" ? "Thêm sản phẩm" : "Cập nhật"}
+        </Button>
         <Button variant="warning">Hủy bỏ</Button>
       </div>
     </form>

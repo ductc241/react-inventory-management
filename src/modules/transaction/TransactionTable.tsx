@@ -1,76 +1,91 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { listRecei } from "../../api/receipt.api";
 import { Button, TextField } from "../../components";
 import TableReceipt from "../receipt/TableReceipt";
 
 const TransactionTable = () => {
+  const [data, setData] = useState<any>([]);
+  const [messenger, setMessenger] = useState<string>();
+  const getReceipt = async () => {
+    try {
+      const { data } = await listRecei();
+
+      setData(data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getReceipt();
+  }, []);
+
+  const filter = async () => {
+    const { data } = await listRecei();
+    const id: any = document.getElementById("id");
+    const export_date: any = document.getElementById("export_date");
+    const import_Date: any = document.getElementById("import_Date");
+    console.log(id, typeof export_date, import_Date);
+    if (id.value && !import_Date.value && !export_date.value) {
+      const datas: any = [];
+      for (let i = 0; i < data.data.length; i++) {
+        console.log(data.data[i]);
+        if (data.data[i].id == Number(id.value)) {
+          datas.push(data.data[i]);
+        }
+      }
+      setData(datas);
+    }
+    if (!id.value && import_Date.value && export_date.value) {
+      setMessenger("Lọc theo Ngày nhưng chưa lọc được");
+    }
+    if (id.value && import_Date.value && export_date.value) {
+      setMessenger("Không Lọc được cả ID và Ngày cùng 1 Lúc");
+    }
+
+    if (!id.value && !import_Date.value && !export_date.value) {
+      setData(data.data);
+      setMessenger("");
+    }
+
+    id.value = "";
+    import_Date.value = "";
+    export_date.value = "";
+  };
+
   return (
     <div>
-      <div className="flex pt-3 pb-3">
-        <img
-          src="https://cdn-icons-png.flaticon.com/512/25/25694.png"
-          alt=""
-          width="20px"
-          height="20px"
-        />
-        <span> / </span>
-        <p>
-          <a href="" className="hover:text-blue-500">
-            Kho hàng
-          </a>
-        </p>
-        <span> / </span>
-        <p>
-          <a href="" className="hover:text-blue-500">
-            xuất nhập kho
-          </a>
-        </p>
-      </div>
-
-      <div className="flex p-3">
-        <div className="w-2/12 border-blue-500	border-t-2">
-          <p>Phiếu xuất nhập kho</p>
-        </div>
-        <div className="w-10/12">
-          <input
-            className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            type="text"
-            placeholder="Sản phẩm xuất nhập kho"
-          />
-        </div>
-      </div>
-
       <div className="mb-3 flex">
-        <TextField name="" placeholder="ID" />
-        {/* <input
-        className="shadow appearance-none border rounded w-1/12 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        type="text"
-        placeholder="ID"
-      /> */}
+        <TextField type="number" placeholder="ID" name="id" id="id" />
 
         <select
           id="countries"
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ml-3"
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/12 p-2.5 ml-3"
         >
           <option selected>Loại</option>
-          <option value="US">United States</option>
-          <option value="CA">Canada</option>
-          <option value="FR">France</option>
-          <option value="DE">Germany</option>
+          <option value="US">Phiếu nhập</option>
+          <option value="CA">Phiếu xuất</option>
         </select>
 
-        {/* <input
-        className="shadow appearance-none border rounded w-2/12 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-3"
-        type="date"
-      /> */}
-        <TextField name="" type="date" className="ml-3" />
-        <TextField name="" type="date" className="ml-3" />
-
-        <div className="w-1/12 flex ml-3">
-          <button className="w-1/2 bg-emerald-400 flex items-center justify-center">
-            Lọc
-          </button>
+        <div className="ml-3">
+          <TextField name="import_Date" type="date" id="import_Date" />
         </div>
+        <div className="ml-3">
+          <TextField name="export_date" type="date" id="export_date" />
+        </div>
+
+        <Button
+          className="ml-3"
+          onClick={() => {
+            filter();
+          }}
+        >
+          Lọc
+        </Button>
       </div>
+
+      <span className="pt-3 pb-3">{messenger}</span>
+
       <div className="mt-3 mb-3 flex">
         <Link
           to="/export_shipment"
@@ -82,7 +97,7 @@ const TransactionTable = () => {
 
       <div className="w-full">
         <div className="w-full">
-          <TableReceipt />
+          <TableReceipt data={data} />
         </div>
       </div>
     </div>
