@@ -9,7 +9,6 @@ import ProductPlaceholder from "../../../assets/product-placeholder.png";
 import productServices from "../../../api/product.api";
 import { addRecei } from "../../../api/receipt.api";
 import * as supplierServices from "../../../api/supplier.api";
-import { getDateNow } from "../../../utils/funtion";
 import {
   convertDataToOption,
   getValueFromOptions
@@ -18,6 +17,7 @@ import FormatNumber from "../../../components/formatNumber/formatNumber";
 import IOption from "../../../types/option.model";
 import { IProduct } from "./../../../types/product.type";
 import { EXPORT_TYPES, PAYMENT_TYPES } from "./export.constants";
+import { toast } from "react-toastify";
 
 type Inputs = {
   export_type: string;
@@ -125,22 +125,30 @@ const ExportShipments = () => {
       };
     });
 
-    const exportShipment = {
+    const export_order = {
       user_id: 1,
-
-      // export_type: 1,
-      // payment_type: 1,
-      // payment_date: "11/11/2022",
-      // payment_status: "unpaid",
-
+      export_type: formValue.export_type,
+      payment: formValue.payment_type,
       products: export_product,
-      export_date: getDateNow(),
-      address: "HN",
-      receve_phone: "1234562345"
+
+      supplier_id: formValue.supplier,
+      user_name: null,
+      phone_number: null,
+      address: null,
+
+      // export_date: formValue.export_date,
+      export_date: "24/11/2022",
+      receve_phone: null
     };
 
-    await addRecei(exportShipment);
-    navigate("/receipt");
+    try {
+      await addRecei(export_order);
+      toast.success("Tạo đơn thành công");
+      navigate("/receipt");
+    } catch (error) {
+      toast.error("Có lỗi xảy ra, không thể tạo đơn");
+    }
+    console.log(export_order);
   };
 
   useEffect(() => {

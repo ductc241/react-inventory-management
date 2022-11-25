@@ -6,7 +6,7 @@ const EXPORT_TYPES: IOption[] = [
     value: 1
   },
   {
-    label: "Khác",
+    label: "Nguồn khác",
     value: 2
   }
 ];
