@@ -14,7 +14,6 @@ const Header = () => {
     navigate("/signin");
   };
 
-
   const menuArray = [true, false, false];
   const [menu, setMenu] = useState(menuArray);
   const [show, setShow] = useState(true);
@@ -28,10 +27,10 @@ const Header = () => {
   return (
     <div>
       <div>
-        <div className="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white dark:bg-gray-700 text-black dark:text-white">
+        <div className="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white text-black">
           {/* Header */}
           <div className="fixed w-full flex items-center justify-between h-14 text-white z-10">
-            <div className="flex items-center justify-start md:justify-center pl-3 w-14 md:w-52 h-14 bg-slate-800 dark:bg-gray-800 border-none">
+            <div className="flex items-center justify-start md:justify-center pl-3 w-14 md:w-52 h-14 bg-slate-800 border-none">
               <Link to="/" className="w-20">
                 <img
                   src="https://res.cloudinary.com/dsirnbuyv/image/upload/v1664895627/poly_wareh_j06pfe.png"
@@ -40,7 +39,7 @@ const Header = () => {
                 />
               </Link>
             </div>
-            <div className="flex justify-between items-center h-14 bg-slate-800 dark:bg-gray-800 header-right">
+            <div className="flex justify-between items-center h-14 bg-slate-800 header-right">
               <div className="bg-white rounded flex items-center w-full max-w-xl mr-4 ml-4 p-2 shadow-sm border border-gray-200">
                 <button className="outline-none focus:outline-none">
                   <svg
@@ -111,7 +110,7 @@ const Header = () => {
                   </ul>
                 </div>
                 <li>
-                  <div className="block w-px h-6 bg-gray-400 dark:bg-gray-700" />
+                  <div className="block w-px h-6 bg-gray-400" />
                 </li>
                 <div className="group inline-block md:mr-8">
                   <ul className="outline-none focus:outline-none px-2 py-1 rounded-sm flex items-center min-w-32 -ml-2">
@@ -156,7 +155,7 @@ const Header = () => {
           </div>
           {/* ./Header */}
           {/* Sidebar */}
-          <div className="fixed flex flex-col top-14 left-0 w-14 hover:w-52 md:w-52 bg-slate-800 dark:bg-gray-900 h-full text-white transition-all duration-300 border-none z-10 sidebar">
+          <div className="fixed flex flex-col top-14 left-0 w-14 hover:w-52 md:w-52 bg-slate-800 h-full text-white transition-all duration-300 border-none z-10 sidebar">
             <div className="overflow-y-auto overflow-x-hidden flex flex-col justify-between flex-grow">
               <ul className="flex flex-col py-4 space-y-1">
                 <li className="px-5 hidden md:block">
@@ -164,13 +163,13 @@ const Header = () => {
                     {/* <div className="text-sm font-light tracking-wide text-gray-400 uppercase">
                       Menu
                     </div> */}
-                    <div className="block w-full h-px bg-gray-400 dark:bg-gray-700" />
+                    <div className="block w-full h-px bg-gray-400" />
                   </div>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-green-700 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-green-400 dark:hover:border-gray-800 pr-6"
+                  <Link
+                    to="/"
+                    className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-green-700 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-green-400 pr-6"
                   >
                     <span className="inline-flex justify-center items-center ml-4">
                       <svg
@@ -191,7 +190,7 @@ const Header = () => {
                     <span className="ml-4 text-sm tracking-wide truncate">
                       Tổng quan
                     </span>
-                  </a>
+                  </Link>
                 </li>
                 <li className="mr-3 flex-1">
                   <div>
@@ -199,10 +198,14 @@ const Header = () => {
                       <button
                         onClick={() => setMenuValue(0)}
                         className="text-white flex items-center w-full py-2 w-[600px]
-                        relative flex flex-row items-center h-11 focus:outline-none hover:bg-green-700 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-green-400 dark:hover:border-gray-800 pr-6 "
+                        relative flex flex-row items-center h-11 focus:outline-none hover:bg-green-700 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-green-400 pr-6 "
                       >
                         <span className="inline-flex justify-center items-center ml-4">
-                          <img src="https://res.cloudinary.com/dsirnbuyv/image/upload/v1669396689/shopping-bag_1_qeoipo.svg" alt="" width="17px" />
+                          <img
+                            src="https://res.cloudinary.com/dsirnbuyv/image/upload/v1669396689/shopping-bag_1_qeoipo.svg"
+                            alt=""
+                            width="17px"
+                          />
                         </span>
                         <p className="ml-5 text-sm tracking-wide truncate">
                           Hàng hoá
@@ -210,8 +213,9 @@ const Header = () => {
                         <div className="ml-8">
                           <svg
                             id="icon1"
-                            className={`${menu[0] ? "" : "rotate-180"
-                              } transform duration-100`}
+                            className={`${
+                              menu[0] ? "" : "rotate-180"
+                            } transform duration-100`}
                             width={24}
                             height={24}
                             viewBox="0 0 24 24"
@@ -230,25 +234,38 @@ const Header = () => {
                       </button>
                       <div
                         id="menu1"
-                        className={`${menu[0] ? "flex" : "hidden"
-                          } justify-start  flex-col w-full md:w-auto items-start pb-1 `}
+                        className={`${
+                          menu[0] ? "flex" : "hidden"
+                        } justify-start  flex-col w-full md:w-auto items-start pb-1 `}
                       >
-                        <button className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48">
-                          <p className="text-base leading-4 ml-6">Danh mục</p>
-                        </button>
-                        <button className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48">
-                          <p className="text-base leading-4 ml-6">
+                        <Link
+                          to="/products"
+                          className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
+                        >
+                          <p className="text-base leading-4 ml-8">Danh mục</p>
+                        </Link>
+                        <Link
+                          to="#"
+                          className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
+                        >
+                          <p className="text-base leading-4 ml-8">
                             Thiết lập giá
                           </p>
-                        </button>
-                        <button className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48">
-                          <p className="text-base leading-4 ml-6">
+                        </Link>
+                        <Link
+                          to="#"
+                          className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
+                        >
+                          <p className="text-base leading-4 ml-8">
                             Phiếu bảo hành
                           </p>
-                        </button>
-                        <button className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48">
-                          <p className="text-base leading-4 ml-6">Kiểm kho</p>
-                        </button>
+                        </Link>
+                        <Link
+                          to="#"
+                          className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
+                        >
+                          <p className="text-base leading-4 ml-8">Kiểm kho</p>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -259,11 +276,14 @@ const Header = () => {
                       <button
                         onClick={() => setMenuValue(1)}
                         className="text-white flex items-center w-full py-2 w-[600px]
-                        relative flex flex-row items-center h-11 focus:outline-none hover:bg-green-700 hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-green-500 dark:hover:border-gray-800 pr-6 "
+                        relative flex flex-row items-center h-11 focus:outline-none hover:bg-green-700 hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-green-500 pr-6 "
                       >
                         <span className="inline-flex justify-center items-center ml-4">
-                          <img src="https://res.cloudinary.com/dsirnbuyv/image/upload/v1669396970/apps-sort_cbsixy.svg" alt="" width="17px" />
-
+                          <img
+                            src="https://res.cloudinary.com/dsirnbuyv/image/upload/v1669396970/apps-sort_cbsixy.svg"
+                            alt=""
+                            width="17px"
+                          />
                         </span>
                         <p className="ml-5 text-sm tracking-wide truncate">
                           Giao dịch
@@ -271,8 +291,9 @@ const Header = () => {
                         <div className="ml-[34px]">
                           <svg
                             id="icon1"
-                            className={`${menu[1] ? "" : "rotate-180"
-                              } transform duration-100`}
+                            className={`${
+                              menu[1] ? "" : "rotate-180"
+                            } transform duration-100`}
                             width={24}
                             height={24}
                             viewBox="0 0 24 24"
@@ -291,32 +312,54 @@ const Header = () => {
                       </button>
                       <div
                         id="menu2"
-                        className={`${menu[1] ? "flex" : "hidden"
-                          } justify-start  flex-col w-full md:w-auto items-start pb-1 `}
+                        className={`${
+                          menu[1] ? "flex" : "hidden"
+                        } justify-start  flex-col w-full md:w-auto items-start pb-1 `}
                       >
-                        <button className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48">
-                          <p className="text-base leading-4 ml-6">Đơn đặt</p>
-                        </button>
-                        <button className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48">
-                          <p className="text-base leading-4 ml-6">Hoá đơn</p>
-                        </button>
-                        <button className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48">
-                          <p className="text-base leading-4 ml-6">Vận đơn</p>
-                        </button>
-                        <button className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48">
-                          <p className="text-base leading-4 ml-6">Trả hàng</p>
-                        </button>
-                        <button className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48">
-                          <p className="text-base leading-4 ml-6">Nhập hàng</p>
-                        </button>
-                        <button className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48">
-                          <p className="text-base leading-4 ml-6">
+                        <Link
+                          to="#"
+                          className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
+                        >
+                          <p className="text-base leading-4 ml-8">Đơn đặt</p>
+                        </Link>
+                        <Link
+                          to="#"
+                          className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
+                        >
+                          <p className="text-base leading-4 ml-8">Hoá đơn</p>
+                        </Link>
+                        <Link
+                          to="#"
+                          className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
+                        >
+                          <p className="text-base leading-4 ml-8">Vận đơn</p>
+                        </Link>
+                        <Link
+                          to="#"
+                          className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
+                        >
+                          <p className="text-base leading-4 ml-8">Trả hàng</p>
+                        </Link>
+                        <Link
+                          to="/import_shipments"
+                          className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
+                        >
+                          <p className="text-base leading-4 ml-8">Nhập hàng</p>
+                        </Link>
+                        <Link
+                          to="#"
+                          className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
+                        >
+                          <p className="text-base leading-4 ml-8">
                             Trả hàng nhập
                           </p>
-                        </button>
-                        <button className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48">
-                          <p className="text-base leading-4 ml-6">Xuất huỷ</p>
-                        </button>
+                        </Link>
+                        <Link
+                          to="#"
+                          className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
+                        >
+                          <p className="text-base leading-4 ml-8">Xuất huỷ</p>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -327,10 +370,14 @@ const Header = () => {
                       <button
                         onClick={() => setMenuValue(2)}
                         className="text-white flex items-center w-full py-2 w-[600px]
-                        relative flex flex-row items-center h-11 focus:outline-none hover:bg-green-700 hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-green-500 dark:hover:border-gray-800 pr-6 "
+                        relative flex flex-row items-center h-11 focus:outline-none hover:bg-green-700 hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-green-500 pr-6 "
                       >
                         <span className="inline-flex justify-center items-center ml-4">
-                          <img src="https://res.cloudinary.com/dsirnbuyv/image/upload/v1669397066/users-alt_1_xanuwe.svg" alt="" width="17px" />
+                          <img
+                            src="https://res.cloudinary.com/dsirnbuyv/image/upload/v1669397066/users-alt_1_xanuwe.svg"
+                            alt=""
+                            width="17px"
+                          />
                         </span>
                         <p className="ml-5 text-sm tracking-wide truncate">
                           Đối tác
@@ -338,8 +385,9 @@ const Header = () => {
                         <div className="ml-[49px]">
                           <svg
                             id="icon1"
-                            className={`${menu[2] ? "" : "rotate-180"
-                              } transform duration-100`}
+                            className={`${
+                              menu[2] ? "" : "rotate-180"
+                            } transform duration-100`}
                             width={24}
                             height={24}
                             viewBox="0 0 24 24"
@@ -358,20 +406,30 @@ const Header = () => {
                       </button>
                       <div
                         id="menu3"
-                        className={`${menu[2] ? "flex" : "hidden"
-                          } justify-start  flex-col w-full md:w-auto items-start pb-1 `}
+                        className={`${
+                          menu[2] ? "flex" : "hidden"
+                        } justify-start  flex-col w-full md:w-auto items-start pb-1 `}
                       >
-                        <button className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48">
-                          <p className="text-base leading-4 ml-6">Khách hàng</p>
-                        </button>
-                        <button className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48">
-                          <p className="text-base leading-4 ml-6">
+                        <Link
+                          to="#"
+                          className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
+                        >
+                          <p className="text-base leading-4 ml-8">Khách hàng</p>
+                        </Link>
+                        <Link
+                          to="#"
+                          className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
+                        >
+                          <p className="text-base leading-4 ml-8">
                             Nhà cung cấp
                           </p>
-                        </button>
-                        <button className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48">
-                          <p className="text-base leading-4 ml-6">Đối tác</p>
-                        </button>
+                        </Link>
+                        <Link
+                          to="#"
+                          className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
+                        >
+                          <p className="text-base leading-4 ml-8">Đối tác</p>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -379,22 +437,26 @@ const Header = () => {
                 <li className="mr-3 flex-1">
                   <div>
                     <div>
-                      <button
+                      <Link
+                        to="/soquy"
                         onClick={() => setMenuValue(2)}
                         className="text-white flex items-center w-full py-2 w-[600px]
-                        relative flex flex-row items-center h-11 focus:outline-none hover:bg-green-700 hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-green-500 dark:hover:border-gray-800 pr-6 "
+                        relative flex flex-row items-center h-11 focus:outline-none hover:bg-green-700 hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-green-500 pr-6 "
                       >
                         <span className="inline-flex justify-center items-center ml-4">
-                          <img src="https://res.cloudinary.com/dsirnbuyv/image/upload/v1669397210/usd-circle_q1yme2.svg" alt="" width="17px" />
+                          <img
+                            src="https://res.cloudinary.com/dsirnbuyv/image/upload/v1669397210/usd-circle_q1yme2.svg"
+                            alt=""
+                            width="17px"
+                          />
                         </span>
                         <p className="ml-5 text-sm tracking-wide truncate">
                           Số quỹ
                         </p>
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 </li>
-
               </ul>
               <p className="mb-14 px-5 py-3 hidden md:block text-center text-xs">
                 Copyright @2022

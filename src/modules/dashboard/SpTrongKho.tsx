@@ -14,15 +14,15 @@ const SpTrongKho = () => {
           <div className="w-full overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                <tr className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
                   <th className="px-4 py-3">Sản phẩm</th>
                   <th className="px-4 py-3">Giá / 1c</th>
                   <th className="px-4 py-3">Số lượng</th>
                   <th className="px-4 py-3">Tổng xuất / tháng</th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+              <tbody className="bg-white divide-y">
+                <tr className="bg-gray-50 hover:bg-gray-100 text-gray-700">
                   <td className="px-4 py-3">
                     <div className="flex items-center text-sm">
                       <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
@@ -40,7 +40,7 @@ const SpTrongKho = () => {
                         <p className="font-semibold">
                           Củ Sạc iPhone Origin 20W
                         </p>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
+                        <p className="text-xs text-gray-600">
                           Củ sạc
                         </p>
                       </div>
@@ -54,7 +54,7 @@ const SpTrongKho = () => {
                   </td>
                   <td className="px-4 py-3 text-sm">19</td>
                 </tr>
-                <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                <tr className="bg-gray-50 hover:bg-gray-100 text-gray-700">
                   <td className="px-4 py-3">
                     <div className="flex items-center text-sm">
                       <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
@@ -72,7 +72,7 @@ const SpTrongKho = () => {
                         <p className="font-semibold">
                           Tai nghe Apple AirPods Pro - Chính hãng Apple
                         </p>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
+                        <p className="text-xs text-gray-600">
                           Tai nghe {/* Nhóm hàng */}
                         </p>
                       </div>
@@ -86,7 +86,7 @@ const SpTrongKho = () => {
                   </td>
                   <td className="px-4 py-3 text-sm">19</td>
                 </tr>
-                <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                <tr className="bg-gray-50 hover:bg-gray-100 text-gray-700">
                   <td className="px-4 py-3">
                     <div className="flex items-center text-sm">
                       <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
@@ -104,7 +104,7 @@ const SpTrongKho = () => {
                         <p className="font-semibold">
                           Củ Sạc iPhone Origin 20W
                         </p>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
+                        <p className="text-xs text-gray-600">
                           Củ sạc
                         </p>
                       </div>
@@ -118,7 +118,7 @@ const SpTrongKho = () => {
                   </td>
                   <td className="px-4 py-3 text-sm">19</td>
                 </tr>
-                <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                <tr className="bg-gray-50 hover:bg-gray-100 text-gray-700">
                   <td className="px-4 py-3">
                     <div className="flex items-center text-sm">
                       <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
@@ -136,7 +136,7 @@ const SpTrongKho = () => {
                         <p className="font-semibold">
                           Tai nghe Apple AirPods Pro - Chính hãng Apple
                         </p>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
+                        <p className="text-xs text-gray-600">
                           Tai nghe {/* Nhóm hàng */}
                         </p>
                       </div>
@@ -150,7 +150,7 @@ const SpTrongKho = () => {
                   </td>
                   <td className="px-4 py-3 text-sm">19</td>
                 </tr>
-                <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                <tr className="bg-gray-50 hover:bg-gray-100 text-gray-700">
                   <td className="px-4 py-3">
                     <div className="flex items-center text-sm">
                       <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
@@ -168,7 +168,7 @@ const SpTrongKho = () => {
                         <p className="font-semibold">
                           Củ Sạc iPhone Origin 20W
                         </p>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
+                        <p className="text-xs text-gray-600">
                           Củ sạc
                         </p>
                       </div>
@@ -182,7 +182,7 @@ const SpTrongKho = () => {
                   </td>
                   <td className="px-4 py-3 text-sm">19</td>
                 </tr>
-                <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                <tr className="bg-gray-50 hover:bg-gray-100 text-gray-700">
                   <td className="px-4 py-3">
                     <div className="flex items-center text-sm">
                       <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
@@ -200,7 +200,7 @@ const SpTrongKho = () => {
                         <p className="font-semibold">
                           Tai nghe Apple AirPods Pro - Chính hãng Apple
                         </p>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
+                        <p className="text-xs text-gray-600">
                           Tai nghe {/* Nhóm hàng */}
                         </p>
                       </div>
@@ -214,7 +214,7 @@ const SpTrongKho = () => {
                   </td>
                   <td className="px-4 py-3 text-sm">19</td>
                 </tr>
-                <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                <tr className="bg-gray-50 hover:bg-gray-100 text-gray-700">
                   <td className="px-4 py-3">
                     <div className="flex items-center text-sm">
                       <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
@@ -232,7 +232,7 @@ const SpTrongKho = () => {
                         <p className="font-semibold">
                           Củ Sạc iPhone Origin 20W
                         </p>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
+                        <p className="text-xs text-gray-600">
                           Củ sạc
                         </p>
                       </div>
@@ -246,7 +246,7 @@ const SpTrongKho = () => {
                   </td>
                   <td className="px-4 py-3 text-sm">19</td>
                 </tr>
-                <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                <tr className="bg-gray-50 hover:bg-gray-100 text-gray-700">
                   <td className="px-4 py-3">
                     <div className="flex items-center text-sm">
                       <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
@@ -264,7 +264,7 @@ const SpTrongKho = () => {
                         <p className="font-semibold">
                           Tai nghe Apple AirPods Pro - Chính hãng Apple
                         </p>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
+                        <p className="text-xs text-gray-600">
                           Tai nghe {/* Nhóm hàng */}
                         </p>
                       </div>
@@ -281,7 +281,7 @@ const SpTrongKho = () => {
               </tbody>
             </table>
           </div>
-          <div className="grid px-4 py-3 font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+          <div className="grid px-4 py-3 font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9">
             <span className="flex items-center col-span-3"></span>
             <span className="col-span-2" />
             {/* Pagination */}
