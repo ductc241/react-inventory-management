@@ -22,15 +22,12 @@ const TransactionTable = () => {
 
   const filter = async () => {
     const { data } = await listRecei();
-    //@ts-ignore
     const id: any = document.getElementById("id");
-    //@ts-ignore
     const export_date: any = document.getElementById("export_date");
-    //@ts-ignore
     const import_Date: any = document.getElementById("import_Date");
     console.log(id, typeof export_date, import_Date);
     if (id.value && !import_Date.value && !export_date.value) {
-      let datas: any = [];
+      const datas: any = [];
       for (let i = 0; i < data.data.length; i++) {
         console.log(data.data[i]);
         if (data.data[i].id == Number(id.value)) {
@@ -58,27 +55,6 @@ const TransactionTable = () => {
 
   return (
     <div>
-      <div className="flex pt-3 pb-3">
-        <img
-          src="https://cdn-icons-png.flaticon.com/512/25/25694.png"
-          alt=""
-          width="20px"
-          height="20px"
-        />
-        <span> / </span>
-        <p>
-          <a href="" className="hover:text-blue-500">
-            Kho hàng
-          </a>
-        </p>
-        <span> / </span>
-        <p>
-          <a href="" className="hover:text-blue-500">
-            xuất nhập kho
-          </a>
-        </p>
-      </div>
-
       <div className="mb-3 flex">
         <TextField type="number" placeholder="ID" name="id" id="id" />
 
@@ -87,10 +63,8 @@ const TransactionTable = () => {
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ml-3"
         >
           <option selected>Loại</option>
-          <option value="US">United States</option>
-          <option value="CA">Canada</option>
-          <option value="FR">France</option>
-          <option value="DE">Germany</option>
+          <option value="US">Phiếu nhập</option>
+          <option value="CA">Phiếu xuất</option>
         </select>
 
         <div className="ml-3">
