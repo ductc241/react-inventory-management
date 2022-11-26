@@ -157,7 +157,6 @@ const ExportShipments = () => {
     } catch (error) {
       toast.error("Có lỗi xảy ra, không thể tạo đơn");
     }
-    console.log(export_order);
   };
 
   useEffect(() => {
