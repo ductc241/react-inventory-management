@@ -1,13 +1,19 @@
+/* eslint-disable no-unused-vars */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { addShipments, listShipments } from "../../api/shipments";
 
+export enum IStatus {
+  DISPLAY,
+  IMPORT
+}
 interface InitialStateType {
   shipments: any;
   error: boolean;
   isLoading: boolean;
   total: number;
   quantity: number;
+  status: IStatus;
 }
 
 const initialState: InitialStateType = {
@@ -15,7 +21,8 @@ const initialState: InitialStateType = {
   isLoading: false,
   error: false,
   total: 0,
-  quantity: 0
+  quantity: 0,
+  status: IStatus.DISPLAY
 };
 
 export const getShipmentThunk = createAsyncThunk(
@@ -46,12 +53,13 @@ const shipmentsSlice = createSlice({
     });
     builder.addCase(addShipmentsThunks.fulfilled, (state, action) => {
       if (action.payload.status === 200) {
-        toast.success("Tạo phiếu nhập thành công");
         state.isLoading = false;
         state.error = false;
+        state.status = IStatus.IMPORT;
+        toast.success("Tạo phiếu nhập thành công");
         return;
       } else {
-        toast.success("Tạo phiếu nhập không thành công");
+        toast.error("Tạo phiếu nhập không thành công");
       }
     });
   }
