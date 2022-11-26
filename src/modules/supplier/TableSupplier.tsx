@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
 import { add, list, remove, update } from "../../api/supplier.api";
 import { Modal, Table } from "../../components";
 import Button from "../../components/Button/Button";
-import { EditIcon, TrashIcon } from "../../components/icons";
+import { Caret, EditIcon, TrashIcon } from "../../components/icons";
 import { ITableColumn } from "../../components/Table/Table.types";
 import { ISupplier } from "../../types/supplier.type";
 
@@ -89,6 +90,14 @@ const TableSupplier = () => {
         <Button onClick={() => setVisible(true)}>Thêm nhà cung cấp</Button>
       </div>
       <Table dataSource={data} column={columns} />
+      <ReactPaginate
+        pageCount={10}
+        containerClassName="pagination mt-5"
+        pageClassName="pagination_item"
+        activeClassName="pagination_active"
+        previousLabel={<Caret width={"15px"} />}
+        nextLabel={<Caret className="rotate-180" width={"15px"} />}
+      />
       <FormSupplier
         hidenModal={visible}
         upload={(e: boolean) => {

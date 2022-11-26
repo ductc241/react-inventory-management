@@ -3,7 +3,7 @@ import { IOrderCreate } from "../types/order.type";
 
 const orderServices = {
   creatOrder: (order: IOrderCreate) => {
-    const url = "/orders";
+    const url = "/export-shipment";
     return instance.post(url, order);
   }
 };

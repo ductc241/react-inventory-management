@@ -7,11 +7,12 @@ export interface ITableProps {
   className?: string;
   loading?: boolean;
   link?: boolean;
+  linkUrl?: string;
 }
 
 export interface ITableColumn {
   key: string | number;
   title: string;
   dataIndex: string;
-  render?: (record: any,index?:any) => ReactNode;
+  render?: (record: any, index?: any) => ReactNode;
 }

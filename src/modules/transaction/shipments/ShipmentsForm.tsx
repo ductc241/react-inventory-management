@@ -196,6 +196,7 @@ const ShipMentsForm = () => {
         products: [...dataSuccsess]
       };
 
+      navigate(-1);
       // eslint-disable-next-line react-hooks/rules-of-hooks
       useDispatch(addShipmentsThunks(dataSubmit));
       // toast.success("Tạo phiếu nhập hàng thành công");
@@ -463,7 +464,7 @@ const ShipMentsForm = () => {
           </div>
           <span className="flex justify-end text-lg">
             Tổng số tiền nhập hàng:
-            {control && <TotalAmout control={control} />}
+            {control && <TotalAmout control={control} />} VND
           </span>
         </div>
         <div className="">

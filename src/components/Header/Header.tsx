@@ -6,7 +6,6 @@ import { Footer } from "../Footer";
 import "./Header.styles.css";
 
 const Header = () => {
-
   const disPatch = useAppDispatch();
   const navigate = useNavigate();
   const hanleLogOut = () => {
@@ -335,7 +334,7 @@ const Header = () => {
                           <p className="text-base leading-4 ml-8">Vận đơn</p>
                         </Link>
                         <Link
-                          to="#"
+                          to="/receipt"
                           className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
                         >
                           <p className="text-base leading-4 ml-8">Trả hàng</p>
@@ -417,7 +416,7 @@ const Header = () => {
                           <p className="text-base leading-4 ml-8">Khách hàng</p>
                         </Link>
                         <Link
-                          to="#"
+                          to="/supplier"
                           className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
                         >
                           <p className="text-base leading-4 ml-8">

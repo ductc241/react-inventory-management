@@ -7,6 +7,7 @@ interface ITableBodyProps {
   className?: string;
   loading?: boolean;
   link?: boolean;
+  linkUrl?: string;
 }
 
 const TableBody = ({
@@ -14,7 +15,8 @@ const TableBody = ({
   tableColumn,
   className,
   loading,
-  link
+  link,
+  linkUrl
 }: ITableBodyProps) => {
   const renderRow = (record: any) =>
     tableColumn.map((column) => {
@@ -43,7 +45,7 @@ const TableBody = ({
           className
         )}
       >
-        <Link to={`/receipt/${record.id}`}>
+        <Link to={`/${linkUrl}/${record.id}`}>
           {column.render ? column.render(record) : record[column.dataIndex]}
         </Link>
       </td>
