@@ -18,7 +18,7 @@ const DetailReceipt = () => {
   const getReceiptId = async () => {
     const { data } = await getRecei(Number(id));
     const { data: dataReceipt } = await listRecei();
-    let dataa: any = [];
+    const dataa: any = [];
     for (let i = 0; i < dataReceipt.data.length; i++) {
       if (dataReceipt.data[i].id == Number(id)) {
         dataa.push(dataReceipt.data[i]);

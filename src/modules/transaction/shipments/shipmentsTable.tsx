@@ -111,6 +111,7 @@ const ShipmentsTable = () => {
         <Table
           column={columns}
           dataSource={dataSource.length !== 0 ? dataSource : data}
+          link={true}
         />
         <ReactPaginate
           pageCount={10}

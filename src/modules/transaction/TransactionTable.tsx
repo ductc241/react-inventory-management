@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { listRecei } from "../../api/receipt.api";
+import { listShipments } from "../../api/shipments";
 import { Button, TextField } from "../../components";
 import TableReceipt from "../receipt/TableReceipt";
 
 const TransactionTable = () => {
   const [data, setData] = useState<any>([]);
+  const [dataImprortShipment, setDataImprotShipments] = useState<any>([]);
   const [messenger, setMessenger] = useState<string>();
   const getReceipt = async () => {
     try {
       const { data } = await listRecei();
-
+      const { data: improtShipment } = await listShipments();
+      setDataImprotShipments(improtShipment.data);
       setData(data.data);
     } catch (error) {
       console.log(error);
@@ -49,20 +52,20 @@ const TransactionTable = () => {
       countries.value == "Loại"
     ) {
       const datas: any = [];
-      let startDate = Date.parse(import_Date.value);
-      let endDate = Date.parse(export_date.value);
+      const startDate: any = Date.parse(import_Date.value);
+      const endDate: any = Date.parse(export_date.value);
       if (startDate > endDate) {
         setMessenger("ngày kết thúc phải lớn hơn ngày bắt đầu");
       } else {
-        for (let i = 0; i < data.data.length; i++) {
-          console.log(data.data[i]);
-          let shortDate_2: any = new Date(
-            `${data.data[i].created_at.split("/")[1]}/${
-              data.data[i].created_at.split("/")[0]
-            }/${data.data[i].created_at.split("/")[2]}`
+        const { data: datass } = await listRecei();
+        for (let i = 0; i < datass.data.length; i++) {
+          const shortDate_2: any = new Date(
+            `${datass.data[i].created_at.split("/")[1]}/${
+              datass.data[i].created_at.split("/")[0]
+            }/${datass.data[i].created_at.split("/")[2]}`
           );
 
-          let date = Date.parse(shortDate_2);
+          const date = Date.parse(shortDate_2);
           console.log(typeof date);
           if (date > startDate && date < endDate) {
             datas.push(data.data[i]);

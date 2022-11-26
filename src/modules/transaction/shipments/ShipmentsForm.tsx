@@ -196,6 +196,7 @@ const ShipMentsForm = () => {
         products: [...dataSuccsess]
       };
 
+      navigate(-1);
       // eslint-disable-next-line react-hooks/rules-of-hooks
       useDispatch(addShipmentsThunks(dataSubmit));
       // toast.success("Tạo phiếu nhập hàng thành công");
