@@ -1,10 +1,7 @@
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { listRecei } from "../../api/receipt.api";
-import { list } from "../../api/supplier.api";
-import { Modal, Table } from "../../components";
-import Button from "../../components/Button/Button";
+import ReactPaginate from "react-paginate";
+import { Caret } from "../../components/icons";
 import { ITableColumn } from "../../components/Table/Table.types";
+import Table from "./TableExportShipments";
 
 type Props = {
   data?: any;
@@ -28,24 +25,45 @@ const TableReceipt = (props: Props) => {
   const columns: ITableColumn[] = [
     {
       key: 1,
-      title: "ID",
-      dataIndex: "id"
+      title: "ID | Ngày",
+      dataIndex: "id",
+      render: (item: any) => {
+        console.log(item);
+        return (
+          <>
+            <p className="text-center">{item?.id}</p>
+            <p className="text-center">{item?.created_at}</p>
+          </>
+        );
+      }
     },
-    {
-      key: 2,
-      title: "Ngày",
-      dataIndex: "export_date"
-    },
+
     {
       key: 3,
       title: "Loại ",
-      dataIndex: ""
+      dataIndex: "",
+      render: (item: any) => (
+        <>
+          {item.export_type == 1 && (
+            <>
+              <p className="text-red-500">Xuất nhà cung cấp</p>
+              <p>{item.seller_name}</p>
+            </>
+          )}
+          {item.export_type == 2 && (
+            <>
+              <p className="text-red-500">Xuất khác</p>
+            </>
+          )}
+          {item.export_type == 3 && (
+            <>
+              <p className="text-red-500">Xuất bán lẻ</p>
+            </>
+          )}
+        </>
+      )
     },
-    {
-      key: 4,
-      title: " Số điện thoại",
-      dataIndex: "receve_phone"
-    },
+
     {
       key: 5,
       title: "Số lượng",
@@ -54,7 +72,8 @@ const TableReceipt = (props: Props) => {
     {
       key: 6,
       title: "Tổng tiền",
-      dataIndex: "totall_price"
+      dataIndex: "totall_price",
+      render: (item: any) => <p>{item?.totall_price.toLocaleString("en")}</p>
     },
     {
       key: 7,
@@ -71,6 +90,14 @@ const TableReceipt = (props: Props) => {
   return (
     <>
       <Table dataSource={props?.data} column={columns} link={true} />
+      <ReactPaginate
+        pageCount={10}
+        containerClassName="pagination mt-5"
+        pageClassName="pagination_item"
+        activeClassName="pagination_active"
+        previousLabel={<Caret width={"15px"} />}
+        nextLabel={<Caret className="rotate-180" width={"15px"} />}
+      />
     </>
   );
 };

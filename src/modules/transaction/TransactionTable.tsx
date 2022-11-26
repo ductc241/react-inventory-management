@@ -25,8 +25,14 @@ const TransactionTable = () => {
     const id: any = document.getElementById("id");
     const export_date: any = document.getElementById("export_date");
     const import_Date: any = document.getElementById("import_Date");
-    console.log(id, typeof export_date, import_Date);
-    if (id.value && !import_Date.value && !export_date.value) {
+    const countries: any = document.getElementById("countries");
+
+    if (
+      id.value &&
+      !import_Date.value &&
+      !export_date.value &&
+      countries.value == "Loại"
+    ) {
       const datas: any = [];
       for (let i = 0; i < data.data.length; i++) {
         console.log(data.data[i]);
@@ -36,18 +42,66 @@ const TransactionTable = () => {
       }
       setData(datas);
     }
-    if (!id.value && import_Date.value && export_date.value) {
-      setMessenger("Lọc theo Ngày nhưng chưa lọc được");
-    }
-    if (id.value && import_Date.value && export_date.value) {
-      setMessenger("Không Lọc được cả ID và Ngày cùng 1 Lúc");
+    if (
+      !id.value &&
+      import_Date.value &&
+      export_date.value &&
+      countries.value == "Loại"
+    ) {
+      const datas: any = [];
+      let startDate = Date.parse(import_Date.value);
+      let endDate = Date.parse(export_date.value);
+      if (startDate > endDate) {
+        setMessenger("ngày kết thúc phải lớn hơn ngày bắt đầu");
+      } else {
+        for (let i = 0; i < data.data.length; i++) {
+          console.log(data.data[i]);
+          let shortDate_2: any = new Date(
+            `${data.data[i].created_at.split("/")[1]}/${
+              data.data[i].created_at.split("/")[0]
+            }/${data.data[i].created_at.split("/")[2]}`
+          );
+
+          let date = Date.parse(shortDate_2);
+          console.log(typeof date);
+          if (date > startDate && date < endDate) {
+            datas.push(data.data[i]);
+          }
+        }
+        setData(datas);
+      }
     }
 
-    if (!id.value && !import_Date.value && !export_date.value) {
+    if (
+      (id.value && import_Date.value) ||
+      (id.value && export_date.value) ||
+      (countries.value != "Loại" && id.value) ||
+      (countries.value != "Loại" && import_Date.value && !export_date.value) ||
+      (countries.value != "Loại" && export_date.value && !import_Date.value)
+    ) {
+      setMessenger("Không Lọc được  ");
+    }
+
+    if (
+      !id.value &&
+      !import_Date.value &&
+      !export_date.value &&
+      countries.value == "Loại"
+    ) {
       setData(data.data);
       setMessenger("");
     }
 
+    if (!id.value && countries.value != "Loại" && import_Date && export_date) {
+      const datas: any = [];
+      for (let i = 0; i < data.data.length; i++) {
+        console.log(data.data[i]);
+        if (data.data[i].export_type == Number(countries.value)) {
+          datas.push(data.data[i]);
+        }
+      }
+      setData(datas);
+    }
     id.value = "";
     import_Date.value = "";
     export_date.value = "";
@@ -63,8 +117,8 @@ const TransactionTable = () => {
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/12 p-2.5 ml-3"
         >
           <option selected>Loại</option>
-          <option value="US">Phiếu nhập</option>
-          <option value="CA">Phiếu xuất</option>
+          <option value="1">Phiếu nhập</option>
+          <option value="2">Phiếu xuất</option>
         </select>
 
         <div className="ml-3">
