@@ -1,3 +1,5 @@
+import ReactPaginate from "react-paginate";
+import { Caret } from "../../components/icons";
 import { ITableColumn } from "../../components/Table/Table.types";
 import Table from "./TableExportShipments";
 
@@ -23,7 +25,7 @@ const TableReceipt = (props: Props) => {
   const columns: ITableColumn[] = [
     {
       key: 1,
-      title: "ID/Ngày",
+      title: "ID | Ngày",
       dataIndex: "id",
       render: (item: any) => (
         <>
@@ -71,6 +73,14 @@ const TableReceipt = (props: Props) => {
   return (
     <>
       <Table dataSource={props?.data} column={columns} link={true} />
+      <ReactPaginate
+        pageCount={10}
+        containerClassName="pagination mt-5"
+        pageClassName="pagination_item"
+        activeClassName="pagination_active"
+        previousLabel={<Caret width={"15px"} />}
+        nextLabel={<Caret className="rotate-180" width={"15px"} />}
+      />
     </>
   );
 };
