@@ -92,12 +92,8 @@ const Dashboard = () => {
             </div>
             <div className="text-right">
               <p className="text-2xl">
-<<<<<<< HEAD
                 <FormatNumber number={data.funds} />
                 <span className="font-mono pl-1">VNĐ</span>
-=======
-                15.131.257 <span className="font-mono">VNĐ</span>
->>>>>>> develop
               </p>
               <p>Tiền vốn</p>
             </div>
