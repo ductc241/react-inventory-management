@@ -18,8 +18,6 @@ const ShipmentsTable = () => {
     setData(data.data);
   };
 
-  console.log(data);
-
   const getSupplier = async () => {
     const res = await list();
     setValueSelect(res.data);
