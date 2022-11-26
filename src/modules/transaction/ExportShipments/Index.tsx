@@ -150,14 +150,13 @@ const ExportShipments = () => {
       receve_phone: null
     };
 
-    // try {
-    //   await addRecei(export_order);
-    //   toast.success("Tạo đơn thành công");
-    //   navigate("/receipt");
-    // } catch (error) {
-    //   toast.error("Có lỗi xảy ra, không thể tạo đơn");
-    // }
-    console.log(export_order);
+    try {
+      await addRecei(export_order);
+      toast.success("Tạo đơn thành công");
+      navigate("/receipt");
+    } catch (error) {
+      toast.error("Có lỗi xảy ra, không thể tạo đơn");
+    }
   };
 
   useEffect(() => {
