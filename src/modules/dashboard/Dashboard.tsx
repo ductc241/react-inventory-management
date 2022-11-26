@@ -54,7 +54,9 @@ const Dashboard = () => {
               </svg>
             </div>
             <div className="text-right">
-              <p className="text-2xl">22.520.500 <span className="font-mono">VNĐ</span></p>
+              <p className="text-2xl">
+                22.520.500 <span className="font-mono">VNĐ</span>
+              </p>
               <p>Tiền lãi</p>
             </div>
           </div>
@@ -77,7 +79,9 @@ const Dashboard = () => {
               </svg>
             </div>
             <div className="text-right">
-              <p className="text-2xl">15.131.257 <span className="font-mono">VNĐ</span></p>
+              <p className="text-2xl">
+                15.131.257 <span className="font-mono">VNĐ</span>
+              </p>
               <p>Tiền vốn</p>
             </div>
           </div>
@@ -105,7 +109,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        
+
         {/* Thống kê sản phẩm trong kho */}
         <SpTrongKho />
 
@@ -120,11 +124,8 @@ const Dashboard = () => {
 
         {/* Khách hàng trong tháng */}
         <KhachHang />
-
       </div>
-
-
-    </div >
+    </div>
   );
 };
 

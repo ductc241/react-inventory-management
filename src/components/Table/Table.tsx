@@ -10,7 +10,8 @@ const Table = ({
   textAlign = "center",
   className,
   loading,
-  link
+  link,
+  linkUrl
 }: ITableProps) => {
   return (
     <div className="overflow-hidden shadow-md rounded-lg border border-gray-200">
@@ -22,6 +23,7 @@ const Table = ({
           className={`text-${textAlign}`}
           loading={loading}
           link={link}
+          linkUrl={linkUrl}
         />
       </table>
     </div>

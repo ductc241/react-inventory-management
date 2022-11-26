@@ -86,10 +86,15 @@ const TableReceipt = (props: Props) => {
       dataIndex: ""
     }
   ];
-
+  console.log(location.href.split("/")[3]);
   return (
     <>
-      <Table dataSource={props?.data} column={columns} link={true} />
+      <Table
+        dataSource={props?.data}
+        column={columns}
+        link={true}
+        linkUrl={location.href.split("/")[3]}
+      />
       <ReactPaginate
         pageCount={10}
         containerClassName="pagination mt-5"

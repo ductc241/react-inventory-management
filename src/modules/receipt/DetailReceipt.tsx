@@ -40,6 +40,7 @@ const DetailReceipt = () => {
     });
     // Adding the fonts.
     // doc.setFont("Courier", "normal");
+    console.log("dsfsg");
     doc.html(reportTemplateRef.current, {
       async callback(doc) {
         doc.save("export_shipments");
@@ -202,10 +203,6 @@ const DetailReceipt = () => {
             <p className="ml-6">{datas[0]?.user_name}</p>
           </div>
           <hr />
-          <div className="m-3 flex">
-            <label>Kênh bán:</label>
-            <p className="ml-6">Bán trực tiếp</p>
-          </div>
         </div>
         <div className="col-span-4">
           <div className="m-3 flex">

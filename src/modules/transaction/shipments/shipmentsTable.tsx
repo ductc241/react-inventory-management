@@ -112,6 +112,7 @@ const ShipmentsTable = () => {
           column={columns}
           dataSource={dataSource.length !== 0 ? dataSource : data}
           link={true}
+          linkUrl={location.href.split("/")[3]}
         />
         <ReactPaginate
           pageCount={10}
