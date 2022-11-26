@@ -1,5 +1,5 @@
-import React from "react";
-import ReactPaginate from "react-paginate";
+import axios from "axios";
+import React, { useEffect } from "react";
 import BanChay from "./BanChay";
 import KhachHang from "./KhachHang";
 import SpTrongKho from "./SpTrongKho";
@@ -7,6 +7,13 @@ import TienLai from "./TienLai";
 import TienVon from "./TienVon";
 
 const Dashboard = () => {
+  useEffect(() => {
+    const handleStaticCall = async () => {
+      const { data } = await axios.get(`https://dechoat.com/api/statistical`);
+      console.log(data);
+    };
+    handleStaticCall();
+  }, []);
   return (
     <div>
       <div>
@@ -54,7 +61,9 @@ const Dashboard = () => {
               </svg>
             </div>
             <div className="text-right">
-              <p className="text-2xl">22.520.500 <span className="font-mono">VNĐ</span></p>
+              <p className="text-2xl">
+                22.520.500 <span className="font-mono">VNĐ</span>
+              </p>
               <p>Tiền lãi</p>
             </div>
           </div>
@@ -77,7 +86,9 @@ const Dashboard = () => {
               </svg>
             </div>
             <div className="text-right">
-              <p className="text-2xl">15.131.257 <span className="font-mono">VNĐ</span></p>
+              <p className="text-2xl">
+                15.131.257 <span className="font-mono">VNĐ</span>
+              </p>
               <p>Tiền vốn</p>
             </div>
           </div>
@@ -105,14 +116,15 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        
+
         {/* Thống kê sản phẩm trong kho */}
         <SpTrongKho />
 
         {/* Đồ thị tiền tệ */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 p-4 gap-4 mt-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 p-4 gap-4 mt-6">
           <TienLai />
           <TienVon />
+          <TienLai />
         </div>
 
         {/* Sản phẩm bán chạy */}
@@ -120,11 +132,8 @@ const Dashboard = () => {
 
         {/* Khách hàng trong tháng */}
         <KhachHang />
-
       </div>
-
-
-    </div >
+    </div>
   );
 };
 
