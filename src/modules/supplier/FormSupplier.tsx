@@ -38,8 +38,8 @@ const FormSupplier = (props: Props) => {
   const onSubmit = (item: any) => {
     if (props?.itemUpdate.length < 1) {
       const newData = {
-        id: props.data.length + 1,
-        ...item
+        ...item,
+        phone_number: null
       };
       props.uploadData(newData);
     } else {

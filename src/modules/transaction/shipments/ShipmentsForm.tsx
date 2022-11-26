@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   useForm,
   SubmitHandler,
@@ -44,6 +44,7 @@ const ShipMentsForm = () => {
   const [importDate, setImportDate] = useState("");
   const [nameUser, setNameUser] = useState("");
   const [sdt, setSDT] = useState(0);
+  const navigate = useNavigate();
 
   const [valueOption, setValueOption] = useState<IOption>({
     label: "Nhà cung cấp",
@@ -195,12 +196,10 @@ const ShipMentsForm = () => {
         products: [...dataSuccsess]
       };
 
-      console.log(dataSubmit);
-
+      navigate(-1);
       // eslint-disable-next-line react-hooks/rules-of-hooks
       useDispatch(addShipmentsThunks(dataSubmit));
       // toast.success("Tạo phiếu nhập hàng thành công");
-      return;
     }
 
     if (+valueOption.value === 2) {
@@ -229,10 +228,10 @@ const ShipMentsForm = () => {
 
       console.log(dataSubmit);
 
+      navigate(-1);
+
       // eslint-disable-next-line react-hooks/rules-of-hooks
       useDispatch(addShipmentsThunks(dataSubmit));
-      // toast.success("Tạo phiếu nhập hàng thành công");
-      return;
     }
   };
 
