@@ -67,7 +67,7 @@ const DetailReceipt = () => {
       key: 4,
       title: "Đơn giá",
       dataIndex: "price",
-      render: (item: any) => <p>{item.price.toLocaleString("en")}</p>
+      render: (item: any) => <p>{item?.price?.toLocaleString("en")}</p>
     },
     {
       key: 5,
@@ -78,14 +78,14 @@ const DetailReceipt = () => {
       key: 6,
       title: "Giá bán",
       dataIndex: "price",
-      render: (item: any) => <p>{item.price.toLocaleString("en")}</p>
+      render: (item: any) => <p>{item?.price.toLocaleString("en")}</p>
     },
     {
       key: 7,
       title: "Thành tiền",
       dataIndex: "into_money",
       render: (item: any) => (
-        <p>{(item.price * item.quantity).toLocaleString("en")}</p>
+        <p>{(item?.price * item?.quantity).toLocaleString("en")}</p>
       )
     }
   ];
@@ -194,7 +194,7 @@ const DetailReceipt = () => {
           <p className="text-base">Tổng công:</p>
           <p className="text-base">{datas[0]?.quantity}</p>
           <p className="text-base">
-            {datas[0].totall_price.toLocaleString("en")}
+            {datas[0]?.totall_price.toLocaleString("en")}
           </p>
         </div>
         <div className="flex justify-between">
@@ -205,14 +205,14 @@ const DetailReceipt = () => {
           <p className="text-base">Tổng thanh toán:</p>
 
           <p className="text-base">
-            {datas[0].totall_price.toLocaleString("en")}
+            {datas[0]?.totall_price.toLocaleString("en")}
           </p>
         </div>
         <div className="flex justify-between">
           <p className="text-base">Khách hàng thanh toán:</p>
           <p className="text-base">
             {datas[0]?.status != 1
-              ? datas[0].totall_price.toLocaleString("en")
+              ? datas[0]?.totall_price.toLocaleString("en")
               : ""}
           </p>
         </div>
@@ -220,7 +220,7 @@ const DetailReceipt = () => {
           <p className="text-base">còn lại:</p>
 
           <p className="text-base">
-            {(datas[0].totall_price - datas[0].totall_price).toLocaleString(
+            {(datas[0]?.totall_price - datas[0]?.totall_price).toLocaleString(
               "en"
             )}
           </p>
@@ -232,9 +232,9 @@ const DetailReceipt = () => {
           </div>
           <div className="ml-6">
             <p className="text-base">
-              Ngày {datas[0].created_at.split("/")[0]} Tháng{" "}
-              {datas[0].created_at.split("/")[1]} Năm{" "}
-              {datas[0].created_at.split("/")[2]}
+              Ngày {datas[0]?.created_at.split("/")[0]} Tháng{" "}
+              {datas[0]?.created_at.split("/")[1]} Năm{" "}
+              {datas[0]?.created_at.split("/")[2]}
             </p>
             <p className="text-base text-center">Người bán hàng</p>
             <p className="text-base text-center"></p>
