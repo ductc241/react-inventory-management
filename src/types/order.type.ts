@@ -10,7 +10,7 @@ export interface IOrderCreate {
   payment: number;
   products: IProductOrder[];
 
-  supplier_id: string | null;
+  supplier_id: number | null;
   user_name: string | null;
   phone_number: string | null;
   address: string;
