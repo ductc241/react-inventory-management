@@ -13,7 +13,7 @@ import clsx from "clsx";
 const DetailReceipt = () => {
   const [datas, setDatas] = useState<any>([]);
   const [dataList, setDataList] = useState<any>([]);
-  const [visible, setVisible] = useState<boolean>(true);
+  const [visible, setVisible] = useState<boolean>(false);
   const { id } = useParams();
   const getReceiptId = async () => {
     const { data } = await getRecei(Number(id));
@@ -90,7 +90,6 @@ const DetailReceipt = () => {
     }
   ];
 
-  console.log(datas[0]);
   const Prints = () => (
     <div className="p-5">
       <div className="flex p-3">
@@ -111,81 +110,6 @@ const DetailReceipt = () => {
       </p>
       <p className="text-center text-base mt-3">{datas[0]?.export_date}</p>
 
-      {/* 
-      <div className="grid grid-cols-12 gap-10">
-        <div className="col-span-4">
-          <div className="m-3 flex">
-            <label>Mã hóa đơn :</label>
-            <p className="font-bold ml-6">{datas[0]?.export_code}</p>
-          </div>
-          <hr />
-          <div className="m-3 flex">
-            <label>Thời gian :</label>
-            <p>{datas[0]?.export_date}</p>
-          </div>
-          <hr />
-          <div className="m-3 flex">
-            <label>Số điện thoại khách hàng :</label>
-            <p className="ml-6 ">{datas[0]?.receve_phone}</p>
-          </div>
-          <hr />
-        </div>
-        <div className="col-span-4">
-          <div className="m-3 flex">
-            <label>Trạng thái:</label>
-            <p className="ml-6">{datas[0]?.status}</p>
-          </div>
-          <hr />
-          <div className="m-3 flex">
-            <label>Chi nhánh:</label>
-            <p className="ml-6">Chi nhánh trung tâm</p>
-          </div>
-          <hr />
-          <div className="m-3 flex">
-            <label>Người bán:</label>
-            <p className="ml-6">{datas[0]?.user_name}</p>
-          </div>
-          <hr />
-          <div className="m-3 flex">
-            <label>Người tạo:</label>
-            <p className="ml-6">{datas[0]?.user_name}</p>
-          </div>
-          <hr />
-        </div>
-        <div className="col-span-4">
-          <div className="m-3 flex">
-            <label>Tổng số lượng:</label>
-            <p className="ml-6">{datas[0]?.quantity}</p>
-          </div>
-          <hr />
-          <div className="m-3 flex">
-            <label>Tổng tiền hàng:</label>
-            <p className="ml-6">{datas[0]?.totall_price} VNĐ</p>
-          </div>
-          <hr />
-          <div className="m-3 flex">
-            <label>Giảm giá hóa đơn:</label>
-            <p className="ml-6">0</p>
-          </div>
-          <hr />
-          <div className="m-3 flex">
-            <label>Khách cần trả:</label>
-            <p className="ml-6">{datas[0]?.totall_price} VNĐ</p>
-          </div>
-          <hr />
-          <div className="m-3 flex">
-            <label>Khách đã trả: </label>
-            <p className="ml-6">
-              {datas[0]?.status == 1 ? "Chưa thanh toán" : "Đã thanh toán"}
-            </p>
-          </div>
-          <hr />
-          <div className="m-3 flex">
-            <label>ảnh hóa đơn:</label>
-            <img src="" alt="chưa có ảnh" className="ml-6" />
-          </div>
-        </div>
-      </div> */}
       <div className="mt-3 mb-3">
         <Table dataSource={dataList} column={columns} />
       </div>
@@ -273,20 +197,6 @@ const DetailReceipt = () => {
             <p>{datas[0]?.export_date}</p>
           </div>
           <hr />
-          <div className="m-3 flex">
-            <label>Số điện thoại khách hàng :</label>
-            <p className="ml-6 ">{datas[0]?.receve_phone}</p>
-          </div>
-          <hr />
-          <div className="m-3 flex">
-            <label>Bảng giá :</label>
-            <p className="ml-6 text-blue-600">Bảng giá chung</p>
-          </div>
-          <hr />
-          <div className="m-3 flex">
-            <label>Mã đặt hàng :</label>
-            <p className="ml-6 text-blue-600"></p>
-          </div>
         </div>
         <div className="col-span-4">
           <div className="m-3 flex">
@@ -296,11 +206,7 @@ const DetailReceipt = () => {
             </p>
           </div>
           <hr />
-          <div className="m-3 flex">
-            <label>Chi nhánh:</label>
-            <p className="ml-6">Chi nhánh trung tâm</p>
-          </div>
-          <hr />
+
           <div className="m-3 flex">
             <label>Người bán:</label>
             <p className="ml-6">{datas[0]?.user_name}</p>
@@ -324,7 +230,9 @@ const DetailReceipt = () => {
           <hr />
           <div className="m-3 flex">
             <label>Tổng tiền hàng:</label>
-            <p className="ml-6">{datas[0]?.totall_price} VNĐ</p>
+            <p className="ml-6">
+              {datas[0]?.totall_price.toLocaleString("en")} VNĐ
+            </p>
           </div>
           <hr />
           <div className="m-3 flex">
@@ -334,13 +242,17 @@ const DetailReceipt = () => {
           <hr />
           <div className="m-3 flex">
             <label>Khách cần trả:</label>
-            <p className="ml-6">{datas[0]?.totall_price} VNĐ</p>
+            <p className="ml-6">
+              {datas[0]?.totall_price.toLocaleString("en")} VNĐ
+            </p>
           </div>
           <hr />
           <div className="m-3 flex">
             <label>Khách đã trả: </label>
             <p className="ml-6 text-blue-600">
-              {datas[0]?.status == 1 ? "Chưa thanh toán" : "Đã thanh toán"}
+              {datas[0]?.status == 1
+                ? "0 VNĐ"
+                : `${datas[0]?.totall_price.toLocaleString("en")} VNĐ`}
             </p>
           </div>
         </div>
@@ -350,10 +262,18 @@ const DetailReceipt = () => {
       </div>
 
       <div className="flex  justify-end">
-        <Button variant="container" className="m-3" onClick={() => infile()}>
+        <Button
+          variant="container"
+          className="m-3"
+          onClick={() => setVisible(true)}
+        >
           In
         </Button>
-        <Button variant="warning" className="m-3 " onClick={() => infile()}>
+        <Button
+          variant="warning"
+          className="m-3 "
+          onClick={() => setVisible(true)}
+        >
           Xuất
         </Button>
         <Button variant="container" className="m-3">
