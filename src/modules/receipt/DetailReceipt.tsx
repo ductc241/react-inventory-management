@@ -35,7 +35,7 @@ const DetailReceipt = () => {
   const reportTemplateRef = useRef<any>(null);
   const infile = () => {
     const doc = new jsPDF({
-      format: "a0",
+      format: "a2",
       unit: "px"
     });
     // Adding the fonts.
@@ -55,34 +55,34 @@ const DetailReceipt = () => {
     },
     {
       key: 2,
-      title: "Tên hàng",
+      title: "Ten Hang",
       dataIndex: "product_name"
     },
     {
       key: 3,
-      title: "Số lượng",
+      title: "So Luong",
       dataIndex: "quantity"
     },
     {
       key: 4,
-      title: "Đơn giá",
+      title: "Don gia",
       dataIndex: "price",
       render: (item: any) => <p>{item?.price?.toLocaleString("en")}</p>
     },
     {
       key: 5,
-      title: "Giảm giá",
+      title: "Giam gia",
       dataIndex: "Discount"
     },
     {
       key: 6,
-      title: "Giá bán",
+      title: "Gia ban",
       dataIndex: "price",
       render: (item: any) => <p>{item?.price.toLocaleString("en")}</p>
     },
     {
       key: 7,
-      title: "Thành tiền",
+      title: "Thanh tien",
       dataIndex: "into_money",
       render: (item: any) => (
         <p>{(item?.price * item?.quantity).toLocaleString("en")}</p>
@@ -91,22 +91,22 @@ const DetailReceipt = () => {
   ];
 
   const Prints = () => (
-    <div className="p-5">
+    <div className="p-5" ref={reportTemplateRef}>
       <div className="flex p-3">
         <span className="w-2/12">{datas[0]?.export_date}</span>
         <h1 className="text-center w-10/12 -ml-8  text-xl font-bold">
-          Giao dịch hóa đơn
+          Giao Dich Hoa Don
         </h1>
       </div>
 
       <div className="ml-[20%]">
-        <p className="text-base">Cửa hàng:....</p>
-        <p className="text-base">Địa chỉ: </p>
-        <p className="text-base">Số điện thoại : {datas[0]?.receve_phone} </p>
+        <p className="text-base">Cua hang:....</p>
+        <p className="text-base">Dia chi: </p>
+        <p className="text-base">So dien thoai : {datas[0]?.receve_phone} </p>
       </div>
-      <h1 className="text-center text-xl font-bold mt-3">Hóa đơn xuất hàng</h1>
+      <h1 className="text-center text-xl font-bold mt-3">Hoa don xuat hang</h1>
       <p className="text-center text-base mt-3">
-        Hóa đơn xuất hàng: {datas[0]?.export_code}
+        Hoa don xuat hang: {datas[0]?.export_code}
       </p>
       <p className="text-center text-base mt-3">{datas[0]?.export_date}</p>
 
@@ -115,25 +115,25 @@ const DetailReceipt = () => {
       </div>
       <div className=" mt-5 ml-3 mr-3">
         <div className="flex justify-between">
-          <p className="text-base">Tổng công:</p>
+          <p className="text-base">Tong cong:</p>
           <p className="text-base">{datas[0]?.quantity}</p>
           <p className="text-base">
             {datas[0]?.totall_price.toLocaleString("en")}
           </p>
         </div>
         <div className="flex justify-between">
-          <p className="text-base">chiết khấu hóa đơn:</p>
+          <p className="text-base">chiet khau hoa don:</p>
           <p className="text-base"></p>
         </div>
         <div className="flex justify-between">
-          <p className="text-base">Tổng thanh toán:</p>
+          <p className="text-base">Tong thanh toan:</p>
 
           <p className="text-base">
             {datas[0]?.totall_price.toLocaleString("en")}
           </p>
         </div>
         <div className="flex justify-between">
-          <p className="text-base">Khách hàng thanh toán:</p>
+          <p className="text-base">Khach hang thanh toan:</p>
           <p className="text-base">
             {datas[0]?.status != 1
               ? datas[0]?.totall_price.toLocaleString("en")
@@ -141,7 +141,7 @@ const DetailReceipt = () => {
           </p>
         </div>
         <div className="flex justify-between">
-          <p className="text-base">còn lại:</p>
+          <p className="text-base">con lai:</p>
 
           <p className="text-base">
             {(datas[0]?.totall_price - datas[0]?.totall_price).toLocaleString(
@@ -151,34 +151,19 @@ const DetailReceipt = () => {
         </div>
         <div className="flex justify-between mt-8">
           <div className="ml-6">
-            <p className="text-base">Người mua hàng</p>
+            <p className="text-base">Nguoi mua hang</p>
             <p className="text-base text-center"></p>
           </div>
           <div className="ml-6">
             <p className="text-base">
-              Ngày {datas[0]?.created_at.split("/")[0]} Tháng{" "}
-              {datas[0]?.created_at.split("/")[1]} Năm{" "}
+              Ngay {datas[0]?.created_at.split("/")[0]} Thang{" "}
+              {datas[0]?.created_at.split("/")[1]} Nam{" "}
               {datas[0]?.created_at.split("/")[2]}
             </p>
-            <p className="text-base text-center">Người bán hàng</p>
+            <p className="text-base text-center">Nguoi ban hang</p>
             <p className="text-base text-center"></p>
           </div>
         </div>
-      </div>
-      <div className="flex  justify-end mt-4">
-        <Button variant="container" className="m-3" onClick={() => infile()}>
-          In
-        </Button>
-        <Button variant="warning" className="m-3 " onClick={() => infile()}>
-          Xuất
-        </Button>
-        <Button
-          variant="container"
-          className="m-3"
-          onClick={() => setVisible(false)}
-        >
-          Hủy
-        </Button>
       </div>
     </div>
   );
@@ -281,15 +266,37 @@ const DetailReceipt = () => {
         </Button>
       </div>
       {visible && (
-        <div
-          ref={reportTemplateRef}
-          className="fixed inset-0 flex justify-center items-center "
-        >
-          <div className="fixed inset-0 bg-black opacity-10" />
-          <div className="z-[999] min-w-[400px] p-[30px] rounded-[20px] bg-white text-left shadow-modal">
-            {Prints()}
+        <>
+          <div className="fixed inset-0 flex justify-center items-center ">
+            <div className="fixed inset-0 bg-black opacity-10" />
+            <div className="z-[999] min-w-[600px] p-[30px] rounded-[20px] bg-white text-left shadow-modal">
+              {Prints()}
+              <div className="flex  justify-end mt-4">
+                <Button
+                  variant="container"
+                  className="m-3"
+                  onClick={() => infile()}
+                >
+                  In
+                </Button>
+                <Button
+                  variant="warning"
+                  className="m-3 "
+                  onClick={() => infile()}
+                >
+                  Xuất
+                </Button>
+                <Button
+                  variant="container"
+                  className="m-3"
+                  onClick={() => setVisible(false)}
+                >
+                  Hủy
+                </Button>
+              </div>
+            </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );

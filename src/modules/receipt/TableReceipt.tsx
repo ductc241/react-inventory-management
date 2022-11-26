@@ -27,12 +27,15 @@ const TableReceipt = (props: Props) => {
       key: 1,
       title: "ID | Ngày",
       dataIndex: "id",
-      render: (item: any) => (
-        <>
-          <p className="text-center">{item?.id}</p>
-          <p className="text-center">{item?.created_at}</p>
-        </>
-      )
+      render: (item: any) => {
+        console.log(item);
+        return (
+          <>
+            <p className="text-center">{item?.id}</p>
+            <p className="text-center">{item?.created_at}</p>
+          </>
+        );
+      }
     },
 
     {
@@ -41,8 +44,22 @@ const TableReceipt = (props: Props) => {
       dataIndex: "",
       render: (item: any) => (
         <>
-          <p>Xuất Nhà cung cấp</p>
-          <p>{item?.seller_name}</p>
+          {item.export_type == 1 && (
+            <>
+              <p className="text-red-500">Xuất nhà cung cấp</p>
+              <p>{item.seller_name}</p>
+            </>
+          )}
+          {item.export_type == 2 && (
+            <>
+              <p className="text-red-500">Xuất khác</p>
+            </>
+          )}
+          {item.export_type == 3 && (
+            <>
+              <p className="text-red-500">Xuất bán lẻ</p>
+            </>
+          )}
         </>
       )
     },

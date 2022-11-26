@@ -92,16 +92,15 @@ const TransactionTable = () => {
       setMessenger("");
     }
 
-    if (
-      !id.value &&
-      countries.value != "Loại" &&
-      !import_Date &&
-      !export_date
-    ) {
-      setMessenger("Lọc theo loại");
-    }
     if (!id.value && countries.value != "Loại" && import_Date && export_date) {
-      setMessenger("Lọc loại theo ngày tháng năm");
+      const datas: any = [];
+      for (let i = 0; i < data.data.length; i++) {
+        console.log(data.data[i]);
+        if (data.data[i].export_type == Number(countries.value)) {
+          datas.push(data.data[i]);
+        }
+      }
+      setData(datas);
     }
     id.value = "";
     import_Date.value = "";
@@ -118,8 +117,8 @@ const TransactionTable = () => {
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/12 p-2.5 ml-3"
         >
           <option selected>Loại</option>
-          <option value="US">Phiếu nhập</option>
-          <option value="CA">Phiếu xuất</option>
+          <option value="1">Phiếu nhập</option>
+          <option value="2">Phiếu xuất</option>
         </select>
 
         <div className="ml-3">
