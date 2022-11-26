@@ -44,7 +44,7 @@ const NewSale_Checkout = ({ toggleCheckout }: IProps) => {
       payment: 1,
       products: orderProducts,
 
-      supplier_id: null,
+      supplier_id: 0,
       user_name: null,
       phone_number: null,
       address: "",
