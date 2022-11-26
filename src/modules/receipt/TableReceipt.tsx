@@ -1,10 +1,5 @@
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { listRecei } from "../../api/receipt.api";
-import { list } from "../../api/supplier.api";
-import { Modal, Table } from "../../components";
-import Button from "../../components/Button/Button";
 import { ITableColumn } from "../../components/Table/Table.types";
+import Table from "./TableExportShipments";
 
 type Props = {
   data?: any;
@@ -28,24 +23,28 @@ const TableReceipt = (props: Props) => {
   const columns: ITableColumn[] = [
     {
       key: 1,
-      title: "ID",
-      dataIndex: "id"
+      title: "ID/Ngày",
+      dataIndex: "id",
+      render: (item: any) => (
+        <>
+          <p className="text-center">{item?.id}</p>
+          <p className="text-center">{item?.created_at}</p>
+        </>
+      )
     },
-    {
-      key: 2,
-      title: "Ngày",
-      dataIndex: "export_date"
-    },
+
     {
       key: 3,
       title: "Loại ",
-      dataIndex: ""
+      dataIndex: "",
+      render: (item: any) => (
+        <>
+          <p>Xuất Nhà cung cấp</p>
+          <p>{item?.seller_name}</p>
+        </>
+      )
     },
-    {
-      key: 4,
-      title: " Số điện thoại",
-      dataIndex: "receve_phone"
-    },
+
     {
       key: 5,
       title: "Số lượng",
@@ -54,7 +53,8 @@ const TableReceipt = (props: Props) => {
     {
       key: 6,
       title: "Tổng tiền",
-      dataIndex: "totall_price"
+      dataIndex: "totall_price",
+      render: (item: any) => <p>{item?.totall_price.toLocaleString("en")}</p>
     },
     {
       key: 7,
