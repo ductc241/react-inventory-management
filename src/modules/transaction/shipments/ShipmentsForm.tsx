@@ -464,7 +464,7 @@ const ShipMentsForm = () => {
           </div>
           <span className="flex justify-end text-lg">
             Tổng số tiền nhập hàng:
-            {control && <TotalAmout control={control} />}
+            {control && <TotalAmout control={control} />} VND
           </span>
         </div>
         <div className="">
