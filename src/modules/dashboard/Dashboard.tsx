@@ -1,5 +1,6 @@
-import React from "react";
-import ReactPaginate from "react-paginate";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import FormatNumber from "../../components/formatNumber/formatNumber";
 import BanChay from "./BanChay";
 import KhachHang from "./KhachHang";
 import SpTrongKho from "./SpTrongKho";
@@ -7,6 +8,17 @@ import TienLai from "./TienLai";
 import TienVon from "./TienVon";
 
 const Dashboard = () => {
+  const [data, setData] = useState<any | []>([]);
+  useEffect(() => {
+    const handleStaticCall = async () => {
+      const { data } = await axios.get(`https://dechoat.com/api/statistical`);
+      setData(data.data);
+    };
+    handleStaticCall();
+  }, []);
+
+  console.log(data);
+
   return (
     <div>
       <div>
@@ -80,7 +92,8 @@ const Dashboard = () => {
             </div>
             <div className="text-right">
               <p className="text-2xl">
-                15.131.257 <span className="font-mono">VNĐ</span>
+                <FormatNumber number={data.funds} />
+                <span className="font-mono pl-1">VNĐ</span>
               </p>
               <p>Tiền vốn</p>
             </div>
@@ -114,13 +127,14 @@ const Dashboard = () => {
         <SpTrongKho />
 
         {/* Đồ thị tiền tệ */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 p-4 gap-4 mt-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 p-4 gap-4 mt-6">
           <TienLai />
           <TienVon />
+          <TienLai />
         </div>
 
         {/* Sản phẩm bán chạy */}
-        <BanChay />
+        <BanChay data={data.best_selling_products} />
 
         {/* Khách hàng trong tháng */}
         <KhachHang />

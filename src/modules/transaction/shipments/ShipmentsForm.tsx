@@ -168,10 +168,10 @@ const ShipMentsForm = () => {
 
   const onSubmit: SubmitHandler<Inputs> = ({ products }: any) => {
     if (+valueOption.value === 1) {
-      if (+idSupplier === 0) {
-        toast.warning("Bạn chưa chọn nhà cung cấp");
-        return;
-      }
+      // if (+idSupplier === 0) {
+      //   toast.warning("Bạn chưa chọn nhà cung cấp");
+      //   return;
+      // }
 
       const dataSuccsess = products?.map((item: any) => ({
         id: item.id,
@@ -181,10 +181,10 @@ const ShipMentsForm = () => {
         barcode: item.barcode
       }));
 
-      if (dataSuccsess.length === 0) {
-        toast.warning("Bạn chưa nhập sẩn phẩm nào");
-        return;
-      }
+      // if (dataSuccsess.length === 0) {
+      //   toast.warning("Bạn chưa nhập sẩn phẩm nào");
+      //   return;
+      // }
 
       const dataSubmit = {
         supplier_id: +idSupplier,
@@ -211,10 +211,10 @@ const ShipMentsForm = () => {
         barcode: item.barcode
       }));
 
-      if (dataSuccsess.length === 0) {
-        toast.warning("Bạn chưa nhập sẩn phẩm nào");
-        return;
-      }
+      // if (dataSuccsess.length === 0) {
+      //   toast.warning("Bạn chưa nhập sẩn phẩm nào");
+      //   return;
+      // }
 
       const dataSubmit = {
         supplier_id: null,
