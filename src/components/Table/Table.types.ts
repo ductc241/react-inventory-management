@@ -6,8 +6,8 @@ export interface ITableProps {
   textAlign?: "left" | "center" | "right";
   className?: string;
   loading?: boolean;
-  link?: boolean;
-  linkUrl?: string;
+
+  linkUrl?: any;
 }
 
 export interface ITableColumn {
