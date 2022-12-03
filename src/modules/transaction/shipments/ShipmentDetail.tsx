@@ -1,8 +1,9 @@
 import jsPDF from "jspdf";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getOneShipment } from "../../../api/shipments";
+import { getOneShipment, listShipments } from "../../../api/shipments";
 import { Button, Table } from "../../../components";
+import FormatNumber from "../../../components/formatNumber/formatNumber";
 import { ITableColumn } from "../../../components/Table/Table.types";
 
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -15,7 +16,15 @@ const ShipmentDetail = (props: Props) => {
   const { id } = useParams();
   const getReceiptId = async () => {
     const { data } = await getOneShipment(Number(id));
-    console.log(data);
+    const { data: dataReceipt } = await listShipments();
+    const dataa: any = [];
+    for (let i = 0; i < dataReceipt.data.length; i++) {
+      if (dataReceipt.data[i].id == Number(id)) {
+        dataa.push(dataReceipt.data[i]);
+      }
+    }
+    setDatas(dataa);
+    setDataList(data.data);
   };
 
   useEffect(() => {
@@ -39,11 +48,13 @@ const ShipmentDetail = (props: Props) => {
     });
   };
 
+  console.log(dataList);
+
   const columns: ITableColumn[] = [
     {
       key: 1,
       title: "id",
-      dataIndex: "id"
+      dataIndex: `product_id`
     },
     {
       key: 2,
@@ -56,28 +67,23 @@ const ShipmentDetail = (props: Props) => {
       dataIndex: "quantity"
     },
     {
-      key: 4,
-      title: "Don gia",
-      dataIndex: "price",
-      render: (item: any) => <p>{item?.price?.toLocaleString("en")}</p>
-    },
-    {
-      key: 5,
-      title: "Giam gia",
-      dataIndex: "Discount"
-    },
-    {
       key: 6,
       title: "Gia ban",
-      dataIndex: "price",
-      render: (item: any) => <p>{item?.price.toLocaleString("en")}</p>
+      dataIndex: "import_price",
+      render: (item: any) => (
+        <p>
+          <FormatNumber number={item?.import_price} />
+        </p>
+      )
     },
     {
       key: 7,
       title: "Thanh tien",
       dataIndex: "into_money",
       render: (item: any) => (
-        <p>{(item?.price * item?.quantity).toLocaleString("en")}</p>
+        <p>
+          <FormatNumber number={item?.import_price * item?.quantity} />
+        </p>
       )
     }
   ];
@@ -85,7 +91,7 @@ const ShipmentDetail = (props: Props) => {
   const Prints = () => (
     <div className="p-5" ref={reportTemplateRef}>
       <div className="flex p-3">
-        <span className="w-2/12">{datas[0]?.export_date}</span>
+        <span className="w-2/12">{datas[0]?.import_date}</span>
         <h1 className="text-center w-10/12 -ml-8  text-xl font-bold">
           Giao Dich Hoa Don
         </h1>
@@ -100,7 +106,7 @@ const ShipmentDetail = (props: Props) => {
       <p className="text-center text-base mt-3">
         Hoa don xuat hang: {datas[0]?.export_code}
       </p>
-      <p className="text-center text-base mt-3">{datas[0]?.export_date}</p>
+      <p className="text-center text-base mt-3">{datas[0]?.import_date}</p>
 
       <div className="mt-3 mb-3">
         <Table dataSource={dataList} column={columns} />
@@ -170,15 +176,15 @@ const ShipmentDetail = (props: Props) => {
           </div>
           <hr />
           <div className="m-3 flex">
-            <label>Thời gian :</label>
-            <p>{datas[0]?.export_date}</p>
+            <label>Thời gian: &nbsp; </label>
+            <p>{datas[0]?.import_date}</p>
           </div>
           <hr />
         </div>
         <div className="col-span-4">
           <div className="m-3 flex">
             <label>Trạng thái:</label>
-            <p className="ml-6 text-blue-600">
+            <p className="ml-6 text-red-600">
               {datas[0]?.status == 1 ? "Chưa thanh toán" : "Đã thanh toán"}
             </p>
           </div>
@@ -186,12 +192,12 @@ const ShipmentDetail = (props: Props) => {
 
           <div className="m-3 flex">
             <label>Người bán:</label>
-            <p className="ml-6">{datas[0]?.user_name}</p>
+            <p className="ml-6">{datas[0]?.user_name} Admin</p>
           </div>
           <hr />
           <div className="m-3 flex">
             <label>Người tạo:</label>
-            <p className="ml-6">{datas[0]?.user_name}</p>
+            <p className="ml-6">{datas[0]?.user_name} Admin</p>
           </div>
           <hr />
         </div>
@@ -203,9 +209,7 @@ const ShipmentDetail = (props: Props) => {
           <hr />
           <div className="m-3 flex">
             <label>Tổng tiền hàng:</label>
-            <p className="ml-6">
-              {datas[0]?.totall_price.toLocaleString("en")} VNĐ
-            </p>
+            <p className="ml-6">{datas[0]?.totall_price} VNĐ</p>
           </div>
           <hr />
           <div className="m-3 flex">
@@ -215,9 +219,7 @@ const ShipmentDetail = (props: Props) => {
           <hr />
           <div className="m-3 flex">
             <label>Khách cần trả:</label>
-            <p className="ml-6">
-              {datas[0]?.totall_price.toLocaleString("en")} VNĐ
-            </p>
+            <p className="ml-6">{datas[0]?.totall_price} VNĐ</p>
           </div>
           <hr />
           <div className="m-3 flex">
@@ -231,7 +233,7 @@ const ShipmentDetail = (props: Props) => {
         </div>
       </div>
       <div className="mt-3 mb-3">
-        <Table dataSource={dataList} column={columns} />
+        <Table dataSource={dataList ? dataList : datas} column={columns} />
       </div>
 
       <div className="flex  justify-end">
@@ -242,15 +244,8 @@ const ShipmentDetail = (props: Props) => {
         >
           In
         </Button>
-        <Button
-          variant="warning"
-          className="m-3 "
-          onClick={() => setVisible(true)}
-        >
-          Xuất
-        </Button>
         <Button variant="container" className="m-3">
-          <Link to="/receipt"> Quay lại</Link>
+          <Link to="/import_shipments"> Quay lại</Link>
         </Button>
       </div>
       {visible && (
