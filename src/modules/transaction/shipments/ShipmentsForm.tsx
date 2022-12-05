@@ -33,10 +33,7 @@ type Inputs = {
 };
 
 const ShipMentsForm = () => {
-  const [valueSelect, setValueSelect] = useState<any>("");
   const [suppliersOptions, setSuppliersOptions] = useState([]);
-  const [idSupplier, setIdSupplier] = useState(0);
-  const [showSuggest, setShowSuggest] = useState(false);
   const [showSuggestSearch, setShowSuggestSearch] = useState(false);
   const [productsSelects, setProductsSelects] = useState<any | undefined>([]);
   const [search, setSearch] = useState<string>("");
@@ -44,17 +41,51 @@ const ShipMentsForm = () => {
   const [importDate, setImportDate] = useState("");
   const [nameUser, setNameUser] = useState("");
   const [sdt, setSDT] = useState(0);
+  const [desc, setDesc] = useState("");
   const navigate = useNavigate();
 
   const [valueOption, setValueOption] = useState<IOption>({
     label: "Nhà cung cấp",
     value: 1
   });
+  const [valueOption3, setValueOption3] = useState<IOption>({
+    label: "- Chọn nhà cung cấp -",
+    value: ""
+  });
+
+  const [valueOption2, setValueOption2] = useState<IOption>({
+    label: "Thanh toán trực tiếp",
+    value: 1
+  });
 
   const OptionSupplier: IOption[] = [
-    { label: "Nhà cung cấp", value: 1 },
-    { label: "Khác", value: 2 }
+    {
+      label: "Nhà cung cấp",
+      value: 1
+    },
+    {
+      label: "Nguồn khác",
+      value: 2
+    }
   ];
+
+  const OptionSupplier2: IOption[] = [
+    {
+      label: "Thanh toán trực tiếp",
+      value: 1
+    },
+    {
+      label: "Chuyển khoản",
+      value: 2
+    }
+  ];
+
+  const supplierOption = suppliersOptions?.map((item: any) => {
+    return {
+      label: item.name,
+      value: item.id
+    };
+  });
 
   const { handleSubmit, register, control } = useForm<Inputs>();
   const { fields, prepend, remove } = useFieldArray({
@@ -80,29 +111,14 @@ const ShipMentsForm = () => {
     getShipemnteProductsAPI();
   }, []);
 
-  const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValueSelect(e.target.value);
-    setShowSuggest(true);
-  };
-
   const handleChangeValueSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
     setShowSuggestSearch(true);
   };
 
-  const matchs = suppliersOptions?.filter((option: any) => {
-    return option.name.toLowerCase().includes(valueSelect.toLowerCase());
-  });
-
   const matchsProduct = productsSelects?.filter((option: any) => {
     return option.name.toLowerCase().includes(search.toLowerCase());
   });
-
-  const hanldeClick = (item: any) => {
-    setIdSupplier(item.id);
-    setValueSelect(item.name);
-    setShowSuggest(false);
-  };
 
   const hanldeAddProduct = (item: IProduct) => {
     setShowSuggestSearch(false);
@@ -167,12 +183,12 @@ const ShipMentsForm = () => {
   };
 
   const onSubmit: SubmitHandler<Inputs> = ({ products }: any) => {
-    if (+valueOption.value === 1) {
-      // if (+idSupplier === 0) {
-      //   toast.warning("Bạn chưa chọn nhà cung cấp");
-      //   return;
-      // }
+    if (valueOption === undefined) {
+      toast.warning("Bạn chưa chọn kiểu nhập hàng");
+      return;
+    }
 
+    if (valueOption.value === 1) {
       const dataSuccsess = products?.map((item: any) => ({
         id: item.id,
         name: item.name,
@@ -181,25 +197,28 @@ const ShipMentsForm = () => {
         barcode: item.barcode
       }));
 
-      // if (dataSuccsess.length === 0) {
-      //   toast.warning("Bạn chưa nhập sẩn phẩm nào");
-      //   return;
-      // }
+      if (dataSuccsess.length === 0) {
+        toast.warning("Bạn chưa nhập sẩn phẩm nào");
+        return;
+      }
 
       const dataSubmit = {
-        supplier_id: +idSupplier,
+        supplier_id: valueOption3.value,
         import_date: getDateNow(),
-        import_type: valueOption.value === 1 ? valueOption.value : null,
+        import_type: valueOption2.value,
         user_name: null,
         phone_number: null,
-        payment: 1,
-        products: [...dataSuccsess]
+        payment: valueOption2.value,
+        products: [...dataSuccsess],
+        description: desc
       };
 
-      navigate(-1);
+      console.log(dataSubmit);
+
       // eslint-disable-next-line react-hooks/rules-of-hooks
       useDispatch(addShipmentsThunks(dataSubmit));
-      // toast.success("Tạo phiếu nhập hàng thành công");
+      toast.success("Tạo phiếu nhập hàng thành công");
+      navigate(-1);
     }
 
     if (+valueOption.value === 2) {
@@ -211,27 +230,28 @@ const ShipMentsForm = () => {
         barcode: item.barcode
       }));
 
-      // if (dataSuccsess.length === 0) {
-      //   toast.warning("Bạn chưa nhập sẩn phẩm nào");
-      //   return;
-      // }
+      if (dataSuccsess.length === 0) {
+        toast.warning("Bạn chưa nhập sẩn phẩm nào");
+        return;
+      }
 
       const dataSubmit = {
         supplier_id: null,
         import_date: getDateNow(),
-        import_type: valueOption.value === 2 ? valueOption.value : null,
+        import_type: valueOption2.value,
         user_name: nameUser,
-        phone_number: `${sdt}`,
-        payment: 1,
-        products: [...dataSuccsess]
+        phone_number: sdt,
+        payment: valueOption2.value,
+        products: [...dataSuccsess],
+        description: desc
       };
 
       console.log(dataSubmit);
 
-      navigate(-1);
-
       // eslint-disable-next-line react-hooks/rules-of-hooks
       useDispatch(addShipmentsThunks(dataSubmit));
+      toast.success("Nhập hàng thành công");
+      navigate(-1);
     }
   };
 
@@ -247,38 +267,25 @@ const ShipMentsForm = () => {
           </div>
           <div className="p-5">
             <div>
-              <p className="pb-1">Loại</p>
               <Select
+                selectLabel={{
+                  text: "Kiểu nhập hàng"
+                }}
                 options={OptionSupplier}
                 option={valueOption}
                 handleClickChange={(e) => setValueOption(e)}
               />
               {valueOption.value === 1 ? (
-                <div className="relative w-full">
-                  <p className="pb-1 pt-3">Nhà cung cấp</p>
-                  <input
-                    value={valueSelect}
-                    placeholder="Tìm kiếm nhà cung cấp..."
-                    onChange={handleChangeValue}
-                    name="supplior"
-                    autoComplete="off"
-                    className="w-full h-10 rounded-md mb-3 p-5 border"
+                <div className="my-3">
+                  <Select
+                    selectLabel={{
+                      text: "Nhà cung cấp"
+                    }}
+                    options={supplierOption}
+                    option={valueOption3}
+                    handleClickChange={(e) => setValueOption3(e)}
+                    placeholderText="- Chọn nhà cung cấp -"
                   />
-                  {showSuggest && valueSelect !== "" && (
-                    <ul className="mt-1 rounded-md z-50 absolute w-full cursor-pointer border bg-white">
-                      {matchs.map((item: any, key) => {
-                        return (
-                          <li
-                            key={key}
-                            onClick={() => hanldeClick(item)}
-                            className="hover:bg-gray-200 w-full h-10 flex items-center p-5"
-                          >
-                            {item.name}
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  )}
                 </div>
               ) : (
                 <div className="mt-2">
@@ -298,13 +305,17 @@ const ShipMentsForm = () => {
                       setSDT(e.target.value as unknown as number)
                     }
                   />
-                  {/* setSDT(e.target.value) */}
                 </div>
               )}
             </div>
             <div>
               <p className="mb-1">Ghi chú</p>
-              <textarea className="w-full border-2 h-[80px] border-[#DEDEDE] rounded-lg outline-none p-2"></textarea>
+              <textarea
+                className="w-full border-2 h-[80px] border-[#DEDEDE] rounded-lg outline-none p-2"
+                onChange={(e) => setDesc(e.target.value)}
+              >
+                {desc}
+              </textarea>
             </div>
           </div>
         </div>
@@ -313,18 +324,22 @@ const ShipMentsForm = () => {
             <p>Thanh toán</p>
           </div>
           <div className="p-5">
-            <TextField
-              name="Kiểu thanh toán"
-              label="kiểu thanh toán"
-              className="mb-5"
-            />
+            <div className="mb-3">
+              <Select
+                selectLabel={{
+                  text: "Kiểu thanh toán"
+                }}
+                options={OptionSupplier2}
+                option={valueOption2}
+                handleClickChange={(e) => setValueOption2(e)}
+              />
+            </div>
             <TextField
               name="ngày thanh toán"
               label="Ngày hẹn thanh toán"
               type="date"
               value={importDate}
               onChange={(e) => setImportDate(e.target.value)}
-              required
             />
           </div>
         </div>
@@ -429,7 +444,6 @@ const ShipMentsForm = () => {
                         </td>
                         <td className="p-[14px] first:pl-[24px] last:pr-[24px] text-sm">
                           <TextField
-                            disabled
                             {...register(`products.${index}.import_price`, {
                               valueAsNumber: true
                             })}

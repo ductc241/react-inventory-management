@@ -1,6 +1,7 @@
 import PriceSetting from "../modules/priceSetting/priceSetting";
 import DetailReceipt from "../modules/receipt/DetailReceipt";
 import ExportShipments from "../modules/transaction/ExportShipments/Index";
+import ShipmentDetail from "../modules/transaction/shipments/ShipmentDetail";
 import ShipMentsForm from "../modules/transaction/shipments/ShipmentsForm";
 import ShipmentsTable from "../modules/transaction/shipments/shipmentsTable";
 import TransactionTable from "../modules/transaction/TransactionTable";
@@ -96,5 +97,10 @@ export const appRoutes: IRoute[] = [
     key: 15,
     path: routerPaths.PATH_EXPORT_SHIPMENT,
     component: <ExportShipments />
+  },
+  {
+    key: 15,
+    path: routerPaths.PATH_IMPORT_SHIPMENT_DETAIL,
+    component: <ShipmentDetail />
   }
 ];

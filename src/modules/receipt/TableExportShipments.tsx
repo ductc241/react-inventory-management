@@ -9,7 +9,6 @@ const Table = ({
   textAlign = "center",
   className,
   loading,
-  link,
   linkUrl
 }: ITableProps) => {
   return (
@@ -21,7 +20,6 @@ const Table = ({
           data={dataSource}
           className={`text-${textAlign}`}
           loading={loading}
-          link={link}
           linkUrl={linkUrl}
         />
       </table>

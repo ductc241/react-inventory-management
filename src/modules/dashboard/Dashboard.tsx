@@ -17,8 +17,6 @@ const Dashboard = () => {
     handleStaticCall();
   }, []);
 
-  console.log(data);
-
   return (
     <div>
       <div>
