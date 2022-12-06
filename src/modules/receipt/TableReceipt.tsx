@@ -28,7 +28,6 @@ const TableReceipt = (props: Props) => {
       title: "ID | Ngày",
       dataIndex: "id",
       render: (item: any) => {
-        console.log(item);
         return (
           <>
             <p className="text-center">{item?.id}</p>
@@ -92,7 +91,6 @@ const TableReceipt = (props: Props) => {
       <Table
         dataSource={props?.data}
         column={columns}
-        link={true}
         linkUrl={location.href.split("/")[3]}
       />
       <ReactPaginate

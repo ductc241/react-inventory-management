@@ -6,8 +6,8 @@ interface ITableBodyProps {
   tableColumn: ITableColumn[];
   className?: string;
   loading?: boolean;
-  link?: boolean;
-  linkUrl?: string;
+
+  linkUrl?: any;
 }
 
 const TableBody = ({
@@ -15,7 +15,7 @@ const TableBody = ({
   tableColumn,
   className,
   loading,
-  link,
+
   linkUrl
 }: ITableBodyProps) => {
   const renderRow = (record: any) =>
@@ -70,7 +70,7 @@ const TableBody = ({
         key={index}
         className="border-b border-gray-200 text-lg leading-[27px] text-[#311339] hover:bg-emerald-50"
       >
-        {link == true ? renderRowLink(record) : renderRow(record)}
+        {linkUrl != undefined ? renderRowLink(record) : renderRow(record)}
       </tr>
     ));
   };

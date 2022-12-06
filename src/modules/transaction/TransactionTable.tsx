@@ -66,7 +66,6 @@ const TransactionTable = () => {
           );
 
           const date = Date.parse(shortDate_2);
-          console.log(typeof date);
           if (date > startDate && date < endDate) {
             datas.push(data.data[i]);
           }
@@ -98,7 +97,6 @@ const TransactionTable = () => {
     if (!id.value && countries.value != "Loại" && import_Date && export_date) {
       const datas: any = [];
       for (let i = 0; i < data.data.length; i++) {
-        console.log(data.data[i]);
         if (data.data[i].export_type == Number(countries.value)) {
           datas.push(data.data[i]);
         }
