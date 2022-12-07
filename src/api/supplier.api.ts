@@ -2,7 +2,6 @@ import { ISupplier } from "../types/supplier.type";
 import instance from "./instance";
 
 export const add = (supplier: ISupplier) => {
-  console.log(supplier)
   const url = `/suppliers`;
   return instance.post(url, supplier);
 };

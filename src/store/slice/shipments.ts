@@ -57,10 +57,10 @@ const shipmentsSlice = createSlice({
         state.error = false;
         state.status = IStatus.IMPORT;
         toast.success("Tạo phiếu nhập thành công");
-        return;
-      } else {
-        toast.error("Tạo phiếu nhập không thành công");
       }
+    });
+    builder.addCase(addShipmentsThunks.rejected, () => {
+      toast.error("Tạo phiếu nhập không thành công");
     });
   }
 });

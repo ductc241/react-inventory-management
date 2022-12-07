@@ -48,8 +48,6 @@ const ShipmentDetail = (props: Props) => {
     });
   };
 
-  console.log(dataList);
-
   const columns: ITableColumn[] = [
     {
       key: 1,
@@ -245,7 +243,7 @@ const ShipmentDetail = (props: Props) => {
           In
         </Button>
         <Button variant="container" className="m-3">
-          <Link to="/import_shipments"> Quay lại</Link>
+          <Link to="/import_shipments">Quay lại</Link>
         </Button>
       </div>
       {visible && (
