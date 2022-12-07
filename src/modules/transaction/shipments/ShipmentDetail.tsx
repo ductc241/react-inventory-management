@@ -163,14 +163,17 @@ const ShipmentDetail = (props: Props) => {
       </div>
     </div>
   );
+
+  console.log(datas);
+
   return (
     <div className="p-5">
       <h1 className="text-center text-2xl font-bold ">Thông tin</h1>
       <div className="grid grid-cols-12 gap-10">
         <div className="col-span-4">
           <div className="m-3 flex">
-            <label>Mã hóa đơn :</label>
-            <p className="font-bold ml-6">{datas[0]?.export_code}</p>
+            <label>Mã đơn hàng :</label>
+            <p className="font-bold ml-6">{datas[0]?.import_code}</p>
           </div>
           <hr />
           <div className="m-3 flex">
@@ -207,17 +210,31 @@ const ShipmentDetail = (props: Props) => {
           <hr />
           <div className="m-3 flex">
             <label>Tổng tiền hàng:</label>
-            <p className="ml-6">{datas[0]?.totall_price} VNĐ</p>
+            <p className="ml-6">
+              {
+                <FormatNumber
+                  number={+dataList[0]?.import_price * +dataList[0]?.quantity}
+                />
+              }
+            </p>
           </div>
           <hr />
           <div className="m-3 flex">
             <label>Giảm giá hóa đơn:</label>
-            <p className="ml-6">0</p>
+            <p className="ml-6">0 VND </p>
           </div>
           <hr />
           <div className="m-3 flex">
-            <label>Khách cần trả:</label>
-            <p className="ml-6">{datas[0]?.totall_price} VNĐ</p>
+            <label>Số tiền khác còn phải đóng:</label>
+            <p className="ml-6">
+              <FormatNumber
+                number={
+                  datas[0]?.status === 1
+                    ? datas[0]?.import_price_totail
+                    : datas[0]?.import_price_totail
+                }
+              />
+            </p>
           </div>
           <hr />
           <div className="m-3 flex">
