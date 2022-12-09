@@ -59,23 +59,28 @@ const DetailReceipt = () => {
     },
     {
       key: 4,
+      title: "Mã lô hàng",
+      dataIndex: "lot_code"
+    },
+    {
+      key: 5,
       title: "Đơn giá",
       dataIndex: "price",
       render: (item: any) => <p>{item?.price?.toLocaleString("en")}</p>
     },
     {
-      key: 5,
+      key: 6,
       title: "Giảm giá",
       dataIndex: "Discount"
     },
     {
-      key: 6,
+      key: 7,
       title: "Giá bán",
       dataIndex: "price",
       render: (item: any) => <p>{item?.price.toLocaleString("en")}</p>
     },
     {
-      key: 7,
+      key: 8,
       title: "Thành tiền",
       dataIndex: "into_money",
       render: (item: any) => (

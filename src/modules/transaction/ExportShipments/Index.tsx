@@ -48,6 +48,7 @@ const ExportShipments = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [productFilter, setProductFilter] = useState<IProduct[]>([]);
   const [suplierOption, setSuplierOption] = useState<IOption[]>([]);
+  const [search, setSearch] = useState<string>("");
   const navigate = useNavigate();
 
   const {
@@ -95,11 +96,15 @@ const ExportShipments = () => {
   };
 
   const handleAddProduct = async (item: IProduct) => {
-    const isExistItem = fields.findIndex(
-      (product) => product.product_id === item.id
-    );
-    let { data: dataShipment } = await productServices.getProductById(item.id);
-    if (isExistItem < 0) {
+    let { data } = await productServices.getProductById(item.id);
+    let count = 0;
+    let dataShipment = data;
+    fields.map((item, index) => {
+      if (item.product_id == dataShipment.data[0].product_id) {
+        count++;
+      }
+    });
+    if (count < dataShipment.data.length) {
       append({
         product_id: item.id,
         name: item.name,
@@ -110,15 +115,9 @@ const ExportShipments = () => {
         shipment: convertDataToOptionShipments(dataShipment.data),
         lotCode: "0"
       });
-      setProductFilter([]);
-      return;
     }
-
-    update(isExistItem, {
-      ...fields[isExistItem],
-      quantity: Number(fields[isExistItem].quantity) + 1
-    });
     setProductFilter([]);
+    setSearch("");
   };
 
   const handleChageQuantity = (
@@ -279,6 +278,7 @@ const ExportShipments = () => {
               placeholder="-- Tìm kiếm --"
               onChange={(e) => handleSearchProduct(e)}
               autoComplete="off"
+              value={search}
             />
             <Button>Thêm sản phẩm</Button>
           </div>
@@ -314,7 +314,7 @@ const ExportShipments = () => {
             <thead>
               <tr className="bg-gray-100">
                 <th className="w-[50px] border text-left p-5">#</th>
-                <th className="border text-left p-5">Sản phẩm</th>
+                <th className="w-[200px] border text-left p-5">Sản phẩm</th>
                 <th className="w-[300px] border text-left p-5">Lô hàng</th>
                 <th className="w-[100px] border text-left p-5">Tồn kho</th>
                 <th className="w-[200px] border text-left p-5">Số lượng</th>
@@ -332,11 +332,11 @@ const ExportShipments = () => {
                     <tr key={item.id}>
                       <td className="p-5 border">{index}</td>
 
-                      <td className="p-5 flex items-center gap-5">
+                      <td className="p-5 flex items-center gap-5 border">
                         <img
                           src={ProductPlaceholder}
                           alt="san pham"
-                          className="w-[70px] h-[70px]"
+                          className="w-[70px] h-[70px] "
                         />
                         <p className="text-lg capitalize">{item.name}</p>
                       </td>
