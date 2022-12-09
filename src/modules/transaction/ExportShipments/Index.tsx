@@ -7,10 +7,11 @@ import { Button, Select, TextField } from "../../../components";
 import ProductPlaceholder from "../../../assets/product-placeholder.png";
 
 import productServices from "../../../api/product.api";
-import { addRecei } from "../../../api/receipt.api";
+import { addRecei, exportShipmentsDetail } from "../../../api/receipt.api";
 import * as supplierServices from "../../../api/supplier.api";
 import {
   convertDataToOption,
+  convertDataToOptionShipments,
   getValueFromOptions
 } from "../../../utils/select";
 import FormatNumber from "../../../components/formatNumber/formatNumber";
@@ -24,7 +25,7 @@ type Inputs = {
   user_name: string | null;
   phone_number: string | null;
   supplier: number | null;
-
+  shipment: string;
   payment_type: number;
   export_date: Date;
   note: string;
@@ -35,6 +36,11 @@ type Inputs = {
     inventory: number;
     price: number;
     quantity: number;
+    shipment: {
+      value: any;
+      label: any;
+    }[];
+    lotCode: string;
   }[];
 };
 
@@ -88,19 +94,21 @@ const ExportShipments = () => {
     setProductFilter(searchResult);
   };
 
-  const handleAddProduct = (item: IProduct) => {
+  const handleAddProduct = async (item: IProduct) => {
     const isExistItem = fields.findIndex(
       (product) => product.product_id === item.id
     );
-
+    let { data: dataShipment } = await productServices.getProductById(item.id);
     if (isExistItem < 0) {
       append({
         product_id: item.id,
         name: item.name,
         image: item.image,
-        inventory: item.quantity,
-        price: item.price,
-        quantity: 1
+        inventory: 0,
+        price: 0,
+        quantity: +0,
+        shipment: convertDataToOptionShipments(dataShipment.data),
+        lotCode: "0"
       });
       setProductFilter([]);
       return;
@@ -123,13 +131,23 @@ const ExportShipments = () => {
     });
   };
 
+  const handleUpdatefields = async (idLotcode: number, index: number) => {
+    const { data } = await exportShipmentsDetail(idLotcode);
+    update(index, {
+      ...fields[index],
+      inventory: data.quantity,
+      price: data.import_price,
+      lotCode: data.lot_code
+    });
+  };
+
   const onSubmit = async (formValue: Inputs) => {
     const export_product = formValue.data.map((item) => {
       return {
         id: item.product_id,
         quantity: item.quantity,
         price: item.price,
-        barcode: null
+        lot_code: item.lotCode
       };
     });
 
@@ -138,18 +156,14 @@ const ExportShipments = () => {
       export_type: formValue.export_type,
       payment: formValue.payment_type,
       products: export_product,
-
       supplier_id: formValue.supplier,
       user_name: formValue.user_name,
       phone_number: formValue.phone_number,
       address: null,
       description: formValue.note,
-
-      // export_date: formValue.export_date,
       export_date: "24/11/2022",
       receve_phone: null
     };
-
     try {
       await addRecei(export_order);
       toast.success("Tạo đơn thành công");
@@ -301,6 +315,7 @@ const ExportShipments = () => {
               <tr className="bg-gray-100">
                 <th className="w-[50px] border text-left p-5">#</th>
                 <th className="border text-left p-5">Sản phẩm</th>
+                <th className="w-[300px] border text-left p-5">Lô hàng</th>
                 <th className="w-[100px] border text-left p-5">Tồn kho</th>
                 <th className="w-[200px] border text-left p-5">Số lượng</th>
                 <th className="w-[300px] border p-5">Giá</th>
@@ -325,7 +340,20 @@ const ExportShipments = () => {
                         />
                         <p className="text-lg capitalize">{item.name}</p>
                       </td>
-
+                      <td className="p-5 border text-center">
+                        <Select
+                          options={item.shipment}
+                          option={getValueFromOptions(
+                            item.shipment,
+                            watch("shipment")
+                          )}
+                          handleClickChange={(brand) => {
+                            setValue("shipment", brand.value);
+                            handleUpdatefields(brand.value, index);
+                          }}
+                          placeholderText="-- Chọn Lô Hàng --"
+                        />
+                      </td>
                       <td className="p-5 border text-center">
                         <p>{item.inventory}</p>
                       </td>
