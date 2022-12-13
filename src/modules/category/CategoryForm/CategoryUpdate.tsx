@@ -42,7 +42,6 @@ const CategoryUpdate = ({ mode }: ICategoryProps) => {
   const categorys = useSelector((state: any) => state.category?.categorys);
   useEffect(() => {
     dispatch(listCategory());
-    console.log(categorys);
   }, [dispatch]);
   const onAdd: SubmitHandler<Inputs> = async (product: Inputs) => {
     try {
@@ -50,7 +49,7 @@ const CategoryUpdate = ({ mode }: ICategoryProps) => {
         ...data,
         name: product.name,
         parent_id: product.parent_id
-      }
+      };
       await dispatch(updateCategory(newProduct));
       toast.success("Cập nhập nhóm hàng thành công!");
       navigate("/category");

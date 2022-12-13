@@ -49,7 +49,6 @@ const CategoryAdd = ({ mode }: ICategoryProps) => {
 
   useEffect(() => {
     dispatch(listCategory());
-    // console.log(categorys);
   }, [dispatch]);
 
   return (

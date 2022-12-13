@@ -79,8 +79,10 @@ const TableSupplier = () => {
     setvisibleModal(false);
   };
 
-  const updateItemUpdate = async (e: ISupplier) => {
-    await update(e);
+  const updateItemUpdate = async (e: ISupplier | null) => {
+    if (e != null) {
+      await update(e);
+    }
     setItemUpdate([]);
   };
 
@@ -109,7 +111,7 @@ const TableSupplier = () => {
         }}
         data={data}
         itemUpdate={itemUpdate}
-        uploadItemUpdate={(e: ISupplier) => {
+        uploadItemUpdate={(e: ISupplier | null) => {
           updateItemUpdate(e);
         }}
       />
