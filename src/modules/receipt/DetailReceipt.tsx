@@ -89,7 +89,7 @@ const DetailReceipt = () => {
       <div className="flex p-3">
         <span className="w-2/12">{datas[0]?.export_date}</span>
         <h1 className="text-center w-10/12 -ml-8  text-xl font-bold">
-          Giao Dich Hóa Đơn
+          Giao Dịch Hóa Đơn
         </h1>
       </div>
 
