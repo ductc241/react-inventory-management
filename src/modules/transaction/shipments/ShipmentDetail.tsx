@@ -5,6 +5,7 @@ import { getOneShipment, listShipments } from "../../../api/shipments";
 import { Button, Table } from "../../../components";
 import FormatNumber from "../../../components/formatNumber/formatNumber";
 import { ITableColumn } from "../../../components/Table/Table.types";
+import QR from "../../../components/QR";
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 type Props = {};
@@ -84,8 +85,7 @@ const ShipmentDetail = (props: Props) => {
   ];
 
   const Prints = () => (
-    <div className="p-5 border-double border-4 border-green-600 bg-auto bg-no-repeat bg-center imgBG"
-    ref={reportTemplateRef}>
+    <div className="p-5 border-double border-4 border-green-600 bg-auto bg-no-repeat bg-center imgBG" ref={reportTemplateRef}>
       <div className="flex space-x-8 mt-4">
         <div className="mt-2">
           <img src="https://res.cloudinary.com/dywsyrah3/image/upload/v1669193368/poly_wareh_j06pfe_y53k83.png" alt="" width="80px" />
@@ -105,27 +105,22 @@ const ShipmentDetail = (props: Props) => {
         </div>
       </div>
       <p className="text-center text-slate-400">_______________________________________________________________________________________</p>
-
       <div className="grid grid-cols-3 gap-3 text-center mt-4">
         <div className="logo">
-          <img src="https://qrcg-free-editor.qr-code-generator.com/main/assets/images/websiteQRCode_noFrame.png" alt="" width="80px" />
-
+          <QR />
         </div>
         <div className="">
           <h2 className="text-2xl font-bold">Hoá đơn bán hàng</h2>
           <p className="italic">(VAT INVOICE)</p>
           {/* <p>Ngày(Date)...., tháng(month)...., năm(year)......</p> */}
           <p>{datas[0]?.import_date}</p>
-
         </div>
         <div className="">
           <p>Mẫu số: <b>0000001</b></p>
           <p>Số: <b>0000001</b></p> {/* id mẫu tăng dần, k lặp, k bao giờ thay đổi */}
-
         </div>
       </div>
       <p className="text-center text-slate-400">_______________________________________________________________________________________</p>
-
       <div className="space-y-2 mt-2">
         <p className="text-base">Họ tên KH:......</p>
         <p className="text-base">Tên đơn vị:......</p>
