@@ -26,11 +26,10 @@ export const addCategory = createAsyncThunk(
     return res.data.data;
   }
 );
-export const listCategory = createAsyncThunk(
-  "category/list", async () => {
-    const res = await listCategoryAPI();
-    return res.data.data;
-  });
+export const listCategory = createAsyncThunk("category/list", async () => {
+  const res = await listCategoryAPI();
+  return res.data.data;
+});
 export const readCategory = createAsyncThunk(
   "category/read",
   async (id: number) => {

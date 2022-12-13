@@ -54,8 +54,6 @@ const FormSupplier = (props: Props) => {
     props.upload(false);
   };
 
-  console.log(props.itemUpdate);
-
   return (
     <>
       <Modal

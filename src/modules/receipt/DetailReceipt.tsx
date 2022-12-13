@@ -25,8 +25,6 @@ const DetailReceipt = () => {
     setDataList(data.data);
   };
 
-  console.log(dataList, "dataList");
-
   useEffect(() => {
     getReceiptId();
   }, []);
