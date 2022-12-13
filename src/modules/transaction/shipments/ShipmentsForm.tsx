@@ -9,7 +9,11 @@ import {
 
 import { Button, Select, TextField } from "../../../components";
 import React, { useEffect, useState } from "react";
-import { getSuppliersApi } from "../../../api/shipments";
+import {
+  addShipments,
+  getSuppliersApi,
+  listShipments
+} from "../../../api/shipments";
 import { TrashIcon } from "../../../components/icons";
 import { toast } from "react-toastify";
 import FormatNumber from "../../../components/formatNumber/formatNumber";
@@ -37,7 +41,6 @@ const ShipMentsForm = () => {
   const [showSuggestSearch, setShowSuggestSearch] = useState(false);
   const [productsSelects, setProductsSelects] = useState<any | undefined>([]);
   const [search, setSearch] = useState<string>("");
-  const useDispatch = useAppDispatch();
   const [importDate, setImportDate] = useState("");
   const [nameUser, setNameUser] = useState("");
   const [sdt, setSDT] = useState(0);
@@ -123,12 +126,14 @@ const ShipMentsForm = () => {
   const hanldeAddProduct = (item: IProduct) => {
     setShowSuggestSearch(false);
     setSearch("");
+    console.log(item);
+
     if (fields?.length > 0) {
       let count = 0;
       for (let i = 0; i < fields.length; i++) {
         if (
           fields[i].name === item.name &&
-          fields[i].import_price === item.import_price &&
+          fields[i].import_price === item.price &&
           fields[i].quantity === item.quantity
         ) {
           toast.warning("Sản phẩm đã có trong danh sách");
@@ -142,7 +147,7 @@ const ShipMentsForm = () => {
           name: item.name,
           quantity: item.quantity,
           quantity_import: 0,
-          import_price: item.import_price,
+          import_price: item.price,
           barcode: ""
         });
       }
@@ -152,7 +157,7 @@ const ShipMentsForm = () => {
         name: item.name,
         quantity: item.quantity,
         quantity_import: 0,
-        import_price: item.import_price,
+        import_price: item.price,
         barcode: ""
       });
     }
@@ -182,7 +187,7 @@ const ShipMentsForm = () => {
     );
   };
 
-  const onSubmit: SubmitHandler<Inputs> = ({ products }: any) => {
+  const onSubmit: SubmitHandler<Inputs> = async ({ products }: any) => {
     if (valueOption === undefined) {
       toast.warning("Bạn chưa chọn kiểu nhập hàng");
       return;
@@ -213,12 +218,16 @@ const ShipMentsForm = () => {
         description: desc
       };
 
-      console.log(dataSubmit);
+      const res = await addShipments(dataSubmit);
+      if (res && res.status === 200) {
+        await listShipments();
+        toast.success("Nhập hàng thành công");
+        navigate("/import_shipments");
+      }
 
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useDispatch(addShipmentsThunks(dataSubmit));
-      toast.success("Tạo phiếu nhập hàng thành công");
-      navigate(-1);
+      if (res.status !== 200) {
+        toast.error("Nhập hàng không thành công");
+      }
     }
 
     if (+valueOption.value === 2) {
@@ -246,12 +255,17 @@ const ShipMentsForm = () => {
         description: desc
       };
 
-      console.log(dataSubmit);
-
       // eslint-disable-next-line react-hooks/rules-of-hooks
-      useDispatch(addShipmentsThunks(dataSubmit));
-      toast.success("Nhập hàng thành công");
-      navigate(-1);
+      const res = await addShipments(dataSubmit);
+      if (res && res.status === 200) {
+        await listShipments();
+        toast.success("Nhập hàng thành công");
+        navigate("/import_shipments");
+      }
+
+      if (res.status !== 200) {
+        toast.error("Nhập hàng không thành công");
+      }
     }
   };
 

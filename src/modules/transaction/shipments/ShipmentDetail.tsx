@@ -1,5 +1,5 @@
 import jsPDF from "jspdf";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getOneShipment, listShipments } from "../../../api/shipments";
 import { Button, Table } from "../../../components";
@@ -38,17 +38,12 @@ const ShipmentDetail = (props: Props) => {
       format: "a2",
       unit: "px"
     });
-    // Adding the fonts.
-    // doc.setFont("Courier", "normal");
-    console.log("dsfsg");
     doc.html(reportTemplateRef.current, {
       async callback(doc) {
-        doc.save("export_shipments");
+        doc.save("import_shipments");
       }
     });
   };
-
-  console.log(dataList);
 
   const columns: ITableColumn[] = [
     {
@@ -115,9 +110,7 @@ const ShipmentDetail = (props: Props) => {
         <div className="flex justify-between">
           <p className="text-base">Tong cong:</p>
           <p className="text-base">{datas[0]?.quantity}</p>
-          <p className="text-base">
-            {datas[0]?.totall_price.toLocaleString("en")}
-          </p>
+          <p className="text-base">{datas[0]?.totall_price}</p>
         </div>
         <div className="flex justify-between">
           <p className="text-base">chiet khau hoa don:</p>
@@ -126,16 +119,12 @@ const ShipmentDetail = (props: Props) => {
         <div className="flex justify-between">
           <p className="text-base">Tong thanh toan:</p>
 
-          <p className="text-base">
-            {datas[0]?.totall_price.toLocaleString("en")}
-          </p>
+          <p className="text-base">{datas[0]?.totall_price}</p>
         </div>
         <div className="flex justify-between">
           <p className="text-base">Khach hang thanh toan:</p>
           <p className="text-base">
-            {datas[0]?.status != 1
-              ? datas[0]?.totall_price.toLocaleString("en")
-              : ""}
+            {datas[0]?.status != 1 ? datas[0]?.totall_price : ""}
           </p>
         </div>
         <div className="flex justify-between">
@@ -165,14 +154,15 @@ const ShipmentDetail = (props: Props) => {
       </div>
     </div>
   );
+
   return (
     <div className="p-5">
       <h1 className="text-center text-2xl font-bold ">Thông tin</h1>
       <div className="grid grid-cols-12 gap-10">
         <div className="col-span-4">
           <div className="m-3 flex">
-            <label>Mã hóa đơn :</label>
-            <p className="font-bold ml-6">{datas[0]?.export_code}</p>
+            <label>Mã đơn hàng :</label>
+            <p className="font-bold ml-6">{datas[0]?.import_code}</p>
           </div>
           <hr />
           <div className="m-3 flex">
@@ -209,17 +199,31 @@ const ShipmentDetail = (props: Props) => {
           <hr />
           <div className="m-3 flex">
             <label>Tổng tiền hàng:</label>
-            <p className="ml-6">{datas[0]?.totall_price} VNĐ</p>
+            <p className="ml-6">
+              {
+                <FormatNumber
+                  number={+dataList[0]?.import_price * +dataList[0]?.quantity}
+                />
+              }
+            </p>
           </div>
           <hr />
           <div className="m-3 flex">
             <label>Giảm giá hóa đơn:</label>
-            <p className="ml-6">0</p>
+            <p className="ml-6">0 VND </p>
           </div>
           <hr />
           <div className="m-3 flex">
-            <label>Khách cần trả:</label>
-            <p className="ml-6">{datas[0]?.totall_price} VNĐ</p>
+            <label>Số tiền khác còn phải đóng:</label>
+            <p className="ml-6">
+              <FormatNumber
+                number={
+                  datas[0]?.status === 1
+                    ? datas[0]?.import_price_totail
+                    : datas[0]?.import_price_totail
+                }
+              />
+            </p>
           </div>
           <hr />
           <div className="m-3 flex">
@@ -242,10 +246,10 @@ const ShipmentDetail = (props: Props) => {
           className="m-3"
           onClick={() => setVisible(true)}
         >
-          In
+          Xuất PDF
         </Button>
         <Button variant="container" className="m-3">
-          <Link to="/import_shipments"> Quay lại</Link>
+          <Link to="/import_shipments">Quay lại</Link>
         </Button>
       </div>
       {visible && (
@@ -260,14 +264,7 @@ const ShipmentDetail = (props: Props) => {
                   className="m-3"
                   onClick={() => infile()}
                 >
-                  In
-                </Button>
-                <Button
-                  variant="warning"
-                  className="m-3 "
-                  onClick={() => infile()}
-                >
-                  Xuất
+                  Xuất PDF
                 </Button>
                 <Button
                   variant="container"

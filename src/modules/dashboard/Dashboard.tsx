@@ -2,9 +2,11 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import FormatNumber from "../../components/formatNumber/formatNumber";
 import BanChay from "./BanChay";
+import HangHoanTra from "./HangHoanTra";
 import KhachHang from "./KhachHang";
 import SpTrongKho from "./SpTrongKho";
 import TienLai from "./TienLai";
+import TienLo from "./TienLo";
 import TienVon from "./TienVon";
 
 const Dashboard = () => {
@@ -128,11 +130,14 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 p-4 gap-4 mt-6">
           <TienLai />
           <TienVon />
-          <TienLai />
+          <TienLo />
         </div>
 
-        {/* Sản phẩm bán chạy */}
-        <BanChay data={data.best_selling_products} />
+        {/* Sản phẩm bán chạy & Hàng hoàn trả */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-6">
+          <BanChay data={data.best_selling_products} />
+          <HangHoanTra />
+        </div>
 
         {/* Khách hàng trong tháng */}
         <KhachHang />
