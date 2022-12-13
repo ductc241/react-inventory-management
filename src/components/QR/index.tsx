@@ -14,14 +14,14 @@ const QR = () => {
         fgColor={"#000000"}
         level={"L"}
         includeMargin={false}
-        imageSettings={{
-          src: "https://static.zpao.com/favicon.png",
-          x: undefined,
-          y: undefined,
-          height: 24,
-          width: 24,
-          excavate: true,
-        }}
+        // imageSettings={{
+        //   src: "https://res.cloudinary.com/dywsyrah3/image/upload/v1669193368/poly_wareh_j06pfe_y53k83.png",
+        //   x: undefined,
+        //   y: undefined,
+        //   height: 24,
+        //   width: 24,
+        //   excavate: true,
+        // }}
       />
     </div>
   )
