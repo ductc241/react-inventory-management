@@ -84,73 +84,103 @@ const ShipmentDetail = (props: Props) => {
   ];
 
   const Prints = () => (
-    <div className="p-5" ref={reportTemplateRef}>
-      <div className="flex p-3">
-        <span className="w-2/12">{datas[0]?.import_date}</span>
-        <h1 className="text-center w-10/12 -ml-8  text-xl font-bold">
-          Giao Dich Hoa Don
-        </h1>
+    <div className="p-5 border-double border-4 border-green-600 bg-auto bg-no-repeat bg-center imgBG"
+    ref={reportTemplateRef}>
+      <div className="flex space-x-8 mt-4">
+        <div className="mt-2">
+          <img src="https://res.cloudinary.com/dywsyrah3/image/upload/v1669193368/poly_wareh_j06pfe_y53k83.png" alt="" width="80px" />
+        </div>
+        <div className="">
+          <h2 className="text-lg font-bold">Poly Wareh</h2>
+          <div className="grid grid-cols-2 gap-2">
+            <div className="">
+              <p>Địa chỉ: Nam Từ Liêm, Hà Nội</p>
+              <p>Điện thoại: 0912345678</p>
+            </div>
+            <div className="">
+              <p>Email: admin@gamil.com</p>
+              <p>Tài khoản: MB Bank - 0923239468</p>
+            </div>
+          </div>
+        </div>
       </div>
+      <p className="text-center text-slate-400">_______________________________________________________________________________________</p>
 
-      <div className="ml-[20%]">
-        <p className="text-base">Cua hang:....</p>
-        <p className="text-base">Dia chi: </p>
-        <p className="text-base">So dien thoai : {datas[0]?.receve_phone} </p>
+      <div className="grid grid-cols-3 gap-3 text-center mt-4">
+        <div className="logo">
+          <img src="https://qrcg-free-editor.qr-code-generator.com/main/assets/images/websiteQRCode_noFrame.png" alt="" width="80px" />
+
+        </div>
+        <div className="">
+          <h2 className="text-2xl font-bold">Hoá đơn bán hàng</h2>
+          <p className="italic">(VAT INVOICE)</p>
+          {/* <p>Ngày(Date)...., tháng(month)...., năm(year)......</p> */}
+          <p>{datas[0]?.import_date}</p>
+
+        </div>
+        <div className="">
+          <p>Mẫu số: <b>0000001</b></p>
+          <p>Số: <b>0000001</b></p> {/* id mẫu tăng dần, k lặp, k bao giờ thay đổi */}
+
+        </div>
       </div>
-      <h1 className="text-center text-xl font-bold mt-3">Hoa don xuat hang</h1>
-      <p className="text-center text-base mt-3">
-        Hoa don xuat hang: {datas[0]?.export_code}
-      </p>
-      <p className="text-center text-base mt-3">{datas[0]?.import_date}</p>
+      <p className="text-center text-slate-400">_______________________________________________________________________________________</p>
 
-      <div className="mt-3 mb-3">
+      <div className="space-y-2 mt-2">
+        <p className="text-base">Họ tên KH:......</p>
+        <p className="text-base">Tên đơn vị:......</p>
+        <p className="text-base">Điện thoại:{datas[0]?.receve_phone}</p>
+        <p className="text-base">Địa chỉ:......</p>
+        <p className="text-base">Số tài khoản:......</p>
+        <div className="grid grid-cols-2 gap-2">
+          <p className="text-base">Hình thức thanh toán:......</p>
+          <p className="text-base ml-32">Đơn vị tiền:......</p>
+        </div>
+      </div>
+      <div className="mt-6 mb-3">
         <Table dataSource={dataList} column={columns} />
       </div>
       <div className=" mt-5 ml-3 mr-3">
         <div className="flex justify-between">
-          <p className="text-base">Tong cong:</p>
+          <p className="text-base">Tổng cộng:</p>
           <p className="text-base">{datas[0]?.quantity}</p>
           <p className="text-base">{datas[0]?.totall_price}</p>
         </div>
         <div className="flex justify-between">
-          <p className="text-base">chiet khau hoa don:</p>
+          <p className="text-base">Chiết khấu hoá đơn:</p>
           <p className="text-base"></p>
         </div>
         <div className="flex justify-between">
-          <p className="text-base">Tong thanh toan:</p>
+          <p className="text-base">Tổng thanh toán:</p>
 
           <p className="text-base">{datas[0]?.totall_price}</p>
         </div>
         <div className="flex justify-between">
-          <p className="text-base">Khach hang thanh toan:</p>
+          <p className="text-base">Khách hàng thanh toán:</p>
           <p className="text-base">
             {datas[0]?.status != 1 ? datas[0]?.totall_price : ""}
           </p>
         </div>
         <div className="flex justify-between">
-          <p className="text-base">con lai:</p>
-
+          <p className="text-base">Còn lại:</p>
           <p className="text-base">
             {(datas[0]?.totall_price - datas[0]?.totall_price).toLocaleString(
               "en"
             )}
           </p>
         </div>
-        <div className="flex justify-between mt-8">
-          <div className="ml-6">
-            <p className="text-base">Nguoi mua hang</p>
-            <p className="text-base text-center"></p>
+        <div className="grid grid-cols-2 gap-2 justify-between mt-8">
+          <div className="ml-6 text-left">
+            <p className="text-base">NGƯỜI MUA</p>
+            <p className="text-sm">(ký tên)</p>
           </div>
-          <div className="ml-6">
-            <p className="text-base">
-              Ngay {datas[0]?.created_at.split("/")[0]} Thang{" "}
-              {datas[0]?.created_at.split("/")[1]} Nam{" "}
-              {datas[0]?.created_at.split("/")[2]}
-            </p>
-            <p className="text-base text-center">Nguoi ban hang</p>
-            <p className="text-base text-center"></p>
+          <div className="ml-6 text-right">
+            <p className="text-base">NGƯỜI BÁN</p>
           </div>
         </div>
+      </div>
+      <div className="text-center mt-32">
+        <p className="italic">(Cần kiểm tra, đối chiếu khi lập, giao, nhận hoá đơn)</p>
       </div>
     </div>
   );
