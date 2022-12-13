@@ -11,3 +11,7 @@ export { default as NavbarIcon } from "./NavbarIcon";
 export { default as PictureIcon } from "./PictureIcon";
 export { default as PlusIcon } from "./PlusIcon";
 export { default as UploadIcon } from "./UploadIcon";
+export { default as PieChartIcon } from "./PieChartIcon";
+export { default as OrderIcon } from "./OrderIcon";
+export { default as StatsIcon } from "./StatsIcon";
+export { default as LogoutIcon } from "./LogoutIcon";

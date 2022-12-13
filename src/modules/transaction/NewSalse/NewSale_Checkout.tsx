@@ -33,17 +33,27 @@ const NewSale_Checkout = ({ toggleCheckout }: IProps) => {
       return {
         id: item.id,
         quantity: item.quantity,
-        price: item.price
+        price: item.price,
+        barcode: null
       };
     });
 
     await orderServices.creatOrder({
       user_id: 1,
-      export_date: getDateNow(),
+      export_type: 3,
+      payment: 1,
       products: orderProducts,
-      total_price: order.total,
-      status: "completed"
+
+      supplier_id: 0,
+      user_name: null,
+      phone_number: null,
+      address: "",
+      description: "Bán lẻ tại cửa hảng",
+
+      export_date: "24/11/2022",
+      receve_phone: null
     });
+
     toggleCheckout();
     toast.success("Hoàn thành hóa đơn");
     dispatch(deleteOrder({ id: currentOrder }));
@@ -94,7 +104,7 @@ const NewSale_Checkout = ({ toggleCheckout }: IProps) => {
 
           <div className="absolute bottom-5 w-full">
             <Button fullWidth onClick={handleCheckout}>
-              Thanh toán
+              Lưu
             </Button>
           </div>
         </div>

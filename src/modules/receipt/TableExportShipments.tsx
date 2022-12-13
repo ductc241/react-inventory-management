@@ -1,8 +1,7 @@
 import clsx from "clsx";
-
-import { ITableProps } from "./Table.types";
-import TableBody from "./TableBody";
-import TableHeader from "./TableHeader";
+import { ITableProps } from "../../components/Table/Table.types";
+import TableBody from "../../components/Table/TableBody";
+import TableHeader from "../../components/Table/TableHeader";
 
 const Table = ({
   dataSource,
@@ -10,7 +9,6 @@ const Table = ({
   textAlign = "center",
   className,
   loading,
-
   linkUrl
 }: ITableProps) => {
   return (

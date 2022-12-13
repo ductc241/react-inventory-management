@@ -1,8 +1,11 @@
 import { Children } from "react";
 import PriceSetting from "../modules/priceSetting/priceSetting";
 import DetailReceipt from "../modules/receipt/DetailReceipt";
+import ExportShipments from "../modules/transaction/ExportShipments/Index";
+import ShipmentDetail from "../modules/transaction/shipments/ShipmentDetail";
 import ShipMentsForm from "../modules/transaction/shipments/ShipmentsForm";
 import ShipmentsTable from "../modules/transaction/shipments/shipmentsTable";
+import TransactionTable from "../modules/transaction/TransactionTable";
 import {
   CategoryCreatePage,
   CategoryListPage,
@@ -16,7 +19,7 @@ import {
 } from "../pages/product";
 import Profile from "../pages/profile/page_Profile";
 import ListQuyen from "../pages/profile/ListQuyen";
-import ReceiptPages from "../pages/receipt/ReceiptPages";
+// import ReceiptPages from "../pages/receipt/ReceiptPages";
 import SoQuyListPage from "../pages/SoQuy/SoQuyListPage";
 import SuplierPage from "../pages/supplier/SupllierPage";
 
@@ -104,12 +107,22 @@ export const appRoutes: IRoute[] = [
   {
     key: 16,
     path: routerPaths.PATH_RECEIPT,
-    component: <ReceiptPages />
+    component: <TransactionTable />
   },
   {
     key: 17,
     path: routerPaths.PATH_RECEIPT_ID,
     component: <DetailReceipt />
+  },
+  {
+    key: 15,
+    path: routerPaths.PATH_EXPORT_SHIPMENT,
+    component: <ExportShipments />
+  },
+  {
+    key: 15,
+    path: routerPaths.PATH_IMPORT_SHIPMENT_DETAIL,
+    component: <ShipmentDetail />
   }
 
 ];

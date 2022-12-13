@@ -1,13 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import clsx from "clsx";
 import { AppDispatch, RootState } from "../../../store/store";
 
 import {
   CloseIcon,
+  LogoutIcon,
   NavbarIcon,
+  OrderIcon,
+  PieChartIcon,
   PlusIcon,
-  SearchIcon
+  SearchIcon,
+  StatsIcon
 } from "../../../components/icons";
 import {
   createOrder,
@@ -20,6 +24,8 @@ const NewSalse_Header = () => {
   const { orderList, currentOrder } = useSelector(
     (state: RootState) => state.order
   );
+
+  const [showSubMenu, setShowSubMenu] = useState<boolean>(false);
 
   const handleDeleteOrder = (id: number) => {
     dispatch(deleteOrder({ id }));
@@ -82,7 +88,38 @@ const NewSalse_Header = () => {
 
       <div className="flex items-center gap-5 py-2 px-4 text-white text-base">
         <p>0922345555</p>
-        <NavbarIcon fill="white" width={20} />
+        <div className="relative">
+          <NavbarIcon
+            fill="white"
+            width={20}
+            className="hover:cursor-pointer"
+            onClick={() => setShowSubMenu((prev) => !prev)}
+          />
+
+          {showSubMenu && (
+            <div className="absolute top-[30px] right-0 w-max">
+              <ul className="py-4 px-2.5 text-base bg-white text-black rounded-lg shadow-xl">
+                <li className="flex items-center gap-x-6 py-3 px-4 cursor-pointer hover:bg-[#eff2f5]">
+                  <PieChartIcon width={22} fill="gray" />
+                  Xem báo cáo cuối ngày
+                </li>
+                <li className="flex items-center gap-x-6 py-3 px-4 cursor-pointer hover:bg-[#eff2f5]">
+                  <OrderIcon width={22} fill="gray" />
+                  Danh sách hóa đơn
+                </li>
+                <li className="flex items-center gap-x-7 py-3 px-4 cursor-pointer hover:bg-[#eff2f5]">
+                  <StatsIcon width={20} fill="gray" />
+                  Quản lý
+                </li>
+
+                <li className="flex items-center gap-x-7 py-3 px-4 cursor-pointer hover:bg-[#eff2f5]">
+                  <LogoutIcon width={22} fill="gray" />
+                  Đăng xuất
+                </li>
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

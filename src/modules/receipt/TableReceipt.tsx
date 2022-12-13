@@ -1,89 +1,106 @@
-import { useEffect, useState } from "react";
-import { list } from "../../api/receipt.api";
-import { Modal, Table } from "../../components";
-import Button from "../../components/Button/Button";
+import ReactPaginate from "react-paginate";
+import { Caret } from "../../components/icons";
 import { ITableColumn } from "../../components/Table/Table.types";
+import Table from "./TableExportShipments";
 
-const TableReceipt = () => {
-  const [visible, setVisible] = useState<boolean>(false);
-  const [visibleModal, setvisibleModal] = useState<boolean>(false);
-  const [data, setData] = useState<any>([]);
+type Props = {
+  data?: any;
+};
 
-  const getSupplier = async () => {
-    try {
-      const { data } = await list();
-      setData(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    getSupplier();
-  }, []);
+type Inputs = {
+  supplierCode: string;
+  name: string;
+  email: string;
+  phone: string;
+  company: string;
+  address: string;
+  taxCode: string;
+  area: string;
+  group: string;
+  wards: string;
+  note: string;
+};
+
+const TableReceipt = (props: Props) => {
   const columns: ITableColumn[] = [
     {
       key: 1,
-      title: "Mã hóa dơn",
-      dataIndex: "codeBill"
+      title: "ID | Ngày",
+      dataIndex: "id",
+      render: (item: any) => {
+        return (
+          <>
+            <p className="text-center">{item?.id}</p>
+            <p className="text-center">{item?.created_at}</p>
+          </>
+        );
+      }
     },
-    {
-      key: 2,
-      title: "Thời gian",
-      dataIndex: "Time"
-    },
+
     {
       key: 3,
-      title: "Mã trả hàng",
-      dataIndex: "PayingCode"
+      title: "Loại ",
+      dataIndex: "",
+      render: (item: any) => (
+        <>
+          {item.export_type == 1 && (
+            <>
+              <p className="text-red-500">Xuất nhà cung cấp</p>
+              <p>{item.seller_name}</p>
+            </>
+          )}
+          {item.export_type == 2 && (
+            <>
+              <p className="text-red-500">Xuất khác</p>
+            </>
+          )}
+          {item.export_type == 3 && (
+            <>
+              <p className="text-red-500">Xuất bán lẻ</p>
+            </>
+          )}
+        </>
+      )
     },
-    {
-      key: 4,
-      title: "Khách hàng",
-      dataIndex: "Client"
-    },
+
     {
       key: 5,
-      title: "Tổng tiền hàng",
-      dataIndex: "TotalAmount"
+      title: "Số lượng",
+      dataIndex: "quantity"
     },
     {
       key: 6,
-      title: "Giảm giá",
-      dataIndex: "Discount"
+      title: "Tổng tiền",
+      dataIndex: "totall_price",
+      render: (item: any) => <p>{item?.totall_price.toLocaleString("en")}</p>
     },
     {
       key: 7,
-      title: "Khách hàng đã trả",
-      dataIndex: "CustomerPaid"
+      title: "Người tạo",
+      dataIndex: "user_name"
+    },
+    {
+      key: 8,
+      title: "Ghi chú",
+      dataIndex: ""
     }
-
-    // {
-    //   key: 5,
-    //   title: "Action",
-    //   dataIndex: "action",
-    //   render: (item: ISupplier) => (
-    //     <div className="flex gap-x-5">
-    //       <EditIcon
-    //         className="cursor-pointer fill-blue-400 hover:fill-blue-600"
-    //         width={20}
-    //         onClick={() => itemEdit(item.id)}
-    //       />
-    //       <TrashIcon
-    //         className="cursor-pointer fill-red-400 hover:fill-red-600"
-    //         width={20}
-    //         onClick={() => {
-    //           setvisibleModal(true);
-    //           setId(item.id);
-    //         }}
-    //       />
-    //     </div>
-    //   )
-    // }
   ];
-  console.log(data);
+  console.log(location.href.split("/")[3]);
   return (
     <>
-      <Table dataSource={data} column={columns} link={true} />
+      <Table
+        dataSource={props?.data}
+        column={columns}
+        linkUrl={location.href.split("/")[3]}
+      />
+      <ReactPaginate
+        pageCount={10}
+        containerClassName="pagination mt-5"
+        pageClassName="pagination_item"
+        activeClassName="pagination_active"
+        previousLabel={<Caret width={"15px"} />}
+        nextLabel={<Caret className="rotate-180" width={"15px"} />}
+      />
     </>
   );
 };

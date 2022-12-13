@@ -1,18 +1,30 @@
-import React from "react";
-import ReactPaginate from "react-paginate";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import FormatNumber from "../../components/formatNumber/formatNumber";
 import BanChay from "./BanChay";
+import HangHoanTra from "./HangHoanTra";
 import KhachHang from "./KhachHang";
 import SpTrongKho from "./SpTrongKho";
 import TienLai from "./TienLai";
+import TienLo from "./TienLo";
 import TienVon from "./TienVon";
 
 const Dashboard = () => {
+  const [data, setData] = useState<any | []>([]);
+  useEffect(() => {
+    const handleStaticCall = async () => {
+      const { data } = await axios.get(`https://dechoat.com/api/statistical`);
+      setData(data.data);
+    };
+    handleStaticCall();
+  }, []);
+
   return (
     <div>
       <div>
         {/* Thống kê tổng quan */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 p-4 gap-4">
-          <div className="bg-green-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-green-600 dark:border-gray-600 text-white font-medium group">
+          <div className="bg-green-500 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-green-600 text-white font-medium group">
             <div className="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 group-hover:rotate-12">
               <svg
                 width={30}
@@ -20,7 +32,7 @@ const Dashboard = () => {
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
-                className="stroke-current text-green-800 dark:text-gray-800 duration-500 ease-in-out"
+                className="stroke-current text-green-800 duration-500 ease-in-out"
               >
                 <path
                   strokeLinecap="round"
@@ -35,7 +47,7 @@ const Dashboard = () => {
               <p>Thống kê sản phẩm trong kho</p>
             </div>
           </div>
-          <div className="bg-rose-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-rose-600 dark:border-gray-600 text-white font-medium group">
+          <div className="bg-rose-500 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-rose-600 text-white font-medium group">
             <div className="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 group-hover:rotate-12">
               <svg
                 width={30}
@@ -43,7 +55,7 @@ const Dashboard = () => {
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
-                className="stroke-current text-rose-800 dark:text-gray-800 duration-500 ease-in-out"
+                className="stroke-current text-rose-800 duration-500 ease-in-out"
               >
                 <path
                   strokeLinecap="round"
@@ -54,11 +66,13 @@ const Dashboard = () => {
               </svg>
             </div>
             <div className="text-right">
-              <p className="text-2xl">22.520.500 <span className="font-mono">VNĐ</span></p>
+              <p className="text-2xl">
+                22.520.500 <span className="font-mono">VNĐ</span>
+              </p>
               <p>Tiền lãi</p>
             </div>
           </div>
-          <div className="bg-yellow-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-yellow-600 dark:border-gray-600 text-white font-medium group">
+          <div className="bg-yellow-500 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-yellow-600 text-white font-medium group">
             <div className="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 group-hover:rotate-12">
               <svg
                 width={30}
@@ -66,7 +80,7 @@ const Dashboard = () => {
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
-                className="stroke-current text-yellow-800 dark:text-gray-800 duration-500 ease-in-out"
+                className="stroke-current text-yellow-800 duration-500 ease-in-out"
               >
                 <path
                   strokeLinecap="round"
@@ -77,11 +91,14 @@ const Dashboard = () => {
               </svg>
             </div>
             <div className="text-right">
-              <p className="text-2xl">15.131.257 <span className="font-mono">VNĐ</span></p>
+              <p className="text-2xl">
+                <FormatNumber number={data.funds} />
+                <span className="font-mono pl-1">VNĐ</span>
+              </p>
               <p>Tiền vốn</p>
             </div>
           </div>
-          <div className="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
+          <div className="bg-blue-500 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 text-white font-medium group">
             <div className="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 group-hover:rotate-12">
               <svg
                 width={30}
@@ -89,7 +106,7 @@ const Dashboard = () => {
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
-                className="stroke-current text-blue-800 dark:text-gray-800 duration-500 ease-in-out"
+                className="stroke-current text-blue-800 duration-500 ease-in-out"
               >
                 <path
                   strokeLinecap="round"
@@ -105,26 +122,27 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        
+
         {/* Thống kê sản phẩm trong kho */}
         <SpTrongKho />
 
         {/* Đồ thị tiền tệ */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 p-4 gap-4 mt-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 p-4 gap-4 mt-6">
           <TienLai />
           <TienVon />
+          <TienLo />
         </div>
 
-        {/* Sản phẩm bán chạy */}
-        <BanChay />
+        {/* Sản phẩm bán chạy & Hàng hoàn trả */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-6">
+          <BanChay data={data.best_selling_products} />
+          <HangHoanTra />
+        </div>
 
         {/* Khách hàng trong tháng */}
         <KhachHang />
-
       </div>
-
-
-    </div >
+    </div>
   );
 };
 

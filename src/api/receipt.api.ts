@@ -1,27 +1,26 @@
-
 import instance from "./instance";
 
-export const add = (receipt: any) => {
-  const url = `/receipt`;
+export const addRecei = (receipt: any) => {
+  const url = `/export-shipment`;
   return instance.post(url, receipt);
 };
 
-export const list = () => {
-  const url = "/receipt";
+export const listRecei = () => {
+  const url = "/export-shipment";
   return instance.get(url);
 };
 
-export const get = (id: number) => {
-  const url = `/receipt/${id}`;
+export const getRecei = (id: number) => {
+  const url = `/export-shipment/${id}`;
   return instance.get(url);
 };
 
-export const remove = (id: number) => {
-  const url = `/receipt/${id}`;
+export const removeRecei = (id: number) => {
+  const url = `/export-shipment/${id}`;
   return instance.delete(url);
 };
 
-export const update = (receipt: any) => {
-  const url = `receipt/${receipt.id}`;
+export const updateRecei = (receipt: any) => {
+  const url = `export-shipment/${receipt.id}`;
   return instance.put(url, receipt);
 };

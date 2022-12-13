@@ -9,10 +9,10 @@ const LayoutMain = () => {
   return (
     <>
       <Header />
-      <div className="container mx-auto mt-6">
+      {/* <div className="container mx-auto mt-4">
         <Outlet />
       </div>
-      <Footer />
+      <Footer /> */}
     </>
   );
 };

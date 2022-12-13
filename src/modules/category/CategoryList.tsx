@@ -8,58 +8,46 @@ import { listCategory, removeCategory } from "../../store/slice/category.slice";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-
-
-
 const CategoryList = () => {
-
-  const categorys = useSelector((state: any) => state.category?.categorys)
-  const dispatch = useDispatch<any>()
+  const categorys = useSelector((state: any) => state.category?.categorys);
+  const dispatch = useDispatch<any>();
   useEffect(() => {
-    dispatch(listCategory())
-    console.log(categorys)
-  }, [dispatch])
+    dispatch(listCategory());
+    // console.log(categorys);
+  }, [dispatch]);
   const navigate = useNavigate();
 
   const onRemove = (id: number) => {
     if (confirm("Bạn chắc chắn muốn xoá?")) {
-      dispatch(removeCategory(id))
+      dispatch(removeCategory(id));
       try {
-        toast.success("Xoá nhóm hàng thành công!", {
-          onClose: () => {
-          }
-        });
+        toast.success("Xoá nhóm hàng thành công!");
         navigate("/category");
-
-
       } catch (error) {
         toast.error("Có lỗi xảy ra, vui lòng thử lại sau!");
-
       }
     }
-  }
+  };
 
   const columns: ITableColumn[] = [
     {
-      key: 'id',
+      key: "id",
       title: "ID",
       dataIndex: "id"
     },
     {
-      key: 'name',
+      key: "name",
       title: "Tên nhóm hàng",
       dataIndex: "name"
     },
     {
-      key: 'action',
+      key: "action",
       title: "Action",
       dataIndex: "action",
       render: (item) => (
         <div className="flex gap-x-5">
-          
           <Link to={`update/${item.id}`}>
             <EditIcon
-
               className="cursor-pointer fill-green-400 hover:fill-green-600"
               width={20}
             />
@@ -88,9 +76,7 @@ const CategoryList = () => {
           <Button>Thêm nhóm hàng</Button>
         </Link>
       </div>
-      <Table
-        dataSource={categorys}
-        column={columns} />
+      <Table dataSource={categorys} column={columns} />
       {/* <Table dataSource={dataSource} column={columns} /> */}
 
       <ReactPaginate

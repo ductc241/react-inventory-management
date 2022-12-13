@@ -1,18 +1,22 @@
+import jsPDF from "jspdf";
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useReactToPrint } from "react-to-print";
-import { getRecei, listRecei } from "../../api/receipt.api";
-import { Button, Table } from "../../components";
-import { ITableColumn } from "../../components/Table/Table.types";
+import { getOneShipment, listShipments } from "../../../api/shipments";
+import { Button, Table } from "../../../components";
+import FormatNumber from "../../../components/formatNumber/formatNumber";
+import { ITableColumn } from "../../../components/Table/Table.types";
 
-const DetailReceipt = () => {
+// eslint-disable-next-line @typescript-eslint/ban-types
+type Props = {};
+
+const ShipmentDetail = (props: Props) => {
   const [datas, setDatas] = useState<any>([]);
   const [dataList, setDataList] = useState<any>([]);
   const [visible, setVisible] = useState<boolean>(false);
   const { id } = useParams();
   const getReceiptId = async () => {
-    const { data } = await getRecei(Number(id));
-    const { data: dataReceipt } = await listRecei();
+    const { data } = await getOneShipment(Number(id));
+    const { data: dataReceipt } = await listShipments();
     const dataa: any = [];
     for (let i = 0; i < dataReceipt.data.length; i++) {
       if (dataReceipt.data[i].id == Number(id)) {
@@ -25,24 +29,27 @@ const DetailReceipt = () => {
 
   useEffect(() => {
     getReceiptId();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   const reportTemplateRef = useRef<any>(null);
-
-  const infiles = () => {
-    const isConFirm = confirm("bạn muốn in hay xóa");
-    isConFirm ? infile() : null;
+  const infile = () => {
+    const doc = new jsPDF({
+      format: "a2",
+      unit: "px"
+    });
+    doc.html(reportTemplateRef.current, {
+      async callback(doc) {
+        doc.save("import_shipments");
+      }
+    });
   };
-  const infile = useReactToPrint({
-    content: () => reportTemplateRef.current,
-    documentTitle: "import_shipments"
-  });
 
   const columns: ITableColumn[] = [
     {
       key: 1,
       title: "id",
-      dataIndex: "id"
+      dataIndex: `product_id`
     },
     {
       key: 2,
@@ -55,28 +62,23 @@ const DetailReceipt = () => {
       dataIndex: "quantity"
     },
     {
-      key: 4,
-      title: "Don gia",
-      dataIndex: "price",
-      render: (item: any) => <p>{item?.price?.toLocaleString("en")}</p>
-    },
-    {
-      key: 5,
-      title: "Giam gia",
-      dataIndex: "Discount"
-    },
-    {
       key: 6,
       title: "Gia ban",
-      dataIndex: "price",
-      render: (item: any) => <p>{item?.price.toLocaleString("en")}</p>
+      dataIndex: "import_price",
+      render: (item: any) => (
+        <p>
+          <FormatNumber number={item?.import_price} />
+        </p>
+      )
     },
     {
       key: 7,
       title: "Thanh tien",
       dataIndex: "into_money",
       render: (item: any) => (
-        <p>{(item?.price * item?.quantity).toLocaleString("en")}</p>
+        <p>
+          <FormatNumber number={item?.import_price * item?.quantity} />
+        </p>
       )
     }
   ];
@@ -84,55 +86,49 @@ const DetailReceipt = () => {
   const Prints = () => (
     <div className="p-5" ref={reportTemplateRef}>
       <div className="flex p-3">
-        <span className="w-2/12">{datas[0]?.export_date}</span>
+        <span className="w-2/12">{datas[0]?.import_date}</span>
         <h1 className="text-center w-10/12 -ml-8  text-xl font-bold">
-          Giao Dịch Hóa Đơn
+          Giao Dich Hoa Don
         </h1>
       </div>
 
       <div className="ml-[20%]">
-        <p className="text-base">Cửa hàng:....</p>
-        <p className="text-base">Địa chỉ : </p>
-        <p className="text-base">Số điện thoại : {datas[0]?.receve_phone} </p>
+        <p className="text-base">Cua hang:....</p>
+        <p className="text-base">Dia chi: </p>
+        <p className="text-base">So dien thoai : {datas[0]?.receve_phone} </p>
       </div>
-      <h1 className="text-center text-xl font-bold mt-3">Hóa đơn xuất hàng</h1>
+      <h1 className="text-center text-xl font-bold mt-3">Hoa don xuat hang</h1>
       <p className="text-center text-base mt-3">
-        Hóa đơn xuất hàng: {datas[0]?.export_code}
+        Hoa don xuat hang: {datas[0]?.export_code}
       </p>
-      <p className="text-center text-base mt-3">{datas[0]?.export_date}</p>
+      <p className="text-center text-base mt-3">{datas[0]?.import_date}</p>
 
       <div className="mt-3 mb-3">
         <Table dataSource={dataList} column={columns} />
       </div>
       <div className=" mt-5 ml-3 mr-3">
         <div className="flex justify-between">
-          <p className="text-base">Tổng cộng:</p>
+          <p className="text-base">Tong cong:</p>
           <p className="text-base">{datas[0]?.quantity}</p>
-          <p className="text-base">
-            {datas[0]?.totall_price.toLocaleString("en")}
-          </p>
+          <p className="text-base">{datas[0]?.totall_price}</p>
         </div>
         <div className="flex justify-between">
-          <p className="text-base">Chiết khấu hóa đơn:</p>
+          <p className="text-base">chiet khau hoa don:</p>
           <p className="text-base"></p>
         </div>
         <div className="flex justify-between">
-          <p className="text-base">Tổng thanh toán:</p>
+          <p className="text-base">Tong thanh toan:</p>
 
+          <p className="text-base">{datas[0]?.totall_price}</p>
+        </div>
+        <div className="flex justify-between">
+          <p className="text-base">Khach hang thanh toan:</p>
           <p className="text-base">
-            {datas[0]?.totall_price.toLocaleString("en")}
+            {datas[0]?.status != 1 ? datas[0]?.totall_price : ""}
           </p>
         </div>
         <div className="flex justify-between">
-          <p className="text-base">Khách hàng thanh toán:</p>
-          <p className="text-base">
-            {datas[0]?.status != 1
-              ? datas[0]?.totall_price.toLocaleString("en")
-              : ""}
-          </p>
-        </div>
-        <div className="flex justify-between">
-          <p className="text-base">Còn lại:</p>
+          <p className="text-base">con lai:</p>
 
           <p className="text-base">
             {(datas[0]?.totall_price - datas[0]?.totall_price).toLocaleString(
@@ -142,42 +138,43 @@ const DetailReceipt = () => {
         </div>
         <div className="flex justify-between mt-8">
           <div className="ml-6">
-            <p className="text-base">Người mua hàng</p>
+            <p className="text-base">Nguoi mua hang</p>
             <p className="text-base text-center"></p>
           </div>
           <div className="ml-6">
             <p className="text-base">
-              Ngày {datas[0]?.created_at.split("/")[0]} Tháng{" "}
-              {datas[0]?.created_at.split("/")[1]} Năm{" "}
+              Ngay {datas[0]?.created_at.split("/")[0]} Thang{" "}
+              {datas[0]?.created_at.split("/")[1]} Nam{" "}
               {datas[0]?.created_at.split("/")[2]}
             </p>
-            <p className="text-base text-center">Người bán hàng</p>
+            <p className="text-base text-center">Nguoi ban hang</p>
             <p className="text-base text-center"></p>
           </div>
         </div>
       </div>
     </div>
   );
+
   return (
     <div className="p-5">
       <h1 className="text-center text-2xl font-bold ">Thông tin</h1>
       <div className="grid grid-cols-12 gap-10">
         <div className="col-span-4">
           <div className="m-3 flex">
-            <label>Mã hóa đơn :</label>
-            <p className="font-bold ml-6">{datas[0]?.export_code}</p>
+            <label>Mã đơn hàng :</label>
+            <p className="font-bold ml-6">{datas[0]?.import_code}</p>
           </div>
           <hr />
           <div className="m-3 flex">
-            <label>Thời gian :</label>
-            <p>{datas[0]?.export_date}</p>
+            <label>Thời gian: &nbsp; </label>
+            <p>{datas[0]?.import_date}</p>
           </div>
           <hr />
         </div>
         <div className="col-span-4">
           <div className="m-3 flex">
             <label>Trạng thái:</label>
-            <p className="ml-6 text-blue-600">
+            <p className="ml-6 text-red-600">
               {datas[0]?.status == 1 ? "Chưa thanh toán" : "Đã thanh toán"}
             </p>
           </div>
@@ -185,12 +182,12 @@ const DetailReceipt = () => {
 
           <div className="m-3 flex">
             <label>Người bán:</label>
-            <p className="ml-6">{datas[0]?.user_name}</p>
+            <p className="ml-6">{datas[0]?.user_name} Admin</p>
           </div>
           <hr />
           <div className="m-3 flex">
             <label>Người tạo:</label>
-            <p className="ml-6">{datas[0]?.user_name}</p>
+            <p className="ml-6">{datas[0]?.user_name} Admin</p>
           </div>
           <hr />
         </div>
@@ -203,19 +200,29 @@ const DetailReceipt = () => {
           <div className="m-3 flex">
             <label>Tổng tiền hàng:</label>
             <p className="ml-6">
-              {datas[0]?.totall_price.toLocaleString("en")} VNĐ
+              {
+                <FormatNumber
+                  number={+dataList[0]?.import_price * +dataList[0]?.quantity}
+                />
+              }
             </p>
           </div>
           <hr />
           <div className="m-3 flex">
             <label>Giảm giá hóa đơn:</label>
-            <p className="ml-6">0</p>
+            <p className="ml-6">0 VND </p>
           </div>
           <hr />
           <div className="m-3 flex">
-            <label>Khách cần trả:</label>
+            <label>Số tiền khác còn phải đóng:</label>
             <p className="ml-6">
-              {datas[0]?.totall_price.toLocaleString("en")} VNĐ
+              <FormatNumber
+                number={
+                  datas[0]?.status === 1
+                    ? datas[0]?.import_price_totail
+                    : datas[0]?.import_price_totail
+                }
+              />
             </p>
           </div>
           <hr />
@@ -230,7 +237,7 @@ const DetailReceipt = () => {
         </div>
       </div>
       <div className="mt-3 mb-3">
-        <Table dataSource={dataList} column={columns} />
+        <Table dataSource={dataList ? dataList : datas} column={columns} />
       </div>
 
       <div className="flex  justify-end">
@@ -239,17 +246,10 @@ const DetailReceipt = () => {
           className="m-3"
           onClick={() => setVisible(true)}
         >
-          In
-        </Button>
-        <Button
-          variant="warning"
-          className="m-3 "
-          onClick={() => setVisible(true)}
-        >
-          Xuất
+          Xuất PDF
         </Button>
         <Button variant="container" className="m-3">
-          <Link to="/receipt"> Quay lại</Link>
+          <Link to="/import_shipments">Quay lại</Link>
         </Button>
       </div>
       {visible && (
@@ -262,16 +262,9 @@ const DetailReceipt = () => {
                 <Button
                   variant="container"
                   className="m-3"
-                  onClick={() => infiles()}
+                  onClick={() => infile()}
                 >
-                  In
-                </Button>
-                <Button
-                  variant="warning"
-                  className="m-3 "
-                  onClick={() => infiles()}
-                >
-                  Xuất
+                  Xuất PDF
                 </Button>
                 <Button
                   variant="container"
@@ -289,4 +282,4 @@ const DetailReceipt = () => {
   );
 };
 
-export default DetailReceipt;
+export default ShipmentDetail;

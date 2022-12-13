@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
 import { add, list, remove, update } from "../../api/supplier.api";
 import { Modal, Table } from "../../components";
 import Button from "../../components/Button/Button";
-import { EditIcon, TrashIcon } from "../../components/icons";
+import { Caret, EditIcon, TrashIcon } from "../../components/icons";
 import { ITableColumn } from "../../components/Table/Table.types";
 import { ISupplier } from "../../types/supplier.type";
 
@@ -21,7 +22,7 @@ const TableSupplier = () => {
 
   const itemEdit = async (id: number) => {
     const item = data.filter((item: ISupplier) => item.id == id);
-    await setItemUpdate(item);
+    setItemUpdate(item);
     setVisible(true);
   };
   const [itemAdd, setItemAdd] = useState<any>();
@@ -36,30 +37,20 @@ const TableSupplier = () => {
   useEffect(() => {
     getSupplier();
   }, [itemAdd, id, itemUpdate]);
+
   const columns: ITableColumn[] = [
     {
       key: 1,
       title: "Nhà cung cấp",
-
-      dataIndex: "supplierName"
+      dataIndex: "name"
     },
     {
       key: 2,
-      title: "Email",
-      dataIndex: "email"
-    },
-    {
-      key: 3,
-      title: "Điện thoại",
-      dataIndex: "phone"
-    },
-    {
-      key: 4,
       title: "Địa chỉ",
       dataIndex: "address"
     },
     {
-      key: 5,
+      key: 3,
       title: "Action",
       dataIndex: "action",
       render: (item: ISupplier) => (
@@ -82,13 +73,14 @@ const TableSupplier = () => {
     }
   ];
 
-  const removeSupplier = () => {
-    remove(id != undefined ? id : 0);
+  const removeSupplier = async () => {
+    await remove(id != undefined ? id : 0);
+    setId(0);
     setvisibleModal(false);
   };
 
-  const updateItemUpdate = (e: ISupplier) => {
-    update(e);
+  const updateItemUpdate = async (e: ISupplier) => {
+    await update(e);
     setItemUpdate([]);
   };
 
@@ -98,9 +90,20 @@ const TableSupplier = () => {
         <Button onClick={() => setVisible(true)}>Thêm nhà cung cấp</Button>
       </div>
       <Table dataSource={data} column={columns} />
+      <ReactPaginate
+        pageCount={10}
+        containerClassName="pagination mt-5"
+        pageClassName="pagination_item"
+        activeClassName="pagination_active"
+        previousLabel={<Caret width={"15px"} />}
+        nextLabel={<Caret className="rotate-180" width={"15px"} />}
+      />
       <FormSupplier
         hidenModal={visible}
-        upload={(e: boolean) => setVisible(e)}
+        upload={(e: boolean) => {
+          setVisible(e);
+          setvisibleModal(e);
+        }}
         uploadData={(e: any) => {
           addSupplier(e);
         }}

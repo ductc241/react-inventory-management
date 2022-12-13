@@ -1,16 +1,19 @@
+/* eslint-disable no-unused-vars */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {
-  addShipments,
-  deleteShipment,
-  listShipments
-} from "../../api/shipments";
+import { toast } from "react-toastify";
+import { addShipments, listShipments } from "../../api/shipments";
 
+export enum IStatus {
+  DISPLAY,
+  IMPORT
+}
 interface InitialStateType {
   shipments: any;
   error: boolean;
   isLoading: boolean;
   total: number;
   quantity: number;
+  status: IStatus;
 }
 
 const initialState: InitialStateType = {
@@ -18,29 +21,23 @@ const initialState: InitialStateType = {
   isLoading: false,
   error: false,
   total: 0,
-  quantity: 0
+  quantity: 0,
+  status: IStatus.DISPLAY
 };
 
 export const getShipmentThunk = createAsyncThunk(
   "shipment/getShipmentThunk",
   async () => {
-    const { data } = await listShipments();
-    return data;
+    const res = await listShipments();
+    return res;
   }
 );
 
 export const addShipmentsThunks = createAsyncThunk(
   "shipment/addShipmentsThunks",
   async (dataShipments: any) => {
-    await addShipments(dataShipments);
-    return dataShipments;
-  }
-);
-
-export const deleteShipmentsThunk = createAsyncThunk(
-  "shipment/removeShipmentsThunk",
-  async (id: any) => {
-    await deleteShipment(id);
+    const res = await addShipments(dataShipments);
+    return res;
   }
 );
 
@@ -55,12 +52,15 @@ const shipmentsSlice = createSlice({
       state.shipments = action.payload;
     });
     builder.addCase(addShipmentsThunks.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.error = false;
+      if (action.payload.status === 200) {
+        state.isLoading = false;
+        state.error = false;
+        state.status = IStatus.IMPORT;
+        toast.success("Tạo phiếu nhập thành công");
+      }
     });
-    builder.addCase(deleteShipmentsThunk.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.error = false;
+    builder.addCase(addShipmentsThunks.rejected, () => {
+      toast.error("Tạo phiếu nhập không thành công");
     });
   }
 });
