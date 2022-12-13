@@ -8,7 +8,7 @@ const QR = () => {
   return (
     <div>
       <QRCodeSVG
-        value={"https://picturesofpeoplescanningqrcodes.tumblr.com/"}
+        value={"https://zpao.github.io/qrcode.react/"}
         size={100}
         bgColor={"#ffffff"}
         fgColor={"#000000"}
