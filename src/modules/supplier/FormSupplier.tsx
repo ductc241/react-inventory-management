@@ -24,7 +24,7 @@ type Props = {
   uploadData: (e: any) => void;
   data: any;
   itemUpdate: any;
-  uploadItemUpdate: (e: ISupplier) => void;
+  uploadItemUpdate: (e: ISupplier | null) => void;
 };
 
 const FormSupplier = (props: Props) => {
@@ -62,7 +62,7 @@ const FormSupplier = (props: Props) => {
         title="Thêm nhà cung cấp"
         onCancel={() => {
           reset();
-          props.uploadItemUpdate(props?.itemUpdate);
+          props.uploadItemUpdate(null);
           props.upload(false);
         }}
       >
@@ -116,13 +116,9 @@ const FormSupplier = (props: Props) => {
             </Button>
             <Button
               onClick={() => {
-                if (props.itemUpdate.length > 0) {
-                  props.uploadItemUpdate(props?.itemUpdate);
-                  reset();
-                  props.upload(false);
-                } else {
-                  props.upload(false);
-                }
+                props.uploadItemUpdate(null);
+                reset();
+                props.upload(false);
               }}
               className="py-[12px] px-[30px] bg-white text-black"
             >

@@ -15,3 +15,14 @@ export const convertDataToOption = (arr: []) => {
 
   return optionArr;
 };
+
+export const convertDataToOptionShipments = (arr: []) => {
+  const optionArr: IOption[] = arr.map((item: any) => {
+    return {
+      label: item.lot_code,
+      value: item.id
+    };
+  });
+
+  return optionArr;
+};

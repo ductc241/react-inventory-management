@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
+import { number } from "yup";
+import { getOrder } from "../../api/order.api";
 import { getRecei, listRecei } from "../../api/receipt.api";
-import { Button, Table } from "../../components";
+import { Button, Modal, Table } from "../../components";
 import { ITableColumn } from "../../components/Table/Table.types";
 
 const DetailReceipt = () => {
@@ -28,14 +30,13 @@ const DetailReceipt = () => {
   }, []);
 
   const reportTemplateRef = useRef<any>(null);
-
-  const infiles = () => {
-    const isConFirm = confirm("bạn muốn in hay xóa");
-    isConFirm ? infile() : null;
+  const handleConfirm = () => {
+    const isConfirm = confirm("bạn muốn in ra file pdf ");
+    isConfirm ? handleInfile() : null;
   };
-  const infile = useReactToPrint({
+  const handleInfile = useReactToPrint({
     content: () => reportTemplateRef.current,
-    documentTitle: "import_shipments"
+    documentTitle: "export_shipments"
   });
 
   const columns: ITableColumn[] = [
@@ -46,34 +47,39 @@ const DetailReceipt = () => {
     },
     {
       key: 2,
-      title: "Ten Hang",
+      title: "Tên Hàng",
       dataIndex: "product_name"
     },
     {
       key: 3,
-      title: "So Luong",
+      title: "Số Lượng",
       dataIndex: "quantity"
     },
     {
       key: 4,
-      title: "Don gia",
+      title: "Mã lô hàng",
+      dataIndex: "lot_code"
+    },
+    {
+      key: 5,
+      title: "Đơn giá",
       dataIndex: "price",
       render: (item: any) => <p>{item?.price?.toLocaleString("en")}</p>
     },
     {
-      key: 5,
-      title: "Giam gia",
+      key: 6,
+      title: "Giảm giá",
       dataIndex: "Discount"
     },
     {
-      key: 6,
-      title: "Gia ban",
+      key: 7,
+      title: "Giá bán",
       dataIndex: "price",
       render: (item: any) => <p>{item?.price.toLocaleString("en")}</p>
     },
     {
-      key: 7,
-      title: "Thanh tien",
+      key: 8,
+      title: "Thành tiền",
       dataIndex: "into_money",
       render: (item: any) => (
         <p>{(item?.price * item?.quantity).toLocaleString("en")}</p>
@@ -92,13 +98,11 @@ const DetailReceipt = () => {
 
       <div className="ml-[20%]">
         <p className="text-base">Cửa hàng:....</p>
-        <p className="text-base">Địa chỉ : </p>
+        <p className="text-base">Địa chỉ: </p>
         <p className="text-base">Số điện thoại : {datas[0]?.receve_phone} </p>
       </div>
-      <h1 className="text-center text-xl font-bold mt-3">Hóa đơn xuất hàng</h1>
-      <p className="text-center text-base mt-3">
-        Hóa đơn xuất hàng: {datas[0]?.export_code}
-      </p>
+      <h1 className="text-center text-xl font-bold mt-3">Hóa đơn xuất hàng:</h1>
+      <p className="text-center text-base mt-3">{datas[0]?.export_code}</p>
       <p className="text-center text-base mt-3">{datas[0]?.export_date}</p>
 
       <div className="mt-3 mb-3">
@@ -113,7 +117,7 @@ const DetailReceipt = () => {
           </p>
         </div>
         <div className="flex justify-between">
-          <p className="text-base">Chiết khấu hóa đơn:</p>
+          <p className="text-base">chiết khấu hóa đơn:</p>
           <p className="text-base"></p>
         </div>
         <div className="flex justify-between">
@@ -262,14 +266,18 @@ const DetailReceipt = () => {
                 <Button
                   variant="container"
                   className="m-3"
-                  onClick={() => infiles()}
+                  onClick={() => {
+                    handleConfirm();
+                  }}
                 >
                   In
                 </Button>
                 <Button
                   variant="warning"
                   className="m-3 "
-                  onClick={() => infiles()}
+                  onClick={() => {
+                    handleConfirm();
+                  }}
                 >
                   Xuất
                 </Button>
