@@ -84,7 +84,7 @@ const ShipmentDetail = (props: Props) => {
     }
   ];
 
-  const Prints = () => (
+  const Prints_Invoice = () => (
     <div className="p-5 border-double border-4 border-green-600 bg-auto bg-no-repeat bg-center imgBG" ref={reportTemplateRef}>
       <div className="flex space-x-8 mt-4">
         <div className="mt-2">
@@ -279,10 +279,12 @@ const ShipmentDetail = (props: Props) => {
       </div>
       {visible && (
         <>
-          <div className="fixed inset-0 flex justify-center items-center ">
+          <div id="wrapper" className="fixed inset-0 flex justify-center items-center ">
             <div className="fixed inset-0 bg-black opacity-10" />
-            <div className="z-[999] min-w-[600px] p-[30px] rounded-[20px] bg-white text-left shadow-modal">
-              {Prints()}
+            <div id="style-default" className="scrollbar z-[999] min-w-[600px] p-[30px] rounded-[20px] bg-white text-left shadow-modal">
+              <div className="force-overflow">
+                {Prints_Invoice()}
+              </div>
               <div className="flex  justify-end mt-4">
                 <Button
                   variant="container"

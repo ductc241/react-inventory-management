@@ -1,0 +1,48 @@
+    .imgBG {
+      background-image: url("https://msmobile.com.vn/upload_images/images/hinh-nen-powerpoint-trong-dong-10.jpg");
+      background-size: 30px 10px;
+    }
+
+    .scroll {
+      /* height: 1100px; */
+    }
+
+    .scrollbar {
+      margin-left: 30px;
+      float: left;
+      height: 800px;
+      width: auto;
+      background: #F5F5F5;
+      overflow-y: scroll;
+      margin-bottom: 25px;
+    }
+
+    .force-overflow {
+      min-height: 450px;
+    }
+
+    #wrapper {
+      text-align: center;
+      width: auto;
+      margin: auto;
+    }
+
+    /*
+ *  STYLE 1
+ */
+    #style-1::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      background-color: #F5F5F5;
+    }
+
+    #style-1::-webkit-scrollbar {
+      width: 12px;
+      background-color: #F5F5F5;
+    }
+
+    #style-1::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+      background-color: #555;
+    }
