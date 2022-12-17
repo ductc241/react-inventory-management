@@ -99,7 +99,7 @@ export const appRoutes: IRoute[] = [
     component: <ExportShipments />
   },
   {
-    key: 15,
+    key: 16,
     path: routerPaths.PATH_IMPORT_SHIPMENT_DETAIL,
     component: <ShipmentDetail />
   }

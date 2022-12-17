@@ -17,8 +17,6 @@ import {
 import { TrashIcon } from "../../../components/icons";
 import { toast } from "react-toastify";
 import FormatNumber from "../../../components/formatNumber/formatNumber";
-import { useAppDispatch } from "../../../hook/hook";
-import { addShipmentsThunks } from "../../../store/slice/shipments";
 import { IProduct } from "../../../types/product.type";
 import productServices from "../../../api/product.api";
 import IOption from "../../../types/option.model";
