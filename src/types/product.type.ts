@@ -6,7 +6,7 @@ export interface IProduct {
   price: number;
   import_price: number;
   quantity: number;
-  image: string;
+  image: any;
   description: string;
   status: number;
   warranty_date: number;

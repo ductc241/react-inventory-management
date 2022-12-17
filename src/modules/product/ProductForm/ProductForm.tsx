@@ -45,7 +45,12 @@ const ProductForm = ({ mode }: IProductProps) => {
 
   const createProduct = async (data: IProductCreate) => {
     try {
-      await productServices.createProduct(data);
+      const formValue = new FormData();
+      Object.entries(data).forEach(([key, value]) => {
+        formValue.append(key, value);
+      });
+
+      await productServices.createProduct(formValue);
 
       toast.success("Thêm sản phẩm thành công", {
         onClose: () => {
@@ -106,6 +111,8 @@ const ProductForm = ({ mode }: IProductProps) => {
     if (mode === "update") updateProduct(data);
   };
 
+  console.log(errors);
+
   return (
     <form className="my-10" onSubmit={handleSubmit(onSubmit)}>
       <div className="grid grid-cols-12 gap-10">
@@ -148,12 +155,9 @@ const ProductForm = ({ mode }: IProductProps) => {
 
               <div className="mb-5">
                 <p className="mb-1 text-base">Ảnh đại diện</p>
-                <TextField
-                  containerClass="mb-5"
-                  {...register("image")}
-                  error={errors.name}
+                <ImagePreview
+                  handleChangeImage={(data) => setValue("image", data)}
                 />
-                <ImagePreview />
               </div>
 
               <div className="mb-5">
@@ -163,9 +167,7 @@ const ProductForm = ({ mode }: IProductProps) => {
                   }}
                   options={StatusOptions}
                   option={getValueFromOptions(StatusOptions, watch("status"))}
-                  handleClickChange={(cate) =>
-                    setValue("category_id", cate.value)
-                  }
+                  handleClickChange={(cate) => setValue("status", cate.value)}
                   placeholderText="Chọn trạng thái"
                 />
 

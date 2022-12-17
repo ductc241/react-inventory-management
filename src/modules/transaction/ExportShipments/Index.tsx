@@ -96,7 +96,7 @@ const ExportShipments = () => {
   };
 
   const handleAddProduct = async (item: IProduct) => {
-    const { data } = await productServices.getProductById(item.id);
+    const { data } = await productServices.getLotCodeById(item.id);
     let count: any = 0;
     fields.map((item, index) => {
       if (item.product_id == data.data[0].product_id) {
@@ -130,7 +130,7 @@ const ExportShipments = () => {
 
   const handleUpdatefields = async (idLotcode: number, index: number) => {
     const { data } = await exportShipmentsDetail(idLotcode);
-    console.log(data);
+    console.log(data, "asfdg");
     const isDuplicateLotcode = fields.find(
       (item) => item.lotCode === idLotcode
     );
