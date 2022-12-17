@@ -124,7 +124,6 @@ const ShipMentsForm = () => {
   const hanldeAddProduct = (item: IProduct) => {
     setShowSuggestSearch(false);
     setSearch("");
-    console.log(item);
 
     if (fields?.length > 0) {
       let count = 0;

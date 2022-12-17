@@ -24,3 +24,8 @@ export const updateRecei = (receipt: any) => {
   const url = `export-shipment/${receipt.id}`;
   return instance.put(url, receipt);
 };
+
+export const exportShipmentsDetail = (id: number | undefined) => {
+  const url = `/product-detail/${id}`;
+  return instance.get(url);
+};

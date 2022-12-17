@@ -38,7 +38,6 @@ const TransactionTable = () => {
     ) {
       const datas: any = [];
       for (let i = 0; i < data.data.length; i++) {
-        console.log(data.data[i]);
         if (data.data[i].id == Number(id.value)) {
           datas.push(data.data[i]);
         }

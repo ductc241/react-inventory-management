@@ -18,7 +18,7 @@ const Signup = () => {
   };
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-tl from-green-400 to-indigo-900 text-gray-900 flex justify-center">
+      <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
         <div className="max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1">
           <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
             <div>
@@ -92,7 +92,7 @@ const Signup = () => {
                         </span>
                       )}
                     </div>
-                    <button className="mt-5 tracking-wide font-semibold bg-green-500 text-gray-100 w-full py-4 rounded-lg hover:bg-green-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                    <button className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
                       <svg className="w-6 h-6 -ml-2" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
                         <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
                         <circle cx="8.5" cy={7} r={4} />

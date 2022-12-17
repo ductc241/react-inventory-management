@@ -85,7 +85,7 @@ const TableReceipt = (props: Props) => {
       dataIndex: ""
     }
   ];
-  console.log(location.href.split("/")[3]);
+
   return (
     <>
       <Table

@@ -1,14 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useReactToPrint } from "react-to-print";
 import { number } from "yup";
 import { getOrder } from "../../api/order.api";
 import { getRecei, listRecei } from "../../api/receipt.api";
 import { Button, Modal, Table } from "../../components";
-import SidebarHienThi from "../../components/Sidebar/Sidevar_Children/SidebarHienThi";
 import { ITableColumn } from "../../components/Table/Table.types";
-import { renderToString } from "react-dom/server";
-import jsPDF from "jspdf";
-import clsx from "clsx";
 
 const DetailReceipt = () => {
   const [datas, setDatas] = useState<any>([]);
@@ -33,20 +30,14 @@ const DetailReceipt = () => {
   }, []);
 
   const reportTemplateRef = useRef<any>(null);
-  const infile = () => {
-    const doc = new jsPDF({
-      format: "a2",
-      unit: "px"
-    });
-    // Adding the fonts.
-    // doc.setFont("Courier", "normal");
-    console.log("dsfsg");
-    doc.html(reportTemplateRef.current, {
-      async callback(doc) {
-        doc.save("export_shipments");
-      }
-    });
+  const handleConfirm = () => {
+    const isConfirm = confirm("bạn muốn in ra file pdf ");
+    isConfirm ? handleInfile() : null;
   };
+  const handleInfile = useReactToPrint({
+    content: () => reportTemplateRef.current,
+    documentTitle: "export_shipments"
+  });
 
   const columns: ITableColumn[] = [
     {
@@ -56,34 +47,39 @@ const DetailReceipt = () => {
     },
     {
       key: 2,
-      title: "Ten Hang",
+      title: "Tên Hàng",
       dataIndex: "product_name"
     },
     {
       key: 3,
-      title: "So Luong",
+      title: "Số Lượng",
       dataIndex: "quantity"
     },
     {
       key: 4,
-      title: "Don gia",
+      title: "Mã lô hàng",
+      dataIndex: "lot_code"
+    },
+    {
+      key: 5,
+      title: "Đơn giá",
       dataIndex: "price",
       render: (item: any) => <p>{item?.price?.toLocaleString("en")}</p>
     },
     {
-      key: 5,
-      title: "Giam gia",
+      key: 6,
+      title: "Giảm giá",
       dataIndex: "Discount"
     },
     {
-      key: 6,
-      title: "Gia ban",
+      key: 7,
+      title: "Giá bán",
       dataIndex: "price",
       render: (item: any) => <p>{item?.price.toLocaleString("en")}</p>
     },
     {
-      key: 7,
-      title: "Thanh tien",
+      key: 8,
+      title: "Thành tiền",
       dataIndex: "into_money",
       render: (item: any) => (
         <p>{(item?.price * item?.quantity).toLocaleString("en")}</p>
@@ -96,19 +92,17 @@ const DetailReceipt = () => {
       <div className="flex p-3">
         <span className="w-2/12">{datas[0]?.export_date}</span>
         <h1 className="text-center w-10/12 -ml-8  text-xl font-bold">
-          Giao Dich Hoa Don
+          Giao Dịch Hóa Đơn
         </h1>
       </div>
 
       <div className="ml-[20%]">
-        <p className="text-base">Cua hang:....</p>
-        <p className="text-base">Dia chi: </p>
-        <p className="text-base">So dien thoai : {datas[0]?.receve_phone} </p>
+        <p className="text-base">Cửa hàng:....</p>
+        <p className="text-base">Địa chỉ: </p>
+        <p className="text-base">Số điện thoại : {datas[0]?.receve_phone} </p>
       </div>
-      <h1 className="text-center text-xl font-bold mt-3">Hoa don xuat hang</h1>
-      <p className="text-center text-base mt-3">
-        Hoa don xuat hang: {datas[0]?.export_code}
-      </p>
+      <h1 className="text-center text-xl font-bold mt-3">Hóa đơn xuất hàng:</h1>
+      <p className="text-center text-base mt-3">{datas[0]?.export_code}</p>
       <p className="text-center text-base mt-3">{datas[0]?.export_date}</p>
 
       <div className="mt-3 mb-3">
@@ -116,25 +110,25 @@ const DetailReceipt = () => {
       </div>
       <div className=" mt-5 ml-3 mr-3">
         <div className="flex justify-between">
-          <p className="text-base">Tong cong:</p>
+          <p className="text-base">Tổng cộng:</p>
           <p className="text-base">{datas[0]?.quantity}</p>
           <p className="text-base">
             {datas[0]?.totall_price.toLocaleString("en")}
           </p>
         </div>
         <div className="flex justify-between">
-          <p className="text-base">chiet khau hoa don:</p>
+          <p className="text-base">chiết khấu hóa đơn:</p>
           <p className="text-base"></p>
         </div>
         <div className="flex justify-between">
-          <p className="text-base">Tong thanh toan:</p>
+          <p className="text-base">Tổng thanh toán:</p>
 
           <p className="text-base">
             {datas[0]?.totall_price.toLocaleString("en")}
           </p>
         </div>
         <div className="flex justify-between">
-          <p className="text-base">Khach hang thanh toan:</p>
+          <p className="text-base">Khách hàng thanh toán:</p>
           <p className="text-base">
             {datas[0]?.status != 1
               ? datas[0]?.totall_price.toLocaleString("en")
@@ -142,7 +136,7 @@ const DetailReceipt = () => {
           </p>
         </div>
         <div className="flex justify-between">
-          <p className="text-base">con lai:</p>
+          <p className="text-base">Còn lại:</p>
 
           <p className="text-base">
             {(datas[0]?.totall_price - datas[0]?.totall_price).toLocaleString(
@@ -152,16 +146,16 @@ const DetailReceipt = () => {
         </div>
         <div className="flex justify-between mt-8">
           <div className="ml-6">
-            <p className="text-base">Nguoi mua hang</p>
+            <p className="text-base">Người mua hàng</p>
             <p className="text-base text-center"></p>
           </div>
           <div className="ml-6">
             <p className="text-base">
-              Ngay {datas[0]?.created_at.split("/")[0]} Thang{" "}
-              {datas[0]?.created_at.split("/")[1]} Nam{" "}
+              Ngày {datas[0]?.created_at.split("/")[0]} Tháng{" "}
+              {datas[0]?.created_at.split("/")[1]} Năm{" "}
               {datas[0]?.created_at.split("/")[2]}
             </p>
-            <p className="text-base text-center">Nguoi ban hang</p>
+            <p className="text-base text-center">Người bán hàng</p>
             <p className="text-base text-center"></p>
           </div>
         </div>
@@ -272,14 +266,18 @@ const DetailReceipt = () => {
                 <Button
                   variant="container"
                   className="m-3"
-                  onClick={() => infile()}
+                  onClick={() => {
+                    handleConfirm();
+                  }}
                 >
                   In
                 </Button>
                 <Button
                   variant="warning"
                   className="m-3 "
-                  onClick={() => infile()}
+                  onClick={() => {
+                    handleConfirm();
+                  }}
                 >
                   Xuất
                 </Button>

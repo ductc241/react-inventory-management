@@ -22,7 +22,7 @@ const Signin = () => {
   };
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-tl from-green-400 to-indigo-900 text-gray-900 flex justify-center bg-contain bg-center bg-no-repeat"
+      <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center bg-contain bg-center bg-no-repeat"
         // style={{ backgroundImage: 'url("https://res.cloudinary.com/di6ykd558/image/upload/v1669608623/quan-ly-kho-hang-chuyen-nghiep_v2m5fx.jpg")' }}
         >
         <div className="max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1">
@@ -67,7 +67,7 @@ const Signin = () => {
                     </div>
                   </div>
                   <div className="mx-auto max-w-xs">
-                    <input className="w-full px-8 py-4 rounded-lg font-medium border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-4"
+                    <input className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-4"
                       id="email" type="email" placeholder="Email" autoComplete="off"
                       {...register("email", { required: true })} />
                     <div className="pt-1 text-left">
@@ -88,7 +88,7 @@ const Signin = () => {
                         </span>
                       )}
                     </div>
-                    <button className="mt-5 tracking-wide font-semibold bg-green-500 text-gray-100 w-full py-4 rounded-lg hover:bg-green-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                    <button className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
                       <svg className="w-6 h-6 -ml-2" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
                         <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
                         <circle cx="8.5" cy={7} r={4} />
