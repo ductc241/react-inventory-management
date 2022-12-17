@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
-import { number } from "yup";
-import { getOrder } from "../../api/order.api";
 import { getRecei, listRecei } from "../../api/receipt.api";
-import { Button, Modal, Table } from "../../components";
+import { Button, Table } from "../../components";
 import { ITableColumn } from "../../components/Table/Table.types";
 
 const DetailReceipt = () => {
@@ -30,11 +28,8 @@ const DetailReceipt = () => {
   }, []);
 
   const reportTemplateRef = useRef<any>(null);
-  const handleConfirm = () => {
-    const isConfirm = confirm("bạn muốn in ra file pdf ");
-    isConfirm ? handleInfile() : null;
-  };
-  const handleInfile = useReactToPrint({
+
+  const handleConfirm = useReactToPrint({
     content: () => reportTemplateRef.current,
     documentTitle: "export_shipments"
   });

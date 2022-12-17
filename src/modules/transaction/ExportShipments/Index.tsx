@@ -37,10 +37,10 @@ type Inputs = {
     price: number;
     quantity: number;
     shipment: {
-      value: any;
+      value: number;
       label: any;
     }[];
-    lotCode: string;
+    lotCode: number;
   }[];
 };
 
@@ -56,7 +56,6 @@ const ExportShipments = () => {
     control,
     handleSubmit,
     setValue,
-    getValues,
     watch,
     formState: { errors }
   } = useForm<Inputs>({
@@ -93,18 +92,18 @@ const ExportShipments = () => {
       product.name.includes(e.target.value)
     );
     setProductFilter(searchResult);
+    setSearch(e.target.value);
   };
 
   const handleAddProduct = async (item: IProduct) => {
-    let { data } = await productServices.getProductById(item.id);
-    let count = 0;
-    let dataShipment = data;
+    const { data } = await productServices.getProductById(item.id);
+    let count: any = 0;
     fields.map((item, index) => {
-      if (item.product_id == dataShipment.data[0].product_id) {
-        count++;
+      if (item.product_id == data.data[0].product_id) {
+        count += 1;
       }
     });
-    if (count < dataShipment.data.length) {
+    if (count < data.data.length) {
       append({
         product_id: item.id,
         name: item.name,
@@ -112,12 +111,11 @@ const ExportShipments = () => {
         inventory: 0,
         price: 0,
         quantity: +0,
-        shipment: convertDataToOptionShipments(dataShipment.data),
-        lotCode: "0"
+        shipment: convertDataToOptionShipments(data.data),
+        lotCode: 0
       });
     }
     setProductFilter([]);
-    setSearch("");
   };
 
   const handleChageQuantity = (
@@ -132,12 +130,21 @@ const ExportShipments = () => {
 
   const handleUpdatefields = async (idLotcode: number, index: number) => {
     const { data } = await exportShipmentsDetail(idLotcode);
-    update(index, {
-      ...fields[index],
-      inventory: data.quantity,
-      price: data.import_price,
-      lotCode: data.lot_code
-    });
+    console.log(data);
+    const isDuplicateLotcode = fields.find(
+      (item) => item.lotCode === idLotcode
+    );
+
+    if (isDuplicateLotcode === undefined) {
+      update(index, {
+        ...fields[index],
+        inventory: data.quantity,
+        price: data.import_price,
+        lotCode: idLotcode
+      });
+    } else {
+      toast.warning("Lô hàng bị tr");
+    }
   };
 
   const onSubmit = async (formValue: Inputs) => {
@@ -278,7 +285,7 @@ const ExportShipments = () => {
               placeholder="-- Tìm kiếm --"
               onChange={(e) => handleSearchProduct(e)}
               autoComplete="off"
-              value={search}
+              defaultValue={search}
             />
             <Button>Thêm sản phẩm</Button>
           </div>
@@ -328,6 +335,7 @@ const ExportShipments = () => {
             {fields.length > 0 && (
               <tbody>
                 {fields.map((item, index) => {
+                  // console.log(item.shipment, "shipment");
                   return (
                     <tr key={item.id}>
                       <td className="p-5 border">{index}</td>
@@ -345,10 +353,9 @@ const ExportShipments = () => {
                           options={item.shipment}
                           option={getValueFromOptions(
                             item.shipment,
-                            watch("shipment")
+                            watch(`data.${index}.lotCode`)
                           )}
                           handleClickChange={(brand) => {
-                            setValue("shipment", brand.value);
                             handleUpdatefields(brand.value, index);
                           }}
                           placeholderText="-- Chọn Lô Hàng --"
