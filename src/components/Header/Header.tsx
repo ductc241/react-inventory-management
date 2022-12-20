@@ -1,26 +1,23 @@
 import React, { useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../hook/hook";
-import { logOut } from "../../store/slice/auth.slice";
-import { Footer } from "../Footer";
+import { logout } from "../../api/login.api";
 import "./Header.styles.css";
 
 const Header = () => {
-  const disPatch = useAppDispatch();
   const navigate = useNavigate();
-  const hanleLogOut = () => {
-    disPatch(logOut);
-    navigate("/signin");
-  };
-
   const menuArray = [true, false, false];
   const [menu, setMenu] = useState(menuArray);
-  const [show, setShow] = useState(true);
 
   const setMenuValue = (props: any) => {
     const newArr = [...menu];
     newArr[props] = !newArr[props];
     setMenu(newArr);
+  };
+
+  const handleLogout = () => {
+    logout();
+    localStorage.removeItem("user");
+    navigate("/signin");
   };
 
   return (
@@ -142,10 +139,10 @@ const Header = () => {
                         transition duration-150 ease-in-out origin-top text-black w-40 py-2 drop-shadow-xl -ml-28"
                   >
                     <li className="rounded-sm px-3 py-1 text-center hover:text-green-700">
-                      <Link to="/signup">Tài khoản</Link>
+                      <Link to="">Tài khoản</Link>
                     </li>
                     <li className="rounded-sm px-3 py-1 text-center hover:text-green-700">
-                      <Link to="/signup">Đăng xuất</Link>
+                      <button onClick={handleLogout}>Đăng xuất</button>
                     </li>
                   </ul>
                 </div>
