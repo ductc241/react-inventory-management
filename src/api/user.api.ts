@@ -1,6 +1,6 @@
 import instance from "./instance";
 
-export const getUsersApi = () => {
-  const url = `users`;
+export const getAllUserApi = () => {
+  const url = `user`;
   return instance.get(url);
 };

@@ -453,6 +453,30 @@ const Header = () => {
                     </div>
                   </div>
                 </li>
+                <li className="mr-3 flex-1">
+                  <div>
+                    <div>
+                      <Link
+                        to="/user"
+                        onClick={() => setMenuValue(3)}
+                        className="text-white flex items-center w-full py-2 w-[600px]
+                        relative flex flex-row items-center h-11 focus:outline-none hover:bg-green-700 hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-green-500 pr-6 "
+                      >
+                        <span className="inline-flex justify-center items-center ml-4">
+                          <img
+                            src="https://cdn1.iconfinder.com/data/icons/essential-21/128/User-512.png"
+                            alt=""
+                            width="17px"
+                            className="bg-white rounded-md"
+                          />
+                        </span>
+                        <p className="ml-5 text-sm tracking-wide truncate">
+                          Nhân viên
+                        </p>
+                      </Link>
+                    </div>
+                  </div>
+                </li>
               </ul>
               <p className="mb-14 px-5 py-3 hidden md:block text-center text-xs">
                 Copyright @2022
