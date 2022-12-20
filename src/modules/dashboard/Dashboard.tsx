@@ -18,7 +18,7 @@ const Dashboard = () => {
     };
     handleStaticCall();
   }, []);
-
+  console.log(data);
   return (
     <div>
       <div>
@@ -124,14 +124,14 @@ const Dashboard = () => {
         </div>
 
         {/* Thống kê sản phẩm trong kho */}
-        <SpTrongKho />
+        <SpTrongKho data={data.most_profitable_products} />
 
         {/* Đồ thị tiền tệ */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 p-4 gap-4 mt-6">
+        {/* <div className="grid grid-cols-1 lg:grid-cols-3 p-4 gap-4 mt-6">
           <TienLai />
           <TienVon />
           <TienLo />
-        </div>
+        </div> */}
 
         {/* Sản phẩm bán chạy & Hàng hoàn trả */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-6">

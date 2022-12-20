@@ -11,7 +11,7 @@ import { IProduct } from "../../types/product.type";
 const ProductList = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState<IProduct[]>([]);
-
+  console.log(products);
   const columns: ITableColumn[] = [
     {
       key: 1,
