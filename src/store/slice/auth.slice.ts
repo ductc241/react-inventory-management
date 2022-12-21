@@ -48,7 +48,6 @@ const authSlice = createSlice({
         "token",
         JSON.stringify(payload.accessToken)
       );
-      toast.success("Đăng nhập thành công!");
     });
     builder.addCase(signIn.rejected, (state, action) => {
       state.isLoading = true;
