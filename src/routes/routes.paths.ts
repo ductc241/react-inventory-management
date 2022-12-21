@@ -27,3 +27,6 @@ export const PATH_RECEIPT = "/receipt";
 export const PATH_RECEIPT_ID = "/receipt/:id";
 
 export const PATH_EXPORT_SHIPMENT = "/export_shipment";
+
+export const PATH_REFUND_SHIPMENTTABLE = "/refund_shipmentTable";
+export const PATH_REFUND_SHIPMENTFROM = "/refund_shipmentFrom";

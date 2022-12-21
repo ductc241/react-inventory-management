@@ -1,6 +1,8 @@
 import PriceSetting from "../modules/priceSetting/priceSetting";
 import DetailReceipt from "../modules/receipt/DetailReceipt";
 import ExportShipments from "../modules/transaction/ExportShipments/Index";
+import Refund_shipmentFrom from "../modules/transaction/shipments/refund_shipment/Refund_shipmentFrom";
+import Refund_shipmentTable from "../modules/transaction/shipments/refund_shipment/Refund_shipmentTable";
 import ShipmentDetail from "../modules/transaction/shipments/ShipmentDetail";
 import ShipMentsForm from "../modules/transaction/shipments/ShipmentsForm";
 import ShipmentsTable from "../modules/transaction/shipments/shipmentsTable";
@@ -102,5 +104,15 @@ export const appRoutes: IRoute[] = [
     key: 16,
     path: routerPaths.PATH_IMPORT_SHIPMENT_DETAIL,
     component: <ShipmentDetail />
+  },
+  {
+    key: 17,
+    path: routerPaths.PATH_REFUND_SHIPMENTTABLE,
+    component: <Refund_shipmentTable />
+  },
+  {
+    key: 18,
+    path: routerPaths.PATH_REFUND_SHIPMENTFROM,
+    component: <Refund_shipmentFrom />
   }
 ];
