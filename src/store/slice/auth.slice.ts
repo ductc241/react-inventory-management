@@ -1,7 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { signin, signup } from "../../api/login.api";
-import { UserType } from "../../types/user.type";
-import { toast } from "react-toastify";
+import { createSlice } from "@reduxjs/toolkit";
 
 interface InitialStateType {
   user: any;
@@ -18,15 +15,6 @@ const initialState: InitialStateType = {
   msg: "",
   isLoading: false
 };
-
-export const signIn = createAsyncThunk("signIn", async (user: UserType) => {
-  const { data } = await signin(user);
-  return data;
-});
-
-export const signUp = createAsyncThunk("signUp", async (user: UserType) => {
-  await signup(user);
-});
 
 const authSlice = createSlice({
   name: "auth",
@@ -66,6 +54,7 @@ const authSlice = createSlice({
       toast.error("Lỗi");
     });
   }
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
 });
 
 export default authSlice;

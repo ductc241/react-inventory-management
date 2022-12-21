@@ -6,7 +6,7 @@ export const signin = (user: UserType) => {
   return instance.post(url, user);
 };
 
-export const signup = (user: UserType) => {
-  const url = `signup`;
-  return instance.post(url, user);
+export const logout = () => {
+  const url = `logout`;
+  return instance.get(url);
 };
