@@ -14,7 +14,8 @@ const Dashboard = () => {
   useEffect(() => {
     const handleStaticCall = async () => {
       const { data } = await axios.get(`https://dechoat.com/api/statistical`);
-      setData(data.data);
+
+      setData(data);
     };
     handleStaticCall();
   }, []);
@@ -92,7 +93,7 @@ const Dashboard = () => {
             </div>
             <div className="text-right">
               <p className="text-2xl">
-                <FormatNumber number={data.funds} />
+                <FormatNumber number={data?.funds} />
                 <span className="font-mono pl-1">VNĐ</span>
               </p>
               <p>Tiền vốn</p>
