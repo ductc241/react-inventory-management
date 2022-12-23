@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { listShipments } from "../../../api/shipments";
 import { list } from "../../../api/supplier.api";
 import { Select, Table } from "../../../components";
 import { Caret } from "../../../components/icons";
 import { ITableColumn } from "../../../components/Table/Table.types";
 import IOption from "../../../types/option.model";
+import { isAuthenticated } from "../../../utils/localStorage/localStorega";
 
 const ShipmentsTable = () => {
   const [valueSelect, setValueSelect] = useState<IOption[]>([]);
@@ -90,6 +92,8 @@ const ShipmentsTable = () => {
     }
   ];
 
+  const user = isAuthenticated();
+
   return (
     <div>
       <div className="flex justify-between mb-5">
@@ -101,11 +105,24 @@ const ShipmentsTable = () => {
             option={optionValue}
           />
         )}
-        <Link to="/import_shipments/add">
-          <div className=" bg-green-500 hover:bg-green-600 px-6 py-[12px] rounded-md leading-6 cursor-pointer text-white text-sm font-medium">
+        {user.role_id === 1 ? (
+          <Link to="/import_shipments/add">
+            <div className=" bg-green-500 hover:bg-green-600 px-6 py-[12px] rounded-md leading-6 cursor-pointer text-white text-sm font-medium">
+              Tạo Phiếu
+            </div>
+          </Link>
+        ) : (
+          <div
+            onClick={() => {
+              toast.error(
+                "ạn không phải là chủ cửa hàng nên ko thể tọa phiếu nhập"
+              );
+            }}
+            className=" bg-green-500 hover:bg-green-600 px-6 py-[12px] rounded-md leading-6 cursor-pointer text-white text-sm font-medium"
+          >
             Tạo Phiếu
           </div>
-        </Link>
+        )}
       </div>
       <div>
         <Table
