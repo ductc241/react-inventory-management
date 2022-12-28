@@ -2,10 +2,16 @@ export interface IProduct {
   id: number;
   sku: string;
   name: string;
-  brand_id: string | null;
   category_id: number | null;
   price: number;
   import_price: number;
   quantity: number;
-  weight: number;
+  image: any;
+  description: string;
+  status: number;
+  warranty_date: number;
+}
+
+export interface IProductCreate extends Omit<IProduct, "id" | "sku"> {
+  supplier_id?: number;
 }

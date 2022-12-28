@@ -1,4 +1,10 @@
-import Transaction from "../modules/transaction";
+import PriceSetting from "../modules/priceSetting/priceSetting";
+import DetailReceipt from "../modules/receipt/DetailReceipt";
+import ExportShipments from "../modules/transaction/ExportShipments/Index";
+import ShipmentDetail from "../modules/transaction/shipments/ShipmentDetail";
+import ShipMentsForm from "../modules/transaction/shipments/ShipmentsForm";
+import ShipmentsTable from "../modules/transaction/shipments/shipmentsTable";
+import TransactionTable from "../modules/transaction/TransactionTable";
 import {
   CategoryCreatePage,
   CategoryListPage,
@@ -15,7 +21,6 @@ import SuplierPage from "../pages/supplier/SupllierPage";
 
 import IRoute from "../types/router.type";
 import * as routerPaths from "./routes.paths";
-
 export const appRoutes: IRoute[] = [
   {
     key: 1,
@@ -41,7 +46,7 @@ export const appRoutes: IRoute[] = [
   {
     key: 5,
     path: routerPaths.PATH_IMPORT_SHIPMENT,
-    component: <Transaction />
+    component: <ShipmentsTable />
   },
   {
     key: 6,
@@ -67,5 +72,35 @@ export const appRoutes: IRoute[] = [
     key: 10,
     path: routerPaths.PATH_SoQuy,
     component: <SoQuyListPage />
+  },
+  {
+    key: 11,
+    path: routerPaths.PATH_PRICE_SETTING,
+    component: <PriceSetting />
+  },
+  {
+    key: 12,
+    path: routerPaths.PATH_IMPORT_SHIPMENT_ADD,
+    component: <ShipMentsForm />
+  },
+  {
+    key: 13,
+    path: routerPaths.PATH_RECEIPT,
+    component: <TransactionTable />
+  },
+  {
+    key: 14,
+    path: routerPaths.PATH_RECEIPT_ID,
+    component: <DetailReceipt />
+  },
+  {
+    key: 15,
+    path: routerPaths.PATH_EXPORT_SHIPMENT,
+    component: <ExportShipments />
+  },
+  {
+    key: 16,
+    path: routerPaths.PATH_IMPORT_SHIPMENT_DETAIL,
+    component: <ShipmentDetail />
   }
 ];

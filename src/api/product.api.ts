@@ -6,8 +6,13 @@ const productServices = {
     return instance.get(url);
   },
 
-  getProductById: (id: string | number) => {
+  getLotCodeById: (id: string | number) => {
     const url = `/products/${id}`;
+    return instance.get(url);
+  },
+
+  getProductById: (id: string | number) => {
+    const url = `/product/${id}`;
     return instance.get(url);
   },
 
@@ -18,7 +23,7 @@ const productServices = {
 
   updateProduct: (id: number, data: any) => {
     const url = `/products/${id}`;
-    return instance.patch(url, data);
+    return instance.put(url, data);
   }
 };
 

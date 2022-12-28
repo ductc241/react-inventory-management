@@ -6,7 +6,7 @@ import { ISupplier } from "../../types/supplier.type";
 
 type Inputs = {
   supplierCode: string;
-  supplierName: string;
+  name: string;
   email: string;
   phone: string;
   company: string;
@@ -24,7 +24,7 @@ type Props = {
   uploadData: (e: any) => void;
   data: any;
   itemUpdate: any;
-  uploadItemUpdate: (e: ISupplier) => void;
+  uploadItemUpdate: (e: ISupplier | null) => void;
 };
 
 const FormSupplier = (props: Props) => {
@@ -38,8 +38,8 @@ const FormSupplier = (props: Props) => {
   const onSubmit = (item: any) => {
     if (props?.itemUpdate.length < 1) {
       const newData = {
-        id: props.data.length + 1,
-        ...item
+        ...item,
+        phone_number: null
       };
       props.uploadData(newData);
     } else {
@@ -53,7 +53,7 @@ const FormSupplier = (props: Props) => {
     reset();
     props.upload(false);
   };
-  console.log(props.itemUpdate);
+
   return (
     <>
       <Modal
@@ -62,7 +62,7 @@ const FormSupplier = (props: Props) => {
         title="Thêm nhà cung cấp"
         onCancel={() => {
           reset();
-          props.uploadItemUpdate(props?.itemUpdate);
+          props.uploadItemUpdate(null);
           props.upload(false);
         }}
       >
@@ -71,18 +71,16 @@ const FormSupplier = (props: Props) => {
             <TextField
               label="Nhà cung cấp"
               containerClass="col-span-6 mb-3"
-              {...register("supplierName", {
+              {...register("name", {
                 required: "bạn chưa nhập form này"
               })}
-              error={errors.supplierName}
+              error={errors.name}
               defaultValue={
-                props.itemUpdate.length > 0
-                  ? props?.itemUpdate[0].supplierName
-                  : ""
+                props.itemUpdate.length > 0 ? props?.itemUpdate[0].name : ""
               }
             />
 
-            <TextField
+            {/* <TextField
               label="Email"
               containerClass="col-span-6 mb-3"
               {...register("email", { required: "bạn chưa nhập form này" })}
@@ -90,9 +88,9 @@ const FormSupplier = (props: Props) => {
               defaultValue={
                 props.itemUpdate.length > 0 ? props?.itemUpdate[0].email : ""
               }
-            />
+            /> */}
 
-            <TextField
+            {/* <TextField
               label="Điện thoại"
               containerClass="col-span-6 mb-3"
               {...register("phone", { required: "bạn chưa nhập form này" })}
@@ -100,7 +98,7 @@ const FormSupplier = (props: Props) => {
               defaultValue={
                 props.itemUpdate.length > 0 ? props?.itemUpdate[0].phone : ""
               }
-            />
+            /> */}
 
             <TextField
               label="Địa chỉ"
@@ -118,11 +116,9 @@ const FormSupplier = (props: Props) => {
             </Button>
             <Button
               onClick={() => {
-                if (props.itemUpdate.length > 0) {
-                  props.uploadItemUpdate(props?.itemUpdate);
-                  reset();
-                  props.upload(false);
-                }
+                props.uploadItemUpdate(null);
+                reset();
+                props.upload(false);
               }}
               className="py-[12px] px-[30px] bg-white text-black"
             >

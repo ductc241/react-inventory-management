@@ -1,23 +1,47 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import ReactPaginate from "react-paginate";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { listShipments } from "../../../api/shipments";
+import { list } from "../../../api/supplier.api";
 import { Select, Table } from "../../../components";
-import { TrashIcon } from "../../../components/icons";
+import { Caret } from "../../../components/icons";
 import { ITableColumn } from "../../../components/Table/Table.types";
-import { useAppDispatch, useAppSelector } from "../../../hook/hook";
-import { getShipmentThunk } from "../../../store/slice/shipments";
 import IOption from "../../../types/option.model";
-import { BrandOptions } from "../../product/ProductForm/ProductForm.constants";
+import { isAuthenticated } from "../../../utils/localStorage/localStorega";
 
 const ShipmentsTable = () => {
-  const [valueSelect, setValueSelect] = useState<IOption>();
-  const useSelector = useAppSelector;
-  const useDispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const { shipments } = useSelector((store) => store.shipment);
+  const [valueSelect, setValueSelect] = useState<IOption[]>([]);
+  const [optionValue, setOptionValue] = useState<IOption>();
+  const [data, setData] = useState([]);
+
+  const getShipmentData = async () => {
+    const { data } = await listShipments();
+    setData(data.data);
+  };
+
+  const getSupplier = async () => {
+    const res = await list();
+    setValueSelect(res.data);
+  };
+
+  const dataFilter: { value: ""; label: "" }[] = valueSelect?.map(
+    (item: any) => ({
+      value: item.id,
+      label: item.name
+    })
+  );
+
+  const dataSource = data.filter((item: any) =>
+    item.supplier_name
+      .toLowerCase()
+      .includes(optionValue?.label?.toLocaleString().toLowerCase())
+  );
 
   useEffect(() => {
-    useDispatch(getShipmentThunk());
-  }, [useDispatch]);
+    getShipmentData();
+    getSupplier();
+  }, []);
 
   const columns: ITableColumn[] = [
     {
@@ -27,7 +51,7 @@ const ShipmentsTable = () => {
     },
     {
       title: "Nhà cung cấp",
-      dataIndex: "supplierId",
+      dataIndex: "supplier_name",
       key: 2
     },
     {
@@ -46,8 +70,8 @@ const ShipmentsTable = () => {
       )
     },
     {
-      title: "Tên sản phẩm",
-      dataIndex: "productId",
+      title: "Mã lô hàng",
+      dataIndex: "import_code",
       key: 5
     },
     {
@@ -65,39 +89,55 @@ const ShipmentsTable = () => {
           </>
         );
       }
-    },
-    {
-      title: "Action",
-      dataIndex: "action",
-      key: 7,
-      render: ({ id }) => (
-        <div className="flex justify-start">
-          <TrashIcon
-            className="cursor-pointer fill-red-400 hover:fill-red-600"
-            width={20}
-          />
-        </div>
-      )
     }
   ];
+
+  const user = isAuthenticated();
 
   return (
     <div>
       <div className="flex justify-between mb-5">
-        <Select
-          className="w-96"
-          options={BrandOptions}
-          handleClickChange={(data) => setValueSelect(data)}
-          option={valueSelect}
-        />
-        <Link to="/import_shipments/add">
-          <div className="bg-green-500 hover:bg-green-600 px-6 py-[12px] rounded-md leading-6 cursor-pointer text-white text-sm font-medium">
+        {dataFilter && dataFilter.length !== 0 && (
+          <Select
+            className="w-96"
+            options={dataFilter}
+            handleClickChange={(data) => setOptionValue(data)}
+            option={optionValue}
+          />
+        )}
+        {user.role_id === 1 ? (
+          <Link to="/import_shipments/add">
+            <div className=" bg-green-500 hover:bg-green-600 px-6 py-[12px] rounded-md leading-6 cursor-pointer text-white text-sm font-medium">
+              Tạo Phiếu
+            </div>
+          </Link>
+        ) : (
+          <div
+            onClick={() => {
+              toast.error(
+                "ạn không phải là chủ cửa hàng nên ko thể tọa phiếu nhập"
+              );
+            }}
+            className=" bg-green-500 hover:bg-green-600 px-6 py-[12px] rounded-md leading-6 cursor-pointer text-white text-sm font-medium"
+          >
             Tạo Phiếu
           </div>
-        </Link>
+        )}
       </div>
       <div>
-        <Table column={columns} dataSource={shipments} />
+        <Table
+          column={columns}
+          dataSource={dataSource.length !== 0 ? dataSource : data}
+          linkUrl={location.href.split("/")[3]}
+        />
+        <ReactPaginate
+          pageCount={10}
+          containerClassName="pagination mt-5"
+          pageClassName="pagination_item"
+          activeClassName="pagination_active"
+          previousLabel={<Caret width={"15px"} />}
+          nextLabel={<Caret className="rotate-180" width={"15px"} />}
+        />
       </div>
     </div>
   );

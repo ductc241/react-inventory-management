@@ -1,49 +1,43 @@
+/* eslint-disable no-unused-vars */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {
-  getOneShipment,
-  listShipments,
-  updateShipments
-} from "../../api/shipments";
+import { toast } from "react-toastify";
+import { addShipments, listShipments } from "../../api/shipments";
 
+export enum IStatus {
+  DISPLAY,
+  IMPORT
+}
 interface InitialStateType {
   shipments: any;
-  shipment: any;
   error: boolean;
   isLoading: boolean;
   total: number;
   quantity: number;
+  status: IStatus;
 }
 
 const initialState: InitialStateType = {
   shipments: [],
-  shipment: "",
   isLoading: false,
   error: false,
   total: 0,
-  quantity: 0
+  quantity: 0,
+  status: IStatus.DISPLAY
 };
 
 export const getShipmentThunk = createAsyncThunk(
   "shipment/getShipmentThunk",
   async () => {
-    const { data } = await listShipments();
-    return data;
+    const res = await listShipments();
+    return res;
   }
 );
 
-export const getOneShipmentThunk = createAsyncThunk(
-  "shipment/getOneShipmentThunk",
-  async (id: number | string) => {
-    const { data } = await getOneShipment(id);
-    return data;
-  }
-);
-
-export const updateShipmentsThuck = createAsyncThunk(
-  "shipment/updateShipmentsThuck",
-  async (id: number | string | undefined) => {
-    const { data } = await updateShipments(id);
-    return data;
+export const addShipmentsThunks = createAsyncThunk(
+  "shipment/addShipmentsThunks",
+  async (dataShipments: any) => {
+    const res = await addShipments(dataShipments);
+    return res;
   }
 );
 
@@ -57,21 +51,17 @@ const shipmentsSlice = createSlice({
       state.error = false;
       state.shipments = action.payload;
     });
-    builder.addCase(getOneShipmentThunk.fulfilled, (state, action: any) => {
-      state.isLoading = false;
-      state.error = false;
-      state.shipment = state.shipments.find(
-        (item: any) => item.id === action.payload.id
-      );
-    });
-    builder.addCase(
-      updateShipmentsThuck.fulfilled,
-      (state: any, action: any) => {
+    builder.addCase(addShipmentsThunks.fulfilled, (state, action) => {
+      if (action.payload.status === 200) {
         state.isLoading = false;
         state.error = false;
-        state.shipments = action.payload;
+        state.status = IStatus.IMPORT;
+        toast.success("Tạo phiếu nhập thành công");
       }
-    );
+    });
+    builder.addCase(addShipmentsThunks.rejected, () => {
+      toast.error("Tạo phiếu nhập không thành công");
+    });
   }
 });
 
