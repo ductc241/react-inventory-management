@@ -1,8 +1,17 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const SidebarNhaCungCap = () => {
   //Nhà Cung Cấp
+  const [suppliers, setSuppliers] = useState([]);
+  useEffect(() => {
+    async function getSuppliers(){
+      const { data } = await axios.get('https://dechoat.com/api/suppliers');
+      setSuppliers(data);
+    } getSuppliers()
+  }, [])
   return (
     <div>
       <aside className="w-auto border rounded" aria-label="Sidebar">
@@ -27,22 +36,19 @@ const SidebarNhaCungCap = () => {
                 </div>
               </div>
             </li>
-            <li className="px-3">
-              <Link
-                to="#"
-                className="flex items-center p-2 text-sm font-normal text-gray-900 rounded-lg hover:bg-gray-100"
-              >
-                <span className="flex-1 whitespace-nowrap">Bên A</span>
-              </Link>
-            </li>
-            <li className="px-3">
-              <Link
-                to="#"
-                className="flex items-center p-2 text-sm font-normal text-gray-900 rounded-lg hover:bg-gray-100"
-              >
-                <span className="flex-1 whitespace-nowrap">Bên B</span>
-              </Link>
-            </li>
+            {suppliers?.map((item: any) => {
+              if (!item) return;
+              return (
+                <li className="px-3" key={item.id}>
+                  <Link
+                    to="#"
+                    className="flex items-center p-2 text-sm font-normal text-gray-900 rounded-lg hover:bg-gray-100"
+                  >
+                    <span className="flex-1 whitespace-nowrap">{item.name}</span>
+                  </Link>
+                </li>
+              );
+            })}
             <br />
           </ul>
         </div>
