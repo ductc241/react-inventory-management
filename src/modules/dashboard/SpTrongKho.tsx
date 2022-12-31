@@ -8,7 +8,6 @@ type Props = {
 };
 
 const SpTrongKho = (props: Props) => {
-  console.log(props.data, "fdsgfgk");
   return (
     <div>
       <div className="mt-4 mx-4">

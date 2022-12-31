@@ -2,8 +2,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { UserType } from "../../../types/user.type";
 import { authenticated } from "../../../utils/localStorage/localStorega";
-import { signin } from "../../../api/login.api";
+import { useAppDispatch } from "../../../hook/hook";
 import { toast } from "react-toastify";
+import { signin } from "../../../api/auth";
 
 const Signin = () => {
   const {
@@ -12,18 +13,14 @@ const Signin = () => {
     register
   } = useForm<UserType>();
   const navigate = useNavigate();
-
   const onSubmit: SubmitHandler<UserType> = async (user: UserType) => {
-    if (user) {
-      const res = await signin(user);
-
-      if (res.status === 200) {
-        authenticated(res.data[1], () => {
-          toast.success("Đăng nhập thành công");
+    const { data } = await signin(user);
+    data.error
+      ? toast.error(`${data.error}`)
+      : (toast.success(`${data[0].correct}`),
+        authenticated(data[1], () => {
           navigate("/");
-        });
-      }
-    }
+        }));
   };
   return (
     <>

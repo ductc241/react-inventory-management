@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { listRecei } from "../../api/receipt.api";
 import { listShipments } from "../../api/shipments";
 import { Button, TextField } from "../../components";
+import { isAuthenticated } from "../../utils/localStorage/localStorega";
 import TableReceipt from "../receipt/TableReceipt";
 
 const TransactionTable = () => {
@@ -107,6 +109,8 @@ const TransactionTable = () => {
     export_date.value = "";
   };
 
+  const user = isAuthenticated();
+
   return (
     <div>
       <div className="mb-3 flex">
@@ -141,12 +145,23 @@ const TransactionTable = () => {
       <span className="pt-3 pb-3">{messenger}</span>
 
       <div className="mt-3 mb-3 flex">
-        <Link
-          to="/export_shipment"
-          className="focus-visible:outline-2 focus-visible:outline-orange-secondary px-6 py-[12px] rounded-md leading-6 cursor-pointer text-white text-sm font-medium max-w-fit bg-green-500"
-        >
-          Thêm Mới
-        </Link>
+        {user.role_id === 1 ? (
+          <Link
+            to="/export_shipment"
+            className="focus-visible:outline-2 focus-visible:outline-orange-secondary px-6 py-[12px] rounded-md leading-6 cursor-pointer text-white text-sm font-medium max-w-fit bg-green-500"
+          >
+            Thêm Mới
+          </Link>
+        ) : (
+          <div
+            onClick={() => {
+              toast.error("bạn không có quyền thêm");
+            }}
+            className="focus-visible:outline-2 focus-visible:outline-orange-secondary px-6 py-[12px] rounded-md leading-6 cursor-pointer text-white text-sm font-medium max-w-fit bg-green-500"
+          >
+            Thêm Mới
+          </div>
+        )}
       </div>
 
       <div className="w-full">

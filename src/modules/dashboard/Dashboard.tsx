@@ -14,7 +14,8 @@ const Dashboard = () => {
   useEffect(() => {
     const handleStaticCall = async () => {
       const { data } = await axios.get(`https://dechoat.com/api/statistical`);
-      setData(data.data);
+
+      setData(data);
     };
     handleStaticCall();
   }, []);
