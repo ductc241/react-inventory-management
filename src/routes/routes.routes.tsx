@@ -5,6 +5,7 @@ import ShipmentDetail from "../modules/transaction/shipments/ShipmentDetail";
 import ShipMentsForm from "../modules/transaction/shipments/ShipmentsForm";
 import ShipmentsTable from "../modules/transaction/shipments/shipmentsTable";
 import TransactionTable from "../modules/transaction/TransactionTable";
+import User from "../modules/user";
 import {
   CategoryCreatePage,
   CategoryListPage,
@@ -102,5 +103,10 @@ export const appRoutes: IRoute[] = [
     key: 16,
     path: routerPaths.PATH_IMPORT_SHIPMENT_DETAIL,
     component: <ShipmentDetail />
+  },
+  {
+    key: 17,
+    path: routerPaths.PATH_ALL_USER,
+    component: <User />
   }
 ];
