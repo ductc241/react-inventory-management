@@ -1,28 +1,48 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getAllUserApi } from "../../api/user.api";
-import { Table } from "../../components";
+import { Button, Table } from "../../components";
+import { EditIcon, TrashIcon } from "../../components/icons";
 import { ITableColumn } from "../../components/Table/Table.types";
+import { UserAction } from "../../types/user.type";
+import FornAction from "./formAction";
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-type Props = {};
-
-const User = (props: Props) => {
+const User = () => {
   const [listUser, setListUser] = useState([]);
+  const [isOpenModalAddEdit, setIsOpenModalAddEdit] = useState(false);
+  const [typeModal, setTypeModal] = useState(UserAction.ADD);
+  const [id, setID] = useState();
+
+  const getAllUser = async () => {
+    const res = await getAllUserApi();
+    if (res.status === 200) {
+      setListUser(res.data.data);
+    }
+  };
   useEffect(() => {
-    const getAllUser = async () => {
-      const res = await getAllUserApi();
-      if (res.status === 200) {
-        setListUser(res.data.data);
-      }
-    };
     getAllUser();
   }, []);
+
+  const handleClickOpenModal = (type: UserAction, id?: any) => {
+    if (id) {
+      setID(id);
+    }
+    setTypeModal(type);
+    setIsOpenModalAddEdit((prev) => !prev);
+  };
 
   const column: ITableColumn[] = [
     {
       key: 1,
       title: "Tên người dùng",
       dataIndex: "name"
+    },
+    {
+      key: 6,
+      title: "Tên người dùng",
+      dataIndex: "",
+      render: (record) => {
+        return <div>{record.role_id === 1 ? "Admin" : "Nhân viên"}</div>;
+      }
     },
     {
       key: 2,
@@ -43,14 +63,50 @@ const User = (props: Props) => {
           <div>{record.status === 1 ? "Đã kích hoạt" : "chưa kích hoạt"}</div>
         );
       }
+    },
+    {
+      key: 5,
+      title: "Action",
+      dataIndex: "",
+      render: (record) => {
+        return (
+          <div className="flex items-center gap-5 justify-center">
+            <EditIcon
+              onClick={() => handleClickOpenModal(UserAction.EDIT, record.id)}
+            />
+            <TrashIcon
+              onClick={() => handleClickOpenModal(UserAction.REMOVE, record.id)}
+            />
+          </div>
+        );
+      }
     }
   ];
+
+  const handleClose = () => {
+    setIsOpenModalAddEdit(false);
+  };
   return (
     <div>
-      <span className="text-3xl font-semibold mb-10 inline-block">
-        Nhân viên
-      </span>
-      <Table column={column} dataSource={listUser ? listUser : []} linkUrl />
+      <div className="flex justify-between mb-3">
+        <span className="text-3xl font-semibold mb-10 inline-block">
+          Nhân viên
+        </span>
+        <Button
+          className="h-16"
+          onClick={() => handleClickOpenModal(UserAction.ADD)}
+        >
+          Thêm nhân viên
+        </Button>
+      </div>
+      <Table column={column} dataSource={listUser ? listUser : []} />
+      <FornAction
+        open={isOpenModalAddEdit}
+        close={handleClose}
+        type={typeModal}
+        id={id}
+        getAllUser={getAllUser}
+      />
     </div>
   );
 };

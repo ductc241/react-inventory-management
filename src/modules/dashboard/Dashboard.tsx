@@ -92,7 +92,7 @@ const Dashboard = () => {
             </div>
             <div className="text-right">
               <p className="text-2xl">
-                <FormatNumber number={data.funds} />
+                <FormatNumber number={data?.funds} />
                 <span className="font-mono pl-1">VNĐ</span>
               </p>
               <p>Tiền vốn</p>
@@ -124,7 +124,7 @@ const Dashboard = () => {
         </div>
 
         {/* Thống kê sản phẩm trong kho */}
-        <SpTrongKho data={data.most_profitable_products} />
+        <SpTrongKho data={data?.most_profitable_products} />
 
         {/* Đồ thị tiền tệ */}
         {/* <div className="grid grid-cols-1 lg:grid-cols-3 p-4 gap-4 mt-6">
@@ -135,7 +135,7 @@ const Dashboard = () => {
 
         {/* Sản phẩm bán chạy & Hàng hoàn trả */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-6">
-          <BanChay data={data.best_selling_products} />
+          <BanChay data={data?.best_selling_products} />
           <HangHoanTra />
         </div>
 
