@@ -5,12 +5,15 @@ import { EditIcon, TrashIcon } from "../../components/icons";
 import { ITableColumn } from "../../components/Table/Table.types";
 import { UserAction } from "../../types/user.type";
 import FornAction from "./formAction";
+import ModalRemoveUser from "./modalRemoveUser";
 
 const User = () => {
   const [listUser, setListUser] = useState([]);
   const [isOpenModalAddEdit, setIsOpenModalAddEdit] = useState(false);
+  const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
   const [typeModal, setTypeModal] = useState(UserAction.ADD);
   const [id, setID] = useState();
+  const [idRemove, setIDRemove] = useState();
 
   const getAllUser = async () => {
     const res = await getAllUserApi();
@@ -30,6 +33,17 @@ const User = () => {
     setIsOpenModalAddEdit((prev) => !prev);
   };
 
+  const handleClickOpenModalDelete = (id: any) => {
+    if (id) {
+      setIDRemove(id);
+    }
+    setIsOpenModalDelete((prev) => !prev);
+  };
+
+  const handleCloseModalDelete = () => {
+    setIsOpenModalDelete(false);
+  };
+
   const column: ITableColumn[] = [
     {
       key: 1,
@@ -38,7 +52,7 @@ const User = () => {
     },
     {
       key: 6,
-      title: "Tên người dùng",
+      title: "Chức vụ",
       dataIndex: "",
       render: (record) => {
         return <div>{record.role_id === 1 ? "Admin" : "Nhân viên"}</div>;
@@ -74,9 +88,7 @@ const User = () => {
             <EditIcon
               onClick={() => handleClickOpenModal(UserAction.EDIT, record.id)}
             />
-            <TrashIcon
-              onClick={() => handleClickOpenModal(UserAction.REMOVE, record.id)}
-            />
+            <TrashIcon onClick={() => handleClickOpenModalDelete(record.id)} />
           </div>
         );
       }
@@ -106,6 +118,12 @@ const User = () => {
         type={typeModal}
         id={id}
         getAllUser={getAllUser}
+      />
+      <ModalRemoveUser
+        getAllUser={getAllUser}
+        isOpenModalDelete={isOpenModalDelete}
+        close={handleCloseModalDelete}
+        id={idRemove}
       />
     </div>
   );
