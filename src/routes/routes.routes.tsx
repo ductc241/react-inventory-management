@@ -12,6 +12,7 @@ import {
   CategoryUpdatePage
 } from "../pages/category";
 import DashboardPage from "../pages/DashboardPage";
+import Layout_PriceBook from "../pages/PriceBook/Layout_PriceBook";
 import {
   ProductCreatePage,
   ProductListPage,
@@ -108,5 +109,10 @@ export const appRoutes: IRoute[] = [
     key: 17,
     path: routerPaths.PATH_ALL_USER,
     component: <User />
+  },
+  {
+    key: 18,
+    path: routerPaths.PATH_PRICE_BOOK,
+    component: <Layout_PriceBook />
   }
 ];
