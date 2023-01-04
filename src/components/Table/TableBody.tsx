@@ -21,19 +21,6 @@ const TableBody = ({
   const renderRow = (record: any) =>
     tableColumn.map((column) => {
       if (!column || !record) {
-<<<<<<< HEAD
-        return ''
-      }
-      return <td
-        key={column.key}
-        className={clsx(
-          "p-[14px] first:pl-[24px] last:pr-[24px] text-sm",
-          className
-        )}
-      >
-        {column.render ? column.render(record) : record[column.dataIndex]}
-      </td>
-=======
         return "";
       }
       return (
@@ -47,7 +34,6 @@ const TableBody = ({
           {column.render ? column.render(record) : record[column.dataIndex]}
         </td>
       );
->>>>>>> 664d1984db3391cc4c381248f42be28d26e53cc7
     });
 
   const renderRowLink = (record: any) =>

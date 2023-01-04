@@ -11,10 +11,7 @@ const SidebarCategory = () => {
 
   useEffect(() => {
     dispatch(listCategory());
-<<<<<<< HEAD
     // console.log(categorys);
-=======
->>>>>>> 664d1984db3391cc4c381248f42be28d26e53cc7
   }, [dispatch]);
 
   return (

@@ -49,10 +49,7 @@ const CategoryAdd = ({ mode }: ICategoryProps) => {
 
   useEffect(() => {
     dispatch(listCategory());
-<<<<<<< HEAD
     // console.log(categorys);
-=======
->>>>>>> 664d1984db3391cc4c381248f42be28d26e53cc7
   }, [dispatch]);
 
   return (
@@ -88,15 +85,7 @@ const CategoryAdd = ({ mode }: ICategoryProps) => {
             >
               <option selected>___ Lựa chọn ___</option>
               {categorys?.map((item: any) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
-                if (!item) return '';
-=======
                 if (!item) return "";
->>>>>>> 664d1984db3391cc4c381248f42be28d26e53cc7
-=======
-                if (!item) return "";
->>>>>>> 9c37a967c0e45584fef4d8ad3e5c4e4e1feb0593
                 return (
                   <option key={item.id} value={item.name}>
                     {item.name}

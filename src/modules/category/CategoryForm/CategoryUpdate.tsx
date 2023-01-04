@@ -50,7 +50,6 @@ const CategoryUpdate = ({ mode }: ICategoryProps) => {
         name: product.name,
         parent_id: product.parent_id
       };
-      }
       await dispatch(updateCategory(newProduct));
       toast.success("Cập nhập nhóm hàng thành công!");
       navigate("/category");
