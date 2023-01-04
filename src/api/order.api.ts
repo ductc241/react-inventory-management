@@ -1,4 +1,3 @@
-
 import instance from "./instance";
 
 export const add = (orders: any) => {
@@ -15,6 +14,3 @@ export const getOrder = (codeBill: string) => {
   const url = `/orders/${codeBill}`;
   return instance.get(url);
 };
-
-
-

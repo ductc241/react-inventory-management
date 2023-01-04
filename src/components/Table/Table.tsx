@@ -7,10 +7,11 @@ import TableHeader from "./TableHeader";
 const Table = ({
   dataSource,
   column,
-  textAlign = "left",
+  textAlign = "center",
   className,
   loading,
-  link
+
+  linkUrl
 }: ITableProps) => {
   return (
     <div className="overflow-hidden shadow-md rounded-lg border border-gray-200">
@@ -21,7 +22,7 @@ const Table = ({
           data={dataSource}
           className={`text-${textAlign}`}
           loading={loading}
-          link={link}
+          linkUrl={linkUrl}
         />
       </table>
     </div>

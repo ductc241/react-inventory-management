@@ -6,7 +6,8 @@ interface ITableBodyProps {
   tableColumn: ITableColumn[];
   className?: string;
   loading?: boolean;
-  link?: boolean;
+
+  linkUrl?: any;
 }
 
 const TableBody = ({
@@ -14,11 +15,13 @@ const TableBody = ({
   tableColumn,
   className,
   loading,
-  link
+
+  linkUrl
 }: ITableBodyProps) => {
   const renderRow = (record: any) =>
     tableColumn.map((column) => {
       if (!column || !record) {
+<<<<<<< HEAD
         return ''
       }
       return <td
@@ -30,17 +33,33 @@ const TableBody = ({
       >
         {column.render ? column.render(record) : record[column.dataIndex]}
       </td>
+=======
+        return "";
+      }
+      return (
+        <td
+          key={column.key}
+          className={clsx(
+            "p-[14px] first:pl-[24px] last:pr-[24px] text-sm",
+            className
+          )}
+        >
+          {column.render ? column.render(record) : record[column.dataIndex]}
+        </td>
+      );
+>>>>>>> 664d1984db3391cc4c381248f42be28d26e53cc7
     });
 
   const renderRowLink = (record: any) =>
-    tableColumn.map((column) => (
+    tableColumn.map((column, index) => (
       <td
+        key={index}
         className={clsx(
           "p-[14px] first:pl-[24px] last:pr-[24px] text-sm",
           className
         )}
       >
-        <Link to={`/receipt/${record.id}`}>
+        <Link to={`/${linkUrl}/${record.id}`}>
           {column.render ? column.render(record) : record[column.dataIndex]}
         </Link>
       </td>
@@ -65,7 +84,7 @@ const TableBody = ({
         key={index}
         className="border-b border-gray-200 text-lg leading-[27px] text-[#311339] hover:bg-emerald-50"
       >
-        {link == true ? renderRowLink(record) : renderRow(record)}
+        {linkUrl != undefined ? renderRowLink(record) : renderRow(record)}
       </tr>
     ));
   };
@@ -74,17 +93,17 @@ const TableBody = ({
     <tbody>
       <tr className="animate-pulse">
         <td className="p-[20px]" colSpan={tableColumn.length}>
-          <div className="h-2.5 w-[80%] bg-gray-200 rounded-full dark:bg-gray-300"></div>
+          <div className="h-2.5 w-[80%] bg-gray-200 rounded-full"></div>
         </td>
       </tr>
       <tr className="animate-pulse">
         <td className="p-[20px]" colSpan={tableColumn.length}>
-          <div className="h-2.5 w-[70%] bg-gray-200 rounded-full dark:bg-gray-300"></div>
+          <div className="h-2.5 w-[70%] bg-gray-200 rounded-full"></div>
         </td>
       </tr>
       <tr className="animate-pulse">
         <td className="p-[20px]" colSpan={tableColumn.length}>
-          <div className="h-2.5 w-[60%] bg-gray-200 rounded-full dark:bg-gray-300"></div>
+          <div className="h-2.5 w-[60%] bg-gray-200 rounded-full"></div>
         </td>
       </tr>
     </tbody>

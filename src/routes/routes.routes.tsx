@@ -1,27 +1,28 @@
 import PriceSetting from "../modules/priceSetting/priceSetting";
 import DetailReceipt from "../modules/receipt/DetailReceipt";
 import ExportShipments from "../modules/transaction/ExportShipments/Index";
+import ShipmentDetail from "../modules/transaction/shipments/ShipmentDetail";
 import ShipMentsForm from "../modules/transaction/shipments/ShipmentsForm";
 import ShipmentsTable from "../modules/transaction/shipments/shipmentsTable";
 import TransactionTable from "../modules/transaction/TransactionTable";
+import User from "../modules/user";
 import {
   CategoryCreatePage,
   CategoryListPage,
   CategoryUpdatePage
 } from "../pages/category";
 import DashboardPage from "../pages/DashboardPage";
+import Layout_PriceBook from "../pages/PriceBook/Layout_PriceBook";
 import {
   ProductCreatePage,
   ProductListPage,
   ProductUpdatePage
 } from "../pages/product";
-import ReceiptPages from "../pages/receipt/ReceiptPages";
 import SoQuyListPage from "../pages/SoQuy/SoQuyListPage";
 import SuplierPage from "../pages/supplier/SupllierPage";
 
 import IRoute from "../types/router.type";
 import * as routerPaths from "./routes.paths";
-
 export const appRoutes: IRoute[] = [
   {
     key: 1,
@@ -98,5 +99,20 @@ export const appRoutes: IRoute[] = [
     key: 15,
     path: routerPaths.PATH_EXPORT_SHIPMENT,
     component: <ExportShipments />
+  },
+  {
+    key: 16,
+    path: routerPaths.PATH_IMPORT_SHIPMENT_DETAIL,
+    component: <ShipmentDetail />
+  },
+  {
+    key: 17,
+    path: routerPaths.PATH_ALL_USER,
+    component: <User />
+  },
+  {
+    key: 18,
+    path: routerPaths.PATH_PRICE_BOOK,
+    component: <Layout_PriceBook />
   }
 ];

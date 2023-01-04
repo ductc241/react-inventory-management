@@ -1,30 +1,27 @@
-import React from 'react'
-import ReactPaginate from 'react-paginate'
-import { Caret } from '../../components/icons'
-
+import React from "react";
+import ReactPaginate from "react-paginate";
+import { Caret } from "../../components/icons";
 
 const KhachHang = () => {
   return (
     <div>
       <div className="mt-4 mx-4">
         <div className="md:col-span-2 xl:col-span-3">
-          <h3 className="text-lg font-semibold">
-            Khách hàng
-          </h3>
+          <h3 className="text-lg font-semibold">Khách hàng</h3>
         </div>
         <div className="w-full overflow-hidden rounded-lg shadow-xs mt-4 border shadow-lg">
           <div className="w-full overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                <tr className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b  bg-gray-50">
                   <th className="px-4 py-3">Khách hàng</th>
                   <th className="px-4 py-3">Tổng tiền</th>
                   <th className="px-4 py-3">Trạng thái</th>
                   <th className="px-4 py-3">Thời gian</th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+              <tbody className="bg-white divide-y">
+                <tr className="bg-gray-50 hover:bg-gray-100 text-gray-700">
                   <td className="px-4 py-3">
                     <div className="flex items-center text-sm">
                       <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
@@ -40,21 +37,21 @@ const KhachHang = () => {
                       </div>
                       <div>
                         <p className="font-semibold">Hans Burger</p>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
-                          0123456789
-                        </p>
+                        <p className="text-xs text-gray-600">0123456789</p>
                       </div>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-sm">10.000.000 <span className="font-mono">VNĐ</span></td>
+                  <td className="px-4 py-3 text-sm">
+                    10.000.000 <span className="font-mono">VNĐ</span>
+                  </td>
                   <td className="px-4 py-3 text-xs">
-                    <span className="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                    <span className="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full">
                       Đã thanh toán{" "}
                     </span>
                   </td>
                   <td className="px-4 py-3 text-sm">15-01-2021</td>
                 </tr>
-                <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                <tr className="bg-gray-50 hover:bg-gray-100 text-gray-700">
                   <td className="px-4 py-3">
                     <div className="flex items-center text-sm">
                       <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
@@ -70,21 +67,21 @@ const KhachHang = () => {
                       </div>
                       <div>
                         <p className="font-semibold">Hitney Wouston</p>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
-                          0123456789
-                        </p>
+                        <p className="text-xs text-gray-600">0123456789</p>
                       </div>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-sm">850.000 <span className="font-mono">VNĐ</span></td>
+                  <td className="px-4 py-3 text-sm">
+                    850.000 <span className="font-mono">VNĐ</span>
+                  </td>
                   <td className="px-4 py-3 text-xs">
-                    <span className="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700">
+                    <span className="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full">
                       Chưa thanh toán{" "}
                     </span>
                   </td>
                   <td className="px-4 py-3 text-sm">11-01-2021</td>
                 </tr>
-                <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                <tr className="bg-gray-50 hover:bg-gray-100 text-gray-700">
                   <td className="px-4 py-3">
                     <div className="flex items-center text-sm">
                       <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
@@ -100,21 +97,21 @@ const KhachHang = () => {
                       </div>
                       <div>
                         <p className="font-semibold">Hans Burger</p>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
-                          0123456789
-                        </p>
+                        <p className="text-xs text-gray-600">0123456789</p>
                       </div>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-sm">10.000.000 <span className="font-mono">VNĐ</span></td>
+                  <td className="px-4 py-3 text-sm">
+                    10.000.000 <span className="font-mono">VNĐ</span>
+                  </td>
                   <td className="px-4 py-3 text-xs">
-                    <span className="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                    <span className="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full ">
                       Đã thanh toán{" "}
                     </span>
                   </td>
                   <td className="px-4 py-3 text-sm">15-01-2021</td>
                 </tr>
-                <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                <tr className="bg-gray-50 hover:bg-gray-100 text-gray-700">
                   <td className="px-4 py-3">
                     <div className="flex items-center text-sm">
                       <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
@@ -130,21 +127,21 @@ const KhachHang = () => {
                       </div>
                       <div>
                         <p className="font-semibold">Hitney Wouston</p>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
-                          0123456789
-                        </p>
+                        <p className="text-xs text-gray-600">0123456789</p>
                       </div>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-sm">850.000 <span className="font-mono">VNĐ</span></td>
+                  <td className="px-4 py-3 text-sm">
+                    850.000 <span className="font-mono">VNĐ</span>
+                  </td>
                   <td className="px-4 py-3 text-xs">
-                    <span className="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700">
+                    <span className="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full">
                       Chưa thanh toán{" "}
                     </span>
                   </td>
                   <td className="px-4 py-3 text-sm">11-01-2021</td>
                 </tr>
-                <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                <tr className="bg-gray-50 hover:bg-gray-100 text-gray-700">
                   <td className="px-4 py-3">
                     <div className="flex items-center text-sm">
                       <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
@@ -160,21 +157,21 @@ const KhachHang = () => {
                       </div>
                       <div>
                         <p className="font-semibold">Hans Burger</p>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
-                          0123456789
-                        </p>
+                        <p className="text-xs text-gray-600">0123456789</p>
                       </div>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-sm">10.000.000 <span className="font-mono">VNĐ</span></td>
+                  <td className="px-4 py-3 text-sm">
+                    10.000.000 <span className="font-mono">VNĐ</span>
+                  </td>
                   <td className="px-4 py-3 text-xs">
-                    <span className="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                    <span className="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full">
                       Đã thanh toán{" "}
                     </span>
                   </td>
                   <td className="px-4 py-3 text-sm">15-01-2021</td>
                 </tr>
-                <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                <tr className="bg-gray-50 hover:bg-gray-100 text-gray-700">
                   <td className="px-4 py-3">
                     <div className="flex items-center text-sm">
                       <div className="relative hidden w-8 h-8 mr-3 rounded-full md:block">
@@ -190,15 +187,15 @@ const KhachHang = () => {
                       </div>
                       <div>
                         <p className="font-semibold">Hitney Wouston</p>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
-                          0123456789
-                        </p>
+                        <p className="text-xs text-gray-600">0123456789</p>
                       </div>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-sm">850.000 <span className="font-mono">VNĐ</span></td>
+                  <td className="px-4 py-3 text-sm">
+                    850.000 <span className="font-mono">VNĐ</span>
+                  </td>
                   <td className="px-4 py-3 text-xs">
-                    <span className="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700">
+                    <span className="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full">
                       Chưa thanh toán{" "}
                     </span>
                   </td>
@@ -207,7 +204,7 @@ const KhachHang = () => {
               </tbody>
             </table>
           </div>
-          <div className="grid px-4 py-3 font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+          <div className="grid px-4 py-3 font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9">
             <span className="flex items-center col-span-3"></span>
             <span className="col-span-2" />
             {/* Pagination */}
@@ -221,13 +218,11 @@ const KhachHang = () => {
                 nextLabel={<Caret className="rotate-180" width={"15px"} />}
               />
             </span>
-
           </div>
         </div>
-
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default KhachHang
+export default KhachHang;

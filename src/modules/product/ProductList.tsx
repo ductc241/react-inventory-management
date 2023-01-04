@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import productServices from "../../api/product.api";
 
 import { Table, Modal, Button } from "../../components";
 import { Caret, EditIcon, TrashIcon } from "../../components/icons";
 import { ITableColumn } from "../../components/Table/Table.types";
 import { IProduct } from "../../types/product.type";
+import { isAuthenticated } from "../../utils/localStorage/localStorega";
 
 const ProductList = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState<IProduct[]>([]);
-
+  console.log(products);
   const columns: ITableColumn[] = [
     {
       key: 1,
@@ -65,13 +67,22 @@ const ProductList = () => {
       setProducts(data.data);
     });
   }, []);
-
+  const user = isAuthenticated();
   return (
     <>
       <div className="flex justify-end mb-5">
-        <Link to="/products/add" className="contents">
-          <Button>Thêm sản phẩm</Button>
-        </Link>
+        {user.role_id === 1 ? (
+          <Link to="/products/add" className="contents">
+            <Button>Thêm sản phẩm</Button>
+          </Link>
+        ) : (
+          <div
+            onClick={() => toast.error("bạn không có quyền ")}
+            className="contents"
+          >
+            <Button>Thêm sản phẩm</Button>
+          </div>
+        )}
       </div>
 
       <Table dataSource={products} column={columns} />

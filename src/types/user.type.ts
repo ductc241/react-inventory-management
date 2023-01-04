@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export type UserType = {
   id?: number;
   userName?: string;
@@ -5,3 +6,9 @@ export type UserType = {
   password: string;
   role?: number;
 };
+
+export enum UserAction {
+  ADD,
+  EDIT,
+  REMOVE
+}

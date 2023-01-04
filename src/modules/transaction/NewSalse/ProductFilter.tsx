@@ -4,24 +4,28 @@ import { AppDispatch } from "../../../store/store";
 import { Button } from "../../../components";
 import { PictureIcon } from "../../../components/icons";
 import { updateOrderItem } from "../../../store/slice/order.slice";
-
-const products = [
-  { id: 1, name: "Sạc điện thoại", price: 150000 },
-  { id: 2, name: "Ốp lưng iphone ", price: 150000 },
-  { id: 3, name: "Sạc điện thoại", price: 150000 },
-  { id: 4, name: "Sạc điện thoại", price: 150000 },
-  { id: 5, name: "Sạc điện thoại", price: 150000 },
-  { id: 6, name: "Sạc điện thoại", price: 150000 },
-  { id: 7, name: "Sạc điện thoại", price: 150000 },
-  { id: 8, name: "Sạc điện thoại", price: 150000 }
-];
+import productServices from "../../../api/product.api";
+import { useEffect, useState } from "react";
+import { IProduct } from "../../../types/product.type";
+import FormatNumber from "../../../components/formatNumber/formatNumber";
 
 interface IProps {
   toggleCheckout: () => void;
 }
 
 const ProductFilter = ({ toggleCheckout }: IProps) => {
+  const [products, setProducts] = useState<IProduct[]>([]);
   const dispatch: AppDispatch = useDispatch();
+
+  useEffect(() => {
+    const getProducts = async () => {
+      const products = await productServices.getProducts();
+
+      setProducts(products.data.data);
+    };
+
+    getProducts();
+  }, []);
 
   return (
     <div className="flex flex-col	justify-between h-full bg-white rounded-md">
@@ -49,9 +53,12 @@ const ProductFilter = ({ toggleCheckout }: IProps) => {
                   <div className="p-4 bg-gray-100 rounded-md mr-3">
                     <PictureIcon fill="orange" />
                   </div>
-                  <div className="text-base font-medium">
+                  <div className="font-medium">
                     <p className="mb-1.5">{item.name}</p>
-                    <p className="text-blue-400">{item.price}</p>
+                    <p className="text-blue-400">
+                      {FormatNumber({ number: item.price })} VNĐ
+                    </p>
+                    <p className="mt-1">Tồn {item.quantity}</p>
                   </div>
                 </div>
               </div>
@@ -66,7 +73,7 @@ const ProductFilter = ({ toggleCheckout }: IProps) => {
           className="py-4 text-xl"
           onClick={() => toggleCheckout()}
         >
-          Đặt hàng
+          Tạo hóa đơn
         </Button>
       </div>
     </div>

@@ -11,7 +11,10 @@ const SidebarCategory = () => {
 
   useEffect(() => {
     dispatch(listCategory());
+<<<<<<< HEAD
     // console.log(categorys);
+=======
+>>>>>>> 664d1984db3391cc4c381248f42be28d26e53cc7
   }, [dispatch]);
 
   return (
@@ -21,14 +24,17 @@ const SidebarCategory = () => {
           <ul className="space-y-2">
             <li>
               <div
-                className="flex items-center p-2 w-full text-lg font-normal text-gray-900 transition duration-75 group  bg-[#F3F4F6]"
+                className="flex items-center p-2 w-full text-lg font-normal text-gray-900 transition duration-75 group bg-[#F3F4F6]"
                 aria-controls="dropdown-example"
                 data-collapse-toggle="dropdown-example"
               >
                 <span className="flex-1 ml-3 text-left whitespace-nowrap">
                   Nhóm hàng
                 </span>
-                <a href="https://res.cloudinary.com/dsirnbuyv/image/upload/v1666464107/plus-symbol-button_vkbpat.png" download></a>
+                <a
+                  href="https://res.cloudinary.com/dsirnbuyv/image/upload/v1666464107/plus-symbol-button_vkbpat.png"
+                  download
+                ></a>
                 <div className="add_sidebar mr-2">
                   <Link to="/category">
                     <img

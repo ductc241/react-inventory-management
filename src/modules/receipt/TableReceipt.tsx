@@ -1,14 +1,10 @@
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { listRecei } from "../../api/receipt.api";
-import { list } from "../../api/supplier.api";
-import { Modal, Table } from "../../components";
-import Button from "../../components/Button/Button";
+import ReactPaginate from "react-paginate";
+import { Caret } from "../../components/icons";
 import { ITableColumn } from "../../components/Table/Table.types";
+import Table from "./TableExportShipments";
 
 type Props = {
-  visible?: boolean;
-  updateVisible?: (e: boolean) => void;
+  data?: any;
 };
 
 type Inputs = {
@@ -26,63 +22,85 @@ type Inputs = {
 };
 
 const TableReceipt = (props: Props) => {
-  const [data, setData] = useState<any>([]);
-
-  const getReceipt = async () => {
-    try {
-      const { data } = await listRecei();
-
-      setData(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    getReceipt();
-  }, []);
-
   const columns: ITableColumn[] = [
     {
       key: 1,
-      title: "ID",
-      dataIndex: "codeBill"
+      title: "ID | Ngày",
+      dataIndex: "id",
+      render: (item: any) => {
+        return (
+          <>
+            <p className="text-center">{item?.id}</p>
+            <p className="text-center">{item?.created_at}</p>
+          </>
+        );
+      }
     },
-    {
-      key: 2,
-      title: "Ngày",
-      dataIndex: "Time"
-    },
+
     {
       key: 3,
-      title: "Kho hàng",
-      dataIndex: "Kho hàng"
+      title: "Loại ",
+      dataIndex: "",
+      render: (item: any) => (
+        <>
+          {item.export_type == 1 && (
+            <>
+              <p className="text-red-500">Xuất nhà cung cấp</p>
+              <p>{item.seller_name}</p>
+            </>
+          )}
+          {item.export_type == 2 && (
+            <>
+              <p className="text-red-500">Xuất khác</p>
+            </>
+          )}
+          {item.export_type == 3 && (
+            <>
+              <p className="text-red-500">Xuất bán lẻ</p>
+            </>
+          )}
+        </>
+      )
     },
-    {
-      key: 4,
-      title: "Sản phẩm",
-      dataIndex: "Client"
-    },
+
     {
       key: 5,
       title: "Số lượng",
-      dataIndex: "TotalAmount"
+      dataIndex: "quantity"
     },
     {
       key: 6,
       title: "Tổng tiền",
-      dataIndex: "Discount"
+      dataIndex: "totall_price",
+      render: (item: any) => <p>{item?.totall_price.toLocaleString("en")}</p>
     },
     {
       key: 7,
       title: "Người tạo",
-      dataIndex: "CustomerPaid"
+      dataIndex: "user_name"
+    },
+    {
+      key: 8,
+      title: "Ghi chú",
+      dataIndex: ""
     }
   ];
 
   return (
     <>
-      List Table
-      {/* <Table dataSource={data} column={columns} link={true} /> */}
+      <Table
+        dataSource={props?.data}
+        column={columns}
+        linkUrl={location.href.split("/")[3]}
+      />
+      <ReactPaginate
+        pageCount={10}
+        containerClassName="pagination mt-5"
+        pageClassName="pagination_item"
+        activeClassName="pagination_active"
+        previousLabel={<Caret width={"15px"} />}
+        nextLabel={<Caret className="rotate-180" width={"15px"} />}
+      />
     </>
   );
 };

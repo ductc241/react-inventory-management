@@ -1,35 +1,46 @@
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { listShipments } from "../../../api/shipments";
-import { Modal, Select, Table } from "../../../components";
+import { list } from "../../../api/supplier.api";
+import { Select, Table } from "../../../components";
 import { Caret } from "../../../components/icons";
 import { ITableColumn } from "../../../components/Table/Table.types";
-import { useAppDispatch } from "../../../hook/hook";
-import { deleteShipmentsThunk } from "../../../store/slice/shipments";
 import IOption from "../../../types/option.model";
-import { BrandOptions } from "../../product/ProductForm/ProductForm.constants";
+import { isAuthenticated } from "../../../utils/localStorage/localStorega";
 
 const ShipmentsTable = () => {
-  const [valueSelect, setValueSelect] = useState<IOption>();
-  const useDispatch = useAppDispatch();
-  const [open, setOpen] = useState(false);
-  const [idDelete, setIdDelete] = useState(0);
+  const [valueSelect, setValueSelect] = useState<IOption[]>([]);
+  const [optionValue, setOptionValue] = useState<IOption>();
   const [data, setData] = useState([]);
 
-  const handleConfirm = () => {
-    if (idDelete !== 0) {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useDispatch(deleteShipmentsThunk(+idDelete));
-    }
-    setOpen(false);
+  const getShipmentData = async () => {
+    const { data } = await listShipments();
+    setData(data.data);
   };
+
+  const getSupplier = async () => {
+    const res = await list();
+    setValueSelect(res.data);
+  };
+
+  const dataFilter: { value: ""; label: "" }[] = valueSelect?.map(
+    (item: any) => ({
+      value: item.id,
+      label: item.name
+    })
+  );
+
+  const dataSource = data.filter((item: any) =>
+    item.supplier_name
+      .toLowerCase()
+      .includes(optionValue?.label?.toLocaleString().toLowerCase())
+  );
+
   useEffect(() => {
-    const getShipmentData = async () => {
-      const { data } = await listShipments();
-      setData(data.data);
-    };
     getShipmentData();
+    getSupplier();
   }, []);
 
   const columns: ITableColumn[] = [
@@ -81,29 +92,44 @@ const ShipmentsTable = () => {
     }
   ];
 
+  const user = isAuthenticated();
+
   return (
     <div>
       <div className="flex justify-between mb-5">
-        <Select
-          className="w-96"
-          options={BrandOptions}
-          handleClickChange={(data) => setValueSelect(data)}
-          option={valueSelect}
-        />
-        <Link to="/import_shipments/add">
-          <div className="bg-green-500 hover:bg-green-600 px-6 py-[12px] rounded-md leading-6 cursor-pointer text-white text-sm font-medium">
+        {dataFilter && dataFilter.length !== 0 && (
+          <Select
+            className="w-96"
+            options={dataFilter}
+            handleClickChange={(data) => setOptionValue(data)}
+            option={optionValue}
+          />
+        )}
+        {user.role_id === 1 ? (
+          <Link to="/import_shipments/add">
+            <div className=" bg-green-500 hover:bg-green-600 px-6 py-[12px] rounded-md leading-6 cursor-pointer text-white text-sm font-medium">
+              Tạo Phiếu
+            </div>
+          </Link>
+        ) : (
+          <div
+            onClick={() => {
+              toast.error(
+                "ạn không phải là chủ cửa hàng nên ko thể tọa phiếu nhập"
+              );
+            }}
+            className=" bg-green-500 hover:bg-green-600 px-6 py-[12px] rounded-md leading-6 cursor-pointer text-white text-sm font-medium"
+          >
             Tạo Phiếu
           </div>
-        </Link>
+        )}
       </div>
-      <Modal
-        visible={open}
-        title="Xoá phiếu nhập"
-        onCancel={() => setOpen(false)}
-        onOk={() => handleConfirm()}
-      />
       <div>
-        <Table column={columns} dataSource={data} />
+        <Table
+          column={columns}
+          dataSource={dataSource.length !== 0 ? dataSource : data}
+          linkUrl={location.href.split("/")[3]}
+        />
         <ReactPaginate
           pageCount={10}
           containerClassName="pagination mt-5"

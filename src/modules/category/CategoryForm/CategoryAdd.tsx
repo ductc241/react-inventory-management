@@ -49,7 +49,10 @@ const CategoryAdd = ({ mode }: ICategoryProps) => {
 
   useEffect(() => {
     dispatch(listCategory());
+<<<<<<< HEAD
     // console.log(categorys);
+=======
+>>>>>>> 664d1984db3391cc4c381248f42be28d26e53cc7
   }, [dispatch]);
 
   return (
@@ -75,7 +78,7 @@ const CategoryAdd = ({ mode }: ICategoryProps) => {
           <div>
             <label
               htmlFor="countries"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+              className="block mb-2 text-sm font-medium text-gray-900"
             >
               Nhóm cha
             </label>
@@ -85,7 +88,11 @@ const CategoryAdd = ({ mode }: ICategoryProps) => {
             >
               <option selected>___ Lựa chọn ___</option>
               {categorys?.map((item: any) => {
+<<<<<<< HEAD
                 if (!item) return '';
+=======
+                if (!item) return "";
+>>>>>>> 664d1984db3391cc4c381248f42be28d26e53cc7
                 return (
                   <option key={item.id} value={item.name}>
                     {item.name}

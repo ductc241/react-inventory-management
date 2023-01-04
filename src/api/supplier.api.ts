@@ -21,7 +21,7 @@ export const remove = (id: number) => {
   return instance.delete(url);
 };
 
-export const update = (supplier:ISupplier ) => {
+export const update = (supplier: ISupplier) => {
   const url = `suppliers/${supplier.id}`;
   return instance.put(url, supplier);
 };

@@ -6,10 +6,16 @@ interface IProductOrder {
 
 export interface IOrderCreate {
   user_id: number;
-  address?: string;
-  export_date: string;
-  phone?: string;
-  total_price: number;
+  export_type: number;
+  payment: number;
   products: IProductOrder[];
-  status: string;
+
+  supplier_id: number | null;
+  user_name: string | null;
+  phone_number: string | null;
+  address: string;
+  description: string;
+
+  export_date: string;
+  receve_phone: string | null;
 }
