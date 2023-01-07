@@ -27,23 +27,15 @@ const App = () => {
               </PrivateRouter>
             }
           >
-            {appRoutes.map((route: IRoute) => {
-              console.log(route?.role?.includes(user.role_id), "sagg");
-
-              return (
-                <Route
-                  path={route.path}
-                  element={
-                    route?.role?.includes(user.role_id) == true ? (
-                      <NotFound404 />
-                    ) : (
-                      route.component
-                    )
-                  }
-                  key={route.path}
-                />
-              );
-            })}
+            {appRoutes.map((route: IRoute) => (
+              <Route
+                path={
+                  route?.role?.includes(user.role_id) == true ? "" : route.path
+                }
+                element={route.component}
+                key={route.path}
+              />
+            ))}
           </Route>
 
           {/* <Route path="admin">
