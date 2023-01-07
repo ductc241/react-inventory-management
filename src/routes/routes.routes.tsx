@@ -61,16 +61,6 @@ export const appRoutes: IRoute[] = [
     component: <CategoryListPage />
   },
   {
-    key: 8,
-    path: routerPaths.PATH_CATEGORY_ADD,
-    component: <CategoryCreatePage />
-  },
-  {
-    key: 9,
-    path: routerPaths.PATH_CATEGORY_UPDATE,
-    component: <CategoryUpdatePage />
-  },
-  {
     key: 10,
     path: routerPaths.PATH_SoQuy,
     component: <SoQuyListPage />
