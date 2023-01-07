@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import User from ".";
 import { deleteUser, getOneUser } from "../../api/user.api";
 import { Modal } from "../../components";
+import { isAuthenticated } from "../../utils/localStorage/localStorega";
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 type Props = {
@@ -44,12 +46,17 @@ const ModalRemoveUser = ({
       toast.warning(`Xoá nhân viên: ${name} không thành công`);
     }
   };
+  const user = isAuthenticated();
   return (
     <Modal
       visible={isOpenModalDelete}
       title="Xoá nhân viên"
       onCancel={close}
-      onOk={handleOk}
+      onOk={() => {
+        if (user.role_id === 1) {
+          handleOk;
+        }
+      }}
     >
       <div>Bạn có chắc muốn xoá: {name}</div>
     </Modal>
