@@ -18,16 +18,19 @@ const ModalRemoveUser = ({
   id
 }: Props) => {
   const [name, setName] = useState("");
-  useEffect(() => {
-    const getOneUserRemove = async () => {
-      const res = await getOneUser(id);
 
-      if (res.status === 200) {
-        const { data } = res;
-        setName(data.data.name);
-      }
-    };
-    getOneUserRemove();
+  useEffect(() => {
+    if (id) {
+      const getOneUserRemove = async () => {
+        const res = await getOneUser(id);
+
+        if (res.status === 200) {
+          const { data } = res;
+          setName(data.data.name);
+        }
+      };
+      getOneUserRemove();
+    }
   }, [id]);
 
   const handleOk = async () => {

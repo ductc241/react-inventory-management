@@ -2,10 +2,10 @@ import { Table, Button } from "../../components";
 import { EditIcon, TrashIcon } from "../../components/icons";
 import { ITableColumn } from "../../components/Table/Table.types";
 import { useEffect, useState } from "react";
-import FornAction from "../user/formAction";
 import ModalRemoveUser from "../user/modalRemoveUser";
 import { listCategoryAPI } from "../../api/category";
 import { CategoryAction } from "../../types/category.type";
+import CategoryForm from "./CategoryForm/CategoryForm";
 
 // const CategoryList = () => {
 //   const categorys = useSelector((state: any) => state.category?.categorys);
@@ -65,7 +65,7 @@ import { CategoryAction } from "../../types/category.type";
 //     <>
 //       {/* {categorys?.map((item: any) => {
 //       return (
-//         <Table 
+//         <Table
 //         dataSource={dataSource}
 //         column={columns} />
 //       )
@@ -92,8 +92,8 @@ import { CategoryAction } from "../../types/category.type";
 
 const CategoryList = () => {
   const [listCategory, setListCategory] = useState([]);
-  const [issOpenModalAddEdit, setIssOpenModalAddEdit] = useState(false);
-  const [issOpenModalDelete, setIssOpenModalDelete] = useState(false);
+  const [isOpenModalAddEdit, setIsOpenModalAddEdit] = useState(false);
+  const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
   const [typeModal, setTypeModal] = useState(CategoryAction.ADD);
   const [id, setID] = useState();
   const [idRemove, setIDRemove] = useState();
@@ -113,18 +113,18 @@ const CategoryList = () => {
       setID(id);
     }
     setTypeModal(type);
-    setIssOpenModalAddEdit((prev) => !prev);
+    setIsOpenModalAddEdit((prev) => !prev);
   };
 
   const handleClickOpenModalDelete = (id: any) => {
     if (id) {
       setIDRemove(id);
     }
-    setIssOpenModalDelete((prev) => !prev);
+    setIsOpenModalDelete((prev) => !prev);
   };
 
   const handleCloseModalDelete = () => {
-    setIssOpenModalDelete(false);
+    setIsOpenModalDelete(false);
   };
 
   const column: ITableColumn[] = [
@@ -146,7 +146,9 @@ const CategoryList = () => {
         return (
           <div className="flex items-center gap-5 justify-center">
             <EditIcon
-              onClick={() => handleClickOpenModal(CategoryAction.EDIT, records.id)}
+              onClick={() =>
+                handleClickOpenModal(CategoryAction.EDIT, records.id)
+              }
             />
             <TrashIcon onClick={() => handleClickOpenModalDelete(records.id)} />
           </div>
@@ -156,7 +158,7 @@ const CategoryList = () => {
   ];
 
   const handleClose = () => {
-    setIssOpenModalAddEdit(false);
+    setIsOpenModalAddEdit(false);
   };
   return (
     <div>
@@ -172,16 +174,16 @@ const CategoryList = () => {
         </Button>
       </div>
       <Table column={column} dataSource={listCategory ? listCategory : []} />
-      <FornAction
-        open={issOpenModalAddEdit}
+      <CategoryForm
+        open={isOpenModalAddEdit}
         close={handleClose}
         typeCate={typeModal}
         id={id}
-        getAllUser={listCategoryAPI}
+        getAllCate={listCategoryAPI}
       />
       <ModalRemoveUser
         getAllUser={listCategoryAPI}
-        isOpenModalDelete={issOpenModalDelete}
+        isOpenModalDelete={isOpenModalDelete}
         close={handleCloseModalDelete}
         id={idRemove}
       />

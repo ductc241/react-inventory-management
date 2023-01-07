@@ -2,16 +2,19 @@ import { useForm, Controller } from "react-hook-form";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { CategoryAction } from "../../../types/category.type";
-import { addCategoryAPI, getCategoryAPI, updateCategoryAPI } from "../../../api/category";
+import {
+  addCategoryAPI,
+  getCategoryAPI,
+  updateCategoryAPI
+} from "../../../api/category";
 import { TextField, Modal, Button } from "../../../components";
 
-
 type Props = {
-  openCate: boolean;
-  closeCate: () => void;
-  typeCate: CategoryAction;
-  idCate?: any;
+  open: boolean;
+  close: () => void;
+  id?: any;
   getAllCate?: any;
+  typeCate: any;
 };
 
 type Inputs = {
@@ -111,13 +114,13 @@ type Inputs = {
 //   );
 // };
 
-const CategoryAdd = ({ openCate, closeCate, typeCate, idCate, getAllCate }: Props) => {
+const CategoryForm = ({ open, close, id, typeCate, getAllCate }: Props) => {
   const { control, handleSubmit, register, reset } = useForm<Inputs>();
 
   useEffect(() => {
     if (typeCate === CategoryAction.EDIT) {
       const getOneCategoryData = async () => {
-        const res = await getCategoryAPI(idCate);
+        const res = await getCategoryAPI(id);
         if (res.status === 200) {
           const { data } = res;
           reset(data.data);
@@ -125,14 +128,14 @@ const CategoryAdd = ({ openCate, closeCate, typeCate, idCate, getAllCate }: Prop
       };
       getOneCategoryData();
     }
-  }, [idCate, reset, typeCate]); 
+  }, [id, reset, typeCate]);
 
   const onSubmit = async (data: Inputs) => {
     const { name, parent_id } = data;
 
     const cloneData = {
       name,
-      parent_id,
+      parent_id
     };
 
     if (typeCate === CategoryAction.ADD) {
@@ -140,7 +143,7 @@ const CategoryAdd = ({ openCate, closeCate, typeCate, idCate, getAllCate }: Prop
 
       if (res.status === 200) {
         getAllCate();
-        closeCate();
+        close();
         reset();
         toast.success("Thêm hàng hoá thành công");
       }
@@ -150,10 +153,10 @@ const CategoryAdd = ({ openCate, closeCate, typeCate, idCate, getAllCate }: Prop
     }
 
     if (typeCate === CategoryAction.EDIT) {
-      const res = await updateCategoryAPI(idCate, cloneData);
+      const res = await updateCategoryAPI(id, cloneData);
       if (res.status === 200) {
         getAllCate();
-        closeCate();
+        close();
         reset();
         toast.success("Thêm hàng hoá thành công");
       }
@@ -165,9 +168,11 @@ const CategoryAdd = ({ openCate, closeCate, typeCate, idCate, getAllCate }: Prop
   return (
     <Modal
       showButtons={false}
-      visible={openCate}
-      onCancel={closeCate}
-      title={typeCate === CategoryAction.ADD ? "Thêm hàng hoá" : "Chỉnh sửa hàng hoá"}
+      visible={open}
+      onCancel={close}
+      title={
+        typeCate === CategoryAction.ADD ? "Thêm hàng hoá" : "Chỉnh sửa hàng hoá"
+      }
     >
       <form className="mb-5" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex gap-5 items-center w-[500px]">
@@ -200,4 +205,4 @@ const CategoryAdd = ({ openCate, closeCate, typeCate, idCate, getAllCate }: Prop
   );
 };
 
-export default CategoryAdd;
+export default CategoryForm;

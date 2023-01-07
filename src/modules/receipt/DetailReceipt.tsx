@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
 import { getRecei, listRecei } from "../../api/receipt.api";
 import { Button, Table } from "../../components";
@@ -22,9 +22,14 @@ const DetailReceipt = () => {
     setDatas(dataa);
     setDataList(data.data);
   };
+  const navigate = useNavigate();
 
   useEffect(() => {
-    getReceiptId();
+    if (!Number(id)) {
+      navigate("/*");
+    } else {
+      getReceiptId();
+    }
   }, []);
 
   const reportTemplateRef = useRef<any>(null);

@@ -66,6 +66,9 @@ const FornAction = ({ open, close, types, id, getAllUser }: Props) => {
 
     if (types === UserAction.EDIT) {
       const res = await updateUser(id, cloneData);
+
+      console.log(res);
+
       if (res.status === 200) {
         getAllUser();
         close();
