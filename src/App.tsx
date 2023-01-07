@@ -29,14 +29,10 @@ const App = () => {
           >
             {appRoutes.map((route: IRoute) => (
               <Route
-                path={route.path}
-                element={
-                  route?.role?.includes(user.role_id) == true ? (
-                    <NotFound404 />
-                  ) : (
-                    route.component
-                  )
+                path={
+                  route?.role?.includes(user.role_id) == true ? "" : route.path
                 }
+                element={route.component}
                 key={route.path}
               />
             ))}
