@@ -17,6 +17,7 @@ const User = () => {
 
   const getAllUser = async () => {
     const res = await getAllUserApi();
+
     if (res.status === 200) {
       setListUser(res.data.data);
     }
