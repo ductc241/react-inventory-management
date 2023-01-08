@@ -13,7 +13,6 @@ import { isAuthenticated } from "../../utils/localStorage/localStorega";
 const ProductList = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState<IProduct[]>([]);
-  console.log(products);
   const columns: ITableColumn[] = [
     {
       key: 1,

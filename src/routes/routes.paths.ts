@@ -23,7 +23,13 @@ export const PATH_SoQuy = "/soquy";
 export const PATH_PRICE_SETTING = "/price-setting";
 
 export const PATH_RECEIPT = "/receipt";
-
 export const PATH_RECEIPT_ID = "/receipt/:id";
 
 export const PATH_EXPORT_SHIPMENT = "/export_shipment";
+
+// report
+export const PATH_REPORT_REVENUE = "/report/revenue";
+export const PATH_REPORT_REVENUE_PRODUCT = "/report/revenue/product";
+export const PATH_REPORT_REVENUE_SUPPLIER = "/report/revenue/supplier";
+
+export const PATH_REPORT_INVENTORY = "/report/inventory";
