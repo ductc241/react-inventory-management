@@ -6,12 +6,14 @@ import ShipmentDetail from "../modules/transaction/shipments/ShipmentDetail";
 import ShipMentsForm from "../modules/transaction/shipments/ShipmentsForm";
 import ShipmentsTable from "../modules/transaction/shipments/shipmentsTable";
 import TransactionTable from "../modules/transaction/TransactionTable";
+import User from "../modules/user";
 import {
   CategoryCreatePage,
   CategoryListPage,
   CategoryUpdatePage
 } from "../pages/category";
 import DashboardPage from "../pages/DashboardPage";
+import Layout_PriceBook from "../pages/PriceBook/Layout_PriceBook";
 import {
   ProductCreatePage,
   ProductListPage,
@@ -39,12 +41,14 @@ export const appRoutes: IRoute[] = [
   {
     key: 3,
     path: routerPaths.PATH_PRODUCTS_ADD,
-    component: <ProductCreatePage />
+    component: <ProductCreatePage />,
+    role: [2]
   },
   {
     key: 4,
     path: routerPaths.PATH_PRODUCTS_UPDATE,
-    component: <ProductUpdatePage />
+    component: <ProductUpdatePage />,
+    role: [2]
   },
   {
     key: 5,
@@ -64,12 +68,14 @@ export const appRoutes: IRoute[] = [
   {
     key: 8,
     path: routerPaths.PATH_CATEGORY_ADD,
-    component: <CategoryCreatePage />
+    component: <CategoryCreatePage />,
+    role: [2]
   },
   {
     key: 9,
     path: routerPaths.PATH_CATEGORY_UPDATE,
-    component: <CategoryUpdatePage />
+    component: <CategoryUpdatePage />,
+    role: [2]
   },
   {
     key: 10,
@@ -84,7 +90,8 @@ export const appRoutes: IRoute[] = [
   {
     key: 12,
     path: routerPaths.PATH_IMPORT_SHIPMENT_ADD,
-    component: <ShipMentsForm />
+    component: <ShipMentsForm />,
+    role: [2]
   },
   {
     key: 13,
@@ -120,5 +127,16 @@ export const appRoutes: IRoute[] = [
     key: 19,
     path: routerPaths.PATH_REPORT_REVENUE_SUPPLIER,
     component: <RevenueByInventory />
+  },
+  {
+    key: 20,
+    path: routerPaths.PATH_ALL_USER,
+    component: <User />,
+    role: [2]
+  },
+  {
+    key: 22,
+    path: routerPaths.PATH_PRICE_BOOK,
+    component: <Layout_PriceBook />
   }
 ];
