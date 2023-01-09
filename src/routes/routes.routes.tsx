@@ -6,11 +6,7 @@ import ShipMentsForm from "../modules/transaction/shipments/ShipmentsForm";
 import ShipmentsTable from "../modules/transaction/shipments/shipmentsTable";
 import TransactionTable from "../modules/transaction/TransactionTable";
 import User from "../modules/user";
-import {
-  CategoryCreatePage,
-  CategoryListPage,
-  CategoryUpdatePage
-} from "../pages/category";
+import CategoryListPage from "../pages/category/CategoryListPage";
 import DashboardPage from "../pages/DashboardPage";
 import Layout_PriceBook from "../pages/PriceBook/Layout_PriceBook";
 import {
@@ -61,18 +57,6 @@ export const appRoutes: IRoute[] = [
     key: 7,
     path: routerPaths.PATH_CATEGORY,
     component: <CategoryListPage />
-  },
-  {
-    key: 8,
-    path: routerPaths.PATH_CATEGORY_ADD,
-    component: <CategoryCreatePage />,
-    role: [2]
-  },
-  {
-    key: 9,
-    path: routerPaths.PATH_CATEGORY_UPDATE,
-    component: <CategoryUpdatePage />,
-    role: [2]
   },
   {
     key: 10,

@@ -176,7 +176,7 @@ const CategoryForm = ({ open, close, id, typeCate, getAllCate }: Props) => {
     >
       <form className="mb-5" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex gap-5 items-center w-[500px]">
-          <div className="w-[50%] flex flex-col gap-3">
+          <div className="w-[100%] flex flex-col gap-3 mb-4">
             <TextField
               label="Tên hàng hoá"
               {...register("name", { required: true })}
@@ -185,11 +185,14 @@ const CategoryForm = ({ open, close, id, typeCate, getAllCate }: Props) => {
 
             <Controller
               render={({ field }) => (
-                <select className="border h-12 rounded-lg px-3" {...field}>
-                  <option value={""}>-- Chọn giới tính của bạn --</option>
-                  <option value={1}>Nam</option>
-                  <option value={0}>Nữ</option>
-                </select>
+                <div>
+                  <p>Nhóm</p>
+                  <select className="border h-12 rounded-lg px-3 w-[100%]" {...field}>
+                    <option value={0}>-- Lựa chọn --</option>
+                    <option value={1}>1</option>
+                    <option value={2}>2</option>
+                  </select>
+                </div>
               )}
               control={control}
               name="parent_id"
