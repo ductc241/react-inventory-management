@@ -61,7 +61,7 @@ const CategoryForm = ({ open, close, id, typeCate, getAllCate }: Props) => {
     }
 
     if (typeCate === CategoryAction.EDIT) {
-      const res = await updateCategoryAPI(id);
+      const res = await updateCategoryAPI(id, data);
       if (res.status === 200) {
         getAllCate();
         close();
