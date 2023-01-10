@@ -14,6 +14,7 @@ import {
   ProductListPage,
   ProductUpdatePage
 } from "../pages/product";
+import Layout_Returns from "../pages/Returns/Layout_Returns";
 import SoQuyListPage from "../pages/SoQuy/SoQuyListPage";
 import SuplierPage from "../pages/supplier/SupllierPage";
 
@@ -104,5 +105,10 @@ export const appRoutes: IRoute[] = [
     key: 18,
     path: routerPaths.PATH_PRICE_BOOK,
     component: <Layout_PriceBook />
+  },
+  {
+    key: 19,
+    path: routerPaths.PATH_ALL_RETURNS,
+    component: <Layout_Returns />
   }
 ];
