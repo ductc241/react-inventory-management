@@ -17,7 +17,7 @@ export const removeCategoryAPI = (id: number) => {
   const url = `category/${id}`;
   return instance.delete(url);
 };
-export const updateCategoryAPI = (id: any, category: ICategory) => {
-  const url = `category/${category.id}`;
+export const updateCategoryAPI = (id: any, category: any) => {
+  const url = `category/${id}`;
   return instance.put(url, category);
 };
