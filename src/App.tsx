@@ -30,7 +30,7 @@ const App = () => {
             {appRoutes.map((route: IRoute) => (
               <Route
                 path={
-                  route?.role?.includes(user.role_id) == true ? "" : route.path
+                  route?.role?.includes(user?.role_id) == true ? "" : route.path
                 }
                 element={route.component}
                 key={route.path}
