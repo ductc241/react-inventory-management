@@ -1,5 +1,4 @@
 import { Navigate } from "react-router-dom";
-
 type Props = {
   children: JSX.Element;
 };
@@ -11,5 +10,4 @@ const PrivateRouter = (props: Props) => {
 
   return props.children;
 };
-
 export default PrivateRouter;
