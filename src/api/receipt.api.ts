@@ -26,6 +26,6 @@ export const updateRecei = (receipt: any) => {
 };
 
 export const exportShipmentsDetail = (id: number | undefined) => {
-  const url = `/product-detail/${id}`;
+  const url = `/products/product-detail/${id}`;
   return instance.get(url);
 };

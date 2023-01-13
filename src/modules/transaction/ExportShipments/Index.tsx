@@ -79,7 +79,7 @@ const ExportShipments = () => {
     ]);
 
     setSuplierOption(convertDataToOption(initData[0].data));
-    setProducts(initData[1].data.data);
+    setProducts(initData[1].data);
   };
 
   const handleSearchProduct = (e: ChangeEvent<HTMLInputElement>) => {
@@ -130,7 +130,6 @@ const ExportShipments = () => {
 
   const handleUpdatefields = async (idLotcode: number, index: number) => {
     const { data } = await exportShipmentsDetail(idLotcode);
-    console.log(data, "asfdg");
     const isDuplicateLotcode = fields.find(
       (item) => item.lotCode === idLotcode
     );
@@ -143,7 +142,7 @@ const ExportShipments = () => {
         lotCode: idLotcode
       });
     } else {
-      toast.warning("Lô hàng bị tr");
+      toast.warning("Lô hàng bị trùng");
     }
   };
 
