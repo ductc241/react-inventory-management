@@ -1,5 +1,6 @@
 import PriceSetting from "../modules/priceSetting/priceSetting";
 import DetailReceipt from "../modules/receipt/DetailReceipt";
+import RevenueByInventory from "../modules/statistics/revenue/RevenueBySupplier";
 import ExportShipments from "../modules/transaction/ExportShipments/Index";
 import ShipmentDetail from "../modules/transaction/shipments/ShipmentDetail";
 import ShipMentsForm from "../modules/transaction/shipments/ShipmentsForm";
@@ -19,6 +20,8 @@ import {
   ProductUpdatePage
 } from "../pages/product";
 import SoQuyListPage from "../pages/SoQuy/SoQuyListPage";
+import RevenuePage from "../pages/statistics/RevenuePage";
+import RevenueProductPage from "../pages/statistics/RevenueProductPage";
 import SuplierPage from "../pages/supplier/SupllierPage";
 
 import IRoute from "../types/router.type";
@@ -112,12 +115,27 @@ export const appRoutes: IRoute[] = [
   },
   {
     key: 17,
+    path: routerPaths.PATH_REPORT_REVENUE,
+    component: <RevenuePage />
+  },
+  {
+    key: 18,
+    path: routerPaths.PATH_REPORT_REVENUE_PRODUCT,
+    component: <RevenueProductPage />
+  },
+  {
+    key: 19,
+    path: routerPaths.PATH_REPORT_REVENUE_SUPPLIER,
+    component: <RevenueByInventory />
+  },
+  {
+    key: 20,
     path: routerPaths.PATH_ALL_USER,
     component: <User />,
     role: [2]
   },
   {
-    key: 18,
+    key: 22,
     path: routerPaths.PATH_PRICE_BOOK,
     component: <Layout_PriceBook />
   }

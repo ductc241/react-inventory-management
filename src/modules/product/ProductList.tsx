@@ -13,7 +13,6 @@ import { isAuthenticated } from "../../utils/localStorage/localStorega";
 const ProductList = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState<IProduct[]>([]);
-  console.log(products);
   const columns: ITableColumn[] = [
     {
       key: 1,
@@ -64,7 +63,7 @@ const ProductList = () => {
 
   useEffect(() => {
     productServices.getProducts().then(({ data }) => {
-      setProducts(data.data);
+      setProducts(data);
     });
   }, []);
   const user = isAuthenticated();
@@ -87,14 +86,14 @@ const ProductList = () => {
 
       <Table dataSource={products} column={columns} />
 
-      <ReactPaginate
+      {/* <ReactPaginate
         pageCount={10}
         containerClassName="pagination mt-5"
         pageClassName="pagination_item"
         activeClassName="pagination_active"
         previousLabel={<Caret width={"15px"} />}
         nextLabel={<Caret className="rotate-180" width={"15px"} />}
-      />
+      /> */}
 
       <Modal
         visible={false}

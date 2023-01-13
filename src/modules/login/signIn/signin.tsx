@@ -18,7 +18,7 @@ const Signin = () => {
     data.error
       ? toast.error(`${data.error}`)
       : (toast.success(`${data[0].correct}`),
-        authenticated(data[1], () => {
+        authenticated(data, () => {
           navigate("/");
         }));
   };

@@ -1,8 +1,5 @@
-import React from 'react'
-import { QRCodeSVG } from 'qrcode.react';
-
-
-type Props = {}
+import React from "react";
+import { QRCodeSVG } from "qrcode.react";
 
 const QR = () => {
   return (
@@ -24,7 +21,7 @@ const QR = () => {
         // }}
       />
     </div>
-  )
-}
+  );
+};
 
-export default QR
+export default QR;
