@@ -22,6 +22,7 @@ const Signin = () => {
           navigate("/");
         }));
   };
+
   return (
     <>
       <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center bg-contain bg-center bg-no-repeat">

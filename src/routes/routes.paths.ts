@@ -30,3 +30,5 @@ export const PATH_EXPORT_SHIPMENT = "/export_shipment";
 
 export const PATH_PRICE_BOOK = "/priceBook";
 export const PATH_ALL_USER = "/user";
+
+export const PATH_REFUND_SUPPLIER = "/refund";
