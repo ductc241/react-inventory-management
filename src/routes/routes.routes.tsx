@@ -39,13 +39,13 @@ export const appRoutes: IRoute[] = [
     key: 3,
     path: routerPaths.PATH_PRODUCTS_ADD,
     component: <ProductCreatePage />,
-    role: [1]
+    role: [2]
   },
   {
     key: 4,
     path: routerPaths.PATH_PRODUCTS_UPDATE,
     component: <ProductUpdatePage />,
-    role: [1]
+    role: [2]
   },
   {
     key: 5,
@@ -65,12 +65,14 @@ export const appRoutes: IRoute[] = [
   {
     key: 8,
     path: routerPaths.PATH_CATEGORY_ADD,
-    component: <CategoryCreatePage />
+    component: <CategoryCreatePage />,
+    role: [2]
   },
   {
     key: 9,
     path: routerPaths.PATH_CATEGORY_UPDATE,
-    component: <CategoryUpdatePage />
+    component: <CategoryUpdatePage />,
+    role: [2]
   },
   {
     key: 10,
@@ -85,7 +87,8 @@ export const appRoutes: IRoute[] = [
   {
     key: 12,
     path: routerPaths.PATH_IMPORT_SHIPMENT_ADD,
-    component: <ShipMentsForm />
+    component: <ShipMentsForm />,
+    role: [2]
   },
   {
     key: 13,
@@ -110,7 +113,8 @@ export const appRoutes: IRoute[] = [
   {
     key: 17,
     path: routerPaths.PATH_ALL_USER,
-    component: <User />
+    component: <User />,
+    role: [2]
   },
   {
     key: 18,

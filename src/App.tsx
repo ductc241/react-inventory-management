@@ -11,8 +11,11 @@ import { PATH_SIGNIN, PATH_NEW_SALE } from "./routes/routes.paths";
 import Signin from "./modules/login/signIn/signin";
 import NotFound404 from "./pages/not_found/404";
 import NewSalePage from "./pages/new_sale/NewSalePage";
+import User from "./modules/user";
+import { isAuthenticated } from "./utils/localStorage/localStorega";
 
 const App = () => {
+  const user = isAuthenticated();
   return (
     <>
       <BrowserRouter>
@@ -26,7 +29,9 @@ const App = () => {
           >
             {appRoutes.map((route: IRoute) => (
               <Route
-                path={route.path}
+                path={
+                  route?.role?.includes(user?.role_id) == true ? "" : route.path
+                }
                 element={route.component}
                 key={route.path}
               />

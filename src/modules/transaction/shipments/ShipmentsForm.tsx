@@ -21,8 +21,6 @@ import { IProduct } from "../../../types/product.type";
 import productServices from "../../../api/product.api";
 import IOption from "../../../types/option.model";
 import { getDateNow } from "../../../utils/funtion";
-import { isAuthenticated } from "../../../utils/localStorage/localStorega";
-import NotFound404 from "../../../pages/not_found/404";
 
 type Inputs = {
   supplier_id: number;
@@ -267,246 +265,239 @@ const ShipMentsForm = () => {
       }
     }
   };
-  const user = isAuthenticated();
+
   return (
     <>
-      {user.role_id === 1 ? (
-        <form
-          className="grid grid-cols-2 gap-10"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <div className="col-span-1 shadow-md rounded-lg">
-            <div className="border-b p-5">
-              <p>Thông tin</p>
-            </div>
-            <div className="p-5">
-              <div>
-                <Select
-                  selectLabel={{
-                    text: "Kiểu nhập hàng"
-                  }}
-                  options={OptionSupplier}
-                  option={valueOption}
-                  handleClickChange={(e) => setValueOption(e)}
-                />
-                {valueOption.value === 1 ? (
-                  <div className="my-3">
-                    <Select
-                      selectLabel={{
-                        text: "Nhà cung cấp"
-                      }}
-                      options={supplierOption}
-                      option={valueOption3}
-                      handleClickChange={(e) => setValueOption3(e)}
-                      placeholderText="- Chọn nhà cung cấp -"
-                    />
-                  </div>
-                ) : (
-                  <div className="mt-2">
-                    <TextField
-                      label="Khách hàng"
-                      name="Khách hàng"
-                      className="my-2"
-                      value={nameUser}
-                      onChange={(e) => setNameUser(e.target.value)}
-                    />
-                    <TextField
-                      label="Số điện thoại"
-                      name="Số điện thoại"
-                      type="number"
-                      className="mb-2"
-                      onChange={(e) =>
-                        setSDT(e.target.value as unknown as number)
-                      }
-                    />
-                  </div>
-                )}
-              </div>
-              <div>
-                <p className="mb-1">Ghi chú</p>
-                <textarea
-                  className="w-full border-2 h-[80px] border-[#DEDEDE] rounded-lg outline-none p-2"
-                  onChange={(e) => setDesc(e.target.value)}
-                >
-                  {desc}
-                </textarea>
-              </div>
-            </div>
+      <form
+        className="grid grid-cols-2 gap-10"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div className="col-span-1 shadow-md rounded-lg">
+          <div className="border-b p-5">
+            <p>Thông tin</p>
           </div>
-          <div className="col-span-1 shadow-md rounded-lg h-max">
-            <div className="border-b p-5">
-              <p>Thanh toán</p>
-            </div>
-            <div className="p-5">
-              <div className="mb-3">
-                <Select
-                  selectLabel={{
-                    text: "Kiểu thanh toán"
-                  }}
-                  options={OptionSupplier2}
-                  option={valueOption2}
-                  handleClickChange={(e) => setValueOption2(e)}
-                />
-              </div>
-              <TextField
-                name="ngày thanh toán"
-                label="Ngày hẹn thanh toán"
-                type="date"
-                value={importDate}
-                onChange={(e) => setImportDate(e.target.value)}
+          <div className="p-5">
+            <div>
+              <Select
+                selectLabel={{
+                  text: "Kiểu nhập hàng"
+                }}
+                options={OptionSupplier}
+                option={valueOption}
+                handleClickChange={(e) => setValueOption(e)}
               />
-            </div>
-          </div>
-          <div className="col-span-2 flex border h-10 px-5 w-full">
-            <div className="w-[7%] font-semibold text-[15px] flex items-center h-full border-r-2 pr-1">
-              Sản phẩm:
-            </div>
-            <div className="w-[90%] relative">
-              <input
-                className="w-full h-full px-2 border-none focus:outline-none"
-                placeholder="Tìm kiếm sản phẩm ..."
-                value={search}
-                onChange={(e) => handleChangeValueSearch(e)}
-              />
-              {showSuggestSearch && search !== "" && (
-                <ul className="mt-1 rounded-md z-50 absolute w-full cursor-pointer border bg-white">
-                  {matchsProduct.map((item: any) => {
-                    return (
-                      <li
-                        key={item.id}
-                        onClick={() => hanldeAddProduct(item)}
-                        className="hover:bg-gray-200 w-full h-10 flex items-center p-2"
-                      >
-                        {item.name}
-                      </li>
-                    );
-                  })}
-                </ul>
+              {valueOption.value === 1 ? (
+                <div className="my-3">
+                  <Select
+                    selectLabel={{
+                      text: "Nhà cung cấp"
+                    }}
+                    options={supplierOption}
+                    option={valueOption3}
+                    handleClickChange={(e) => setValueOption3(e)}
+                    placeholderText="- Chọn nhà cung cấp -"
+                  />
+                </div>
+              ) : (
+                <div className="mt-2">
+                  <TextField
+                    label="Khách hàng"
+                    name="Khách hàng"
+                    className="my-2"
+                    value={nameUser}
+                    onChange={(e) => setNameUser(e.target.value)}
+                  />
+                  <TextField
+                    label="Số điện thoại"
+                    name="Số điện thoại"
+                    type="number"
+                    className="mb-2"
+                    onChange={(e) =>
+                      setSDT(e.target.value as unknown as number)
+                    }
+                  />
+                </div>
               )}
             </div>
-          </div>
-          <div className="col-span-2">
-            <div className="mb-5">
-              <table className="w-full table border">
-                <thead className="text-left">
-                  <tr className="bg-gray-100">
-                    <th
-                      scope="col"
-                      className="p-[14px] first:pl-[24px] last:pr-[24px] leading-[27px] text-[#311339] text-[14px] font-bold uppercase"
-                    >
-                      Tên sản phẩm
-                    </th>
-                    <th
-                      scope="col"
-                      className="p-[14px] first:pl-[24px] last:pr-[24px] leading-[27px] text-[#311339] text-[14px] font-bold uppercase"
-                    >
-                      Số lượng / Kho
-                    </th>
-                    <th
-                      scope="col"
-                      className="p-[14px] first:pl-[24px] last:pr-[24px] leading-[27px] text-[#311339] text-[14px] font-bold uppercase"
-                    >
-                      Số lượng / Nhập
-                    </th>
-                    <th
-                      scope="col"
-                      className="p-[14px] first:pl-[24px] last:pr-[24px] leading-[27px] text-[#311339] text-[14px] font-bold uppercase"
-                    >
-                      Giá nhập/ 1 SP
-                    </th>
-                    <th
-                      scope="col"
-                      className="p-[14px] first:pl-[24px] last:pr-[24px] leading-[27px] text-[#311339] text-[14px] font-bold uppercase"
-                    >
-                      Xóa
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {fields.length !== 0 ? (
-                    fields?.map((field, index) => {
-                      return (
-                        <tr
-                          key={field.id}
-                          className="border-b border-gray-200 text-lg leading-[27px] text-[#311339] hover:bg-emerald-50"
-                        >
-                          <td className="p-[14px] first:pl-[24px] last:pr-[24px] text-sm">
-                            <TextField
-                              disabled
-                              {...register(`products.${index}.name`)}
-                              className="border-none"
-                            />
-                          </td>
-                          <td className="p-[14px] first:pl-[24px] last:pr-[24px] text-sm">
-                            <TextField
-                              disabled
-                              {...register(`products.${index}.quantity`, {
-                                valueAsNumber: true
-                              })}
-                              type="number"
-                              className="border"
-                            />
-                          </td>
-                          <td className="p-[14px] first:pl-[24px] last:pr-[24px] text-sm">
-                            <TextField
-                              {...register(
-                                `products.${index}.quantity_import`,
-                                {
-                                  valueAsNumber: true
-                                }
-                              )}
-                              type="number"
-                              className="border"
-                            />
-                          </td>
-                          <td className="p-[14px] first:pl-[24px] last:pr-[24px] text-sm">
-                            <TextField
-                              {...register(`products.${index}.import_price`, {
-                                valueAsNumber: true
-                              })}
-                              type="number"
-                              className="border"
-                            />
-                          </td>
-                          <td className="p-[14px] first:pl-[24px] last:pr-[24px] text-sm">
-                            <div
-                              onClick={() => {
-                                remove(index);
-                              }}
-                            >
-                              <TrashIcon
-                                className="cursor-pointer fill-red-400 hover:fill-red-600"
-                                width={20}
-                              />
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })
-                  ) : (
-                    <tr>
-                      <td colSpan={4} className="font-medium py-20 text-center">
-                        Chưa có dữ liệu
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
+            <div>
+              <p className="mb-1">Ghi chú</p>
+              <textarea
+                className="w-full border-2 h-[80px] border-[#DEDEDE] rounded-lg outline-none p-2"
+                onChange={(e) => setDesc(e.target.value)}
+              >
+                {desc}
+              </textarea>
             </div>
-            <span className="flex justify-end text-lg">
-              Tổng số tiền nhập hàng:
-              {control && <TotalAmout control={control} />} VND
-            </span>
           </div>
-          <div className="">
-            <Button className="py-4 text-base" type="submit">
-              Nhập hàng
-            </Button>
+        </div>
+        <div className="col-span-1 shadow-md rounded-lg h-max">
+          <div className="border-b p-5">
+            <p>Thanh toán</p>
           </div>
-        </form>
-      ) : (
-        <NotFound404 />
-      )}
+          <div className="p-5">
+            <div className="mb-3">
+              <Select
+                selectLabel={{
+                  text: "Kiểu thanh toán"
+                }}
+                options={OptionSupplier2}
+                option={valueOption2}
+                handleClickChange={(e) => setValueOption2(e)}
+              />
+            </div>
+            <TextField
+              name="ngày thanh toán"
+              label="Ngày hẹn thanh toán"
+              type="date"
+              value={importDate}
+              onChange={(e) => setImportDate(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="col-span-2 flex border h-10 px-5 w-full">
+          <div className="w-[7%] font-semibold text-[15px] flex items-center h-full border-r-2 pr-1">
+            Sản phẩm:
+          </div>
+          <div className="w-[90%] relative">
+            <input
+              className="w-full h-full px-2 border-none focus:outline-none"
+              placeholder="Tìm kiếm sản phẩm ..."
+              value={search}
+              onChange={(e) => handleChangeValueSearch(e)}
+            />
+            {showSuggestSearch && search !== "" && (
+              <ul className="mt-1 rounded-md z-50 absolute w-full cursor-pointer border bg-white">
+                {matchsProduct.map((item: any) => {
+                  return (
+                    <li
+                      key={item.id}
+                      onClick={() => hanldeAddProduct(item)}
+                      className="hover:bg-gray-200 w-full h-10 flex items-center p-2"
+                    >
+                      {item.name}
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
+        </div>
+        <div className="col-span-2">
+          <div className="mb-5">
+            <table className="w-full table border">
+              <thead className="text-left">
+                <tr className="bg-gray-100">
+                  <th
+                    scope="col"
+                    className="p-[14px] first:pl-[24px] last:pr-[24px] leading-[27px] text-[#311339] text-[14px] font-bold uppercase"
+                  >
+                    Tên sản phẩm
+                  </th>
+                  <th
+                    scope="col"
+                    className="p-[14px] first:pl-[24px] last:pr-[24px] leading-[27px] text-[#311339] text-[14px] font-bold uppercase"
+                  >
+                    Số lượng / Kho
+                  </th>
+                  <th
+                    scope="col"
+                    className="p-[14px] first:pl-[24px] last:pr-[24px] leading-[27px] text-[#311339] text-[14px] font-bold uppercase"
+                  >
+                    Số lượng / Nhập
+                  </th>
+                  <th
+                    scope="col"
+                    className="p-[14px] first:pl-[24px] last:pr-[24px] leading-[27px] text-[#311339] text-[14px] font-bold uppercase"
+                  >
+                    Giá nhập/ 1 SP
+                  </th>
+                  <th
+                    scope="col"
+                    className="p-[14px] first:pl-[24px] last:pr-[24px] leading-[27px] text-[#311339] text-[14px] font-bold uppercase"
+                  >
+                    Xóa
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {fields.length !== 0 ? (
+                  fields?.map((field, index) => {
+                    return (
+                      <tr
+                        key={field.id}
+                        className="border-b border-gray-200 text-lg leading-[27px] text-[#311339] hover:bg-emerald-50"
+                      >
+                        <td className="p-[14px] first:pl-[24px] last:pr-[24px] text-sm">
+                          <TextField
+                            disabled
+                            {...register(`products.${index}.name`)}
+                            className="border-none"
+                          />
+                        </td>
+                        <td className="p-[14px] first:pl-[24px] last:pr-[24px] text-sm">
+                          <TextField
+                            disabled
+                            {...register(`products.${index}.quantity`, {
+                              valueAsNumber: true
+                            })}
+                            type="number"
+                            className="border"
+                          />
+                        </td>
+                        <td className="p-[14px] first:pl-[24px] last:pr-[24px] text-sm">
+                          <TextField
+                            {...register(`products.${index}.quantity_import`, {
+                              valueAsNumber: true
+                            })}
+                            type="number"
+                            className="border"
+                          />
+                        </td>
+                        <td className="p-[14px] first:pl-[24px] last:pr-[24px] text-sm">
+                          <TextField
+                            {...register(`products.${index}.import_price`, {
+                              valueAsNumber: true
+                            })}
+                            type="number"
+                            className="border"
+                          />
+                        </td>
+                        <td className="p-[14px] first:pl-[24px] last:pr-[24px] text-sm">
+                          <div
+                            onClick={() => {
+                              remove(index);
+                            }}
+                          >
+                            <TrashIcon
+                              className="cursor-pointer fill-red-400 hover:fill-red-600"
+                              width={20}
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })
+                ) : (
+                  <tr>
+                    <td colSpan={4} className="font-medium py-20 text-center">
+                      Chưa có dữ liệu
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+          <span className="flex justify-end text-lg">
+            Tổng số tiền nhập hàng:
+            {control && <TotalAmout control={control} />} VND
+          </span>
+        </div>
+        <div className="">
+          <Button className="py-4 text-base" type="submit">
+            Nhập hàng
+          </Button>
+        </div>
+      </form>
     </>
   );
 };
