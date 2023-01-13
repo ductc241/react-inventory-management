@@ -103,7 +103,7 @@ const User = () => {
     <div>
       <div className="flex justify-between mb-3">
         <span className="text-3xl font-semibold mb-10 inline-block">
-          Nhân viên
+          Quản lý nhân sự
         </span>
         <Button
           className="h-16"

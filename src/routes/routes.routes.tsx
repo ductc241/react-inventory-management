@@ -38,12 +38,14 @@ export const appRoutes: IRoute[] = [
   {
     key: 3,
     path: routerPaths.PATH_PRODUCTS_ADD,
-    component: <ProductCreatePage />
+    component: <ProductCreatePage />,
+    role: [1]
   },
   {
     key: 4,
     path: routerPaths.PATH_PRODUCTS_UPDATE,
-    component: <ProductUpdatePage />
+    component: <ProductUpdatePage />,
+    role: [1]
   },
   {
     key: 5,

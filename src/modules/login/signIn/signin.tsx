@@ -14,6 +14,7 @@ const Signin = () => {
   const navigate = useNavigate();
   const onSubmit: SubmitHandler<UserType> = async (user: UserType) => {
     const { data } = await signin(user);
+
     data.error
       ? toast.error(`${data.error}`)
       : (toast.success(`${data[0].correct}`),
