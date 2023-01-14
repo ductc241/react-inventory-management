@@ -54,6 +54,56 @@ const ProductInventory = () => {
           </div>
         </div>
       </div>
+<<<<<<< HEAD
+
+      <div className="filter-tabel mt-10">
+        <table className="w-full border-collapse border">
+          <thead>
+            <tr>
+              <th className="border" rowSpan={2}>
+                Sản phẩm
+              </th>
+              <th className="border" rowSpan={2}>
+                Tồn hiện tại
+              </th>
+              <th className="border py-3" colSpan={3}>
+                Nhập trong kỳ
+              </th>
+              <th className="border py-3" colSpan={3}>
+                Xuất trong kỳ
+              </th>
+              <th className="border py-3" colSpan={3}>
+                Tồn cuối kỳ
+              </th>
+            </tr>
+            <tr>
+              <th className="border py-3">Số lượng</th>
+              <th className="border py-3">Giá vốn</th>
+              <th className="border py-3">Thành tiền</th>
+              <th className="border py-3">Số lượng</th>
+              <th className="border py-3">Giá vốn</th>
+              <th className="border py-3">Thành tiền</th>
+              <th className="border py-3">Số lượng</th>
+              <th className="border py-3">Giá vốn</th>
+              <th className="border py-3">Thành tiền</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="border">Indiana</td>
+              <td className="border">Indianapolis</td>
+            </tr>
+            <tr>
+              <td className="border">Ohio</td>
+              <td className="border">Columbus</td>
+            </tr>
+            <tr>
+              <td className="border">Michigan</td>
+              <td className="border">Detroit</td>
+            </tr>
+          </tbody>
+        </table>
+=======
       <div className="filter-tabel mt-10">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
@@ -61,6 +111,7 @@ const ProductInventory = () => {
           fuga debitis quibusdam nobis accusamus exercitationem praesentium
           beatae, est eos!
         </p>
+>>>>>>> 5a156b0fd19ca41e24fac736c2ff86e0755099bc
       </div>
     </>
   );
