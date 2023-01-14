@@ -1,5 +1,6 @@
 import PriceSetting from "../modules/priceSetting/priceSetting";
 import DetailReceipt from "../modules/receipt/DetailReceipt";
+import ProductInventory from "../modules/statistics/inventory/ProductInventory";
 import RevenueByInventory from "../modules/statistics/revenue/RevenueBySupplier";
 import ExportShipments from "../modules/transaction/ExportShipments/Index";
 import ShipmentDetail from "../modules/transaction/shipments/ShipmentDetail";
@@ -130,6 +131,11 @@ export const appRoutes: IRoute[] = [
   },
   {
     key: 20,
+    path: routerPaths.PATH_REPORT_INVENTORY_PRODUCT,
+    component: <ProductInventory />
+  },
+  {
+    key: 21,
     path: routerPaths.PATH_ALL_USER,
     component: <User />,
     role: [2]

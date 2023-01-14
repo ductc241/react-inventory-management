@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import ReactPaginate from "react-paginate";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import productServices from "../../api/product.api";
 
 import { Table, Modal, Button } from "../../components";
-import { Caret, EditIcon, TrashIcon } from "../../components/icons";
+import { EditIcon, TrashIcon } from "../../components/icons";
 import { ITableColumn } from "../../components/Table/Table.types";
 import { IProduct } from "../../types/product.type";
 import { isAuthenticated } from "../../utils/localStorage/localStorega";
