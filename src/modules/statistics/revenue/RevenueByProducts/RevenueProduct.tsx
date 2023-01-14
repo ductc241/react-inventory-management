@@ -100,7 +100,11 @@ const RevenueProduct = ({ staticalData }: IProps) => {
         </div>
       </div>
 
-      <Table dataSource={staticalData} column={columns} textAlign="left" />
+      <Table
+        dataSource={staticalData.product_filer}
+        column={columns}
+        textAlign="left"
+      />
     </>
   );
 };
