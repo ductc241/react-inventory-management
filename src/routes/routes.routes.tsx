@@ -20,6 +20,7 @@ import {
   ProductListPage,
   ProductUpdatePage
 } from "../pages/product";
+import RefundPage from "../pages/refurnd";
 import SoQuyListPage from "../pages/SoQuy/SoQuyListPage";
 import RevenuePage from "../pages/statistics/RevenuePage";
 import RevenueProductPage from "../pages/statistics/RevenueProductPage";
@@ -144,5 +145,10 @@ export const appRoutes: IRoute[] = [
     key: 22,
     path: routerPaths.PATH_PRICE_BOOK,
     component: <Layout_PriceBook />
+  },
+  {
+    key: 18,
+    path: routerPaths.PATH_REFUND_SUPPLIER,
+    component: <RefundPage />
   }
 ];
