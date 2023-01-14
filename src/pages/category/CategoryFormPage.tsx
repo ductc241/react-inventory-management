@@ -1,11 +1,11 @@
-import CategoryAdd from "../../modules/category/CategoryForm/CategoryAdd";
-import CategoryUpdate from "../../modules/category/CategoryForm/CategoryUpdate";
+import CategoryForm from "../../modules/category/CategoryForm/CategoryForm";
+
 const CategoryCreatePage = () => {
-  return <CategoryAdd mode="create" />;
+  return '';
 };
 
 const CategoryUpdatePage = () => {
-  return <CategoryUpdate mode="update" />;
+  return '';
 };
 
 export { CategoryCreatePage, CategoryUpdatePage };

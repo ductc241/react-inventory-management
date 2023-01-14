@@ -69,85 +69,73 @@ export const appRoutes: IRoute[] = [
   },
   {
     key: 8,
-    path: routerPaths.PATH_CATEGORY_ADD,
-    component: <CategoryCreatePage />,
-    role: [2]
-  },
-  {
-    key: 9,
-    path: routerPaths.PATH_CATEGORY_UPDATE,
-    component: <CategoryUpdatePage />,
-    role: [2]
-  },
-  {
-    key: 10,
     path: routerPaths.PATH_SoQuy,
     component: <SoQuyListPage />
   },
   {
-    key: 11,
+    key: 9,
     path: routerPaths.PATH_PRICE_SETTING,
     component: <PriceSetting />
   },
   {
-    key: 12,
+    key: 10,
     path: routerPaths.PATH_IMPORT_SHIPMENT_ADD,
     component: <ShipMentsForm />,
     role: [2]
   },
   {
-    key: 13,
+    key: 11,
     path: routerPaths.PATH_RECEIPT,
     component: <TransactionTable />
   },
   {
-    key: 14,
+    key: 12,
     path: routerPaths.PATH_RECEIPT_ID,
     component: <DetailReceipt />
   },
   {
-    key: 15,
+    key: 13,
     path: routerPaths.PATH_EXPORT_SHIPMENT,
     component: <ExportShipments />
   },
   {
-    key: 16,
+    key: 14,
     path: routerPaths.PATH_IMPORT_SHIPMENT_DETAIL,
     component: <ShipmentDetail />
   },
   {
-    key: 17,
+    key: 15,
     path: routerPaths.PATH_REPORT_REVENUE,
     component: <RevenuePage />
   },
   {
-    key: 18,
+    key: 16,
     path: routerPaths.PATH_REPORT_REVENUE_PRODUCT,
     component: <RevenueProductPage />
   },
   {
-    key: 19,
+    key: 17,
     path: routerPaths.PATH_REPORT_REVENUE_SUPPLIER,
     component: <RevenueByInventory />
   },
   {
-    key: 20,
+    key: 18,
     path: routerPaths.PATH_REPORT_INVENTORY_PRODUCT,
     component: <ProductInventory />
   },
   {
-    key: 21,
+    key: 19,
     path: routerPaths.PATH_ALL_USER,
     component: <User />,
     role: [2]
   },
   {
-    key: 22,
+    key: 20,
     path: routerPaths.PATH_PRICE_BOOK,
     component: <Layout_PriceBook />
   },
   {
-    key: 18,
+    key: 21,
     path: routerPaths.PATH_REFUND_SUPPLIER,
     component: <RefundPage />
   }
