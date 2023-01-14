@@ -2,6 +2,7 @@ import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Button, TextField } from "../../../components";
 import { IProduct } from "../../../types/product.type";
+import { numberWithCommas } from "../../../utils/funtion";
 
 const ProductInventory = () => {
   const [startDate, setStartDate] = useState<string>("");
@@ -89,16 +90,66 @@ const ProductInventory = () => {
           </thead>
           <tbody>
             <tr>
-              <td className="border">Indiana</td>
-              <td className="border">Indianapolis</td>
+              <td className="border py-3 text-center">Indiana</td>
+              <td className="border py-3 text-center">Indianapolis</td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
             </tr>
             <tr>
-              <td className="border">Ohio</td>
-              <td className="border">Columbus</td>
-            </tr>
-            <tr>
-              <td className="border">Michigan</td>
-              <td className="border">Detroit</td>
+              <td className="border py-3 text-center">Indiana</td>
+              <td className="border py-3 text-center">Indianapolis</td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
             </tr>
           </tbody>
         </table>
