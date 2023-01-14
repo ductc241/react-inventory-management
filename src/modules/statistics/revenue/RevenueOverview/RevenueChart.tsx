@@ -29,7 +29,7 @@ const RevenueChart = ({ staticalData }: IProps) => {
     datasets: [
       {
         label: "Lãi: ",
-        data: [null, 27, 76, null, 53, 48, 116],
+        data: [0, 27, 76, 0, 53, 48, 116, 0, 0, 0, 64, 64, 32],
         borderColor: "red",
         backgroundColor: "rgba(255, 99, 132, 0.5)"
       }
@@ -64,8 +64,13 @@ const RevenueChart = ({ staticalData }: IProps) => {
           <p>{numberWithCommas(staticalData.funds)} VNĐ</p>
         </div>
       </div>
-      <div className="px-5 py-10 h-[400px]">
-        <Line options={ChartOption} data={data} />;
+      <div>
+        <p className="px-5 pt-5 text-lg">
+          Báo cáo doanh thu tháng {moment().format("MM-YYYY")}
+        </p>
+        <div className="px-5 pt-5 pb-10 h-[400px]">
+          <Line options={ChartOption} data={data} />
+        </div>
       </div>
     </div>
   );
