@@ -32,7 +32,8 @@ export const PATH_REPORT_REVENUE = "/report/revenue";
 export const PATH_REPORT_REVENUE_PRODUCT = "/report/revenue/product";
 export const PATH_REPORT_REVENUE_SUPPLIER = "/report/revenue/supplier";
 
-export const PATH_REPORT_INVENTORY = "/report/inventory";
+export const PATH_REPORT_INVENTORY_PRODUCT = "/report/inventory/product";
+export const PATH_REPORT_INVENTORY_SUPPLIER = "/report/inventory/supplier";
 
 export const PATH_PRICE_BOOK = "/priceBook";
 export const PATH_ALL_USER = "/user";

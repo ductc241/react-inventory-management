@@ -3,7 +3,7 @@ import { ITableColumn } from "../../../../components/Table/Table.types";
 import { numberWithCommas } from "../../../../utils/funtion";
 
 interface IProps {
-  staticalData: any[];
+  staticalData: any;
 }
 
 const RevenueProduct = ({ staticalData }: IProps) => {
@@ -56,7 +56,7 @@ const RevenueProduct = ({ staticalData }: IProps) => {
           <div className="py-3 px-4">
             <div className="flex justify-between mb-3">
               <p>Số lượng</p>
-              <p>100</p>
+              <p>{staticalData.totalProduct}</p>
             </div>
             <div className="flex justify-between">
               <p>Tổng</p>
@@ -73,34 +73,38 @@ const RevenueProduct = ({ staticalData }: IProps) => {
           <div className="py-3 px-4">
             <div className="flex justify-between mb-3">
               <p>Số lượng</p>
-              <p>100</p>
+              <p>0</p>
             </div>
             <div className="flex justify-between">
               <p>Tổng</p>
-              <p>100</p>
+              <p>0</p>
             </div>
           </div>
         </div>
 
         <div className="col-span-4 border">
           <div className="py-3 px-4 bg-gray-100">
-            <p className="text-lg font-semibold">Doạnh thu</p>
+            <p className="text-lg font-semibold">Lợi nhuận</p>
           </div>
 
           <div className="py-3 px-4">
             <div className="flex justify-between mb-3">
               <p>Số lượng</p>
-              <p>100</p>
+              <p>{staticalData.totalProduct}</p>
             </div>
             <div className="flex justify-between">
               <p>Tổng</p>
-              <p>100</p>
+              <p>{staticalData.profit}</p>
             </div>
           </div>
         </div>
       </div>
 
-      <Table dataSource={staticalData} column={columns} textAlign="left" />
+      <Table
+        dataSource={staticalData.product_filer}
+        column={columns}
+        textAlign="left"
+      />
     </>
   );
 };

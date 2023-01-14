@@ -9,6 +9,7 @@ import {
 import moment from "moment";
 import { Line } from "react-chartjs-2";
 import ChartOption from "../../../../types/chart.option";
+import { numberWithCommas } from "../../../../utils/funtion";
 
 interface IProps {
   staticalData: any;
@@ -42,25 +43,25 @@ const RevenueChart = ({ staticalData }: IProps) => {
           <div className="mb-5">
             <p className="uppercase font-semibold">Hôm qua</p>
           </div>
-          <p>0 VNĐ</p>
+          <p>{numberWithCommas(staticalData.sales_money_in_yesterday)} VNĐ</p>
         </div>
         <div className="col-span-3 bg-green-500 py-4 text-center border border-gray-300  text-white">
           <div className="mb-5">
             <p className="uppercase font-semibold">Hôm nay</p>
           </div>
-          <p>0 VNĐ</p>
+          <p>{numberWithCommas(staticalData.sales_money_in_now)} VNĐ</p>
         </div>
         <div className="col-span-3 bg-white py-4 text-center border border-gray-300">
           <div className="mb-5">
             <p className="uppercase font-semibold">Tuần qua</p>
           </div>
-          <p>0 VNĐ</p>
+          <p>{numberWithCommas(staticalData.sales_money_in_day_ofWeek)} VNĐ</p>
         </div>
         <div className="col-span-3 bg-white py-4 text-center border border-gray-300">
           <div className="mb-5">
-            <p className="uppercase font-semibold">Tháng qua</p>
+            <p className="uppercase font-semibold">Tổng</p>
           </div>
-          <p>0 VNĐ</p>
+          <p>{numberWithCommas(staticalData.funds)} VNĐ</p>
         </div>
       </div>
       <div className="px-5 py-10 h-[400px]">
