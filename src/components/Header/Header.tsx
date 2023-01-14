@@ -35,7 +35,7 @@ const Header = () => {
                 />
               </Link>
             </div>
-            <div className="flex justify-between items-center h-14 bg-[#ca2c2c] header-right">
+            <div className="flex justify-between items-center h-14 bg-slate-800 header-right">
               <div className="bg-white rounded flex items-center w-full max-w-xl mr-4 ml-4 p-2 shadow-sm border border-gray-200">
                 <button className="outline-none focus:outline-none">
                   <svg
@@ -376,7 +376,7 @@ const Header = () => {
                           />
                         </span>
                         <p className="ml-5 text-sm tracking-wide truncate">
-                          Thống kê
+                          Đối tác
                         </p>
                         <div className="ml-[49px]">
                           <svg
