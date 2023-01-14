@@ -2,6 +2,7 @@ import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Button, TextField } from "../../../components";
 import { IProduct } from "../../../types/product.type";
+import { numberWithCommas } from "../../../utils/funtion";
 
 const ProductInventory = () => {
   const [startDate, setStartDate] = useState<string>("");
@@ -54,7 +55,6 @@ const ProductInventory = () => {
           </div>
         </div>
       </div>
-<<<<<<< HEAD
 
       <div className="filter-tabel mt-10">
         <table className="w-full border-collapse border">
@@ -90,28 +90,69 @@ const ProductInventory = () => {
           </thead>
           <tbody>
             <tr>
-              <td className="border">Indiana</td>
-              <td className="border">Indianapolis</td>
+              <td className="border py-3 text-center">Indiana</td>
+              <td className="border py-3 text-center">Indianapolis</td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
             </tr>
             <tr>
-              <td className="border">Ohio</td>
-              <td className="border">Columbus</td>
-            </tr>
-            <tr>
-              <td className="border">Michigan</td>
-              <td className="border">Detroit</td>
+              <td className="border py-3 text-center">Indiana</td>
+              <td className="border py-3 text-center">Indianapolis</td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
+              <td className="border py-3 text-center">
+                {numberWithCommas(21300)}
+              </td>
             </tr>
           </tbody>
         </table>
-=======
-      <div className="filter-tabel mt-10">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
-          consectetur illo quam pariatur. Veniam at non sint ad explicabo ipsa
-          fuga debitis quibusdam nobis accusamus exercitationem praesentium
-          beatae, est eos!
-        </p>
->>>>>>> 5a156b0fd19ca41e24fac736c2ff86e0755099bc
       </div>
     </>
   );
