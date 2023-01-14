@@ -54,7 +54,6 @@ const ProductInventory = () => {
           </div>
         </div>
       </div>
-<<<<<<< HEAD
 
       <div className="filter-tabel mt-10">
         <table className="w-full border-collapse border">
@@ -103,15 +102,6 @@ const ProductInventory = () => {
             </tr>
           </tbody>
         </table>
-=======
-      <div className="filter-tabel mt-10">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
-          consectetur illo quam pariatur. Veniam at non sint ad explicabo ipsa
-          fuga debitis quibusdam nobis accusamus exercitationem praesentium
-          beatae, est eos!
-        </p>
->>>>>>> 5a156b0fd19ca41e24fac736c2ff86e0755099bc
       </div>
     </>
   );
