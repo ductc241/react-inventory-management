@@ -1,5 +1,3 @@
-import { UserType } from "../../types/user.type";
-
 export const authenticated = (data: any, next: () => void) => {
   if (localStorage.getItem("user")) return next();
   localStorage.setItem("user", JSON.stringify(data[1]));
