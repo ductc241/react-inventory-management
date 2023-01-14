@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import ReactPaginate from "react-paginate";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import productServices from "../../api/product.api";
 
 import { Table, Modal, Button } from "../../components";
-import { Caret, EditIcon, TrashIcon } from "../../components/icons";
+import { EditIcon, TrashIcon } from "../../components/icons";
 import { ITableColumn } from "../../components/Table/Table.types";
 import { IProduct } from "../../types/product.type";
 import { isAuthenticated } from "../../utils/localStorage/localStorega";
@@ -13,7 +12,6 @@ import { isAuthenticated } from "../../utils/localStorage/localStorega";
 const ProductList = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState<IProduct[]>([]);
-  console.log(products);
   const columns: ITableColumn[] = [
     {
       key: 1,
@@ -64,7 +62,7 @@ const ProductList = () => {
 
   useEffect(() => {
     productServices.getProducts().then(({ data }) => {
-      setProducts(data.data);
+      setProducts(data);
     });
   }, []);
   const user = isAuthenticated();
@@ -87,14 +85,14 @@ const ProductList = () => {
 
       <Table dataSource={products} column={columns} />
 
-      <ReactPaginate
+      {/* <ReactPaginate
         pageCount={10}
         containerClassName="pagination mt-5"
         pageClassName="pagination_item"
         activeClassName="pagination_active"
         previousLabel={<Caret width={"15px"} />}
         nextLabel={<Caret className="rotate-180" width={"15px"} />}
-      />
+      /> */}
 
       <Modal
         visible={false}

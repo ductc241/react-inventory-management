@@ -14,13 +14,15 @@ const Signin = () => {
   const navigate = useNavigate();
   const onSubmit: SubmitHandler<UserType> = async (user: UserType) => {
     const { data } = await signin(user);
+
     data.error
       ? toast.error(`${data.error}`)
       : (toast.success(`${data[0].correct}`),
-        authenticated(data[1], () => {
+        authenticated(data, () => {
           navigate("/");
         }));
   };
+
   return (
     <>
       <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center bg-contain bg-center bg-no-repeat">
