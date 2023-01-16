@@ -319,10 +319,10 @@ const Header = () => {
                           <p className="text-base leading-4 ml-8">Đơn đặt</p>
                         </Link>
                         <Link
-                          to="#"
+                          to="/receipt"
                           className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
                         >
-                          <p className="text-base leading-4 ml-8">Hoá đơn</p>
+                          <p className="text-base leading-4 ml-8">Đơn xuất</p>
                         </Link>
                         <Link
                           to="#"
@@ -331,7 +331,7 @@ const Header = () => {
                           <p className="text-base leading-4 ml-8">Vận đơn</p>
                         </Link>
                         <Link
-                          to="/receipt"
+                          to="/returns"
                           className="flex justify-start ml-2 items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-48"
                         >
                           <p className="text-base leading-4 ml-8">Trả hàng</p>

@@ -2,22 +2,22 @@ import { IReturns } from "../types/returns.type";
 import instance from "./instance";
 
 export const addReturnsAPI = (returns: IReturns) => {
-  const url = `returns`;
+  const url = `/refund-order`;
   return instance.post(url, returns);
 };
 export const listReturnsAPI = () => {
-  const url = "returns";
+  const url = "/refund-order";
   return instance.get(url);
 };
 export const getReturnsAPI = (id: number | string | undefined) => {
-  const url = `returns/${id}`;
+  const url = `/refund-order/${id}`;
   return instance.get(url);
 };
 export const removeReturnsAPI = (id: number) => {
-  const url = `returns/${id}`;
+  const url = `/refund-order/${id}`;
   return instance.delete(url);
 };
 export const updateReturnsAPI = (id: any, returns: any) => {
-  const url = `returns/${id}`;
+  const url = `/refund-order/${id}`;
   return instance.put(url, returns);
 };

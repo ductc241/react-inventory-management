@@ -1,123 +1,113 @@
-import { Table, Button } from "../../components";
-import { EditIcon, TrashIcon } from "../../components/icons";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { listReturnsAPI } from "../../api/returns.api";
+import { Button, Table } from "../../components";
+import { EditIcon } from "../../components/icons";
 import { ITableColumn } from "../../components/Table/Table.types";
-import { useEffect, useState } from "react";
-import ModalRemoveUser from "../user/modalRemoveUser";
-import { listCategoryAPI } from "../../api/category";
-import { CategoryAction } from "../../types/category.type";
+import { IRefund } from "../../types/refund.type";
+import { ReturnsAction } from "../../types/returns.type";
 
+// eslint-disable-next-line @typescript-eslint/ban-types
+type Props = {};
 
-const Returns = () => {
-  const [listCategory, setListCategory] = useState([]);
-  const [isOpenModalAddEdit, setIsOpenModalAddEdit] = useState(false);
-  const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
-  const [typeModal, setTypeModal] = useState(CategoryAction.ADD);
-  const [id, setID] = useState();
-  const [idRemove, setIDRemove] = useState();
+const Returns = (props: Props) => {
+  const [ returnsList, setReturnsList] = useState([]);
 
-  const getAllCategory = async () => {
-    const res = await listCategoryAPI();
-    if (res.status === 200) {
-      setListCategory(res.data.data);
+  const fetchDataReturnsList = async () => {
+    const { data, status } = await listReturnsAPI();
+    if (status === 200) {
+      setReturnsList(data.data);
     }
   };
+
   useEffect(() => {
-    getAllCategory();
+    fetchDataReturnsList();
   }, []);
 
-  const handleClickOpenModal = (type: CategoryAction, id?: any) => {
-    if (id) {
-      setID(id);
-    }
-    setTypeModal(type);
-    setIsOpenModalAddEdit((prev) => !prev);
+  console.log(returnsList);
+  
+
+  const handleAddOrEditRefund = (type: ReturnsAction) => {
+    console.log(type);
   };
 
-  const handleClickOpenModalDelete = (id: any) => {
-    if (id) {
-      setIDRemove(id);
-    }
-    setIsOpenModalDelete((prev) => !prev);
-  };
-
-  const handleCloseModalDelete = () => {
-    setIsOpenModalDelete(false);
-  };
-
-  const column: ITableColumn[] = [
+  const columns: ITableColumn[] = [
     {
-      key: 1,
-      title: "Id",
-      dataIndex: "id"
-    }, 
-    {
-      key: 2,
-      title: "Người trả",
-      dataIndex: "seller_name"
+      title: "Tên người tạo",
+      dataIndex: "user_name",
+      key: 1
     },
     {
+      title: "Mã trả hàng",
+      dataIndex: "refund_code",
+      key: 2
+    },
+    {
+      title: "Loại hoàn trả",
+      dataIndex: "refund_type",
       key: 3,
-      title: "Mã hoàn",
-      dataIndex: "refund_code"
+      render: (record) => {
+        return (
+          <div>
+            {record.status === 1
+              ? "Khách hàng hoàn trả"
+              : "Cửa hàng hoàn cho NCC"}
+          </div>
+        );
+      }
     },
     {
-      key: 4,
-      title: "Tên hoàn",
-      dataIndex: "description"
+      title: "Mô tả",
+      dataIndex: "description",
+      key: 4
     },
     {
-      key: 5,
-      title: "Số lượng",
-      dataIndex: "refund_totall_quantity"
+      title: "Tổng giá hoàn trả",
+      dataIndex: "refund_price_totail",
+      key: 5
     },
     {
-      key: 6,
-      title: "Trạng thái ($)",
-      dataIndex: "refund_totall_quantity"
+      title: "Tổng số lượng hoàn",
+      dataIndex: "refund_totall_quantity",
+      key: 6
     },
     {
-      key: 7,
-      title: "Action",
+      title: "Ngày hoàn",
+      dataIndex: "created_at",
+      key: 7
+    },
+    {
+      title: "Thao tác",
       dataIndex: "",
-      render: (records) => {
+      key: 8,
+      render: (record) => {
         return (
           <div className="flex items-center gap-5 justify-center">
-            <EditIcon className="cursor-pointer fill-green-400 hover:fill-green-600"
-              onClick={() =>
-                handleClickOpenModal(CategoryAction.EDIT, records.id)
-              }
-            />
-            <TrashIcon className="cursor-pointer fill-red-400 hover:fill-red-600"
-              onClick={() => handleClickOpenModalDelete(records.id)} />
+            <Link
+            to='#'
+            className="hover:text-green-600 hover:underline font-medium"
+            onClick={() => handleAddOrEditRefund(ReturnsAction.EDIT)}>Chi tiết</Link>
           </div>
         );
       }
     }
   ];
 
-  const handleClose = () => {
-    setIsOpenModalAddEdit(false);
-  };
   return (
     <div>
       <div className="flex justify-between mb-3">
         <span className="text-3xl font-semibold mb-10 inline-block">
-          Hàng Hoá
+          Hàng hoàn trả
         </span>
+        
         <Button
           className="h-16"
-          onClick={() => handleClickOpenModal(CategoryAction.ADD)}
+          onClick={() => handleAddOrEditRefund(ReturnsAction.ADD)}
         >
           Thêm nhân viên
         </Button>
       </div>
-      <Table column={column} dataSource={listCategory ? listCategory : []} />
-      <ModalRemoveUser
-        getAllUser={listCategoryAPI}
-        isOpenModalDelete={isOpenModalDelete}
-        close={handleCloseModalDelete}
-        id={idRemove}
-      />
+      <Table column={columns} dataSource={returnsList} />
     </div>
   );
 };

@@ -133,7 +133,7 @@ export const appRoutes: IRoute[] = [
   },
   {
     key: 21,
-    path: routerPaths.PATH_PRICE_BOOK,
+    path: routerPaths.PATH_ALL_RETURNS,
     component: <Layout_Returns />
   },
   {
