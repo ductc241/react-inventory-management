@@ -1,5 +1,7 @@
 import PriceSetting from "../modules/priceSetting/priceSetting";
 import DetailReceipt from "../modules/receipt/DetailReceipt";
+import ProductInventory from "../modules/statistics/inventory/ProductInventory";
+import RevenueByInventory from "../modules/statistics/revenue/RevenueBySupplier";
 import ExportShipments from "../modules/transaction/ExportShipments/Index";
 import ShipmentDetail from "../modules/transaction/shipments/ShipmentDetail";
 import ShipMentsForm from "../modules/transaction/shipments/ShipmentsForm";
@@ -15,7 +17,10 @@ import {
   ProductUpdatePage
 } from "../pages/product";
 import Layout_Returns from "../pages/Returns/Layout_Returns";
+import RefundPage from "../pages/refurnd";
 import SoQuyListPage from "../pages/SoQuy/SoQuyListPage";
+import RevenuePage from "../pages/statistics/RevenuePage";
+import RevenueProductPage from "../pages/statistics/RevenueProductPage";
 import SuplierPage from "../pages/supplier/SupllierPage";
 
 import IRoute from "../types/router.type";
@@ -60,55 +65,80 @@ export const appRoutes: IRoute[] = [
     component: <CategoryListPage />
   },
   {
-    key: 10,
+    key: 8,
     path: routerPaths.PATH_SoQuy,
     component: <SoQuyListPage />
   },
   {
-    key: 11,
+    key: 9,
     path: routerPaths.PATH_PRICE_SETTING,
     component: <PriceSetting />
   },
   {
-    key: 12,
+    key: 10,
     path: routerPaths.PATH_IMPORT_SHIPMENT_ADD,
     component: <ShipMentsForm />,
     role: [2]
   },
   {
-    key: 13,
+    key: 11,
     path: routerPaths.PATH_RECEIPT,
     component: <TransactionTable />
   },
   {
-    key: 14,
+    key: 12,
     path: routerPaths.PATH_RECEIPT_ID,
     component: <DetailReceipt />
   },
   {
-    key: 15,
+    key: 13,
     path: routerPaths.PATH_EXPORT_SHIPMENT,
     component: <ExportShipments />
   },
   {
-    key: 16,
+    key: 14,
     path: routerPaths.PATH_IMPORT_SHIPMENT_DETAIL,
     component: <ShipmentDetail />
   },
   {
+    key: 15,
+    path: routerPaths.PATH_REPORT_REVENUE,
+    component: <RevenuePage />
+  },
+  {
+    key: 16,
+    path: routerPaths.PATH_REPORT_REVENUE_PRODUCT,
+    component: <RevenueProductPage />
+  },
+  {
     key: 17,
+    path: routerPaths.PATH_REPORT_REVENUE_SUPPLIER,
+    component: <RevenueByInventory />
+  },
+  {
+    key: 18,
+    path: routerPaths.PATH_REPORT_INVENTORY_PRODUCT,
+    component: <ProductInventory />
+  },
+  {
+    key: 19,
     path: routerPaths.PATH_ALL_USER,
     component: <User />,
     role: [2]
   },
   {
-    key: 18,
+    key: 20,
     path: routerPaths.PATH_PRICE_BOOK,
     component: <Layout_PriceBook />
   },
   {
-    key: 19,
-    path: routerPaths.PATH_ALL_RETURNS,
+    key: 21,
+    path: routerPaths.PATH_PRICE_BOOK,
     component: <Layout_Returns />
+  },
+  {
+    key: 21,
+    path: routerPaths.PATH_REFUND_SUPPLIER,
+    component: <RefundPage />
   }
 ];

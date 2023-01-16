@@ -1,25 +1,22 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import reportServices from "../../api/report.api";
 import FormatNumber from "../../components/formatNumber/formatNumber";
 import BanChay from "./BanChay";
 import HangHoanTra from "./HangHoanTra";
 import KhachHang from "./KhachHang";
 import SpTrongKho from "./SpTrongKho";
-import TienLai from "./TienLai";
-import TienLo from "./TienLo";
-import TienVon from "./TienVon";
 
 const Dashboard = () => {
   const [data, setData] = useState<any | []>([]);
   useEffect(() => {
     const handleStaticCall = async () => {
-      const { data } = await axios.get(`https://dechoat.com/api/statistical`);
+      const { data } = await reportServices.getRevenueOverview();
 
       setData(data);
     };
     handleStaticCall();
   }, []);
-  console.log(data);
   return (
     <div>
       <div>

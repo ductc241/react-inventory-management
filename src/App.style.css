@@ -80,3 +80,7 @@ body {
   border-radius: 6px;
   box-shadow: -7px 7px 0 0 #f3f4f6;
 }
+
+.shadow-custom {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}

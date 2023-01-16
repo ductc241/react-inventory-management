@@ -1,17 +1,17 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import * as supplierServices from "../../../api/supplier.api";
 
 const SidebarNhaCungCap = () => {
   //Nhà Cung Cấp
   const [suppliers, setSuppliers] = useState([]);
   useEffect(() => {
-    async function getSuppliers(){
-      const { data } = await axios.get('https://dechoat.com/api/suppliers');
+    async function getSuppliers() {
+      const { data } = await supplierServices.list();
       setSuppliers(data);
-    } getSuppliers()
-  }, [])
+    }
+    getSuppliers();
+  }, []);
   return (
     <div>
       <aside className="w-auto border rounded" aria-label="Sidebar">
@@ -44,7 +44,9 @@ const SidebarNhaCungCap = () => {
                     to="#"
                     className="flex items-center p-2 text-sm font-normal text-gray-900 rounded-lg hover:bg-gray-100"
                   >
-                    <span className="flex-1 whitespace-nowrap">{item.name}</span>
+                    <span className="flex-1 whitespace-nowrap">
+                      {item.name}
+                    </span>
                   </Link>
                 </li>
               );

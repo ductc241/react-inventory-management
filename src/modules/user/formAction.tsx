@@ -55,8 +55,8 @@ const FornAction = ({ open, close, types, id, getAllUser }: Props) => {
 
       if (res.status === 200) {
         getAllUser();
-        close();
         reset();
+        close();
         toast.success("Thêm nhân viên thành công");
       }
       if (res.status !== 200) {
@@ -67,12 +67,10 @@ const FornAction = ({ open, close, types, id, getAllUser }: Props) => {
     if (types === UserAction.EDIT) {
       const res = await updateUser(id, cloneData);
 
-      console.log(res);
-
       if (res.status === 200) {
         getAllUser();
-        close();
         reset();
+        close();
         toast.success("Thêm nhân viên thành công");
       }
       if (res.status !== 200) {
@@ -106,7 +104,7 @@ const FornAction = ({ open, close, types, id, getAllUser }: Props) => {
                 <select className="border h-12 rounded-lg px-3" {...field}>
                   <option value={""}>-- Chọn giới tính của bạn --</option>
                   <option value={1}>Nam</option>
-                  <option value={0}>Nữ</option>
+                  <option value={2}>Nữ</option>
                 </select>
               )}
               control={control}
@@ -130,8 +128,8 @@ const FornAction = ({ open, close, types, id, getAllUser }: Props) => {
               render={({ field }) => (
                 <select className="border h-12 rounded-lg px-3" {...field}>
                   <option value={""}>-- Chức vụ --</option>
-                  <option value={0}>Nhân viên</option>
-                  <option value={1}>Admin</option>
+                  <option value={3}>Nhân viên</option>
+                  <option value={2}>Chủ cửa hàng</option>
                 </select>
               )}
               control={control}
@@ -141,7 +139,9 @@ const FornAction = ({ open, close, types, id, getAllUser }: Props) => {
           </div>
         </div>
         <div className="flex justify-end mt-5">
-          <Button type="submit">Thêm nhân viên</Button>
+          <Button type="submit">
+            {types === UserAction.ADD ? "Thêm nhân viên" : "Chỉnh sửa nhân viên"}
+          </Button>
         </div>
       </form>
     </Modal>
