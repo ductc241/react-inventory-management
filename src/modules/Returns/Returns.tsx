@@ -33,13 +33,13 @@ const Returns = (props: Props) => {
 
   const columns: ITableColumn[] = [
     {
-      title: "Tên người tạo",
-      dataIndex: "user_name",
+      title: "Mã trả hàng",
+      dataIndex: "refund_code",
       key: 1
     },
     {
-      title: "Mã trả hàng",
-      dataIndex: "refund_code",
+      title: "Tên người tạo",
+      dataIndex: "user_name",
       key: 2
     },
     {
@@ -62,7 +62,7 @@ const Returns = (props: Props) => {
       key: 4
     },
     {
-      title: "Tổng giá hoàn trả",
+      title: "Tổng tiền hoàn trả",
       dataIndex: "refund_price_totail",
       key: 5
     },
@@ -84,7 +84,7 @@ const Returns = (props: Props) => {
         return (
           <div className="flex items-center gap-5 justify-center">
             <Link
-            to='#'
+            to='/detail_returns'
             className="hover:text-green-600 hover:underline font-medium"
             onClick={() => handleAddOrEditRefund(ReturnsAction.EDIT)}>Chi tiết</Link>
           </div>

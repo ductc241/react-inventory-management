@@ -25,6 +25,8 @@ import SuplierPage from "../pages/supplier/SupllierPage";
 
 import IRoute from "../types/router.type";
 import * as routerPaths from "./routes.paths";
+import DetailReturns from "../modules/Returns/DetailReturns";
+import Layout_DetailReturns from "../pages/Returns/Layout_DetailReturns";
 export const appRoutes: IRoute[] = [
   {
     key: 1,
@@ -139,6 +141,11 @@ export const appRoutes: IRoute[] = [
   {
     key: 21,
     path: routerPaths.PATH_REFUND_SUPPLIER,
-    component: <RefundPage />
+    component: <Layout_DetailReturns />
+  },
+  {
+    key: 22,
+    path: routerPaths.PATH_DETAILRETURNS,
+    component: <Layout_DetailReturns />
   }
 ];

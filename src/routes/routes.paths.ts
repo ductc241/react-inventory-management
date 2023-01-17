@@ -40,3 +40,5 @@ export const PATH_ALL_USER = "/user";
 
 export const PATH_ALL_RETURNS = "/returns";
 export const PATH_REFUND_SUPPLIER = "/refund";
+
+export const PATH_DETAILRETURNS = "/detail_Returns";
