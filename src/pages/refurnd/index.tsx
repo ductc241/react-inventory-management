@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getRefund } from "../../api/refund";
 import { Button, Table } from "../../components";
-import { EditIcon } from "../../components/icons";
+import { EyesIcon } from "../../components/icons";
 import { ITableColumn } from "../../components/Table/Table.types";
 import { IRefund } from "../../types/refund.type";
+import ModalAddRefund from "./ModalAddRefund";
+import ModalDetailRefund from "./ModalDetailRefund";
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 type Props = {};
 
 const RefundPage = (props: Props) => {
   const [refundList, setRefundList] = useState([]);
-
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isOpenAddModal, setIsOpenAddModal] = useState(false);
+  const [idDetail, setIDdetail] = useState(0);
   const fetchDataRefundList = async () => {
     const { data, status } = await getRefund();
     if (status === 200) {
@@ -22,12 +26,24 @@ const RefundPage = (props: Props) => {
     fetchDataRefundList();
   }, []);
 
-  console.log(refundList);
+  const handleAddOrEditRefund = (type: IRefund, id?: any) => {
+    if (type === IRefund.VIEW) {
+      setIsOpenModal((prev) => !prev);
+      setIDdetail(id);
+    }
 
-  const handleAddOrEditRefund = (type: IRefund) => {
-    console.log(type);
+    if (type === IRefund.ADD) {
+      setIsOpenAddModal((prev) => !prev);
+    }
   };
 
+  const handleCancel = () => {
+    setIsOpenModal(false);
+  };
+
+  const handleCancelAddModal = () => {
+    setIsOpenAddModal(false);
+  };
   const columns: ITableColumn[] = [
     {
       title: "Tên người tạo",
@@ -80,7 +96,9 @@ const RefundPage = (props: Props) => {
       render: (record) => {
         return (
           <div className="flex items-center gap-5 justify-center">
-            <EditIcon onClick={() => handleAddOrEditRefund(IRefund.EDIT)} />
+            <EyesIcon
+              onClick={() => handleAddOrEditRefund(IRefund.VIEW, record.id)}
+            />
           </div>
         );
       }
@@ -88,20 +106,31 @@ const RefundPage = (props: Props) => {
   ];
 
   return (
-    <div>
-      <div className="flex justify-between mb-3">
-        <span className="text-3xl font-semibold mb-10 inline-block">
-          Hàng hoàn trả
-        </span>
-        <Button
-          className="h-16"
-          onClick={() => handleAddOrEditRefund(IRefund.ADD)}
-        >
-          Thêm nhân viên
-        </Button>
+    <>
+      <div>
+        <div className="flex justify-between mb-3">
+          <span className="text-3xl font-semibold mb-10 inline-block">
+            Hàng hoàn trả
+          </span>
+          <Button
+            className="h-16"
+            onClick={() => handleAddOrEditRefund(IRefund.ADD)}
+          >
+            Tạo đơn hoàn
+          </Button>
+        </div>
+        <Table column={columns} dataSource={refundList} />
       </div>
-      <Table column={columns} dataSource={refundList} />
-    </div>
+      <ModalDetailRefund
+        open={isOpenModal}
+        id={idDetail}
+        handleCancel={handleCancel}
+      />
+      <ModalAddRefund
+        open={isOpenAddModal}
+        handleCancel={handleCancelAddModal}
+      />
+    </>
   );
 };
 
