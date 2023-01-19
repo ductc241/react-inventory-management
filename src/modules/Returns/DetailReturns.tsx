@@ -2,36 +2,62 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
 import { getRecei, listRecei } from "../../api/receipt.api";
-import { listReturnsAPI } from "../../api/returns.api";
+import { listReturnsAPI, getReturnsAPI } from "../../api/returns.api";
 import { Button, Table } from "../../components";
 import { ITableColumn } from "../../components/Table/Table.types";
 import { ReturnsAction } from "../../types/returns.type";
+
 
 const DetailReturns = () => {
   const [datas, setDatas] = useState<any>([]);
   const [dataList, setDataList] = useState<any>([]);
   const [visible, setVisible] = useState<boolean>(false);
   const { id } = useParams();
+  const getReturnsId = async () => {
+    const { data } = await getReturnsAPI(Number(id));
+    const { data: dataReturns } = await listReturnsAPI();
+    const dataa: any = [];
+    for (let i = 0; i < dataReturns.data.length; i++) {
+      if (dataReturns.data[i].id == Number(id)) {
+        dataa.push(dataReturns.data[i]);
+      }
+    }
+    setDatas(dataa);
+    setDataList(data.data);
+  };
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (Number(id)) {
+      navigate("/*");
+    } else {
+      getReturnsId();
+    }
+  }, []);
 
 
 
 
-  const [ returnsList, setReturnsList] = useState([]);
 
+
+  const [returns, setReturns] = useState([]);
+  useEffect(() => {
+    async function getReturns() {
+      const { data } = await listReturnsAPI();
+      setReturns(data);
+    }
+    getReturns();
+  }, []);
+  const [returnsList, setReturnsList] = useState([]);
   const fetchDataReturnsList = async () => {
     const { data, status } = await listReturnsAPI();
     if (status === 200) {
       setReturnsList(data.data);
     }
   };
-
   useEffect(() => {
     fetchDataReturnsList();
   }, []);
-
   console.log(returnsList);
-  
-
   const handleAddOrEditRefund = (type: ReturnsAction) => {
     console.log(type);
   };
