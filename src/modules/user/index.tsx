@@ -116,7 +116,7 @@ const User = () => {
       <FornAction
         open={isOpenModalAddEdit}
         close={handleClose}
-        type={typeModal}
+        types={typeModal}
         id={id}
         getAllUser={getAllUser}
       />

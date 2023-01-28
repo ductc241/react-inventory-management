@@ -1,8 +1,7 @@
 import React from 'react'
 
-type Props = {}
 
-const PriceBook = (props: Props) => {
+const PriceBook = () => {
   return (
     <div>
       <section className="container mx-auto p-6">

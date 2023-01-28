@@ -45,9 +45,9 @@ export const removeCategory = createAsyncThunk(
 );
 export const updateCategory = createAsyncThunk(
   "category/update",
-  async (category: ICategory) => {
-    const res = await updateCategoryAPI(category);
-    return res;
+  async (category: ICategory, id: any) => {
+    const res = await updateCategoryAPI(id, category);
+    return res.data.data;
   }
 );
 const categorySlice = createSlice({

@@ -8,7 +8,7 @@ import { useEffect } from "react";
 type Props = {
   open: boolean;
   close: () => void;
-  type: UserAction;
+  types: UserAction;
   id?: any;
   getAllUser?: any;
 };
@@ -22,11 +22,11 @@ type infoUser = {
   role_id: string;
 };
 
-const FornAction = ({ open, close, type, id, getAllUser }: Props) => {
+const FornAction = ({ open, close, types, id, getAllUser }: Props) => {
   const { control, handleSubmit, register, reset } = useForm<infoUser>();
 
   useEffect(() => {
-    if (type === UserAction.EDIT) {
+    if (types === UserAction.EDIT) {
       const getOneUserData = async () => {
         const res = await getOneUser(id);
         if (res.status === 200) {
@@ -36,7 +36,7 @@ const FornAction = ({ open, close, type, id, getAllUser }: Props) => {
       };
       getOneUserData();
     }
-  }, [id, reset, type]);
+  }, [id, reset, types]);
 
   const onSubmit = async (data: infoUser) => {
     const { gender, role_id, name, password, phone_number, email } = data;
@@ -50,7 +50,7 @@ const FornAction = ({ open, close, type, id, getAllUser }: Props) => {
       role_id: +role_id
     };
 
-    if (type === UserAction.ADD) {
+    if (types === UserAction.ADD) {
       const res = await createUser(cloneData);
 
       if (res.status === 200) {
@@ -64,7 +64,7 @@ const FornAction = ({ open, close, type, id, getAllUser }: Props) => {
       }
     }
 
-    if (type === UserAction.EDIT) {
+    if (types === UserAction.EDIT) {
       const res = await updateUser(id, cloneData);
 
       if (res.status === 200) {
@@ -83,7 +83,7 @@ const FornAction = ({ open, close, type, id, getAllUser }: Props) => {
       showButtons={false}
       visible={open}
       onCancel={close}
-      title={type === UserAction.ADD ? "Thêm nhân viên" : "Chỉnh sửa nhân viên"}
+      title={types === UserAction.ADD ? "Thêm nhân viên" : "Chỉnh sửa nhân viên"}
     >
       <form className="mb-5" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex gap-5 items-center w-[500px]">
@@ -140,7 +140,7 @@ const FornAction = ({ open, close, type, id, getAllUser }: Props) => {
         </div>
         <div className="flex justify-end mt-5">
           <Button type="submit">
-            {type === UserAction.ADD ? "Thêm nhân viên" : "Chỉnh sửa nhân viên"}
+            {types === UserAction.ADD ? "Thêm nhân viên" : "Chỉnh sửa nhân viên"}
           </Button>
         </div>
       </form>
