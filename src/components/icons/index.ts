@@ -15,3 +15,6 @@ export { default as PieChartIcon } from "./PieChartIcon";
 export { default as OrderIcon } from "./OrderIcon";
 export { default as StatsIcon } from "./StatsIcon";
 export { default as LogoutIcon } from "./LogoutIcon";
+export { default as OverviewIcon } from "./OverviewIcon";
+export { default as BoxIcon } from "./BoxIcon";
+export { default as UserICon } from "./User_Icon";

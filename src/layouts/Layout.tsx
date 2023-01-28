@@ -1,19 +1,21 @@
 import { Outlet } from "react-router-dom";
-import { Footer } from "../components/Footer";
-
-import Header from "../components/Header/Header";
-
+import LayoutHeader from "./Layout.header";
+import LayoutSidebar from "./Layout.sidebar";
 import "./Layout.style.css";
 
 const LayoutMain = () => {
   return (
-    <>
-      <Header />
-      {/* <div className="container mx-auto mt-4">
-        <Outlet />
+    <div className="flex">
+      <div className="relative">
+        <LayoutSidebar />
       </div>
-      <Footer /> */}
-    </>
+      <div className="pl-[81px] lg:pl-[260px] grow bg-[#f7f9fc]">
+        <LayoutHeader />
+        <div className="container mt-5">
+          <Outlet />
+        </div>
+      </div>
+    </div>
   );
 };
 
