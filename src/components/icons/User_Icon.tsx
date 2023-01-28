@@ -1,23 +1,18 @@
 import React, { SVGProps } from "react";
 
-const CloseIcon = ({ ...props }: SVGProps<SVGSVGElement>) => {
+const UserIcon = ({ ...props }: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="h-6 w-6 hover:text-gray-200"
-      fill="none"
       viewBox="0 0 24 24"
-      stroke="currentColor"
+      width="24"
+      height="24"
       {...props}
     >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-      />
+      <path d="M15,3.849h0a1.02,1.02,0,0,0,.629.926A9,9,0,0,1,21,13.292,9,9,0,0,1,3,13,9,9,0,0,1,8.371,4.776,1.023,1.023,0,0,0,9,3.848H9a1,1,0,0,0-1.374-.929,11,11,0,1,0,8.751,0A1,1,0,0,0,15,3.849Z" />
+      <rect x="11" width="2" height="8" rx="1" />
     </svg>
   );
 };
 
-export default CloseIcon;
+export default UserIcon;

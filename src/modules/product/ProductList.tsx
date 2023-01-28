@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import productServices from "../../api/product.api";
 
@@ -59,13 +59,14 @@ const ProductList = () => {
       )
     }
   ];
+  const user = isAuthenticated();
 
   useEffect(() => {
     productServices.getProducts().then(({ data }) => {
       setProducts(data);
     });
   }, []);
-  const user = isAuthenticated();
+
   return (
     <>
       <div className="flex justify-end mb-5">

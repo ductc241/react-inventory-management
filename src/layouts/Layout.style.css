@@ -11,3 +11,17 @@
   grid-column: span 10 / span 10;
   padding: 30px;
 }
+
+.menu-item-sub {
+  display: none;
+}
+
+.menu-item:hover .menu-item-sub {
+  display: block;
+}
+
+@media screen and (max-width: 1024px) {
+  .mobile-hidden {
+    display: none !important;
+  }
+}
