@@ -5,11 +5,11 @@ import "./Layout.style.css";
 
 const LayoutMain = () => {
   return (
-    <div className="flex">
-      <div className="relative">
+    <div className="flex min-h-[100vh]">
+      <div>
         <LayoutSidebar />
       </div>
-      <div className="pl-[81px] lg:pl-[260px] grow bg-[#f7f9fc]">
+      <div className="grow bg-[#f7f9fc]">
         <LayoutHeader />
         <div className="container mt-5">
           <Outlet />

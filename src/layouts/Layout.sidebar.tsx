@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowDownIcon, BoxIcon, OverviewIcon } from "../components/icons";
+import * as routerPaths from "../routes/routes.paths";
 import Logo from "../assets/logo.png";
 
 const LayoutSidebar = () => {
@@ -9,16 +10,16 @@ const LayoutSidebar = () => {
   const [report, setReport] = useState<boolean>(true);
 
   return (
-    <div className="absolute inset-0 w-[81px] lg:w-[260px] bg-[#233044]">
+    <div className="w-[81px] h-full lg:w-[260px] bg-[#233044]">
       <div className="pt-5 pb-7">
-        <Link to="/" className="flex justify-center">
+        <Link to="" className="flex justify-center">
           <img src={Logo} alt="" className="w-[40px] lg:w-[80px]" />
         </Link>
       </div>
 
       <div>
         <div className="mb-2 py-3 px-7 lg:px-8 hover:bg-[#00000038] hover:cursor-pointer">
-          <Link to="#" className="flex items-center justify-center">
+          <Link to="" className="flex items-center justify-center">
             <OverviewIcon width={17} height={17} fill="#eeeeee" />
             <div className="flex grow mobile-hidden">
               <span className="grow px-5 text-[#eeeeee]">Tổng quan</span>
@@ -41,17 +42,26 @@ const LayoutSidebar = () => {
           {product && (
             <div className="text-[14px] mobile-hidden">
               <div className="py-3 pr-8 pl-[75px] hover:bg-[#00000038] hover:cursor-pointer">
-                <Link to="#" className="text-[#eeeeeeb3]">
+                <Link
+                  to={routerPaths.PATH_PRODUCTS}
+                  className="text-[#eeeeeeb3]"
+                >
                   Sản phẩm
                 </Link>
               </div>
               <div className="py-3 pr-8 pl-[75px] hover:bg-[#00000038] hover:cursor-pointer">
-                <Link to="#" className="text-[#eeeeeeb3]">
+                <Link
+                  to={routerPaths.PATH_CATEGORY}
+                  className="text-[#eeeeeeb3]"
+                >
                   Danh mục
                 </Link>
               </div>
               <div className="py-3 pr-8 pl-[75px] hover:bg-[#00000038] hover:cursor-pointer">
-                <Link to="#" className="text-[#eeeeeeb3]">
+                <Link
+                  to={routerPaths.PATH_SUPPLIER}
+                  className="text-[#eeeeeeb3]"
+                >
                   Nhà cung cấp
                 </Link>
               </div>
@@ -89,7 +99,10 @@ const LayoutSidebar = () => {
                 </Link>
               </div>
               <div className="py-3 pr-8 pl-[75px] hover:bg-[#00000038] hover:cursor-pointer">
-                <Link to="#" className="text-[#eeeeeeb3]">
+                <Link
+                  to={routerPaths.PATH_REFUND_SUPPLIER}
+                  className="text-[#eeeeeeb3]"
+                >
                   Trả hàng
                 </Link>
               </div>
@@ -124,10 +137,19 @@ const LayoutSidebar = () => {
                 <span className="text-[#eeeeeeb3]">Doanh thu</span>
                 <div className="menu-item-sub absolute z-[999] top-0 left-[100%] border border-l-white w-[260px] bg-[#233044] text-white">
                   <div className="py-3 px-5 hover:bg-slate-700">
-                    <Link to="#">Theo sản phẩm</Link>
+                    <Link to={routerPaths.PATH_REPORT_REVENUE}>
+                      Theo sản phẩm
+                    </Link>
                   </div>
                   <div className="py-3 px-5 hover:bg-slate-700">
-                    <Link to="#">Theo nhà cung cấp</Link>
+                    <Link to={routerPaths.PATH_REPORT_REVENUE_PRODUCT}>
+                      Theo sản phẩm
+                    </Link>
+                  </div>
+                  <div className="py-3 px-5 hover:bg-slate-700">
+                    <Link to={routerPaths.PATH_REPORT_REVENUE_SUPPLIER}>
+                      Theo nhà cung cấp
+                    </Link>
                   </div>
                   <div className="py-3 px-5 hover:bg-slate-700">
                     <Link to="#">Theo danh mục sản phẩm</Link>
@@ -139,13 +161,19 @@ const LayoutSidebar = () => {
                 <span className="text-[#eeeeeeb3]">Tồn kho</span>
                 <div className="menu-item-sub absolute z-[999] top-0 left-[100%] border border-l-white w-[260px] bg-[#233044] text-white">
                   <div className="py-3 px-5 hover:bg-slate-700">
-                    <Link to="#">Theo sản phẩm</Link>
+                    <Link to={routerPaths.PATH_REPORT_INVENTORY_PRODUCT}>
+                      Theo sản phẩm
+                    </Link>
                   </div>
                   <div className="py-3 px-5 hover:bg-slate-700">
-                    <Link to="#">Theo nhà cung cấp</Link>
+                    <Link to={routerPaths.PATH_REPORT_INVENTORY_SUPPLIER}>
+                      Theo nhà cung cấp
+                    </Link>
                   </div>
                   <div className="py-3 px-5 hover:bg-slate-700">
-                    <Link to="#">Theo danh mục sản phẩm</Link>
+                    <Link to={routerPaths.PATH_REPORT_REVENUE_PRODUCT}>
+                      Theo danh mục sản phẩm
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -154,7 +182,10 @@ const LayoutSidebar = () => {
         </div>
 
         <div className="mb-2 py-3 px-7 lg:px-8 hover:bg-[#00000038] hover:cursor-pointer">
-          <Link to="#" className="flex items-center justify-center">
+          <Link
+            to={routerPaths.PATH_ALL_USER}
+            className="flex items-center justify-center"
+          >
             <OverviewIcon width={17} height={17} fill="#eeeeee" />
             <div className="flex grow mobile-hidden">
               <span className="grow px-5 text-[#eeeeee]">Nhân viên</span>

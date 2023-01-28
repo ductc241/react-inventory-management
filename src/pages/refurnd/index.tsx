@@ -108,14 +108,11 @@ const RefundPage = (props: Props) => {
   return (
     <>
       <div>
-        <div className="flex justify-between mb-3">
-          <span className="text-3xl font-semibold mb-10 inline-block">
+        <div className="flex justify-between items-center mb-10">
+          <span className="text-3xl font-semibold inline-block">
             Hàng hoàn trả
           </span>
-          <Button
-            className="h-16"
-            onClick={() => handleAddOrEditRefund(IRefund.ADD)}
-          >
+          <Button onClick={() => handleAddOrEditRefund(IRefund.ADD)}>
             Tạo đơn hoàn
           </Button>
         </div>
