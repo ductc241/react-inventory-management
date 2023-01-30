@@ -143,9 +143,9 @@ export const appRoutes: IRoute[] = [
     path: routerPaths.PATH_REFUND_SUPPLIER,
     component: <Layout_DetailReturns />
   },
-  {
+    {
     key: 22,
-    path: routerPaths.PATH_DETAILRETURNS,
-    component: <Layout_DetailReturns />
-  }
+    path: routerPaths.PATH_ALL_RETURNS_GET,
+    component: <DetailReturns />,
+  },
 ];

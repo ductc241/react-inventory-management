@@ -28,7 +28,7 @@ const Returns = (props: Props) => {
   
 
   const handleAddOrEditRefund = (type: ReturnsAction) => {
-    console.log(type);
+    console.log('ssdsd',type);
   };
 
   const columns: ITableColumn[] = [
@@ -80,11 +80,11 @@ const Returns = (props: Props) => {
       title: "Thao tác",
       dataIndex: "",
       key: 8,
-      render: (record) => {
+      render: (id: number) => {
         return (
           <div className="flex items-center gap-5 justify-center">
             <Link
-            to='/detail_returns'
+            to={`/returns/${id}`}
             className="hover:text-green-600 hover:underline font-medium"
             onClick={() => handleAddOrEditRefund(ReturnsAction.EDIT)}>Chi tiết</Link>
           </div>

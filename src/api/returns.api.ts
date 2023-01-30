@@ -9,7 +9,7 @@ export const listReturnsAPI = () => {
   const url = "/refund-order";
   return instance.get(url);
 };
-export const getReturnsAPI = (id: number | string | undefined) => {
+export const getReturnsAPI = (id: number | string) => {
   const url = `/refund-order/${id}`;
   return instance.get(url);
 };

@@ -118,7 +118,7 @@ const DetailReturns = () => {
         <div className="col-span-4">
           <div className="m-3 flex">
             <label>Mã hóa đơn :</label>
-            <p className="font-bold ml-6">{datas[0]?.refund_code}</p>
+            <p className="font-bold ml-6">{datas?.refund_code}</p>
           </div>
           <hr />
           <div className="m-3 flex">

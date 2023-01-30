@@ -39,6 +39,8 @@ export const PATH_PRICE_BOOK = "/priceBook";
 export const PATH_ALL_USER = "/user";
 
 export const PATH_ALL_RETURNS = "/returns";
+export const PATH_ALL_RETURNS_GET = "/returns/:id";
+
 export const PATH_REFUND_SUPPLIER = "/refund";
 
-export const PATH_DETAILRETURNS = "/detail_Returns";
+// export const PATH_DETAILRETURNS = "/detail_Returns";
