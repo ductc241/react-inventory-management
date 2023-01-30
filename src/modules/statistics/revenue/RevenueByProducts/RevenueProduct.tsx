@@ -48,7 +48,7 @@ const RevenueProduct = ({ staticalData }: IProps) => {
   return (
     <>
       <div className="grid grid-cols-12 gap-10 mb-10">
-        <div className="col-span-4 border">
+        <div className="col-span-4 border bg-white">
           <div className="py-3 px-4 bg-gray-100">
             <p className="text-lg font-semibold">Tổng bán</p>
           </div>
@@ -65,7 +65,7 @@ const RevenueProduct = ({ staticalData }: IProps) => {
           </div>
         </div>
 
-        <div className="col-span-4 border">
+        <div className="col-span-4 border bg-white">
           <div className="py-3 px-4 bg-gray-100">
             <p className="text-lg font-semibold">Tổng trả</p>
           </div>
@@ -82,7 +82,7 @@ const RevenueProduct = ({ staticalData }: IProps) => {
           </div>
         </div>
 
-        <div className="col-span-4 border">
+        <div className="col-span-4 border bg-white">
           <div className="py-3 px-4 bg-gray-100">
             <p className="text-lg font-semibold">Lợi nhuận</p>
           </div>

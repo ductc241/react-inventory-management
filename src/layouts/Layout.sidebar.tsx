@@ -1,6 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowDownIcon, BoxIcon, OverviewIcon } from "../components/icons";
+import {
+  ArrowDownIcon,
+  BoxIcon,
+  InventoryIcon,
+  OverviewIcon,
+  ReportIcon,
+  UsersIcon
+} from "../components/icons";
 import * as routerPaths from "../routes/routes.paths";
 import Logo from "../assets/logo.png";
 
@@ -79,7 +86,7 @@ const LayoutSidebar = () => {
             className="flex items-center justify-center py-3 px-7 lg:px-8 hover:bg-[#00000038] hover:cursor-pointer"
             onClick={() => setStore((prev) => !prev)}
           >
-            <BoxIcon width={17} height={17} fill="#eeeeee" />
+            <InventoryIcon width={17} height={17} fill="#eeeeee" />
             <div className="flex grow mobile-hidden">
               <span className="grow px-5 text-[#eeeeee]">Kho hàng</span>
               <ArrowDownIcon fill="#eeeeee" width={18} height={18} />
@@ -125,7 +132,7 @@ const LayoutSidebar = () => {
             className="flex items-center justify-center py-3 px-7 lg:px-8 hover:bg-[#00000038] hover:cursor-pointer"
             onClick={() => setReport((prev) => !prev)}
           >
-            <BoxIcon width={17} height={17} fill="#eeeeee" />
+            <ReportIcon width={17} height={17} fill="#eeeeee" />
             <div className="flex grow mobile-hidden">
               <span className="grow px-5 text-[#eeeeee]">Báo cáo</span>
               <ArrowDownIcon fill="#eeeeee" width={18} height={18} />
@@ -137,9 +144,7 @@ const LayoutSidebar = () => {
                 <span className="text-[#eeeeeeb3]">Doanh thu</span>
                 <div className="menu-item-sub absolute z-[999] top-0 left-[100%] border border-l-white w-[260px] bg-[#233044] text-white">
                   <div className="py-3 px-5 hover:bg-slate-700">
-                    <Link to={routerPaths.PATH_REPORT_REVENUE}>
-                      Theo sản phẩm
-                    </Link>
+                    <Link to={routerPaths.PATH_REPORT_REVENUE}>Tổng quan</Link>
                   </div>
                   <div className="py-3 px-5 hover:bg-slate-700">
                     <Link to={routerPaths.PATH_REPORT_REVENUE_PRODUCT}>
@@ -186,7 +191,7 @@ const LayoutSidebar = () => {
             to={routerPaths.PATH_ALL_USER}
             className="flex items-center justify-center"
           >
-            <OverviewIcon width={17} height={17} fill="#eeeeee" />
+            <UsersIcon width={17} height={17} fill="#eeeeee" />
             <div className="flex grow mobile-hidden">
               <span className="grow px-5 text-[#eeeeee]">Nhân viên</span>
             </div>

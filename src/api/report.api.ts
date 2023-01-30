@@ -14,6 +14,16 @@ const reportServices = {
   getRevenueBySupplier: (data: any) => {
     const url = "/statistical/supplier";
     return instance.post(url, data);
+  },
+
+  getInventoryProduct: (data: any) => {
+    const url = "/statistical/inventoryProduct";
+    return instance.post(url, data);
+  },
+
+  getInventorySupplier: (data: any) => {
+    const url = "/statistical/inventorySupplier";
+    return instance.post(url, data);
   }
 };
 

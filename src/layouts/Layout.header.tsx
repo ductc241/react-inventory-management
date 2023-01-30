@@ -12,13 +12,16 @@ const LayoutHeader = () => {
   };
 
   return (
-    <div className="px-10 py-2 bg-white">
-      <div className="flex justify-end">
-        <div className="p-3 rounded-full hover:bg-gray-100">
+    <div
+      className="py-2 bg-white"
+      style={{ boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 5px" }}
+    >
+      <div className="container flex justify-end">
+        <div className="p-3 rounded-full hover:bg-gray-100 hover:cursor-pointer">
           <UserICon
             width={20}
             height={20}
-            className="hover:cursor-pointer"
+            fill="#9e9e9e"
             onClick={handleLogout}
           />
         </div>

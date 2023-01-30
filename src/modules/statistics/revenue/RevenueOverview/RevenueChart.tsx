@@ -37,7 +37,7 @@ const RevenueChart = ({ staticalData }: IProps) => {
   };
 
   return (
-    <div className="w-2/3 rounded-md shadow-custom">
+    <div className="w-full xl:w-2/3 rounded-md shadow-custom">
       <div className="grid grid-cols-12 gap-5 p-5 border-b bg-gray-100">
         <div className="col-span-3 bg-white py-4 text-center border border-gray-300">
           <div className="mb-5">
