@@ -8,7 +8,7 @@ import ImagePreview from "./component/ImagePreview";
 import { TextField, Select, Button } from "../../../components";
 import { WarningIcon } from "../../../components/icons";
 
-import { IProduct, IProductCreate } from "../../../types/product.type";
+import { IProductCreate } from "../../../types/product.type";
 import IOption from "../../../types/option.model";
 import ProductSchema from "./ProductForm.schema";
 import { StatusOptions } from "./ProductForm.constants";

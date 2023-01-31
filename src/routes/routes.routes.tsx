@@ -1,6 +1,7 @@
 import PriceSetting from "../modules/priceSetting/priceSetting";
 import DetailReceipt from "../modules/receipt/DetailReceipt";
 import ProductInventory from "../modules/statistics/inventory/ProductInventory";
+import SupplierInventory from "../modules/statistics/inventory/SupplierInventory";
 import RevenueByInventory from "../modules/statistics/revenue/RevenueBySupplier";
 import ExportShipments from "../modules/transaction/ExportShipments/Index";
 import ShipmentDetail from "../modules/transaction/shipments/ShipmentDetail";
@@ -45,7 +46,7 @@ export const appRoutes: IRoute[] = [
     key: 4,
     path: routerPaths.PATH_PRODUCTS_UPDATE,
     component: <ProductUpdatePage />,
-    role: [2]
+    role: [1]
   },
   {
     key: 5,
@@ -120,17 +121,22 @@ export const appRoutes: IRoute[] = [
   },
   {
     key: 19,
-    path: routerPaths.PATH_ALL_USER,
-    component: <User />,
-    role: [2]
+    path: routerPaths.PATH_REPORT_INVENTORY_SUPPLIER,
+    component: <SupplierInventory />
   },
   {
     key: 20,
+    path: routerPaths.PATH_ALL_USER,
+    component: <User />,
+    role: [1]
+  },
+  {
+    key: 21,
     path: routerPaths.PATH_PRICE_BOOK,
     component: <Layout_PriceBook />
   },
   {
-    key: 21,
+    key: 22,
     path: routerPaths.PATH_REFUND_SUPPLIER,
     component: <RefundPage />
   }

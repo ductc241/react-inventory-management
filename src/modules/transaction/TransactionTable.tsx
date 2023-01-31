@@ -46,6 +46,7 @@ const TransactionTable = () => {
       }
       setData(datas);
     }
+
     if (
       !id.value &&
       import_Date.value &&
@@ -82,7 +83,7 @@ const TransactionTable = () => {
       (countries.value != "Loại" && import_Date.value && !export_date.value) ||
       (countries.value != "Loại" && export_date.value && !import_Date.value)
     ) {
-      setMessenger("Không Lọc được  ");
+      setMessenger("Không Lọc được");
     }
 
     if (

@@ -10,6 +10,7 @@ import {
 } from "../components/icons";
 import * as routerPaths from "../routes/routes.paths";
 import Logo from "../assets/logo.png";
+import clsx from "clsx";
 
 const LayoutSidebar = () => {
   const [product, setProduct] = useState<boolean>(true);
@@ -42,7 +43,12 @@ const LayoutSidebar = () => {
             <BoxIcon width={17} height={17} fill="#eeeeee" />
             <div className="flex grow mobile-hidden">
               <span className="grow px-5 text-[#eeeeee]">Sản phẩm</span>
-              <ArrowDownIcon fill="#eeeeee" width={18} height={18} />
+              <ArrowDownIcon
+                fill="#eeeeee"
+                width={18}
+                height={18}
+                className={clsx("duration-150", product && "rotate-180")}
+              />
             </div>
           </div>
 
@@ -89,14 +95,22 @@ const LayoutSidebar = () => {
             <InventoryIcon width={17} height={17} fill="#eeeeee" />
             <div className="flex grow mobile-hidden">
               <span className="grow px-5 text-[#eeeeee]">Kho hàng</span>
-              <ArrowDownIcon fill="#eeeeee" width={18} height={18} />
+              <ArrowDownIcon
+                fill="#eeeeee"
+                width={18}
+                height={18}
+                className={clsx("duration-150", store && "rotate-180")}
+              />
             </div>
           </div>
 
           {store && (
             <div className="text-[14px] mobile-hidden">
               <div className="py-3 pr-8 pl-[75px] hover:bg-[#00000038] hover:cursor-pointer">
-                <Link to="#" className="text-[#eeeeeeb3]">
+                <Link
+                  to={routerPaths.PATH_RECEIPT}
+                  className="text-[#eeeeeeb3]"
+                >
                   Xuất, nhập kho
                 </Link>
               </div>
@@ -135,7 +149,12 @@ const LayoutSidebar = () => {
             <ReportIcon width={17} height={17} fill="#eeeeee" />
             <div className="flex grow mobile-hidden">
               <span className="grow px-5 text-[#eeeeee]">Báo cáo</span>
-              <ArrowDownIcon fill="#eeeeee" width={18} height={18} />
+              <ArrowDownIcon
+                fill="#eeeeee"
+                width={18}
+                height={18}
+                className={clsx("duration-150", report && "rotate-180")}
+              />
             </div>
           </div>
           {report && (

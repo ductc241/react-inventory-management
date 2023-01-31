@@ -89,6 +89,9 @@ const ProductInventory = () => {
                 Tồn hiện tại
               </th>
               <th className="border py-3" colSpan={2}>
+                Tồn đầu kì
+              </th>
+              <th className="border py-3" colSpan={2}>
                 Nhập trong kỳ
               </th>
               <th className="border py-3" colSpan={2}>
@@ -99,6 +102,8 @@ const ProductInventory = () => {
               </th>
             </tr>
             <tr>
+              <th className="border py-3">Số lượng</th>
+              <th className="border py-3">Thành tiền</th>
               <th className="border py-3">Số lượng</th>
               <th className="border py-3">Thành tiền</th>
               <th className="border py-3">Số lượng</th>
@@ -126,6 +131,12 @@ const ProductInventory = () => {
                     </td>
                     <td className="border py-3 text-center">
                       {data.product.quantity}
+                    </td>
+                    <td className="border py-3 text-center">
+                      {numberWithCommas(Number(data.beginning_inventory))}
+                    </td>
+                    <td className="border py-3 text-center">
+                      {numberWithCommas(21300)} VND
                     </td>
                     <td className="border py-3 text-center">
                       {numberWithCommas(Number(data.quantity_import))}

@@ -12,7 +12,7 @@ const productServices = {
   },
 
   getProductById: (id: string | number) => {
-    const url = `/product/${id}`;
+    const url = `/products/detail/${id}`;
     return instance.get(url);
   },
 

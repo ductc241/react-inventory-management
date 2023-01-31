@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import productServices from "../../api/product.api";
 
@@ -8,10 +8,13 @@ import { EditIcon, TrashIcon } from "../../components/icons";
 import { ITableColumn } from "../../components/Table/Table.types";
 import { IProduct } from "../../types/product.type";
 import { isAuthenticated } from "../../utils/localStorage/localStorega";
+import ProductInforTab from "./ProductInforTab";
 
 const ProductList = () => {
-  const navigate = useNavigate();
   const [products, setProducts] = useState<IProduct[]>([]);
+  const [showInforTab, setShowInforTab] = useState<boolean>(false);
+  const [currentProduct, setCurrentProduct] = useState<number>(0);
+
   const columns: ITableColumn[] = [
     {
       key: 1,
@@ -44,13 +47,13 @@ const ProductList = () => {
       dataIndex: "action",
       render: (record: IProduct) => (
         <div className="flex gap-x-5">
-          <Link to="/products/update/1">
-            <EditIcon
-              className="cursor-pointer fill-green-400 hover:fill-green-600"
-              width={22}
-              onClick={() => navigate(`update/${record.id}`)}
-            />
-          </Link>
+          <EditIcon
+            className="cursor-pointer fill-green-400 hover:fill-green-600"
+            width={20}
+            onClick={() => {
+              setShowInforTab(true), setCurrentProduct(record.id);
+            }}
+          />
           <TrashIcon
             className="cursor-pointer fill-red-400 hover:fill-red-600"
             width={20}
@@ -68,7 +71,7 @@ const ProductList = () => {
   }, []);
 
   return (
-    <>
+    <div className="relative">
       <div className="flex justify-end mb-5">
         {user.role_id === 1 ? (
           <Link to="/products/add" className="contents">
@@ -86,21 +89,16 @@ const ProductList = () => {
 
       <Table dataSource={products} column={columns} />
 
-      {/* <ReactPaginate
-        pageCount={10}
-        containerClassName="pagination mt-5"
-        pageClassName="pagination_item"
-        activeClassName="pagination_active"
-        previousLabel={<Caret width={"15px"} />}
-        nextLabel={<Caret className="rotate-180" width={"15px"} />}
-      /> */}
+      {showInforTab && (
+        <ProductInforTab id={currentProduct} closeTab={setShowInforTab} />
+      )}
 
       <Modal
         visible={false}
         title="Xác nhận"
         content="Bạn có muốn ẩn sản phẩm này không ?"
       />
-    </>
+    </div>
   );
 };
 
