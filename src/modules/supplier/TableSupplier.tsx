@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import ReactPaginate from "react-paginate";
 import { toast } from "react-toastify";
 import { add, list, remove, update } from "../../api/supplier.api";
 import { Modal, Table } from "../../components";
 import Button from "../../components/Button/Button";
-import { Caret, EditIcon, TrashIcon } from "../../components/icons";
+import { EditIcon, TrashIcon } from "../../components/icons";
 import { ITableColumn } from "../../components/Table/Table.types";
 import { ISupplier } from "../../types/supplier.type";
 import { isAuthenticated } from "../../utils/localStorage/localStorega";
@@ -15,19 +14,17 @@ const TableSupplier = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const [visibleModal, setvisibleModal] = useState<boolean>(false);
   const [data, setData] = useState<any>([]);
-  const addSupplier = async (item: ISupplier) => {
-    await add(item);
-    setItemAdd(item == itemAdd ? null : item);
-  };
   const [itemUpdate, setItemUpdate] = useState<any>([]);
   const [id, setId] = useState<number>();
+  const [itemAdd, setItemAdd] = useState<any>();
+  const user = isAuthenticated();
 
   const itemEdit = async (id: number) => {
     const item = data.filter((item: ISupplier) => item.id == id);
     setItemUpdate(item);
     setVisible(true);
   };
-  const [itemAdd, setItemAdd] = useState<any>();
+
   const getSupplier = async () => {
     try {
       const { data } = await list();
@@ -36,6 +33,12 @@ const TableSupplier = () => {
       console.log(error);
     }
   };
+
+  const addSupplier = async (item: ISupplier) => {
+    await add(item);
+    setItemAdd(item == itemAdd ? null : item);
+  };
+
   useEffect(() => {
     getSupplier();
   }, [itemAdd, id, itemUpdate]);
@@ -56,12 +59,12 @@ const TableSupplier = () => {
       title: "Action",
       dataIndex: "action",
       render: (item: ISupplier) => (
-        <div className="flex gap-x-5">
+        <div className="flex justify-center gap-x-5">
           <EditIcon
             className="cursor-pointer fill-blue-400 hover:fill-blue-600"
             width={20}
             onClick={() => {
-              if (user.role_id === 1) {
+              if (user.role_id === 2) {
                 itemEdit(item.id);
               } else {
                 toast.error("bạn không có quyền sửa?");
@@ -72,7 +75,7 @@ const TableSupplier = () => {
             className="cursor-pointer fill-red-400 hover:fill-red-600"
             width={20}
             onClick={() => {
-              if (user.role_id === 1) {
+              if (user.role_id === 2) {
                 setvisibleModal(true);
                 setId(item.id);
               } else {
@@ -97,15 +100,14 @@ const TableSupplier = () => {
     }
     setItemUpdate([]);
   };
-  const user = isAuthenticated();
-  console.log(user);
 
   return (
     <>
-      <div className="flex justify-end mb-3">
+      <div className="flex justify-between items-center mb-10">
+        <span className="text-3xl font-semibold inline-block">Danh mục</span>
         <Button
           onClick={() => {
-            user.role_id === 1
+            user.role_id === 2
               ? setVisible(true)
               : toast.error(
                   "Bạn không phải là chủ cửa hàng nên ko thể thêm nhà cung cấp"
@@ -115,15 +117,8 @@ const TableSupplier = () => {
           Thêm nhà cung cấp
         </Button>
       </div>
+
       <Table dataSource={data} column={columns} />
-      <ReactPaginate
-        pageCount={10}
-        containerClassName="pagination mt-5"
-        pageClassName="pagination_item"
-        activeClassName="pagination_active"
-        previousLabel={<Caret width={"15px"} />}
-        nextLabel={<Caret className="rotate-180" width={"15px"} />}
-      />
       <FormSupplier
         hidenModal={visible}
         upload={(e: boolean) => {
@@ -139,6 +134,7 @@ const TableSupplier = () => {
           updateItemUpdate(e);
         }}
       />
+
       <Modal
         visible={visibleModal}
         title="Xác Nhận"

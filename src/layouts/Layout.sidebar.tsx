@@ -78,11 +78,6 @@ const LayoutSidebar = () => {
                   Nhà cung cấp
                 </Link>
               </div>
-              <div className="py-3 pr-8 pl-[75px] hover:bg-[#00000038] hover:cursor-pointer">
-                <Link to="#" className="text-[#eeeeeeb3]">
-                  Tồn kho
-                </Link>
-              </div>
             </div>
           )}
         </div>
@@ -130,6 +125,11 @@ const LayoutSidebar = () => {
               <div className="py-3 pr-8 pl-[75px] hover:bg-[#00000038] hover:cursor-pointer">
                 <Link to="#" className="text-[#eeeeeeb3]">
                   Bảo hành
+                </Link>
+              </div>
+              <div className="py-3 pr-8 pl-[75px] hover:bg-[#00000038] hover:cursor-pointer">
+                <Link to="#" className="text-[#eeeeeeb3]">
+                  Thời gian lưu kho
                 </Link>
               </div>
               <div className="py-3 pr-8 pl-[75px] hover:bg-[#00000038] hover:cursor-pointer">

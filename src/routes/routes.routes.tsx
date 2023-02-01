@@ -77,7 +77,7 @@ export const appRoutes: IRoute[] = [
     key: 10,
     path: routerPaths.PATH_IMPORT_SHIPMENT_ADD,
     component: <ShipMentsForm />,
-    role: [2]
+    role: [1]
   },
   {
     key: 11,

@@ -7,7 +7,6 @@ import { listCategoryAPI } from "../../api/category";
 import { CategoryAction } from "../../types/category.type";
 import CategoryForm from "./CategoryForm/CategoryForm";
 
-
 const CategoryList = () => {
   const [listCategory, setListCategory] = useState([]);
   const [isOpenModalAddEdit, setIsOpenModalAddEdit] = useState(false);
@@ -47,13 +46,18 @@ const CategoryList = () => {
 
   const column: ITableColumn[] = [
     {
+      key: 0,
+      title: "Mã",
+      dataIndex: "id"
+    },
+    {
       key: 1,
       title: "Tên hàng hoá",
       dataIndex: "name"
     },
     {
       key: 2,
-      title: "Nhóm",
+      title: "Nhóm cha",
       dataIndex: "parent_id"
     },
     {
@@ -63,13 +67,16 @@ const CategoryList = () => {
       render: (records) => {
         return (
           <div className="flex items-center gap-5 justify-center">
-            <EditIcon className="cursor-pointer fill-green-400 hover:fill-green-600"
+            <EditIcon
+              className="cursor-pointer fill-green-400 hover:fill-green-600"
               onClick={() =>
                 handleClickOpenModal(CategoryAction.EDIT, records.id)
               }
             />
-            <TrashIcon className="cursor-pointer fill-red-400 hover:fill-red-600"
-            onClick={() => handleClickOpenModalDelete(records.id)} />
+            <TrashIcon
+              className="cursor-pointer fill-red-400 hover:fill-red-600"
+              onClick={() => handleClickOpenModalDelete(records.id)}
+            />
           </div>
         );
       }
@@ -79,17 +86,13 @@ const CategoryList = () => {
   const handleClose = () => {
     setIsOpenModalAddEdit(false);
   };
+
   return (
     <div>
-      <div className="flex justify-between mb-3">
-        <span className="text-3xl font-semibold mb-10 inline-block">
-          Hàng Hoá
-        </span>
-        <Button
-          className="h-16"
-          onClick={() => handleClickOpenModal(CategoryAction.ADD)}
-        >
-          Thêm nhân viên
+      <div className="flex justify-between items-center mb-10">
+        <span className="text-3xl font-semibold inline-block">Danh mục</span>
+        <Button onClick={() => handleClickOpenModal(CategoryAction.ADD)}>
+          Thêm danh mục
         </Button>
       </div>
       <Table column={column} dataSource={listCategory ? listCategory : []} />
