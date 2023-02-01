@@ -9,10 +9,12 @@ const LayoutMain = () => {
       <div>
         <LayoutSidebar />
       </div>
-      <div className="grow bg-[#f7f9fc]">
+      <div className="grow bg-gray-100">
         <LayoutHeader />
-        <div className="container mt-5">
-          <Outlet />
+        <div className="p-5 rounded-md">
+          <div className="bg-white p-5">
+            <Outlet />
+          </div>
         </div>
       </div>
     </div>

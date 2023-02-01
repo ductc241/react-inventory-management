@@ -7,27 +7,31 @@ import { Button, Select, TextField } from "../../../components";
 import ProductPlaceholder from "../../../assets/product-placeholder.png";
 
 import productServices from "../../../api/product.api";
-import { addRecei, exportShipmentsDetail } from "../../../api/receipt.api";
 import * as supplierServices from "../../../api/supplier.api";
 import {
   convertDataToOption,
-  convertDataToOptionShipments,
   getValueFromOptions
 } from "../../../utils/select";
 import FormatNumber from "../../../components/formatNumber/formatNumber";
 import IOption from "../../../types/option.model";
 import { IProduct } from "./../../../types/product.type";
-import { EXPORT_TYPES, PAYMENT_TYPES } from "./export.constants";
+import {
+  EXPORT_TYPES,
+  PAYMENT_TYPES
+} from "../ExportShipments/export.constants";
 import { toast } from "react-toastify";
+import moment from "moment";
+import { getDateNow, numberWithCommas } from "../../../utils/funtion";
+import { addShipments } from "../../../api/shipments";
 
 type Inputs = {
-  export_type: number;
+  import_type: number;
   user_name: string | null;
   phone_number: string | null;
   supplier: number | null;
   shipment: string;
   payment_type: number;
-  export_date: Date;
+  import_date: Date;
   note: string;
   data: {
     product_id: number;
@@ -36,15 +40,10 @@ type Inputs = {
     inventory: number;
     price: number;
     quantity: number;
-    shipment: {
-      value: number;
-      label: any;
-    }[];
-    lotCode: number;
   }[];
 };
 
-const ExportShipments = () => {
+const ImportShipmentForm = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [productFilter, setProductFilter] = useState<IProduct[]>([]);
   const [suplierOption, setSuplierOption] = useState<IOption[]>([]);
@@ -60,7 +59,7 @@ const ExportShipments = () => {
     formState: { errors }
   } = useForm<Inputs>({
     defaultValues: {
-      export_type: 1,
+      import_type: 1,
       supplier: null,
       user_name: null,
       phone_number: null,
@@ -96,26 +95,16 @@ const ExportShipments = () => {
   };
 
   const handleAddProduct = async (item: IProduct) => {
-    const { data } = await productServices.getLotCodeById(item.id);
-    let count: any = 0;
-    fields.map((item, index) => {
-      if (item.product_id == data.data[0].product_id) {
-        count += 1;
-      }
+    append({
+      product_id: item.id,
+      name: item.name,
+      image: item.image,
+      inventory: item.quantity,
+      price: item.price,
+      quantity: 1
     });
-    if (count < data.data.length) {
-      append({
-        product_id: item.id,
-        name: item.name,
-        image: item.image,
-        inventory: 0,
-        price: 0,
-        quantity: +0,
-        shipment: convertDataToOptionShipments(data.data),
-        lotCode: 0
-      });
-    }
     setProductFilter([]);
+    setSearch("");
   };
 
   const handleChageQuantity = (
@@ -128,49 +117,33 @@ const ExportShipments = () => {
     });
   };
 
-  const handleUpdatefields = async (idLotcode: number, index: number) => {
-    const { data } = await exportShipmentsDetail(idLotcode);
-    const isDuplicateLotcode = fields.find(
-      (item) => item.lotCode === idLotcode
-    );
-
-    if (isDuplicateLotcode === undefined) {
-      update(index, {
-        ...fields[index],
-        inventory: data.quantity,
-        price: data.import_price,
-        lotCode: idLotcode
-      });
-    } else {
-      toast.warning("Lô hàng bị trùng");
-    }
-  };
-
   const onSubmit = async (formValue: Inputs) => {
-    const export_product = formValue.data.map((item) => {
+    const import_product = formValue.data.map((item) => {
       return {
         id: item.product_id,
         quantity: item.quantity,
-        price: item.price,
-        lot_code: item.lotCode
+        import_price: item.price
       };
     });
 
-    const export_order = {
+    const import_order = {
       user_id: 1,
-      export_type: formValue.export_type,
+      import_type: formValue.import_type,
       payment: formValue.payment_type,
-      products: export_product,
+      products: import_product,
       supplier_id: formValue.supplier,
       user_name: formValue.user_name,
       phone_number: formValue.phone_number,
-      address: null,
       description: formValue.note,
-      export_date: "24/11/2022",
+      import_date: getDateNow(),
+      // import_date: moment(formValue.import_date, "YYYY- MM-DD").format(
+      //   "DD-MM-YYYY"
+      // ),
       receve_phone: null
     };
+
     try {
-      await addRecei(export_order);
+      await addShipments(import_order);
       toast.success("Tạo đơn thành công");
       navigate("/receipt");
     } catch (error) {
@@ -192,7 +165,7 @@ const ExportShipments = () => {
 
   return (
     <>
-      <p className="mb-5 text-xl font-semibold uppercase">Phiếu xuất kho</p>
+      <p className="mb-5 text-xl font-semibold uppercase">Phiếu nhập kho</p>
 
       <form
         className="grid grid-cols-2 gap-10 text-base"
@@ -205,21 +178,20 @@ const ExportShipments = () => {
           <div className="p-5">
             <Select
               selectLabel={{
-                text: "Kiểu xuất hàng"
+                text: "Loại nhập hàng"
               }}
               containerClass="mb-5"
               options={EXPORT_TYPES}
-              option={getValueFromOptions(EXPORT_TYPES, watch("export_type"))}
+              option={getValueFromOptions(EXPORT_TYPES, watch("import_type"))}
               handleClickChange={(type) => {
-                setValue("export_type", type.value),
+                setValue("import_type", type.value),
                   setValue("supplier", null),
                   setValue("user_name", null),
                   setValue("phone_number", null);
               }}
-              placeholderText="-- Chọn kiểu xuất hàng --"
             />
 
-            {watch("export_type") === 1 ? (
+            {watch("import_type") === 1 ? (
               <Select
                 selectLabel={{
                   text: "Nhà cung cấp"
@@ -273,8 +245,9 @@ const ExportShipments = () => {
             <TextField
               label="Ngày hẹn thanh toán"
               type="date"
-              {...register("export_date")}
-              error={errors.export_date}
+              {...register("import_date")}
+              error={errors.import_date}
+              defaultValue={moment().format("YYYY-MM-DD")}
             />
           </div>
         </div>
@@ -290,7 +263,7 @@ const ExportShipments = () => {
                 placeholder="Tìm kiếm"
                 onChange={(e) => handleSearchProduct(e)}
                 autoComplete="off"
-                defaultValue={search}
+                value={search}
               />
               <Button>Thêm sản phẩm</Button>
             </div>
@@ -327,7 +300,6 @@ const ExportShipments = () => {
                 <tr className="bg-gray-100">
                   <th className="w-[50px] border text-left p-5">#</th>
                   <th className="w-[200px] border text-left p-5">Sản phẩm</th>
-                  <th className="w-[300px] border text-left p-5">Lô hàng</th>
                   <th className="w-[100px] border text-left p-5">Tồn kho</th>
                   <th className="w-[200px] border text-left p-5">Số lượng</th>
                   <th className="w-[300px] border p-5">Giá</th>
@@ -340,31 +312,17 @@ const ExportShipments = () => {
               {fields.length > 0 && (
                 <tbody>
                   {fields.map((item, index) => {
-                    // console.log(item.shipment, "shipment");
                     return (
                       <tr key={item.id}>
-                        <td className="p-5 border">{index}</td>
+                        <td className="p-5 border">{index + 1}</td>
 
                         <td className="p-5 flex items-center gap-5 border">
                           <img
                             src={ProductPlaceholder}
                             alt="san pham"
-                            className="w-[70px] h-[70px] "
+                            className="w-[50px] h-[50px] "
                           />
-                          <p className="text-lg capitalize">{item.name}</p>
-                        </td>
-                        <td className="p-5 border text-center">
-                          <Select
-                            options={item.shipment}
-                            option={getValueFromOptions(
-                              item.shipment,
-                              watch(`data.${index}.lotCode`)
-                            )}
-                            handleClickChange={(brand) => {
-                              handleUpdatefields(brand.value, index);
-                            }}
-                            placeholderText="-- Chọn Lô Hàng --"
-                          />
+                          <p className="capitalize">{item.name}</p>
                         </td>
                         <td className="p-5 border text-center">
                           <p>{item.inventory}</p>
@@ -375,20 +333,20 @@ const ExportShipments = () => {
                             {...register(`data.${index}.quantity`)}
                             type="number"
                             min={0}
-                            max={item.inventory}
                             onChange={(e) => handleChageQuantity(e, index)}
                           />
                         </td>
                         <td className="p-5 border">
                           <TextField
                             {...register(`data.${index}.price` as const)}
-                            className="text-right cursor-not-allowed"
-                            disabled
+                            className="text-right"
                           />
                         </td>
                         <td className="p-5 border">
                           <p className="text-right">
-                            {watch(`data.${index}.quantity`) * item.price}
+                            {numberWithCommas(
+                              watch(`data.${index}.quantity`) * item.price
+                            )}
                           </p>
                         </td>
                         <td className="border p-5 text-right">
@@ -430,4 +388,4 @@ const ExportShipments = () => {
     </>
   );
 };
-export default ExportShipments;
+export default ImportShipmentForm;

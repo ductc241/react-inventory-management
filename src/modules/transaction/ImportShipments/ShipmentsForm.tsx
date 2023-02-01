@@ -50,7 +50,7 @@ const ShipMentsForm = () => {
     value: 1
   });
   const [valueOption3, setValueOption3] = useState<IOption>({
-    label: "- Chọn nhà cung cấp -",
+    label: "Chọn nhà cung cấp",
     value: ""
   });
 

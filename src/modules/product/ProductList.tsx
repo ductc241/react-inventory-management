@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import productServices from "../../api/product.api";
 
-import { Table, Modal, Button } from "../../components";
+import { Table, Modal, Button, TextField } from "../../components";
 import { EditIcon, TrashIcon } from "../../components/icons";
 import { ITableColumn } from "../../components/Table/Table.types";
 import { IProduct } from "../../types/product.type";
@@ -84,7 +84,14 @@ const ProductList = () => {
 
   return (
     <div className="relative">
-      <div className="flex justify-end mb-5">
+      <p className="mb-5 text-xl font-semibold uppercase">Danh sách sản phẩm</p>
+
+      <div className="flex justify-between mb-5">
+        <div className="flex gap-x-5">
+          <TextField name="filterName" placeholder="Tên sản phẩm ...." />
+          <TextField name="filterCategory" placeholder="Tên danh mục ...." />
+        </div>
+
         {user.role_id === 1 ? (
           <Link to="/products/add" className="contents">
             <Button>Thêm sản phẩm</Button>

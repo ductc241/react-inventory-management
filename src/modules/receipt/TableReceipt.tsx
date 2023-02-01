@@ -30,8 +30,8 @@ const TableReceipt = (props: Props) => {
       render: (item: any) => {
         return (
           <>
-            <p className="text-center">{item?.id}</p>
-            <p className="text-center">{item?.created_at}</p>
+            <p className="text-center mb-2">{item?.export_code}</p>
+            <p className="text-center">{item?.export_date}</p>
           </>
         );
       }
@@ -87,21 +87,11 @@ const TableReceipt = (props: Props) => {
   ];
 
   return (
-    <>
-      <Table
-        dataSource={props?.data}
-        column={columns}
-        linkUrl={location.href.split("/")[3]}
-      />
-      <ReactPaginate
-        pageCount={10}
-        containerClassName="pagination mt-5"
-        pageClassName="pagination_item"
-        activeClassName="pagination_active"
-        previousLabel={<Caret width={"15px"} />}
-        nextLabel={<Caret className="rotate-180" width={"15px"} />}
-      />
-    </>
+    <Table
+      dataSource={props?.data}
+      column={columns}
+      linkUrl={"inventory/export-shipment"}
+    />
   );
 };
 

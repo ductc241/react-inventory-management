@@ -96,7 +96,7 @@ const ShipmentsTable = () => {
 
   return (
     <div>
-      <div className="flex justify-between mb-5">
+      {/* <div className="flex justify-between mb-5">
         {dataFilter && dataFilter.length !== 0 && (
           <Select
             className="w-96"
@@ -123,21 +123,21 @@ const ShipmentsTable = () => {
             Tạo Phiếu
           </div>
         )}
-      </div>
+      </div> */}
       <div>
         <Table
           column={columns}
           dataSource={dataSource.length !== 0 ? dataSource : data}
           linkUrl={location.href.split("/")[3]}
         />
-        <ReactPaginate
+        {/* <ReactPaginate
           pageCount={10}
           containerClassName="pagination mt-5"
           pageClassName="pagination_item"
           activeClassName="pagination_active"
           previousLabel={<Caret width={"15px"} />}
           nextLabel={<Caret className="rotate-180" width={"15px"} />}
-        />
+        /> */}
       </div>
     </div>
   );

@@ -57,7 +57,7 @@ const TableBody = ({
         <tr>
           <td
             colSpan={tableColumn.length}
-            className="py-32 text-center font-medium"
+            className="py-32 text-center font-medium bg-white"
           >
             No Data
           </td>

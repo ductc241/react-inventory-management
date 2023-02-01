@@ -7,7 +7,7 @@ export interface ITableProps {
   className?: string;
   loading?: boolean;
 
-  linkUrl?: any;
+  linkUrl?: string;
 }
 
 export interface ITableColumn {

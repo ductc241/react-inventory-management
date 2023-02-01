@@ -80,7 +80,7 @@ const ProductInforTab = ({ id, closeTab }: IProps) => {
   return (
     <div className="absolute top-0 left-0 w-full flex justify-center items-center">
       <div className="absolute top-0 left-0 w-full bg-black opacity-5" />
-      <div className="z-[999] w-full md:w-3/4 rounded-md bg-white text-left drop-shadow-2xl">
+      <div className="z-[999] w-full md:w-3/4 rounded-md border border-gray-200 border-2 bg-white text-left shadow-2xl">
         <div className="flex justify-between item-center p-5 border-b">
           <div>
             <span className="border-black border-r uppercase font-semibold pr-5">
@@ -125,9 +125,9 @@ const ProductInforTab = ({ id, closeTab }: IProps) => {
                 </div>
 
                 <div className="col-span-1">
-                  <p className="mb-5">Giá nhập: {product?.price}</p>
-                  <p className="mb-5">Giá bán:{product?.price}</p>
-                  <p className="mb-5">Giá vốn: {product?.price}</p>
+                  <p className="mb-5">Giá nhập: {product?.price} VND</p>
+                  <p className="mb-5">Giá bán: {product?.price} VND</p>
+                  <p className="mb-5">Giá vốn: {product?.price} VND</p>
                 </div>
               </div>
             </div>
@@ -139,7 +139,7 @@ const ProductInforTab = ({ id, closeTab }: IProps) => {
                 options={selectValue}
                 handleClickChange={(value) => console.log(value)}
                 option={option}
-                containerClass="mb-10"
+                containerClass="mb-10 bg-white"
               />
 
               <Table column={ImportColumn} dataSource={importBill} />

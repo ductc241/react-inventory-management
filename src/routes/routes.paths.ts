@@ -16,8 +16,8 @@ export const PATH_SIGNIN = "/signin";
 export const PATH_NEW_SALE = "/new-order";
 
 export const PATH_IMPORT_SHIPMENT = "inventory/import-shipments";
-export const PATH_IMPORT_SHIPMENT_ADD = "inventory/import-shipments/new";
-export const PATH_IMPORT_SHIPMENT_DETAIL = "inventory/import-shipments/:id";
+export const PATH_IMPORT_SHIPMENT_ADD = "inventory/import-shipment/new";
+export const PATH_IMPORT_SHIPMENT_DETAIL = "inventory/import-shipment/:id";
 
 export const PATH_RECEIPT = "inventory/bill";
 export const PATH_EXPORT_SHIPMENT = "inventory/export-shipment/new";

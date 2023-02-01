@@ -4,9 +4,10 @@ import ProductInventory from "../modules/statistics/inventory/ProductInventory";
 import SupplierInventory from "../modules/statistics/inventory/SupplierInventory";
 import RevenueByInventory from "../modules/statistics/revenue/RevenueBySupplier";
 import ExportShipments from "../modules/transaction/ExportShipments/Index";
-import ShipmentDetail from "../modules/transaction/shipments/ShipmentDetail";
-import ShipMentsForm from "../modules/transaction/shipments/ShipmentsForm";
-import ShipmentsTable from "../modules/transaction/shipments/shipmentsTable";
+import ShipmentDetail from "../modules/transaction/ImportShipments/ShipmentDetail";
+import ShipMentsForm from "../modules/transaction/ImportShipments/ShipmentsForm";
+import ShipmentsTable from "../modules/transaction/ImportShipments/shipmentsTable";
+import ImportShipmentForm from "../modules/transaction/ImportShipments";
 import TransactionTable from "../modules/transaction/TransactionTable";
 import User from "../modules/user";
 import CategoryListPage from "../pages/category/CategoryListPage";
@@ -76,7 +77,7 @@ export const appRoutes: IRoute[] = [
   {
     key: 10,
     path: routerPaths.PATH_IMPORT_SHIPMENT_ADD,
-    component: <ShipMentsForm />,
+    component: <ImportShipmentForm />,
     role: [1]
   },
   {

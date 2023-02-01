@@ -16,11 +16,9 @@ const User = () => {
   const [idRemove, setIDRemove] = useState();
 
   const getAllUser = async () => {
-    const res = await getAllUserApi();
+    const { data } = await getAllUserApi();
 
-    if (res.status === 200) {
-      setListUser(res.data.data);
-    }
+    setListUser(data);
   };
   useEffect(() => {
     getAllUser();
@@ -101,14 +99,11 @@ const User = () => {
   };
   return (
     <div>
-      <div className="flex justify-between mb-3">
-        <span className="text-3xl font-semibold mb-10 inline-block">
+      <div className="flex justify-between items-center mb-10">
+        <span className="text-3xl font-semibold inline-block">
           Quản lý nhân sự
         </span>
-        <Button
-          className="h-16"
-          onClick={() => handleClickOpenModal(UserAction.ADD)}
-        >
+        <Button onClick={() => handleClickOpenModal(UserAction.ADD)}>
           Thêm nhân viên
         </Button>
       </div>

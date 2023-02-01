@@ -18,15 +18,15 @@ const LayoutSidebar = () => {
   const [report, setReport] = useState<boolean>(true);
 
   return (
-    <div className="w-[81px] h-full lg:w-[260px] bg-[#233044]">
+    <div className="w-[81px] h-full xl:w-[260px] bg-[#233044]">
       <div className="pt-5 pb-7">
         <Link to="" className="flex justify-center">
-          <img src={Logo} alt="" className="w-[40px] lg:w-[80px]" />
+          <img src={Logo} alt="" className="w-[40px] xl:w-[80px]" />
         </Link>
       </div>
 
       <div>
-        <div className="mb-2 py-3 px-7 lg:px-8 hover:bg-[#00000038] hover:cursor-pointer">
+        <div className="mb-2 py-3 px-7 xl:px-8 hover:bg-[#00000038] hover:cursor-pointer">
           <Link to="" className="flex items-center justify-center">
             <OverviewIcon width={17} height={17} fill="#eeeeee" />
             <div className="flex grow mobile-hidden">
@@ -37,7 +37,7 @@ const LayoutSidebar = () => {
 
         <div className="mb-2">
           <div
-            className="flex items-center justify-center py-3 px-7 lg:px-8 hover:bg-[#00000038] hover:cursor-pointer"
+            className="flex items-center justify-center py-3 px-7 xl:px-8 hover:bg-[#00000038] hover:cursor-pointer"
             onClick={() => setProduct((prev) => !prev)}
           >
             <BoxIcon width={17} height={17} fill="#eeeeee" />
@@ -84,7 +84,7 @@ const LayoutSidebar = () => {
 
         <div className="mb-2">
           <div
-            className="flex items-center justify-center py-3 px-7 lg:px-8 hover:bg-[#00000038] hover:cursor-pointer"
+            className="flex items-center justify-center py-3 px-7 xl:px-8 hover:bg-[#00000038] hover:cursor-pointer"
             onClick={() => setStore((prev) => !prev)}
           >
             <InventoryIcon width={17} height={17} fill="#eeeeee" />
@@ -143,7 +143,7 @@ const LayoutSidebar = () => {
 
         <div className="mb-2">
           <div
-            className="flex items-center justify-center py-3 px-7 lg:px-8 hover:bg-[#00000038] hover:cursor-pointer"
+            className="flex items-center justify-center py-3 px-7 xl:px-8 hover:bg-[#00000038] hover:cursor-pointer"
             onClick={() => setReport((prev) => !prev)}
           >
             <ReportIcon width={17} height={17} fill="#eeeeee" />
@@ -205,7 +205,7 @@ const LayoutSidebar = () => {
           )}
         </div>
 
-        <div className="mb-2 py-3 px-7 lg:px-8 hover:bg-[#00000038] hover:cursor-pointer">
+        <div className="mb-2 py-3 px-7 xl:px-8 hover:bg-[#00000038] hover:cursor-pointer">
           <Link
             to={routerPaths.PATH_ALL_USER}
             className="flex items-center justify-center"
