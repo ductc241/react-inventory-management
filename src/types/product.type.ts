@@ -10,6 +10,7 @@ export interface IProduct {
   description: string;
   status: number;
   warranty_date: number;
+  created_at?: string;
 }
 
 export interface IProductCreate extends Omit<IProduct, "id" | "sku"> {

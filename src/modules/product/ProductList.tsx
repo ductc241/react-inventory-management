@@ -24,7 +24,17 @@ const ProductList = () => {
     {
       key: 2,
       title: "Tên hàng",
-      dataIndex: "name"
+      dataIndex: "name",
+      render: (record: IProduct) => (
+        <p
+          className="hover:cursor-pointer hover:text-blue-500"
+          onClick={() => {
+            setShowInforTab(true), setCurrentProduct(record.id);
+          }}
+        >
+          {record.name}
+        </p>
+      )
     },
     {
       key: 3,
@@ -47,13 +57,15 @@ const ProductList = () => {
       dataIndex: "action",
       render: (record: IProduct) => (
         <div className="flex gap-x-5">
-          <EditIcon
-            className="cursor-pointer fill-green-400 hover:fill-green-600"
-            width={20}
-            onClick={() => {
-              setShowInforTab(true), setCurrentProduct(record.id);
-            }}
-          />
+          <Link to={`update/${record.id}`}>
+            <EditIcon
+              className="cursor-pointer fill-green-400 hover:fill-green-600"
+              width={20}
+              onClick={() => {
+                setShowInforTab(true), setCurrentProduct(record.id);
+              }}
+            />
+          </Link>
           <TrashIcon
             className="cursor-pointer fill-red-400 hover:fill-red-600"
             width={20}
