@@ -60,9 +60,14 @@ const ImportColumn: ITableColumn[] = [
     )
   },
   {
+    title: "Ghi chú",
+    dataIndex: "description",
+    key: 5
+  },
+  {
     title: "Trạng thái",
     dataIndex: "status",
-    key: 5,
+    key: 6,
     render: ({ status }) => {
       return (
         <>
@@ -139,7 +144,7 @@ const ExportColumn: ITableColumn[] = [
   {
     key: 6,
     title: "Ghi chú",
-    dataIndex: ""
+    dataIndex: "description"
   }
 ];
 

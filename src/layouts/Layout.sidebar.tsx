@@ -76,7 +76,7 @@ const LayoutSidebar = () => {
                   to={routerPaths.PATH_SUPPLIER}
                   className="text-[#eeeeeeb3]"
                 >
-                  Nhà cung cấp
+                  Đối tác
                 </Link>
               </div>
             </div>
@@ -120,12 +120,17 @@ const LayoutSidebar = () => {
               </div>
               <div className="py-3 pr-8 pl-[75px] hover:bg-[#00000038] hover:cursor-pointer">
                 <Link to="#" className="text-[#eeeeeeb3]">
-                  Bảo hành
+                  Tạm giữ
                 </Link>
               </div>
               <div className="py-3 pr-8 pl-[75px] hover:bg-[#00000038] hover:cursor-pointer">
                 <Link to="inventory/storage-time" className="text-[#eeeeeeb3]">
                   Thời gian lưu kho
+                </Link>
+              </div>
+              <div className="py-3 pr-8 pl-[75px] hover:bg-[#00000038] hover:cursor-pointer">
+                <Link to="#" className="text-[#eeeeeeb3]">
+                  Hạn mức tồn kho
                 </Link>
               </div>
               <div className="py-3 pr-8 pl-[75px] hover:bg-[#00000038] hover:cursor-pointer">
@@ -182,9 +187,6 @@ const LayoutSidebar = () => {
                     <Link to={routerPaths.PATH_REPORT_REVENUE_SUPPLIER}>
                       Theo nhà cung cấp
                     </Link>
-                  </div>
-                  <div className="py-3 px-5 hover:bg-slate-700">
-                    <Link to="#">Theo danh mục sản phẩm</Link>
                   </div>
                 </div>
               </div>

@@ -20,7 +20,7 @@ const SupplierInventory = () => {
   const [products, setProducts] = useState<SupplierInventory[]>([]);
 
   useEffect(() => {
-    const currentDate = moment().format("YYYY-MM-DD");
+    const currentDate = moment().add(1, "days").format("YYYY-MM-DD");
     const dayThreeMonthsAgo = moment()
       .subtract(3, "month")
       .format("YYYY-MM-DD");
@@ -103,13 +103,13 @@ const SupplierInventory = () => {
             </tr>
             <tr>
               <th className="border py-3">Số lượng</th>
-              <th className="border py-3">Thành tiền</th>
+              <th className="border py-3">Tổng vốn</th>
               <th className="border py-3">Số lượng</th>
-              <th className="border py-3">Thành tiền</th>
+              <th className="border py-3">Tổng vốn</th>
               <th className="border py-3">Số lượng</th>
-              <th className="border py-3">Thành tiền</th>
+              <th className="border py-3">Tổng vốn</th>
               <th className="border py-3">Số lượng</th>
-              <th className="border py-3">Thành tiền</th>
+              <th className="border py-3">Tổng vốn</th>
             </tr>
           </thead>
 

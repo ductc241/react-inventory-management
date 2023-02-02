@@ -40,7 +40,7 @@ type Inputs = {
       value: number;
       label: any;
     }[];
-    lotCode: number;
+    lotCode: string;
   }[];
 };
 
@@ -98,11 +98,13 @@ const ExportShipments = () => {
   const handleAddProduct = async (item: IProduct) => {
     const { data } = await productServices.getLotCodeById(item.id);
     let count: any = 0;
-    fields.map((item, index) => {
+
+    fields.map((item) => {
       if (item.product_id == data.data[0].product_id) {
         count += 1;
       }
     });
+
     if (count < data.data.length) {
       append({
         product_id: item.id,
@@ -112,7 +114,7 @@ const ExportShipments = () => {
         price: 0,
         quantity: +0,
         shipment: convertDataToOptionShipments(data.data),
-        lotCode: 0
+        lotCode: ""
       });
     }
     setProductFilter([]);
@@ -128,22 +130,33 @@ const ExportShipments = () => {
     });
   };
 
-  const handleUpdatefields = async (idLotcode: number, index: number) => {
-    const { data } = await exportShipmentsDetail(idLotcode);
-    const isDuplicateLotcode = fields.find(
-      (item) => item.lotCode === idLotcode
-    );
+  const handleUpdatefields = async (id: number, index: number) => {
+    const { data } = await exportShipmentsDetail(id);
 
-    if (isDuplicateLotcode === undefined) {
-      update(index, {
-        ...fields[index],
-        inventory: data.quantity,
-        price: data.import_price,
-        lotCode: idLotcode
-      });
-    } else {
-      toast.warning("Lô hàng bị trùng");
-    }
+    console.log(id, data, index, data.lot_code);
+
+    // const isDuplicateLotcode = fields.find((item) => Number(item.id) === id);
+
+    // console.log(isDuplicateLotcode);
+
+    // if (!isDuplicateLotcode) {
+    //   update(index, {
+    //     ...fields[index],
+    //     inventory: data.quantity,
+    //     price: data.import_price,
+    //     lotCode: isDuplicateLotcode?.lot_code
+    //   });
+    // } else {
+    //   toast.warning("Lô hàng bị trùng");
+    // }
+    // if (!isDuplicateLotcode) return;
+
+    update(index, {
+      ...fields[index],
+      inventory: data.quantity,
+      price: data.import_price,
+      lotCode: data.lot_code
+    });
   };
 
   const onSubmit = async (formValue: Inputs) => {
@@ -364,7 +377,7 @@ const ExportShipments = () => {
                             handleClickChange={(brand) => {
                               handleUpdatefields(brand.value, index);
                             }}
-                            placeholderText="-- Chọn Lô Hàng --"
+                            placeholderText="Chọn Lô Hàng"
                           />
                         </td>
                         <td className="p-5 border text-center">

@@ -14,7 +14,7 @@ interface IProps {
   closeTab: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-interface IImportBill {
+interface IProductLot {
   id: number;
   product_id: number;
   quantity: number;
@@ -31,10 +31,12 @@ const ProductInforTab = ({ id, closeTab }: IProps) => {
   const [activeTab, setActiveTab] = useState<string>("infor");
   const [option, setOption] = useState<IOption>(selectValue[0]);
   const [product, setProduct] = useState<IProduct>();
-  const [importBill, setImportBill] = useState<IImportBill[]>([]);
-  const [exportBill, setExportBill] = useState([]);
 
-  const ImportColumn: ITableColumn[] = [
+  const [productLot, setProductLot] = useState<IProductLot[]>([]);
+  const [importBill, setImportBill] = useState<any[]>([]);
+  const [exportBill, setExportBill] = useState<any[]>([]);
+
+  const ProductLotColumn: ITableColumn[] = [
     {
       key: 1,
       title: "Mã lô",
@@ -44,7 +46,7 @@ const ProductInforTab = ({ id, closeTab }: IProps) => {
       key: 2,
       title: "Ngày",
       dataIndex: "lot_code",
-      render: (record: IImportBill) => <p>{record.lot_code.slice(3)}</p>
+      render: (record: IProductLot) => <p>{record.lot_code.slice(5)}</p>
     },
     {
       key: 3,
@@ -53,11 +55,79 @@ const ProductInforTab = ({ id, closeTab }: IProps) => {
     },
     {
       key: 4,
+      title: "Giá nhập",
+      dataIndex: "import_price"
+    },
+    {
+      key: 5,
       title: "Tổng vốn",
       dataIndex: "import_price",
-      render: (record: IImportBill) => (
+      render: (record: IProductLot) => (
         <p>{numberWithCommas(record.quantity * record.import_price)}</p>
       )
+    }
+  ];
+
+  const importColumn: ITableColumn[] = [
+    {
+      key: 1,
+      title: "Mã lô",
+      dataIndex: "lot_code"
+    },
+    {
+      key: 2,
+      title: "Ngày nhập",
+      dataIndex: "lot_code",
+      render: (item) => <p>{item.lot_code.slice(5)}</p>
+    },
+    {
+      key: 3,
+      title: "Số lượng",
+      dataIndex: "quantity"
+    },
+    {
+      key: 4,
+      title: "Giá nhập",
+      dataIndex: "import_price",
+      render: (item) => <p>{numberWithCommas(item.import_price)}</p>
+    },
+    {
+      key: 2,
+      title: "Tổng vốn",
+      dataIndex: "price",
+      render: (item) => (
+        <p>{numberWithCommas(item.import_price * item.quantity)}</p>
+      )
+    }
+  ];
+
+  const exportColumn: ITableColumn[] = [
+    {
+      key: 1,
+      title: "Mã lô",
+      dataIndex: "lot_code"
+    },
+    {
+      key: 2,
+      title: "Ngày xuất",
+      dataIndex: "lot_code"
+    },
+    {
+      key: 3,
+      title: "Số lượng",
+      dataIndex: "quantity"
+    },
+    {
+      key: 4,
+      title: "Giá xuất",
+      dataIndex: "price",
+      render: (item) => <p>{numberWithCommas(item.price)}</p>
+    },
+    {
+      key: 4,
+      title: "Doanh thu",
+      dataIndex: "price",
+      render: (item) => <p>{numberWithCommas(item.price * item.quantity)}</p>
     }
   ];
 
@@ -66,9 +136,14 @@ const ProductInforTab = ({ id, closeTab }: IProps) => {
       const getInitData = async () => {
         const { data: product } = await productServices.getProductById(id);
         const { data: importBill } = await productServices.getLotCodeById(id);
+        const { data: bill } = await productServices.getBillById(id);
+
+        console.log(bill);
 
         setProduct(product.data);
-        setImportBill(importBill.data);
+        setProductLot(importBill.data);
+        setExportBill(bill.export_history);
+        setImportBill(bill.import_history);
       };
 
       getInitData();
@@ -114,22 +189,22 @@ const ProductInforTab = ({ id, closeTab }: IProps) => {
         </div>
         <div className="py-5 px-3 bg-[#f5f5f5] h-[700px] overflow-y-scroll">
           {activeTab === "infor" && (
-            <div className="w-3/4 bg-white p-5">
+            <div className="bg-white p-5">
               <div className="grid grid-cols-2 gap-10">
                 <div className="col-span-1">
                   <p className="mb-5">Mã: {product?.sku}</p>
                   <p className="mb-5">Tên: {product?.name}</p>
                   <p className="mb-5">Danh mục: {product?.category_id}</p>
-                  <p className="mb-5">Người tạo: admin</p>
-                  <p className="mb-5">Ngày tạo: {product?.created_at}</p>
+                  <p className="mb-5">Giá bán: {product?.price} VND</p>
                 </div>
 
                 <div className="col-span-1">
-                  <p className="mb-5">Giá nhập: {product?.price} VND</p>
-                  <p className="mb-5">Giá bán: {product?.price} VND</p>
-                  <p className="mb-5">Giá vốn: {product?.price} VND</p>
+                  <p className="mb-5">Người tạo: admin</p>
+                  <p className="mb-5">Ngày tạo: {product?.created_at}</p>
                 </div>
               </div>
+
+              <Table column={ProductLotColumn} dataSource={productLot} />
             </div>
           )}
 
@@ -137,12 +212,16 @@ const ProductInforTab = ({ id, closeTab }: IProps) => {
             <div>
               <Select
                 options={selectValue}
-                handleClickChange={(value) => console.log(value)}
+                handleClickChange={(value) => setOption(value)}
                 option={option}
                 containerClass="mb-10 bg-white"
               />
 
-              <Table column={ImportColumn} dataSource={importBill} />
+              {option.value === "import" ? (
+                <Table column={importColumn} dataSource={importBill} />
+              ) : (
+                <Table column={exportColumn} dataSource={exportBill} />
+              )}
             </div>
           )}
         </div>

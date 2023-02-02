@@ -246,7 +246,6 @@ const ProductForm = ({ mode }: IProductProps) => {
                     label="Số lượng"
                     containerClass="mb-5"
                   />
-                  <TextField name="test-2" label="Nhà cung cấp" />
 
                   <div className="mb-5">
                     <Select

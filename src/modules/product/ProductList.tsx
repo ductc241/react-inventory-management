@@ -42,11 +42,6 @@ const ProductList = () => {
       dataIndex: "price"
     },
     {
-      key: 4,
-      title: "Giá vốn",
-      dataIndex: "import_price"
-    },
-    {
       key: 5,
       title: "Tồn kho",
       dataIndex: "quantity"

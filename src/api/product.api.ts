@@ -16,6 +16,11 @@ const productServices = {
     return instance.get(url);
   },
 
+  getBillById: (id: any) => {
+    const url = `/products/history/${id}`;
+    return instance.get(url);
+  },
+
   createProduct: (data: any) => {
     const url = `/products`;
     return instance.post(url, data);

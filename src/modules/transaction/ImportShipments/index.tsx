@@ -117,6 +117,16 @@ const ImportShipmentForm = () => {
     });
   };
 
+  const handleChagePrice = (
+    e: ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    update(index, {
+      ...fields[index],
+      price: Number(e.target.value)
+    });
+  };
+
   const onSubmit = async (formValue: Inputs) => {
     const import_product = formValue.data.map((item) => {
       return {
@@ -134,9 +144,10 @@ const ImportShipmentForm = () => {
       supplier_id: formValue.supplier,
       phone_number: formValue.phone_number,
       description: formValue.note,
-      import_date: moment(formValue.import_date, "YYYY-MM-DD").format(
-        "DD/MM/YYYY"
-      ),
+      // import_date: moment(formValue.import_date, "YYYY-MM-DD").format(
+      //   "DD/MM/YYYY"
+      // ),
+      import_date: "03/01/2023",
       receve_phone: formValue.phone_number,
       user_name: formValue.user_name
     };
@@ -339,6 +350,7 @@ const ImportShipmentForm = () => {
                           <TextField
                             {...register(`data.${index}.price` as const)}
                             className="text-right"
+                            onChange={(e) => handleChagePrice(e, index)}
                           />
                         </td>
                         <td className="p-5 border">
