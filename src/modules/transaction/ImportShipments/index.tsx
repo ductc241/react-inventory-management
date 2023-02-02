@@ -132,20 +132,19 @@ const ImportShipmentForm = () => {
       payment: formValue.payment_type,
       products: import_product,
       supplier_id: formValue.supplier,
-      user_name: formValue.user_name,
       phone_number: formValue.phone_number,
       description: formValue.note,
-      import_date: getDateNow(),
-      // import_date: moment(formValue.import_date, "YYYY- MM-DD").format(
-      //   "DD-MM-YYYY"
-      // ),
-      receve_phone: null
+      import_date: moment(formValue.import_date, "YYYY-MM-DD").format(
+        "DD/MM/YYYY"
+      ),
+      receve_phone: formValue.phone_number,
+      user_name: formValue.user_name
     };
 
     try {
       await addShipments(import_order);
       toast.success("Tạo đơn thành công");
-      navigate("/receipt");
+      navigate("inventory/bill");
     } catch (error) {
       toast.error("Có lỗi xảy ra, không thể tạo đơn");
     }

@@ -15,8 +15,8 @@ const OrderList = () => {
     <div className="h-full relative">
       <div className="h-[549px] overflow-y-scroll">
         {orderList[currentOrder - 1]?.products.map((item, index) => (
-          <div className="p-4 bg-white rounded-md mb-4" key={item.id}>
-            <div className="flex items-center gap-x-10">
+          <div className="bg-white rounded-md mb-4" key={item.id}>
+            <div className="flex items-center gap-x-10 bg-gray-100 p-4 rounded-lg">
               <p className="text-lg">{index + 1}</p>
 
               <div className="grow">
@@ -28,14 +28,14 @@ const OrderList = () => {
                   <div className="text-base mr-5">
                     <input
                       type="number"
-                      className="outline-none border-b mr-10"
+                      className="outline-none border-b border-black mr-10 bg-transparent"
                       placeholder="Số lượng"
                       value={item.quantity}
                       readOnly
                     />
                     <input
                       type="text"
-                      className="outline-none border-b"
+                      className="outline-none border-b border-black bg-transparent"
                       placeholder="Giá bán"
                       value={item.price}
                       readOnly
@@ -66,7 +66,7 @@ const OrderList = () => {
       </div>
 
       <div className="absolute bottom-[14px] w-full">
-        <div className="flex justify-between p-5 bg-white text-xl font-medium rounded-md">
+        <div className="flex justify-between p-5 bg-gray-100 text-xl font-medium rounded-md">
           <p>Tổng tiền hàng</p>
           <p>{numberWithCommas(orderList[currentOrder - 1]?.total)} VNĐ</p>
         </div>

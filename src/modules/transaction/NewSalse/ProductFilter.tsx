@@ -19,19 +19,18 @@ const ProductFilter = ({ toggleCheckout }: IProps) => {
 
   useEffect(() => {
     const getProducts = async () => {
-      const products = await productServices.getProducts();
+      const { data } = await productServices.getProducts();
 
-      setProducts(products.data.data);
+      setProducts(data);
     };
 
     getProducts();
   }, []);
 
   return (
-    <div className="flex flex-col	justify-between h-full bg-white rounded-md">
+    <div className="flex flex-col	justify-between h-full bg-white rounded-md shadow-xl">
       <div className="p-3">
-        <div className="mb-8 p-2">Filter Components</div>
-        <div className="grid grid-cols-3 gap-x-2 gap-y-4 bg-white rounded-md">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-x-2 gap-y-4 bg-white rounded-md">
           {products.map((item, index) => {
             return (
               <div

@@ -1,22 +1,48 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Button, Select, Table, TextField } from "../../components";
+
 import { listRecei } from "../../api/receipt.api";
 import { listShipments } from "../../api/shipments";
-import { Button, Select, Table, TextField } from "../../components";
 import { ITableColumn } from "../../components/Table/Table.types";
 import IOption from "../../types/option.model";
 
 const ImportColumn: ITableColumn[] = [
   {
-    title: "Mã nhập hàng",
+    key: 1,
+    title: "ID | Ngày",
     dataIndex: "id",
-    key: 1
+    render: (item: any) => {
+      return (
+        <>
+          <p className="text-center mb-2 hover:text-blue-500">
+            {item?.import_code}
+          </p>
+          <p className="text-center">{item?.import_date}</p>
+        </>
+      );
+    }
   },
   {
     title: "Nhà cung cấp",
     dataIndex: "supplier_name",
-    key: 2
+    key: 2,
+    render: (item: any) => (
+      <>
+        {item.import_type == 1 && (
+          <>
+            <p className="text-green-500">Nhập nhà cung cấp</p>
+            <p>{item.supplier_name}</p>
+          </>
+        )}
+        {item.import_type == 2 && (
+          <>
+            <p className="text-green-500">Nhập khác</p>
+          </>
+        )}
+      </>
+    )
   },
   {
     title: "Thời gian",
@@ -34,14 +60,9 @@ const ImportColumn: ITableColumn[] = [
     )
   },
   {
-    title: "Mã lô hàng",
-    dataIndex: "import_code",
-    key: 5
-  },
-  {
     title: "Trạng thái",
     dataIndex: "status",
-    key: 6,
+    key: 5,
     render: ({ status }) => {
       return (
         <>
@@ -64,7 +85,9 @@ const ExportColumn: ITableColumn[] = [
     render: (item: any) => {
       return (
         <>
-          <p className="text-center mb-2">{item?.export_code}</p>
+          <p className="text-center mb-2 hover:text-blue-500">
+            {item?.export_code}
+          </p>
           <p className="text-center">{item?.export_date}</p>
         </>
       );
@@ -72,7 +95,7 @@ const ExportColumn: ITableColumn[] = [
   },
 
   {
-    key: 3,
+    key: 2,
     title: "Loại ",
     dataIndex: "",
     render: (item: any) => (
@@ -98,23 +121,23 @@ const ExportColumn: ITableColumn[] = [
   },
 
   {
-    key: 5,
+    key: 3,
     title: "Số lượng",
     dataIndex: "quantity"
   },
   {
-    key: 6,
+    key: 4,
     title: "Tổng tiền",
     dataIndex: "totall_price",
     render: (item: any) => <p>{item?.totall_price.toLocaleString("en")}</p>
   },
   {
-    key: 7,
+    key: 5,
     title: "Người tạo",
     dataIndex: "user_name"
   },
   {
-    key: 8,
+    key: 6,
     title: "Ghi chú",
     dataIndex: ""
   }
@@ -248,7 +271,7 @@ const TransactionTable = () => {
       <div className="mb-3 flex">
         <TextField
           type="number"
-          placeholder="Mã sản phẩm"
+          placeholder="Mã phiếu"
           name="id"
           id="id"
           containerClass="mr-5"

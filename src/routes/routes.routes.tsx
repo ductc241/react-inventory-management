@@ -26,6 +26,7 @@ import SuplierPage from "../pages/supplier/SupllierPage";
 
 import IRoute from "../types/router.type";
 import * as routerPaths from "./routes.paths";
+import NewSalse from "../modules/transaction/NewSalse/NewSalse";
 export const appRoutes: IRoute[] = [
   {
     key: 1,
@@ -140,5 +141,10 @@ export const appRoutes: IRoute[] = [
     key: 22,
     path: routerPaths.PATH_REFUND_SUPPLIER,
     component: <RefundPage />
+  },
+  {
+    key: 23,
+    path: routerPaths.PATH_RETAIL_NEW,
+    component: <NewSalse />
   }
 ];

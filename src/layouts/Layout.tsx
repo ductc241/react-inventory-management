@@ -9,7 +9,7 @@ const LayoutMain = () => {
       <div>
         <LayoutSidebar />
       </div>
-      <div className="grow bg-gray-100">
+      <div className="grow bg-[#efeff9]">
         <LayoutHeader />
         <div className="p-5 rounded-md">
           <div className="bg-white p-5">

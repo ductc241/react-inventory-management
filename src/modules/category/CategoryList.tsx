@@ -90,7 +90,7 @@ const CategoryList = () => {
   return (
     <div>
       <div className="flex justify-between items-center mb-10">
-        <span className="text-3xl font-semibold inline-block">Danh mục</span>
+        <p className="text-xl font-semibold uppercase">Danh sách sản phẩm</p>
         <Button onClick={() => handleClickOpenModal(CategoryAction.ADD)}>
           Thêm danh mục
         </Button>

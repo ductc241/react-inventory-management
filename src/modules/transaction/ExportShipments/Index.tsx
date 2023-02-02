@@ -330,7 +330,8 @@ const ExportShipments = () => {
                   <th className="w-[300px] border text-left p-5">Lô hàng</th>
                   <th className="w-[100px] border text-left p-5">Tồn kho</th>
                   <th className="w-[200px] border text-left p-5">Số lượng</th>
-                  <th className="w-[300px] border p-5">Giá</th>
+                  <th className="w-[300px] border p-5">Giá nhập</th>
+                  <th className="w-[300px] border p-5">Giá bán</th>
                   <th className="w-[300px] border p-5">Thành tiền</th>
                   <th className="w-[120px] border text-left p-5 text-center">
                     Thao tác
@@ -349,9 +350,9 @@ const ExportShipments = () => {
                           <img
                             src={ProductPlaceholder}
                             alt="san pham"
-                            className="w-[70px] h-[70px] "
+                            className="w-[50px] h-[50px] "
                           />
-                          <p className="text-lg capitalize">{item.name}</p>
+                          <p className="capitalize">{item.name}</p>
                         </td>
                         <td className="p-5 border text-center">
                           <Select
@@ -384,6 +385,12 @@ const ExportShipments = () => {
                             {...register(`data.${index}.price` as const)}
                             className="text-right cursor-not-allowed"
                             disabled
+                          />
+                        </td>
+                        <td className="p-5 border">
+                          <TextField
+                            {...register(`data.${index}.price` as const)}
+                            className="text-right cursor-not-allowed"
                           />
                         </td>
                         <td className="p-5 border">

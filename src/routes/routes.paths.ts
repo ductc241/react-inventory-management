@@ -23,6 +23,9 @@ export const PATH_RECEIPT = "inventory/bill";
 export const PATH_EXPORT_SHIPMENT = "inventory/export-shipment/new";
 export const PATH_RECEIPT_ID = "inventory/export-shipment/:id";
 
+export const PATH_RETAIL_LIST = "retail";
+export const PATH_RETAIL_NEW = "retail/new";
+
 export const PATH_SoQuy = "/soquy";
 export const PATH_PRICE_SETTING = "/price-setting";
 

@@ -36,16 +36,16 @@ const NewSalse_Header = () => {
   }, [dispatch, orderList]);
 
   return (
-    <div className="flex justify-between items-center bg-blue-500">
-      <div className="flex gap-5">
-        <div className="inline-flex items-center bg-white m-2 py-2 pl-3 pr-8 rounded-md">
+    <div className="flex justify-between items-center bg-[#3a424e]">
+      <div className="flex gap-5 px-3 h-[56px]">
+        {/* <div className="inline-flex items-center bg-white m-2 py-2 pl-3 pr-8 rounded-md">
           <SearchIcon fill="gray" width={16} className="mr-2" />
           <input
             type="text"
             placeholder="Tìm hàng hóa"
             className="border-none outline-none bg-transparent w-[400px] text-base"
           />
-        </div>
+        </div> */}
 
         <div className="mt-2 flex items-center gap-x-3">
           {orderList.length > 0 &&
@@ -53,8 +53,7 @@ const NewSalse_Header = () => {
               <div
                 className={clsx(
                   "flex h-full gap-5 items-center px-5 rounded-t-md ",
-                  currentOrder === item.id &&
-                    "relative bg-gray-100 order-current"
+                  currentOrder === item.id && "relative bg-white order-current"
                 )}
                 key={item.id}
               >
@@ -87,7 +86,6 @@ const NewSalse_Header = () => {
       </div>
 
       <div className="flex items-center gap-5 py-2 px-4 text-white text-base">
-        <p>0922345555</p>
         <div className="relative">
           <NavbarIcon
             fill="white"
@@ -106,15 +104,6 @@ const NewSalse_Header = () => {
                 <li className="flex items-center gap-x-6 py-3 px-4 cursor-pointer hover:bg-[#eff2f5]">
                   <OrderIcon width={22} fill="gray" />
                   Danh sách hóa đơn
-                </li>
-                <li className="flex items-center gap-x-7 py-3 px-4 cursor-pointer hover:bg-[#eff2f5]">
-                  <StatsIcon width={20} fill="gray" />
-                  Quản lý
-                </li>
-
-                <li className="flex items-center gap-x-7 py-3 px-4 cursor-pointer hover:bg-[#eff2f5]">
-                  <LogoutIcon width={22} fill="gray" />
-                  Đăng xuất
                 </li>
               </ul>
             </div>

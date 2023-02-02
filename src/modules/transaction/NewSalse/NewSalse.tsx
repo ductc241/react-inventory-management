@@ -12,7 +12,7 @@ const NewSalse = () => {
   };
 
   return (
-    <div className="flex flex-col h-[100vh]">
+    <div className="flex flex-col h-[calc(100vh-100px)] m-[-20px]">
       <NewSalse_Header />
 
       <div className="grow h-full">

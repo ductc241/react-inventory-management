@@ -1,4 +1,4 @@
-import ShipmentsTable from "../../modules/transaction/shipments/shipmentsTable";
+import ShipmentsTable from "../../modules/transaction/ImportShipments/shipmentsTable";
 
 const ShipmentPage = () => {
   return (

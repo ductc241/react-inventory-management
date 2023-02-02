@@ -18,12 +18,7 @@ const LayoutHeader = () => {
     >
       <div className="container flex justify-end">
         <div className="p-3 rounded-full hover:bg-gray-100 hover:cursor-pointer">
-          <UserICon
-            width={20}
-            height={20}
-            fill="#9e9e9e"
-            onClick={handleLogout}
-          />
+          <UserICon width={20} height={20} fill="red" onClick={handleLogout} />
         </div>
       </div>
     </div>

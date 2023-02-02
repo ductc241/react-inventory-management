@@ -6,6 +6,7 @@ import {
   InventoryIcon,
   OverviewIcon,
   ReportIcon,
+  ShoppingIcon,
   UsersIcon
 } from "../components/icons";
 import * as routerPaths from "../routes/routes.paths";
@@ -110,11 +111,6 @@ const LayoutSidebar = () => {
                 </Link>
               </div>
               <div className="py-3 pr-8 pl-[75px] hover:bg-[#00000038] hover:cursor-pointer">
-                <Link to="#" className="text-[#eeeeeeb3]">
-                  Kiểm kho
-                </Link>
-              </div>
-              <div className="py-3 pr-8 pl-[75px] hover:bg-[#00000038] hover:cursor-pointer">
                 <Link
                   to={routerPaths.PATH_REFUND_SUPPLIER}
                   className="text-[#eeeeeeb3]"
@@ -139,6 +135,15 @@ const LayoutSidebar = () => {
               </div>
             </div>
           )}
+        </div>
+
+        <div className="mb-2 py-3 px-7 xl:px-8 hover:bg-[#00000038] hover:cursor-pointer">
+          <Link to="retail/new" className="flex items-center justify-center">
+            <ShoppingIcon width={17} height={17} fill="#eeeeee" />
+            <div className="flex grow mobile-hidden">
+              <span className="grow px-5 text-[#eeeeee]">Bán hàng</span>
+            </div>
+          </Link>
         </div>
 
         <div className="mb-2">

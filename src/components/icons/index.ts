@@ -21,3 +21,4 @@ export { default as UserICon } from "./User_Icon";
 export { default as InventoryIcon } from "./InventoryIcon";
 export { default as ReportIcon } from "./ReportIcon";
 export { default as UsersIcon } from "./UsersIcon";
+export { default as ShoppingIcon } from "./ShoppingIcon";
