@@ -124,12 +124,15 @@ const LayoutSidebar = () => {
                 </Link>
               </div>
               <div className="py-3 pr-8 pl-[75px] hover:bg-[#00000038] hover:cursor-pointer">
-                <Link to="#" className="text-[#eeeeeeb3]">
+                <Link to="inventory/storage-time" className="text-[#eeeeeeb3]">
                   Thời gian lưu kho
                 </Link>
               </div>
               <div className="py-3 pr-8 pl-[75px] hover:bg-[#00000038] hover:cursor-pointer">
-                <Link to="#" className="text-[#eeeeeeb3]">
+                <Link
+                  to="inventory/forcasting-import"
+                  className="text-[#eeeeeeb3]"
+                >
                   Dự báo nhập hàng
                 </Link>
               </div>

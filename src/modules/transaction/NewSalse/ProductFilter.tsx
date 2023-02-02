@@ -28,7 +28,7 @@ const ProductFilter = ({ toggleCheckout }: IProps) => {
   }, []);
 
   return (
-    <div className="flex flex-col	justify-between h-full bg-white rounded-md shadow-xl">
+    <div className="flex flex-col	justify-between h-full bg-white rounded-md shadow-custom">
       <div className="p-3">
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-x-2 gap-y-4 bg-white rounded-md">
           {products.map((item, index) => {

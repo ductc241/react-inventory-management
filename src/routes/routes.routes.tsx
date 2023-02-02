@@ -27,6 +27,8 @@ import SuplierPage from "../pages/supplier/SupllierPage";
 import IRoute from "../types/router.type";
 import * as routerPaths from "./routes.paths";
 import NewSalse from "../modules/transaction/NewSalse/NewSalse";
+import ForecastImport from "../modules/statistics/products/ForecastImport";
+import StorageTime from "../modules/statistics/products/StorageTime";
 export const appRoutes: IRoute[] = [
   {
     key: 1,
@@ -146,5 +148,15 @@ export const appRoutes: IRoute[] = [
     key: 23,
     path: routerPaths.PATH_RETAIL_NEW,
     component: <NewSalse />
+  },
+  {
+    key: 24,
+    path: routerPaths.PATH_FORECAST,
+    component: <ForecastImport />
+  },
+  {
+    key: 25,
+    path: routerPaths.PATH_STORAGE,
+    component: <StorageTime />
   }
 ];
