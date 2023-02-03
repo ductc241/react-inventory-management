@@ -12,7 +12,8 @@ import * as supplierServices from "../../../api/supplier.api";
 import {
   convertDataToOption,
   convertDataToOptionShipments,
-  getValueFromOptions
+  getValueFromOptions,
+  getValueFromOptionsLabel
 } from "../../../utils/select";
 import FormatNumber from "../../../components/formatNumber/formatNumber";
 import IOption from "../../../types/option.model";
@@ -133,7 +134,8 @@ const ExportShipments = () => {
   const handleUpdatefields = async (id: number, index: number) => {
     const { data } = await exportShipmentsDetail(id);
 
-    console.log(id, data, index, data.lot_code);
+    // console.log(id, data, index, data.lot_code);
+    console.log(fields);
 
     // const isDuplicateLotcode = fields.find((item) => Number(item.id) === id);
 
@@ -370,7 +372,7 @@ const ExportShipments = () => {
                         <td className="p-5 border text-center">
                           <Select
                             options={item.shipment}
-                            option={getValueFromOptions(
+                            option={getValueFromOptionsLabel(
                               item.shipment,
                               watch(`data.${index}.lotCode`)
                             )}
@@ -403,7 +405,8 @@ const ExportShipments = () => {
                         <td className="p-5 border">
                           <TextField
                             {...register(`data.${index}.price` as const)}
-                            className="text-right cursor-not-allowed"
+                            className="text-right"
+                            min={item.price}
                           />
                         </td>
                         <td className="p-5 border">

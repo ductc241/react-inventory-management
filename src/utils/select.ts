@@ -5,6 +5,11 @@ export const getValueFromOptions = (options: IOption[], value: any) => {
   return option;
 };
 
+export const getValueFromOptionsLabel = (options: IOption[], value: any) => {
+  const option = options.find((option) => option.label === value);
+  return option;
+};
+
 export const convertDataToOption = (arr: []) => {
   const optionArr: IOption[] = arr.map((item: any) => {
     return {
