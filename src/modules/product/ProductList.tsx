@@ -87,8 +87,8 @@ const ProductList = () => {
           <TextField name="filterCategory" placeholder="Tên danh mục ...." />
         </div>
 
-        {user.role_id === 1 ? (
-          <Link to="/products/add" className="contents">
+        {user.role_id === 2 ? (
+          <Link to="/products/new" className="contents">
             <Button>Thêm sản phẩm</Button>
           </Link>
         ) : (

@@ -45,12 +45,17 @@ const ProductForm = ({ mode }: IProductProps) => {
 
   const createProduct = async (data: IProductCreate) => {
     try {
-      const formValue = new FormData();
-      Object.entries(data).forEach(([key, value]) => {
-        formValue.append(key, value);
-      });
+      // const formValue = new FormData();
+      // Object.entries(data).forEach(([key, value]) => {
+      //   formValue.append(key, value);
+      // });
 
-      await productServices.createProduct(formValue);
+      // await productServices.createProduct(formValue);
+      await productServices.createProduct({
+        ...data,
+        image:
+          "https://res.cloudinary.com/dzoav55s4/image/upload/v1675398351/product-placeholder_ykqibx.png"
+      });
 
       toast.success("Thêm sản phẩm thành công", {
         onClose: () => {
