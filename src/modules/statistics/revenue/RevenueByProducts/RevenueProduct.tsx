@@ -4,10 +4,14 @@ import { ITableColumn } from "../../../../components/Table/Table.types";
 import { numberWithCommas } from "../../../../utils/funtion";
 
 interface IProps {
-  staticalData: any;
+  staticalData: any[];
 }
 
 const RevenueProduct = ({ staticalData }: IProps) => {
+  const [profit, setProfit] = useState<number>(0);
+  const [totalExport, setTotalExport] = useState<number>(0);
+  const [totalRevenue, setTotalRevenue] = useState<number>(0);
+
   const columns: ITableColumn[] = [
     {
       key: 1,
@@ -46,7 +50,19 @@ const RevenueProduct = ({ staticalData }: IProps) => {
   ];
 
   useEffect(() => {
-    console.log(staticalData);
+    const profit = staticalData.reduce((total, item) => {
+      return total + item.profit;
+    }, 0);
+    const revenue = staticalData.reduce((total, item) => {
+      return total + item.total_price;
+    }, 0);
+    const total = staticalData.reduce((total, item) => {
+      return total + Number(item.quantity);
+    }, 0);
+
+    setTotalRevenue(revenue);
+    setProfit(profit);
+    setTotalExport(total);
   }, [staticalData]);
 
   return (
@@ -60,28 +76,28 @@ const RevenueProduct = ({ staticalData }: IProps) => {
           <div className="py-3 px-4">
             <div className="flex justify-between mb-3">
               <p>Số lượng</p>
-              <p>{staticalData.totalProduct}</p>
+              <p>{totalExport}</p>
             </div>
             <div className="flex justify-between">
-              <p>Tổng</p>
-              <p>100</p>
+              <p>Doanh thu</p>
+              <p>{numberWithCommas(totalRevenue)}</p>
             </div>
           </div>
         </div>
 
         <div className="col-span-4 border bg-white">
           <div className="py-3 px-4 bg-gray-100">
-            <p className="text-lg font-semibold">Lợi nhuận</p>
+            <p className="text-lg font-semibold">Doanh thu</p>
           </div>
 
           <div className="py-3 px-4">
             <div className="flex justify-between mb-3">
-              <p>Số lượng</p>
-              <p>{staticalData.totalProduct}</p>
+              <p>Tổng</p>
+              <p>{numberWithCommas(totalRevenue)}</p>
             </div>
             <div className="flex justify-between">
-              <p>Tổng</p>
-              <p>{staticalData.profit}</p>
+              <p>Lợi nhuận</p>
+              <p>{numberWithCommas(profit)}</p>
             </div>
           </div>
         </div>

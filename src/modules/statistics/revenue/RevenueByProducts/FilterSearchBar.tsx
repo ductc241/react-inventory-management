@@ -9,7 +9,7 @@ const FilterSearchBar = () => {
 
   return (
     <div className="flex justify-between items-center">
-      <p className="text-xl uppercase">Báo cáo doanh theo sản phẩm</p>
+      <p className="text-xl uppercase">Báo cáo doanh thu theo sản phẩm</p>
       <div className="flex flex-row gap-10">
         <div className="flex">
           <TextField

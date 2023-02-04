@@ -76,7 +76,7 @@ const LayoutSidebar = () => {
                   to={routerPaths.PATH_SUPPLIER}
                   className="text-[#eeeeeeb3]"
                 >
-                  Đối tác
+                  Nhà cung cấp
                 </Link>
               </div>
             </div>

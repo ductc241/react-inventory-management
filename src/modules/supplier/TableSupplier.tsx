@@ -104,7 +104,9 @@ const TableSupplier = () => {
   return (
     <>
       <div className="flex justify-between items-center mb-10">
-        <p className="text-xl font-semibold uppercase">Danh sách sản phẩm</p>
+        <p className="text-xl font-semibold uppercase">
+          Danh sách nhà cung cấp
+        </p>
         <Button
           onClick={() => {
             user.role_id === 2
