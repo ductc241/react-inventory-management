@@ -49,12 +49,12 @@ const Revenue = () => {
 
       <div className="grid grid-cols-12 gap-10 mt-10">
         <div className="col-span-6">
-          <p className="mb-5 text-lg capitalize">Top sản phẩm bán nhiều nhất</p>
-          <TopProduct staticalData={staticalData} />
+          <p className="mb-5 text-lg capitalize">Top doanh thu</p>
+          <TopRevenue staticalData={staticalData} />
         </div>
         <div className="col-span-6">
-          <p className="mb-5 text-lg capitalize">Top lợi nhuận</p>
-          <TopRevenue staticalData={staticalData} />
+          <p className="mb-5 text-lg capitalize">Top sản phẩm bán nhiều nhất</p>
+          <TopProduct staticalData={staticalData} />
         </div>
       </div>
     </>

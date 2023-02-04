@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -24,12 +25,37 @@ ChartJS.register(
 );
 
 const RevenueChart = ({ staticalData }: IProps) => {
+  const [revenueData, setRevenueData] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (staticalData.revenue && staticalData.revenue.length) {
+      const revenue = [];
+      const revenueDays = staticalData.revenue.map((item: any) => {
+        return {
+          day: moment(item.date, "YYYY-MM-DD").date(),
+          value: item.total_price
+        };
+      });
+
+      for (let i = 1; i <= moment().date(); i++) {
+        const revenueOfDay = revenueDays.find((item: any) => item.day === i);
+        if (revenueOfDay) {
+          revenue.push(revenueOfDay.value);
+        } else {
+          revenue.push(0);
+        }
+      }
+
+      setRevenueData(revenue);
+    }
+  }, [staticalData]);
+
   const data = {
     labels: [...Array(moment().daysInMonth())].map((_, i) => i + 1),
     datasets: [
       {
         label: "Lãi: ",
-        data: [0, 27, 76, 0, 53, 48, 116, 0, 0, 0, 64, 64, 32],
+        data: revenueData,
         borderColor: "red",
         backgroundColor: "rgba(255, 99, 132, 0.5)"
       }
@@ -53,7 +79,7 @@ const RevenueChart = ({ staticalData }: IProps) => {
         </div>
         <div className="col-span-3 bg-white py-4 text-center border border-gray-300">
           <div className="mb-5">
-            <p className="uppercase font-semibold">Tuần qua</p>
+            <p className="uppercase font-semibold">7 ngày gần đây</p>
           </div>
           <p>{numberWithCommas(staticalData.sales_money_in_day_ofWeek)} VNĐ</p>
         </div>

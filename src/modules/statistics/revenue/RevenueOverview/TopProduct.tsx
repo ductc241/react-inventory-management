@@ -20,16 +20,13 @@ const TopProduct = ({ staticalData }: IProps) => {
       key: 2,
       title: "Số lượng",
       dataIndex: "total_quantity"
-    },
-    {
-      key: 3,
-      title: "Doanh thu",
-      dataIndex: "price",
-      render: (record) =>
-        `${numberWithCommas(
-          record.product.price * Number(record.total_quantity)
-        )}`
     }
+    // {
+    //   key: 3,
+    //   title: "Doanh thu",
+    //   dataIndex: "price",
+    //   render: (record) => `${numberWithCommas(record.total_price)}`
+    // }
   ];
 
   return (

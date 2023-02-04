@@ -11,6 +11,9 @@ interface SupplierInventory {
   supplier: ISupplier;
   quantity_export: string;
   quantity_import: string;
+  superlier_quantity: number;
+  supplier_import: number;
+  supplier_export: number;
 }
 
 const SupplierInventory = () => {
@@ -88,28 +91,16 @@ const SupplierInventory = () => {
               <th className="border" rowSpan={2}>
                 Tồn hiện tại
               </th>
-              <th className="border py-3" colSpan={2}>
-                Tồn đầu kì
-              </th>
-              <th className="border py-3" colSpan={2}>
-                Nhập trong kỳ
-              </th>
-              <th className="border py-3" colSpan={2}>
-                Xuất trong kỳ
-              </th>
-              <th className="border py-3" colSpan={2}>
-                Tồn cuối kỳ
-              </th>
+              <th className="border py-3">Tồn đầu kì</th>
+              <th className="border py-3">Nhập trong kỳ</th>
+              <th className="border py-3">Xuất trong kỳ</th>
+              <th className="border py-3">Tồn cuối kỳ</th>
             </tr>
             <tr>
               <th className="border py-3">Số lượng</th>
-              <th className="border py-3">Tổng vốn</th>
               <th className="border py-3">Số lượng</th>
-              <th className="border py-3">Tổng vốn</th>
               <th className="border py-3">Số lượng</th>
-              <th className="border py-3">Tổng vốn</th>
               <th className="border py-3">Số lượng</th>
-              <th className="border py-3">Tổng vốn</th>
             </tr>
           </thead>
 
@@ -129,30 +120,20 @@ const SupplierInventory = () => {
                     <td className="border py-3 text-center">
                       {data.supplier.name}
                     </td>
-                    <td className="border py-3 text-center">unknow</td>
+                    <td className="border py-3 text-center">
+                      {data.superlier_quantity}
+                    </td>
                     <td className="border py-3 text-center">
                       {numberWithCommas(Number(data.beginning_inventory))}
                     </td>
                     <td className="border py-3 text-center">
-                      {numberWithCommas(21300)} VND
+                      {numberWithCommas(Number(data.supplier_import))}
                     </td>
                     <td className="border py-3 text-center">
-                      {numberWithCommas(Number(data.quantity_import))}
-                    </td>
-                    <td className="border py-3 text-center">
-                      {numberWithCommas(213001)} VND
-                    </td>
-                    <td className="border py-3 text-center">
-                      {numberWithCommas(Number(data.quantity_export))}
-                    </td>
-                    <td className="border py-3 text-center">
-                      {numberWithCommas(21300)} VND
+                      {numberWithCommas(Number(data.supplier_export))}
                     </td>
                     <td className="border py-3 text-center">
                       {numberWithCommas(Number(data.ending_inventory))}
-                    </td>
-                    <td className="border py-3 text-center">
-                      {numberWithCommas(21300)} VND
                     </td>
                   </tr>
                 );

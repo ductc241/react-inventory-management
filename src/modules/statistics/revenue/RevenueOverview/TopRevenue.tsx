@@ -1,4 +1,3 @@
-import React from "react";
 import { IStaticalData } from ".";
 import { Table } from "../../../../components";
 import { ITableColumn } from "../../../../components/Table/Table.types";
@@ -18,14 +17,9 @@ const TopRevenue = ({ staticalData }: IProps) => {
     },
     {
       key: 2,
-      title: "Số lượng",
-      dataIndex: "quantity"
-    },
-    {
-      key: 3,
-      title: "Lợi nhuận",
+      title: "Doanh thu",
       dataIndex: "total_price",
-      render: (record) => `${numberWithCommas(record.total_price)}`
+      render: (record) => `${numberWithCommas(record.totall_price)}`
     }
   ];
 

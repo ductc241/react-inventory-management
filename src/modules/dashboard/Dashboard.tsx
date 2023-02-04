@@ -138,7 +138,7 @@ const Dashboard = () => {
         </div>
 
         {/* Khách hàng trong tháng */}
-        <KhachHang />
+        {/* <KhachHang /> */}
       </div>
     </div>
   );

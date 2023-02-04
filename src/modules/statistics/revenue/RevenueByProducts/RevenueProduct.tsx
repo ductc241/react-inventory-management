@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Table } from "../../../../components";
 import { ITableColumn } from "../../../../components/Table/Table.types";
 import { numberWithCommas } from "../../../../utils/funtion";
@@ -34,16 +35,19 @@ const RevenueProduct = ({ staticalData }: IProps) => {
       key: 5,
       title: "Doanh thu",
       dataIndex: "price",
-      render: (record) =>
-        `${numberWithCommas(record.product.price * record.quantity)}`
+      render: (record) => <p>{numberWithCommas(record.total_price)}</p>
     },
     {
       key: 6,
       title: "Lợi nhuận",
       dataIndex: "total_price",
-      render: (record) => `${numberWithCommas(record.total_price)}`
+      render: (record) => <p>{numberWithCommas(record.profit)}</p>
     }
   ];
+
+  useEffect(() => {
+    console.log(staticalData);
+  }, [staticalData]);
 
   return (
     <>
@@ -61,23 +65,6 @@ const RevenueProduct = ({ staticalData }: IProps) => {
             <div className="flex justify-between">
               <p>Tổng</p>
               <p>100</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="col-span-4 border bg-white">
-          <div className="py-3 px-4 bg-gray-100">
-            <p className="text-lg font-semibold">Tổng trả</p>
-          </div>
-
-          <div className="py-3 px-4">
-            <div className="flex justify-between mb-3">
-              <p>Số lượng</p>
-              <p>0</p>
-            </div>
-            <div className="flex justify-between">
-              <p>Tổng</p>
-              <p>0</p>
             </div>
           </div>
         </div>
