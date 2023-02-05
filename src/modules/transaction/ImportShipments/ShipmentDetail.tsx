@@ -6,6 +6,7 @@ import { Button, Table } from "../../../components";
 import FormatNumber from "../../../components/formatNumber/formatNumber";
 import { ITableColumn } from "../../../components/Table/Table.types";
 import QR from "../../../components/QR";
+import { useReactToPrint } from "react-to-print";
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 type Props = {};
@@ -34,17 +35,22 @@ const ShipmentDetail = (props: Props) => {
   }, [id]);
 
   const reportTemplateRef = useRef<any>(null);
-  const infile = () => {
-    const doc = new jsPDF({
-      format: "a2",
-      unit: "px"
-    });
-    doc.html(reportTemplateRef.current, {
-      async callback(doc) {
-        doc.save("import_shipments");
-      }
-    });
-  };
+  // const infile = () => {
+  //   const doc = new jsPDF({
+  //     format: "a2",
+  //     unit: "px"
+  //   });
+  //   doc.html(reportTemplateRef.current, {
+  //     async callback(doc) {
+  //       doc.save("import_shipments");
+  //     }
+  //   });
+  // };
+
+  const handleConfirm = useReactToPrint({
+    content: () => reportTemplateRef.current,
+    documentTitle: "export_shipments"
+  });
 
   const columns: ITableColumn[] = [
     {
@@ -196,6 +202,127 @@ const ShipmentDetail = (props: Props) => {
         </p>
       </div>
     </div>
+    // <div ref={reportTemplateRef} className="p-5">
+    //   <div className="flex justify-between">
+    //     <div className="font-bold	text-base">
+    //       <p>Đơn vị : ...........</p>
+    //       <p>Bộ phận : ..........</p>
+    //     </div>
+    //     <div>
+    //       <p className="text-center font-bold	text-base">Mẫu số 02 - VT </p>
+    //       <p className="text-sm font-medium	">
+    //         (Ban hành theo Thông tư số 133/2016/TT-BTC{" "}
+    //       </p>
+    //       <p className="text-center text-sm font-medium	">
+    //         Ngày 26/08/2016 của Bộ Tài chính )
+    //       </p>
+    //     </div>
+    //   </div>
+    //   <div className="mt-5 w-full">
+    //     <h1
+    //       className="w-2/5 text-center font-bold	text-lg	"
+    //       style={{ marginLeft: "30%" }}
+    //     >
+    //       PHIẾU XUẤT KHO
+    //     </h1>
+    //   </div>
+    //   <div className="w-full text-sm font-medium	">
+    //     <div className="w-full">
+    //       <div className="flex ">
+    //         <p style={{ marginLeft: "35%", width: "30%" }}>
+    //           {/* Ngày {datas[0]?.created_at.split("/")[0]} tháng{" "}
+    //           {datas[0]?.created_at.split("/")[1]} năm{" "}
+    //           {datas[0]?.created_at.split("/")[2]} */}
+    //         </p>
+    //         <span className="ml-10">Có : ....................</span>
+    //       </div>
+    //     </div>
+    //     <div className="w-full">
+    //       <div className="flex">
+    //         <p style={{ marginLeft: "35%", width: "30%" }}>
+    //           Số : ...........................
+    //         </p>
+    //         <span className="ml-10">Có : ....................</span>
+    //       </div>
+    //     </div>
+    //   </div>
+    //   <div className="text-sm font-medium">
+    //     <p>
+    //       - Họ và tên người nhận hàng:................ Địa chỉ(Bộ
+    //       phận)..........................
+    //     </p>
+    //     <p>
+    //       - Lý do xuất kho :
+    //       ..........................................................................................
+    //     </p>
+    //     <p>
+    //       - Xuất tại kho (ngăn lô) :
+    //       ...............................................................................
+    //     </p>
+    //   </div>
+    //   <table className="w-full border-collapse border mt-5">
+    //     <thead className="bg-gray-100 text-center">
+    //       <tr>
+    //         <th className="border" rowSpan={2}>
+    //           STT
+    //         </th>
+    //         <th className="border w-1/4 pl-3 pr-2" rowSpan={2}>
+    //           Tên, nhãn hiệu,quy cách, phẩm chất vật tư, dụng cụ, sản phẩm, hàng
+    //           hóa
+    //         </th>
+    //         <th className="border py-3" rowSpan={2}>
+    //           Mã số
+    //         </th>
+    //         <th className="border py-3" colSpan={2}>
+    //           Số lượng
+    //         </th>
+    //         <th className="border py-3" rowSpan={2}>
+    //           Đơn giá
+    //         </th>
+    //         <th className="border py-3" rowSpan={2}>
+    //           Thành tiền
+    //         </th>
+    //       </tr>
+    //       <tr>
+    //         <th className="border py-3">Yêu cầu</th>
+    //         <th className="border py-3">Thực xuất</th>
+    //       </tr>
+    //     </thead>
+    //     <tbody className="bg-white">
+    //       {dataList.length > 0 &&
+    //         dataList.map((data: any, index: number) => {
+    //           console.log(data.id, "id");
+
+    //           return (
+    //             <tr key={data.id}>
+    //               <td className="border py-3 text-center">{index + 1}</td>
+    //               <td className="border py-3 text-center">
+    //                 {data.product_name}
+    //               </td>
+    //               <td className="border py-3 text-center">{data.barcode}</td>
+    //               <td className="border py-3 text-center">{data.quantity}</td>
+    //               <td className="border py-3 text-center">{data.quantity}</td>
+    //               <td className="border py-3 text-center">
+    //                 {data.price.toLocaleString("en")} VNĐ
+    //               </td>
+    //               <td className="border py-3 text-center">
+    //                 {(data.price * data.quantity).toLocaleString("en")} VNĐ
+    //               </td>
+    //             </tr>
+    //           );
+    //         })}
+    //       <tr>
+    //         <td className="border py-3 text-center"></td>
+    //         <td className="border py-3 text-center">Cộng</td>
+    //         <td className="border py-3 text-center">X</td>
+    //         <td className="border py-3 text-center">X</td>
+    //         <td className="border py-3 text-center">X</td>
+    //         <td className="border py-3 text-center">X</td>
+    //         <td className="border py-3 text-center"></td>
+    //       </tr>
+    //     </tbody>
+    //   </table>
+    // </div>
   );
 
   return (
@@ -305,7 +432,7 @@ const ShipmentDetail = (props: Props) => {
                 <Button
                   variant="container"
                   className="m-3"
-                  onClick={() => infile()}
+                  onClick={() => handleConfirm()}
                 >
                   Xuất PDF
                 </Button>
