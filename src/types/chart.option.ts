@@ -1,4 +1,4 @@
-const ChartOption = {
+export const ChartOption = {
   responsive: true,
   maintainAspectRatio: false,
   scales: {
@@ -11,4 +11,12 @@ const ChartOption = {
   }
 };
 
-export default ChartOption;
+export const ChartPieOption = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      position: "right" as const
+    }
+  }
+};

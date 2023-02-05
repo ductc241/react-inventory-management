@@ -20,6 +20,7 @@ import IOption from "../../../types/option.model";
 import { IProduct } from "./../../../types/product.type";
 import { EXPORT_TYPES, PAYMENT_TYPES } from "./export.constants";
 import { toast } from "react-toastify";
+import moment from "moment";
 
 type Inputs = {
   export_type: number;
@@ -36,6 +37,7 @@ type Inputs = {
     image: string;
     inventory: number;
     price: number;
+    export_price: number;
     quantity: number;
     shipment: {
       value: number;
@@ -115,7 +117,8 @@ const ExportShipments = () => {
         price: 0,
         quantity: +0,
         shipment: convertDataToOptionShipments(data.data),
-        lotCode: ""
+        lotCode: "",
+        export_price: 0
       });
     }
     setProductFilter([]);
@@ -157,7 +160,18 @@ const ExportShipments = () => {
       ...fields[index],
       inventory: data.quantity,
       price: data.import_price,
+      export_price: data.import_price,
       lotCode: data.lot_code
+    });
+  };
+
+  const handleChagePrice = (
+    e: ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    update(index, {
+      ...fields[index],
+      export_price: Number(e.target.value)
     });
   };
 
@@ -166,7 +180,7 @@ const ExportShipments = () => {
       return {
         id: item.product_id,
         quantity: item.quantity,
-        price: item.price,
+        price: item.export_price,
         lot_code: item.lotCode
       };
     });
@@ -181,13 +195,16 @@ const ExportShipments = () => {
       phone_number: formValue.phone_number,
       address: null,
       description: formValue.note,
-      export_date: "24/11/2022",
+      export_date: moment(formValue.export_date, "YYYY-MM-DD")
+        .subtract(1, "days")
+        .format("DD/MM/YYYY"),
       receve_phone: null
     };
+
     try {
       await addRecei(export_order);
       toast.success("Tạo đơn thành công");
-      navigate("/receipt");
+      navigate("/inventory/bill");
     } catch (error) {
       toast.error("Có lỗi xảy ra, không thể tạo đơn");
     }
@@ -199,7 +216,7 @@ const ExportShipments = () => {
 
   const totalPrice = useMemo(() => {
     const total = fields.reduce((total, product) => {
-      return total + product.price * product.quantity;
+      return total + product.export_price * product.quantity;
     }, 0);
 
     return total;
@@ -286,7 +303,7 @@ const ExportShipments = () => {
             />
 
             <TextField
-              label="Ngày hẹn thanh toán"
+              label="Ngày thanh toán"
               type="date"
               {...register("export_date")}
               error={errors.export_date}
@@ -356,7 +373,6 @@ const ExportShipments = () => {
               {fields.length > 0 && (
                 <tbody>
                   {fields.map((item, index) => {
-                    // console.log(item.shipment, "shipment");
                     return (
                       <tr key={item.id}>
                         <td className="p-5 border">{index}</td>
@@ -404,14 +420,16 @@ const ExportShipments = () => {
                         </td>
                         <td className="p-5 border">
                           <TextField
-                            {...register(`data.${index}.price` as const)}
+                            {...register(`data.${index}.export_price` as const)}
                             className="text-right"
                             min={item.price}
+                            onChange={(e) => handleChagePrice(e, index)}
                           />
                         </td>
                         <td className="p-5 border">
                           <p className="text-right">
-                            {watch(`data.${index}.quantity`) * item.price}
+                            {watch(`data.${index}.quantity`) *
+                              item.export_price}
                           </p>
                         </td>
                         <td className="border p-5 text-right">

@@ -11,7 +11,7 @@ const ForecastImport = () => {
   const [data, setData] = useState<any[]>([]);
 
   const [dateStart, setDateStart] = useState<string>(
-    moment().subtract(3, "month").format("YYYY-MM-DD")
+    moment().subtract(1, "month").format("YYYY-MM-DD")
   );
   const [dateEnd, setDateEnd] = useState<string>(
     moment().add(1, "days").format("YYYY-MM-DD")
@@ -67,6 +67,7 @@ const ForecastImport = () => {
       dataIndex: "name"
     }
   ];
+
   const ForecastNowColumn: ITableColumn[] = [
     {
       key: 1,
@@ -76,25 +77,31 @@ const ForecastImport = () => {
     },
     {
       key: 2,
+      title: "Tồn",
+      dataIndex: "name",
+      render: (item: any) => <p>{item.product.quantity}</p>
+    },
+    {
+      key: 3,
       title: `SL bán ra trung bình / ${totalDays} ngày`,
       dataIndex: "name",
       render: (item) => <p>{(item.totail_quantity / totalDays).toFixed(2)}</p>
     },
     {
-      key: 1,
-      title: "SL bán 30 ngày tới",
+      key: 4,
+      title: `SL bán ${totalDays} ngày tới`,
       dataIndex: "name",
       render: (item) => (
-        <p>{Number((item.totail_quantity / totalDays).toFixed(4)) * 30}</p>
+        <p>{Number((item.totail_quantity / totalDays).toFixed(2)) * 30}</p>
       )
     },
     {
-      key: 1,
+      key: 5,
       title: "Số lượng cần nhập tối thiểu",
       dataIndex: "name"
     },
     {
-      key: 1,
+      key: 6,
       title: "Số ngày tồn đủ để bán",
       dataIndex: "name",
       render: (item) => (
@@ -102,7 +109,8 @@ const ForecastImport = () => {
           {Number(
             item.product.quantity /
               Number((item.totail_quantity / totalDays).toFixed(2))
-          ).toFixed(2)}
+          ).toFixed(1)}{" "}
+          ngày
         </p>
       )
     }
@@ -171,14 +179,6 @@ const ForecastImport = () => {
 
         {oldData && <Table column={StaticalColumn} dataSource={data} />}
       </div>
-
-      {/* <div className="mb-10">
-        <p className="mb-5 text-[16px] font-semibold uppercase">
-          Số lượng bán ra trong năm hiện tại
-        </p>
-
-        <Table column={StaticalColumn} dataSource={[]} />
-      </div> */}
 
       <div className="mb-10">
         <p className="mb-5 text-[16px] font-semibold uppercase">

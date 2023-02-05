@@ -9,7 +9,7 @@ import {
 } from "chart.js";
 import moment from "moment";
 import { Line } from "react-chartjs-2";
-import ChartOption from "../../../../types/chart.option";
+import { ChartOption } from "../../../../types/chart.option";
 import { numberWithCommas } from "../../../../utils/funtion";
 
 interface IProps {

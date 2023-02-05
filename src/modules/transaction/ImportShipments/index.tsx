@@ -144,10 +144,10 @@ const ImportShipmentForm = () => {
       supplier_id: formValue.supplier,
       phone_number: formValue.phone_number,
       description: formValue.note,
-      // import_date: moment(formValue.import_date, "YYYY-MM-DD").format(
-      //   "DD/MM/YYYY"
-      // ),
-      import_date: "03/01/2023",
+      import_date: moment(formValue.import_date, "YYYY-MM-DD")
+        .subtract(1, "days")
+        .format("DD/MM/YYYY"),
+      // import_date: "03/01/2023",
       receve_phone: formValue.phone_number,
       user_name: formValue.user_name
     };
