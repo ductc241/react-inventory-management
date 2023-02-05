@@ -115,24 +115,13 @@ const DetailReceipt = () => {
         </h1>
       </div>
       <div className="w-full text-sm font-medium	">
-        <div className="w-full">
-          <div className="flex ">
-            <p style={{ marginLeft: "35%", width: "30%" }}>
-              Ngày {datas[0]?.created_at.split("/")[0]} tháng{" "}
-              {datas[0]?.created_at.split("/")[1]} năm{" "}
-              {datas[0]?.created_at.split("/")[2]}
-            </p>
-            <span className="ml-10">Có : ....................</span>
-          </div>
-        </div>
-        <div className="w-full">
-          <div className="flex">
-            <p style={{ marginLeft: "35%", width: "30%" }}>
-              Số : ...........................
-            </p>
-            <span className="ml-10">Có : ....................</span>
-          </div>
-        </div>
+        <p style={{ marginLeft: "35%" }}>
+          Ngày {datas[0]?.created_at.split("/")[0]} tháng{" "}
+          {datas[0]?.created_at.split("/")[1]} năm{" "}
+          {datas[0]?.created_at.split("/")[2]}
+        </p>
+
+        <p style={{ marginLeft: "35%" }}>Số : ...........................</p>
       </div>
       <div className="text-sm font-medium">
         <p>
@@ -210,6 +199,16 @@ const DetailReceipt = () => {
           </tr>
         </tbody>
       </table>
+      <div className="flex justify-between mt-10 text-center">
+        <div>
+          <p className="font-bold	text-lg">Người lập phiếu</p>
+          <p className="mt-5 text-sm font-normal	">(Ký, họ tên)</p>
+        </div>
+        <div>
+          <p className="font-bold	text-lg">Chủ cửa hàng</p>
+          <p className="mt-5 text-sm font-normal	">(Ký, họ tên)</p>
+        </div>
+      </div>
     </div>
   );
   return (
