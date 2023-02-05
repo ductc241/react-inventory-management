@@ -263,7 +263,7 @@ const DetailReceipt = () => {
         </Button>
 
         <Button variant="container" className="m-3">
-          <Link to="/receipt"> Quay lại</Link>
+          <Link to="/inventory/bill"> Quay lại</Link>
         </Button>
       </div>
       {visible && (

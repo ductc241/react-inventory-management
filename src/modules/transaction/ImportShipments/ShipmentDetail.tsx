@@ -373,7 +373,7 @@ const ShipmentDetail = (props: Props) => {
           Xuất PDF
         </Button>
         <Button variant="container" className="m-3">
-          <Link to="/import_shipments">Quay lại</Link>
+          <Link to="/inventory/bill">Quay lại</Link>
         </Button>
       </div>
       {visible && (
