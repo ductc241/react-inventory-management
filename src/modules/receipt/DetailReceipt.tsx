@@ -98,12 +98,6 @@ const DetailReceipt = () => {
         </div>
         <div>
           <p className="text-center font-bold	text-base">Mẫu số 02 - VT </p>
-          <p className="text-sm font-medium	">
-            (Ban hành theo Thông tư số 133/2016/TT-BTC{" "}
-          </p>
-          <p className="text-center text-sm font-medium	">
-            Ngày 26/08/2016 của Bộ Tài chính )
-          </p>
         </div>
       </div>
       <div className="mt-5 w-full">
@@ -114,14 +108,14 @@ const DetailReceipt = () => {
           PHIẾU XUẤT KHO
         </h1>
       </div>
-      <div className="w-full text-sm font-medium	">
-        <p style={{ marginLeft: "35%" }}>
+      <div className="w-full text-sm font-medium mb-3 text-center	">
+        <p>
           Ngày {datas[0]?.created_at.split("/")[0]} tháng{" "}
           {datas[0]?.created_at.split("/")[1]} năm{" "}
           {datas[0]?.created_at.split("/")[2]}
         </p>
 
-        <p style={{ marginLeft: "35%" }}>Số : ...........................</p>
+        <p>Số : ...........................</p>
       </div>
       <div className="text-sm font-medium">
         <p>
@@ -133,7 +127,7 @@ const DetailReceipt = () => {
           ..........................................................................................
         </p>
         <p>
-          - Xuất tại kho (ngăn lô) :
+          - Xuất tại :
           ...............................................................................
         </p>
       </div>
@@ -143,14 +137,13 @@ const DetailReceipt = () => {
             <th className="border" rowSpan={2}>
               STT
             </th>
-            <th className="border w-1/4 pl-3 pr-2" rowSpan={2}>
-              Tên, nhãn hiệu,quy cách, phẩm chất vật tư, dụng cụ, sản phẩm, hàng
-              hóa
+            <th className="border  pl-3 pr-2" rowSpan={2}>
+              Tên hàng hóa
             </th>
             <th className="border py-3" rowSpan={2}>
-              Mã số
+              Mã lô
             </th>
-            <th className="border py-3" colSpan={2}>
+            <th className="border py-3" rowSpan={2}>
               Số lượng
             </th>
             <th className="border py-3" rowSpan={2}>
@@ -159,10 +152,6 @@ const DetailReceipt = () => {
             <th className="border py-3" rowSpan={2}>
               Thành tiền
             </th>
-          </tr>
-          <tr>
-            <th className="border py-3">Yêu cầu</th>
-            <th className="border py-3">Thực xuất</th>
           </tr>
         </thead>
         <tbody className="bg-white">
@@ -178,7 +167,7 @@ const DetailReceipt = () => {
                   </td>
                   <td className="border py-3 text-center">{data.barcode}</td>
                   <td className="border py-3 text-center">{data.quantity}</td>
-                  <td className="border py-3 text-center">{data.quantity}</td>
+
                   <td className="border py-3 text-center">
                     {data.price.toLocaleString("en")} VNĐ
                   </td>
@@ -199,7 +188,7 @@ const DetailReceipt = () => {
           </tr>
         </tbody>
       </table>
-      <div className="flex justify-between mt-10 text-center">
+      <div className="flex justify-between mt-10 text-center w-[80%] mx-auto">
         <div>
           <p className="font-bold	text-lg">Người lập phiếu</p>
           <p className="mt-5 text-sm font-normal	">(Ký, họ tên)</p>
@@ -211,6 +200,8 @@ const DetailReceipt = () => {
       </div>
     </div>
   );
+  console.log(datas[0]);
+  console.log(dataList);
   return (
     <div className="p-5">
       <h1 className="text-center text-2xl font-bold ">Thông tin</h1>
@@ -228,14 +219,6 @@ const DetailReceipt = () => {
           <hr />
         </div>
         <div className="col-span-4">
-          <div className="m-3 flex">
-            <label>Trạng thái:</label>
-            <p className="ml-6 text-blue-600">
-              {datas[0]?.status == 1 ? "Chưa thanh toán" : "Đã thanh toán"}
-            </p>
-          </div>
-          <hr />
-
           <div className="m-3 flex">
             <label>Người bán:</label>
             <p className="ml-6">{datas[0]?.user_name}</p>
@@ -264,25 +247,9 @@ const DetailReceipt = () => {
             <label>Giảm giá hóa đơn:</label>
             <p className="ml-6">0</p>
           </div>
-          <hr />
-          <div className="m-3 flex">
-            <label>Khách cần trả:</label>
-            <p className="ml-6">
-              {datas[0]?.totall_price.toLocaleString("en")} VNĐ
-            </p>
-          </div>
-          <hr />
-          <div className="m-3 flex">
-            <label>Khách đã trả: </label>
-            <p className="ml-6 text-blue-600">
-              {datas[0]?.status == 1
-                ? "0 VNĐ"
-                : `${datas[0]?.totall_price.toLocaleString("en")} VNĐ`}
-            </p>
-          </div>
         </div>
       </div>
-      <div className="mt-3 mb-3">
+      <div className="mt-10 mb-3">
         <Table dataSource={dataList} column={columns} />
       </div>
 
@@ -292,15 +259,9 @@ const DetailReceipt = () => {
           className="m-3"
           onClick={() => setVisible(true)}
         >
-          In
+          In hóa đơn
         </Button>
-        <Button
-          variant="warning"
-          className="m-3 "
-          onClick={() => setVisible(true)}
-        >
-          Xuất
-        </Button>
+
         <Button variant="container" className="m-3">
           <Link to="/receipt"> Quay lại</Link>
         </Button>
@@ -309,7 +270,7 @@ const DetailReceipt = () => {
         <>
           <div className="fixed inset-0 flex justify-center items-center ">
             <div className="fixed inset-0 bg-black opacity-10" />
-            <div className="z-[999] min-w-[600px] p-[30px] rounded-[20px] bg-white text-left shadow-modal">
+            <div className="z-[999] min-w-[800px] p-[30px] rounded-[20px] bg-white text-left shadow-modal">
               {Prints()}
               <div className="flex  justify-end mt-4">
                 <Button
@@ -319,17 +280,9 @@ const DetailReceipt = () => {
                     handleConfirm();
                   }}
                 >
-                  In
+                  In hóa đơn
                 </Button>
-                <Button
-                  variant="warning"
-                  className="m-3 "
-                  onClick={() => {
-                    handleConfirm();
-                  }}
-                >
-                  Xuất
-                </Button>
+
                 <Button
                   variant="container"
                   className="m-3"
