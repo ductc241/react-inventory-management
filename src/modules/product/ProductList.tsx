@@ -79,7 +79,9 @@ const ProductList = () => {
 
   return (
     <div className="relative">
-      <p className="mb-5 text-xl font-semibold uppercase">Danh sách sản phẩm</p>
+      <p className="mb-5 text-xl font-semibold uppercase">
+        Danh sách hàng trong kho
+      </p>
 
       <div className="flex justify-between mb-5">
         <div className="flex gap-x-5">

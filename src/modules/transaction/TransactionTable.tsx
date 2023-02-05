@@ -63,22 +63,6 @@ const ImportColumn: ITableColumn[] = [
     title: "Ghi chú",
     dataIndex: "description",
     key: 5
-  },
-  {
-    title: "Trạng thái",
-    dataIndex: "status",
-    key: 6,
-    render: ({ status }) => {
-      return (
-        <>
-          {status === true ? (
-            <div className="text-green-500">Đã thanh toán</div>
-          ) : (
-            <div className="text-red-500">Chưa thanh toán</div>
-          )}
-        </>
-      );
-    }
   }
 ];
 
