@@ -1,3 +1,4 @@
+import { da } from "date-fns/locale";
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
@@ -20,6 +21,7 @@ const DetailReceipt = () => {
       }
     }
     setDatas(dataa);
+
     setDataList(data.data);
   };
   const navigate = useNavigate();
@@ -88,80 +90,118 @@ const DetailReceipt = () => {
   ];
 
   const Prints = () => (
-    <div className="p-5" ref={reportTemplateRef}>
-      <div className="flex p-3">
-        <span className="w-2/12">{datas[0]?.export_date}</span>
-        <h1 className="text-center w-10/12 -ml-8  text-xl font-bold">
-          Giao Dịch Hóa Đơn
+    <div ref={reportTemplateRef} className="p-5">
+      <div className="flex justify-between">
+        <div className="font-bold	text-base">
+          <p>Đơn vị : ...........</p>
+          <p>Bộ phận : ..........</p>
+        </div>
+        <div>
+          <p className="text-center font-bold	text-base">Mẫu số 02 - VT </p>
+        </div>
+      </div>
+      <div className="mt-5 w-full">
+        <h1
+          className="w-2/5 text-center font-bold	text-lg	"
+          style={{ marginLeft: "30%" }}
+        >
+          PHIẾU XUẤT KHO
         </h1>
       </div>
+      <div className="w-full text-sm font-medium mb-3 text-center	">
+        <p>
+          Ngày {datas[0]?.created_at.split("/")[0]} tháng{" "}
+          {datas[0]?.created_at.split("/")[1]} năm{" "}
+          {datas[0]?.created_at.split("/")[2]}
+        </p>
 
-      <div className="ml-[20%]">
-        <p className="text-base">Cửa hàng:....</p>
-        <p className="text-base">Địa chỉ: </p>
-        <p className="text-base">Số điện thoại : {datas[0]?.receve_phone} </p>
+        <p>Số : ...........................</p>
       </div>
-      <h1 className="text-center text-xl font-bold mt-3">Hóa đơn xuất hàng:</h1>
-      <p className="text-center text-base mt-3">{datas[0]?.export_code}</p>
-      <p className="text-center text-base mt-3">{datas[0]?.export_date}</p>
-
-      <div className="mt-3 mb-3">
-        <Table dataSource={dataList} column={columns} />
+      <div className="text-sm font-medium">
+        <p>
+          - Họ và tên người nhận hàng:................ Địa chỉ(Bộ
+          phận)..........................
+        </p>
+        <p>
+          - Lý do xuất kho :
+          ..........................................................................................
+        </p>
+        <p>
+          - Xuất tại :
+          ...............................................................................
+        </p>
       </div>
-      <div className=" mt-5 ml-3 mr-3">
-        <div className="flex justify-between">
-          <p className="text-base">Tổng cộng:</p>
-          <p className="text-base">{datas[0]?.quantity}</p>
-          <p className="text-base">
-            {datas[0]?.totall_price.toLocaleString("en")}
-          </p>
-        </div>
-        <div className="flex justify-between">
-          <p className="text-base">chiết khấu hóa đơn:</p>
-          <p className="text-base"></p>
-        </div>
-        <div className="flex justify-between">
-          <p className="text-base">Tổng thanh toán:</p>
+      <table className="w-full border-collapse border mt-5">
+        <thead className="bg-gray-100 text-center">
+          <tr>
+            <th className="border" rowSpan={2}>
+              STT
+            </th>
+            <th className="border  pl-3 pr-2" rowSpan={2}>
+              Tên hàng hóa
+            </th>
+            <th className="border py-3" rowSpan={2}>
+              Mã lô
+            </th>
+            <th className="border py-3" rowSpan={2}>
+              Số lượng
+            </th>
+            <th className="border py-3" rowSpan={2}>
+              Đơn giá
+            </th>
+            <th className="border py-3" rowSpan={2}>
+              Thành tiền
+            </th>
+          </tr>
+        </thead>
+        <tbody className="bg-white">
+          {dataList.length > 0 &&
+            dataList.map((data: any, index: number) => {
+              console.log(data.id, "id");
 
-          <p className="text-base">
-            {datas[0]?.totall_price.toLocaleString("en")}
-          </p>
-        </div>
-        <div className="flex justify-between">
-          <p className="text-base">Khách hàng thanh toán:</p>
-          <p className="text-base">
-            {datas[0]?.status != 1
-              ? datas[0]?.totall_price.toLocaleString("en")
-              : ""}
-          </p>
-        </div>
-        <div className="flex justify-between">
-          <p className="text-base">Còn lại:</p>
+              return (
+                <tr key={data.id}>
+                  <td className="border py-3 text-center">{index + 1}</td>
+                  <td className="border py-3 text-center">
+                    {data.product_name}
+                  </td>
+                  <td className="border py-3 text-center">{data.barcode}</td>
+                  <td className="border py-3 text-center">{data.quantity}</td>
 
-          <p className="text-base">
-            {(datas[0]?.totall_price - datas[0]?.totall_price).toLocaleString(
-              "en"
-            )}
-          </p>
+                  <td className="border py-3 text-center">
+                    {data.price.toLocaleString("en")} VNĐ
+                  </td>
+                  <td className="border py-3 text-center">
+                    {(data.price * data.quantity).toLocaleString("en")} VNĐ
+                  </td>
+                </tr>
+              );
+            })}
+          <tr>
+            <td className="border py-3 text-center"></td>
+            <td className="border py-3 text-center">Cộng</td>
+            <td className="border py-3 text-center">X</td>
+            <td className="border py-3 text-center">X</td>
+            <td className="border py-3 text-center">X</td>
+            <td className="border py-3 text-center">X</td>
+            <td className="border py-3 text-center"></td>
+          </tr>
+        </tbody>
+      </table>
+      <div className="flex justify-between mt-10 text-center w-[80%] mx-auto">
+        <div>
+          <p className="font-bold	text-lg">Người lập phiếu</p>
+          <p className="mt-5 text-sm font-normal	">(Ký, họ tên)</p>
         </div>
-        <div className="flex justify-between mt-8">
-          <div className="ml-6">
-            <p className="text-base">Người mua hàng</p>
-            <p className="text-base text-center"></p>
-          </div>
-          <div className="ml-6">
-            <p className="text-base">
-              Ngày {datas[0]?.created_at.split("/")[0]} Tháng{" "}
-              {datas[0]?.created_at.split("/")[1]} Năm{" "}
-              {datas[0]?.created_at.split("/")[2]}
-            </p>
-            <p className="text-base text-center">Người bán hàng</p>
-            <p className="text-base text-center"></p>
-          </div>
+        <div>
+          <p className="font-bold	text-lg">Chủ cửa hàng</p>
+          <p className="mt-5 text-sm font-normal	">(Ký, họ tên)</p>
         </div>
       </div>
     </div>
   );
+  console.log(datas[0]);
+  console.log(dataList);
   return (
     <div className="p-5">
       <h1 className="text-center text-2xl font-bold ">Thông tin</h1>
@@ -179,14 +219,6 @@ const DetailReceipt = () => {
           <hr />
         </div>
         <div className="col-span-4">
-          <div className="m-3 flex">
-            <label>Trạng thái:</label>
-            <p className="ml-6 text-blue-600">
-              {datas[0]?.status == 1 ? "Chưa thanh toán" : "Đã thanh toán"}
-            </p>
-          </div>
-          <hr />
-
           <div className="m-3 flex">
             <label>Người bán:</label>
             <p className="ml-6">{datas[0]?.user_name}</p>
@@ -215,25 +247,9 @@ const DetailReceipt = () => {
             <label>Giảm giá hóa đơn:</label>
             <p className="ml-6">0</p>
           </div>
-          <hr />
-          <div className="m-3 flex">
-            <label>Khách cần trả:</label>
-            <p className="ml-6">
-              {datas[0]?.totall_price.toLocaleString("en")} VNĐ
-            </p>
-          </div>
-          <hr />
-          <div className="m-3 flex">
-            <label>Khách đã trả: </label>
-            <p className="ml-6 text-blue-600">
-              {datas[0]?.status == 1
-                ? "0 VNĐ"
-                : `${datas[0]?.totall_price.toLocaleString("en")} VNĐ`}
-            </p>
-          </div>
         </div>
       </div>
-      <div className="mt-3 mb-3">
+      <div className="mt-10 mb-3">
         <Table dataSource={dataList} column={columns} />
       </div>
 
@@ -243,24 +259,18 @@ const DetailReceipt = () => {
           className="m-3"
           onClick={() => setVisible(true)}
         >
-          In
+          In hóa đơn
         </Button>
-        <Button
-          variant="warning"
-          className="m-3 "
-          onClick={() => setVisible(true)}
-        >
-          Xuất
-        </Button>
+
         <Button variant="container" className="m-3">
-          <Link to="/receipt"> Quay lại</Link>
+          <Link to="/inventory/bill"> Quay lại</Link>
         </Button>
       </div>
       {visible && (
         <>
           <div className="fixed inset-0 flex justify-center items-center ">
             <div className="fixed inset-0 bg-black opacity-10" />
-            <div className="z-[999] min-w-[600px] p-[30px] rounded-[20px] bg-white text-left shadow-modal">
+            <div className="z-[999] min-w-[800px] p-[30px] rounded-[20px] bg-white text-left shadow-modal">
               {Prints()}
               <div className="flex  justify-end mt-4">
                 <Button
@@ -270,17 +280,9 @@ const DetailReceipt = () => {
                     handleConfirm();
                   }}
                 >
-                  In
+                  In hóa đơn
                 </Button>
-                <Button
-                  variant="warning"
-                  className="m-3 "
-                  onClick={() => {
-                    handleConfirm();
-                  }}
-                >
-                  Xuất
-                </Button>
+
                 <Button
                   variant="container"
                   className="m-3"
