@@ -6,7 +6,8 @@ import { Button } from "../../../components";
 import { CloseIcon } from "../../../components/icons";
 import orderServices from "../../../api/order";
 import { deleteOrder } from "../../../store/slice/order.slice";
-import { getDateNow, numberWithCommas } from "../../../utils/funtion";
+import { numberWithCommas } from "../../../utils/funtion";
+import moment from "moment";
 
 interface IProps {
   toggleCheckout: () => void;
@@ -38,25 +39,24 @@ const NewSale_Checkout = ({ toggleCheckout }: IProps) => {
       };
     });
 
-    await orderServices.creatOrder({
-      user_id: 1,
-      export_type: 3,
-      payment: 1,
-      products: orderProducts,
+    try {
+      await orderServices.creatOrder({
+        user_id: 1,
+        export_type: 3,
+        payment: 1,
+        products: orderProducts,
+        description: "Bán lẻ tại cửa hảng",
 
-      supplier_id: 0,
-      user_name: null,
-      phone_number: null,
-      address: "",
-      description: "Bán lẻ tại cửa hảng",
+        export_date: moment().format("YYYY-MM-DD"),
+        receve_phone: null
+      });
 
-      export_date: "24/11/2022",
-      receve_phone: null
-    });
-
-    toggleCheckout();
-    toast.success("Hoàn thành hóa đơn");
-    dispatch(deleteOrder({ id: currentOrder }));
+      toggleCheckout();
+      toast.success("Hoàn thành hóa đơn");
+      dispatch(deleteOrder({ id: currentOrder }));
+    } catch (error) {
+      toast.error("Có lỗi xảy ra, vui lòng thử lại !!!");
+    }
   };
 
   return (

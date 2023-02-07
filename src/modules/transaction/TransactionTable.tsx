@@ -149,7 +149,7 @@ const TransactionTable = () => {
       if (type.value === "export") {
         const { data } = await listRecei();
 
-        setData(data.data.reverse());
+        setData(data.data);
         setColumn(ExportColumn);
         setLinkDetail("inventory/export-shipment");
       }
@@ -157,7 +157,7 @@ const TransactionTable = () => {
       if (type.value === "import") {
         const { data } = await listShipments();
 
-        setData(data.data.reverse());
+        setData(data.data);
         setColumn(ImportColumn);
         setLinkDetail("inventory/import-shipment");
       }

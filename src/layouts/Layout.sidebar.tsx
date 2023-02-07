@@ -76,7 +76,7 @@ const LayoutSidebar = () => {
                   to={routerPaths.PATH_SUPPLIER}
                   className="text-[#eeeeeeb3]"
                 >
-                  Đối tác
+                  Nhà cung cấp
                 </Link>
               </div>
             </div>
@@ -126,7 +126,7 @@ const LayoutSidebar = () => {
                   Hàng lỗi
                 </Link>
               </div>
-              <div className="py-3 pr-8 pl-[75px] hover:bg-[#00000038] hover:cursor-pointer">
+              {/* <div className="py-3 pr-8 pl-[75px] hover:bg-[#00000038] hover:cursor-pointer">
                 <Link to="inventory/storage-time" className="text-[#eeeeeeb3]">
                   Thời gian lưu kho
                 </Link>
@@ -135,7 +135,7 @@ const LayoutSidebar = () => {
                 <Link to="#" className="text-[#eeeeeeb3]">
                   Hạn mức tồn kho
                 </Link>
-              </div>
+              </div> */}
               <div className="py-3 pr-8 pl-[75px] hover:bg-[#00000038] hover:cursor-pointer">
                 <Link
                   to="inventory/forcasting-import"

@@ -1,11 +1,10 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getReceiByCode } from "../../../api/receipt.api";
 import refundServices from "../../../api/refund.api";
-import { Button, Select, TextField } from "../../../components";
-import IOption from "../../../types/option.model";
+import { Button, TextField } from "../../../components";
 
 interface IReturnProduct {
   product_id: number;
@@ -22,29 +21,29 @@ interface InputForm {
 }
 
 interface IDetailBill {
-  address: string | null;
-  custumer: {
-    id: number;
-    name: string;
-    address: string;
-    phone_number: string;
-  };
-  export_code: string;
-  export_date: string;
-  export_shipment_detail: any[];
-  export_type: number;
+  id: number;
+  export_shipment_id: number;
+  created_at: string;
+  description: string;
+  refund_code: string;
+  refund_export_shipment_detail: any[];
+  refund_price_totail: number;
+  refund_totall_quantity: number;
+  refund_type: number;
+  seller_name: string;
+  status: number;
+  updated_at: string;
   user_id: number;
+  user_name: string;
 }
 
-const REFUND_TYPE: IOption[] = [
-  { label: "Hàng khách trả", value: 1 },
-  { label: "Hàng nhập lỗi", value: 1 }
-];
+const RefundSupplierForm = () => {
+  const [products, setProducts] = useState<any[]>([]);
+  const [returnProductBill, setReturnProductBill] = useState<IDetailBill>();
+  const [productInReturnBill, setProductInReturnBill] = useState<any[]>([]);
 
-const ProductBrokenForm = () => {
   const [productsInBill, setProductsInBill] = useState<any[]>([]);
   const [exportBill, setExportBill] = useState<IDetailBill>();
-  const [refundType, setRefundType] = useState<IOption>(REFUND_TYPE[0]);
 
   const navigate = useNavigate();
 
@@ -62,19 +61,21 @@ const ProductBrokenForm = () => {
   });
 
   const handleSearchBill = async () => {
-    const { data } = await getReceiByCode(getValues("exportCode"));
+    const bill: IDetailBill = products.find(
+      (item) => item.refund_code === getValues("exportCode")
+    );
 
-    setExportBill(data.data[0]);
-    setProductsInBill(data.data[0].export_shipment_detail);
+    setReturnProductBill(bill);
+    setProductInReturnBill(bill.refund_export_shipment_detail);
   };
 
   const handleReturnProduct = async (item: any) => {
     append({
       product_id: item.product.id,
       name: item.product.name,
-      quantity: item.quantity,
-      export_price: item.price,
-      refund_price: item.price,
+      quantity: item.refund_quantity,
+      export_price: item.export_price,
+      refund_price: 0,
       lot_code: item.lot_code
     });
   };
@@ -96,7 +97,7 @@ const ProductBrokenForm = () => {
   };
 
   const onSubmit = async (formData: InputForm) => {
-    if (!exportBill) return;
+    if (!returnProductBill) return;
 
     const totalRefund = fields.reduce((total: number, item) => {
       return (total += item.export_price);
@@ -107,21 +108,23 @@ const ProductBrokenForm = () => {
 
     const products_refund = fields.map((product: IReturnProduct) => {
       return {
-        ...product,
-        id: product.product_id
+        id: product.product_id,
+        quantity: product.quantity,
+        export_price: product.export_price,
+        refund_price: product.refund_price,
+        lot_code: product.lot_code
       };
     });
 
     try {
-      const { data } = await refundServices.addCustomerRefundBill({
-        export_shipment_id:
-          exportBill.export_shipment_detail[0].export_shipment_id,
+      const { data } = await refundServices.addSupplierRefundBill({
+        id: returnProductBill.id,
+        export_shipment_id: returnProductBill.export_shipment_id,
         refund_totall_quantity: totalQuantity,
-        refund_type: 1,
-        supplier_id: exportBill.custumer.id,
-        user_id: exportBill.user_id,
-        description: "Hàng khách trả lỗi",
         refund_price_totail: totalRefund,
+        refund_type: 2,
+        user_id: 2,
+        description: "Trả hàng lỗi",
         products: products_refund
       });
 
@@ -129,29 +132,40 @@ const ProductBrokenForm = () => {
     } catch (error) {
       toast.error("Có lỗi xảy ra, vui lòng thử lại !!!");
     }
+
+    console.log({
+      id: returnProductBill.id,
+      export_shipment_id: returnProductBill.export_shipment_id,
+      refund_totall_quantity: totalQuantity,
+      refund_price_totail: totalRefund,
+      refund_type: 2,
+      user_id: 2,
+      description: "Trả hàng lỗi",
+      products: products_refund
+    });
   };
+
+  useEffect(() => {
+    const getInitData = async () => {
+      const { data } = await refundServices.getRefundOrderList();
+      setProducts(data.data);
+    };
+
+    getInitData();
+  }, []);
 
   return (
     <div>
-      <p className="mb-5 text-xl font-semibold uppercase">Thêm hàng lỗi</p>
+      <p className="mb-5 text-xl font-semibold uppercase">Thêm đơn trả hàng</p>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-5">
-          <p className="block mb-2 text-base">Lọai hàng lỗi</p>
-          <Select
-            option={refundType}
-            options={REFUND_TYPE}
-            handleClickChange={(value) => setRefundType(value)}
-          />
-        </div>
-
-        <div className="mb-5">
-          <p className="block mb-2 text-base">Mã đơn</p>
+          <p className="block mb-2 text-base">Mã lô hàng lỗi</p>
           <div className="flex items-center gap-x-5">
             <TextField
               containerClass="flex-grow"
               {...register("exportCode")}
-              placeholder="Nhập mã đơn hàng..."
+              placeholder="Nhập mã lô hàng..."
             />
             <Button onClick={handleSearchBill}>Tìm kiếm</Button>
           </div>
@@ -165,14 +179,14 @@ const ProductBrokenForm = () => {
                 <tr className="bg-gray-100">
                   <th className="p-[14px] leading-[27px]">Mã lô</th>
                   <th className="p-[14px] leading-[27px]">Tên sản phẩm</th>
-                  <th className="p-[14px] leading-[27px]">Giá xuất</th>
+                  <th className="p-[14px] leading-[27px]">Trả lại khách</th>
                   <th className="p-[14px] leading-[27px]">Số lượng</th>
                   <th className="p-[14px] leading-[27px]">Hành động</th>
                 </tr>
               </thead>
               <tbody>
-                {productsInBill.length > 0 &&
-                  productsInBill.map((item, index) => {
+                {productInReturnBill.length > 0 &&
+                  productInReturnBill.map((item, index) => {
                     return (
                       <tr key={index} className="border-b border-gray-200">
                         <td className="p-[14px] leading-[27px] text-center">
@@ -182,10 +196,10 @@ const ProductBrokenForm = () => {
                           {item.product.name}
                         </td>
                         <td className="p-[14px] leading-[27px] text-center">
-                          {item.price}
+                          {item.refund_price}
                         </td>
                         <td className="p-[14px] leading-[27px] text-center">
-                          {item.quantity}
+                          {item.refund_quantity}
                         </td>
                         <td className="p-[14px] leading-[27px] text-center">
                           <Button
@@ -199,7 +213,7 @@ const ProductBrokenForm = () => {
                     );
                   })}
 
-                {productsInBill.length === 0 && (
+                {productInReturnBill.length === 0 && (
                   <tr>
                     <td className="text-base text-center py-10" colSpan={5}>
                       Vui lòng nhập mã đơn xuất !!!
@@ -218,9 +232,8 @@ const ProductBrokenForm = () => {
               <thead>
                 <tr className="bg-gray-100">
                   <th className="p-[14px] leading-[27px]">Tên sản phẩm</th>
-                  <th className="p-[14px] leading-[27px]">Giá bán</th>
                   <th className="p-[14px] leading-[27px]">Số lượng</th>
-                  <th className="p-[14px] leading-[27px]">Trả khách</th>
+                  <th className="p-[14px] leading-[27px]">Hoàn tiền</th>
                   <th className="p-[14px] leading-[27px]">Hành động</th>
                 </tr>
               </thead>
@@ -231,9 +244,6 @@ const ProductBrokenForm = () => {
                       <tr key={index} className="border-b border-gray-200">
                         <td className="p-[14px] leading-[27px] text-center">
                           {item.name}
-                        </td>
-                        <td className="p-[14px] leading-[27px] text-center">
-                          {item.export_price}
                         </td>
                         <td className="p-[14px] leading-[27px] text-center">
                           <input
@@ -271,7 +281,7 @@ const ProductBrokenForm = () => {
                 {fields.length === 0 && (
                   <tr>
                     <td className="text-base text-center py-10" colSpan={5}>
-                      Vui lòng nhập mã đơn xuất !!!
+                      Vui lòng chọn sản phẩm cần trả !!!
                     </td>
                   </tr>
                 )}
@@ -286,4 +296,4 @@ const ProductBrokenForm = () => {
   );
 };
 
-export default ProductBrokenForm;
+export default RefundSupplierForm;
