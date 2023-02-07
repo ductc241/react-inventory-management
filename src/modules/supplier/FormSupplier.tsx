@@ -42,7 +42,11 @@ const FormSupplier = (props: Props) => {
   const onSubmit = (item: any) => {
     console.log(item);
     if (props?.itemUpdate.length < 1) {
-      props.uploadData(item);
+      const newData = {
+        ...item,
+        phone_number: null
+      };
+      props.uploadData(newData);
     } else {
       const newData = {
         id: props?.itemUpdate[0].id,
@@ -113,6 +117,7 @@ const FormSupplier = (props: Props) => {
             <TextField
               label="Số điện thoại"
               containerClass="col-span-6 mb-3"
+              type="text"
               {...register("phone", { required: "Đây là trường bắt buộc" })}
               error={errors.phone}
               defaultValue={

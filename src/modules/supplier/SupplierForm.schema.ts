@@ -6,7 +6,7 @@ const SupplierSchema = yup
     address: yup.string().required("Đây là trường bắt buộc"),
     phone: yup
       .number()
-      .typeError("Nhập số giá hàng hóa")
+      .typeError("Đây là trường bắt buộc")
       .required("Đây là trường bắt buộc")
   })
   .required();
