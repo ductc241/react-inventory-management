@@ -40,12 +40,12 @@ const FormSupplier = (props: Props) => {
   });
 
   const onSubmit = (item: any) => {
-    console.log(item);
     if (props?.itemUpdate.length < 1) {
       const newData = {
         ...item,
-        phone_number: null
+        phone_number: `0${item.phone}`
       };
+      console.log(newData);
       props.uploadData(newData);
     } else {
       const newData = {
