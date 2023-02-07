@@ -178,9 +178,9 @@ const TransactionTable = () => {
         (item: any) =>
           moment(`${item.updated_at}`).format("DD-MM-YYYY") <
             moment(
-              `${endDate.split("-")[2]}/${endDate.split("-")[1]}/${
-                endDate.split("-")[0]
-              }`
+              `${Number(startDate.split("-")[2]) + 1}/${
+                endDate.split("-")[1]
+              }/${endDate.split("-")[0]}`
             ).format("DD-MM-YYYY") &&
           moment(`${item.updated_at}`).format("DD-MM-YYYY") >
             moment(
@@ -201,7 +201,7 @@ const TransactionTable = () => {
         (item: any) =>
           moment(`${item.updated_at}`).format("DD-MM-YYYY") <
             moment(
-              `${endDate.split("-")[2]}/${endDate.split("-")[1]}/${
+              `${Number(endDate.split("-")[2]) + 1}/${endDate.split("-")[1]}/${
                 endDate.split("-")[0]
               }`
             ).format("DD-MM-YYYY") &&
@@ -274,9 +274,9 @@ const TransactionTable = () => {
           (item: any) =>
             moment(`${item.updated_at}`).format("DD-MM-YYYY") <
               moment(
-                `${endDate.split("-")[2]}/${endDate.split("-")[1]}/${
-                  endDate.split("-")[0]
-                }`
+                `${Number(startDate.split("-")[2] + 1)}/${
+                  endDate.split("-")[1]
+                }/${endDate.split("-")[0]}`
               ).format("DD-MM-YYYY") &&
             moment(`${item.updated_at}`).format("DD-MM-YYYY") >
               moment(
