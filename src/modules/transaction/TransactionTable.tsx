@@ -7,6 +7,8 @@ import { listRecei } from "../../api/receipt.api";
 import { listShipments } from "../../api/shipments";
 import { ITableColumn } from "../../components/Table/Table.types";
 import IOption from "../../types/option.model";
+import reportServices from "../../api/report.api";
+import moment from "moment";
 
 const ImportColumn: ITableColumn[] = [
   {
@@ -143,7 +145,8 @@ const TransactionTable = () => {
 
   const [linkDetail, setLinkDetail] = useState<string>("");
   const [type, setType] = useState<IOption>(listType[0]);
-
+  const [startDate, setStartDate] = useState<string>("");
+  const [endDate, setEndDate] = useState<string>("");
   useEffect(() => {
     const getInitData = async () => {
       if (type.value === "export") {
@@ -165,91 +168,77 @@ const TransactionTable = () => {
 
     getInitData();
   }, [type]);
+  console.log(startDate.split("-"));
+  const getInitData = async () => {
+    if (!startDate || !endDate) return;
+    if (type.value === "export") {
+      const { data } = await listRecei();
 
-  // const filter = async () => {
-  //   const { data } = await listRecei();
-  //   const id: any = document.getElementById("id");
-  //   const export_date: any = document.getElementById("export_date");
-  //   const import_Date: any = document.getElementById("import_Date");
-  //   const countries: any = document.getElementById("countries");
+      let dataList = data.data.filter(
+        (item: any) =>
+          moment(`${item.updated_at}`).format("DD-MM-YYYY") <
+            moment(
+              `${endDate.split("-")[2]}/${endDate.split("-")[1]}/${
+                endDate.split("-")[0]
+              }`
+            ).format("DD-MM-YYYY") &&
+          moment(`${item.updated_at}`).format("DD-MM-YYYY") >
+            moment(
+              `${Number(startDate.split("-")[2]) - 1}/${
+                startDate.split("-")[1]
+              }/${startDate.split("-")[0]}`
+            ).format("DD-MM-YYYY")
+      );
+      setData(dataList);
+      setColumn(ExportColumn);
+      setLinkDetail("inventory/export-shipment");
+    }
 
-  //   if (
-  //     id.value &&
-  //     !import_Date.value &&
-  //     !export_date.value &&
-  //     countries.value == "Loại"
-  //   ) {
-  //     const datas: any = [];
-  //     for (let i = 0; i < data.data.length; i++) {
-  //       if (data.data[i].id == Number(id.value)) {
-  //         datas.push(data.data[i]);
-  //       }
-  //     }
-  //     setData(datas);
-  //   }
+    if (type.value === "import") {
+      const { data } = await listShipments();
 
-  //   if (
-  //     !id.value &&
-  //     import_Date.value &&
-  //     export_date.value &&
-  //     countries.value == "Loại"
-  //   ) {
-  //     const datas: any = [];
-  //     const startDate: any = Date.parse(import_Date.value);
-  //     const endDate: any = Date.parse(export_date.value);
-  //     if (startDate > endDate) {
-  //       setMessenger("ngày kết thúc phải lớn hơn ngày bắt đầu");
-  //     } else {
-  //       const { data: datass } = await listRecei();
-  //       for (let i = 0; i < datass.data.length; i++) {
-  //         const shortDate_2: any = new Date(
-  //           `${datass.data[i].created_at.split("/")[1]}/${
-  //             datass.data[i].created_at.split("/")[0]
-  //           }/${datass.data[i].created_at.split("/")[2]}`
-  //         );
+      let dataList = data.data.filter(
+        (item: any) =>
+          moment(`${item.updated_at}`).format("DD-MM-YYYY") <
+            moment(
+              `${endDate.split("-")[2]}/${endDate.split("-")[1]}/${
+                endDate.split("-")[0]
+              }`
+            ).format("DD-MM-YYYY") &&
+          moment(`${item.updated_at}`).format("DD-MM-YYYY") >
+            moment(
+              `${Number(startDate.split("-")[2]) - 1}/${
+                startDate.split("-")[1]
+              }/${startDate.split("-")[0]}`
+            ).format("DD-MM-YYYY")
+      );
+      setData(dataList);
+      setColumn(ImportColumn);
+      setLinkDetail("inventory/import-shipment");
+    }
+  };
 
-  //         const date = Date.parse(shortDate_2);
-  //         if (date > startDate && date < endDate) {
-  //           datas.push(data.data[i]);
-  //         }
-  //       }
-  //       setData(datas);
-  //     }
-  //   }
+  const filter = async (items: any) => {
+    if (type.value === "export") {
+      const { data } = await listRecei();
+      let dataList = data.data.filter((item: any) =>
+        item.export_code.toLowerCase().includes(items?.target.value)
+      );
+      setData(dataList);
+      setColumn(ExportColumn);
+      setLinkDetail("inventory/export-shipment");
+    }
 
-  //   if (
-  //     (id.value && import_Date.value) ||
-  //     (id.value && export_date.value) ||
-  //     (countries.value != "Loại" && id.value) ||
-  //     (countries.value != "Loại" && import_Date.value && !export_date.value) ||
-  //     (countries.value != "Loại" && export_date.value && !import_Date.value)
-  //   ) {
-  //     setMessenger("Không Lọc được");
-  //   }
-
-  //   if (
-  //     !id.value &&
-  //     !import_Date.value &&
-  //     !export_date.value &&
-  //     countries.value == "Loại"
-  //   ) {
-  //     setData(data.data);
-  //     setMessenger("");
-  //   }
-
-  //   if (!id.value && countries.value != "Loại" && import_Date && export_date) {
-  //     const datas: any = [];
-  //     for (let i = 0; i < data.data.length; i++) {
-  //       if (data.data[i].export_type == Number(countries.value)) {
-  //         datas.push(data.data[i]);
-  //       }
-  //     }
-  //     setData(datas);
-  //   }
-  //   id.value = "";
-  //   import_Date.value = "";
-  //   export_date.value = "";
-  // };
+    if (type.value === "import") {
+      const { data } = await listShipments();
+      let dataList = data.data.filter((item: any) =>
+        item.import_code.toLowerCase().includes(items?.target.value)
+      );
+      setData(dataList);
+      setColumn(ImportColumn);
+      setLinkDetail("inventory/import-shipment");
+    }
+  };
 
   return (
     <div className="bg-white">
@@ -259,11 +248,12 @@ const TransactionTable = () => {
 
       <div className="mb-3 flex">
         <TextField
-          type="number"
+          type="text"
           placeholder="Mã phiếu"
           name="id"
           id="id"
           containerClass="mr-5"
+          onChange={(e: object) => filter(e)}
         />
 
         <Select
@@ -274,13 +264,23 @@ const TransactionTable = () => {
         />
 
         <div className="ml-5">
-          <TextField name="import_Date" type="date" id="import_Date" />
+          <TextField
+            name="import_Date"
+            type="date"
+            onChange={(e) => setStartDate(e.target.value)}
+          />
         </div>
         <div className="ml-5">
-          <TextField name="export_date" type="date" id="export_date" />
+          <TextField
+            name="export_date"
+            type="date"
+            onChange={(e) => setEndDate(e.target.value)}
+          />
         </div>
 
-        <Button className="ml-5">Lọc</Button>
+        <Button className="ml-5" onClick={() => getInitData()}>
+          Lọc
+        </Button>
       </div>
 
       <div className="mt-5 flex gap-x-5">
