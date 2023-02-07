@@ -1,8 +1,10 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import Button from "../../components/Button/Button";
 import Modal from "../../components/Modal/Modal";
 import TextField from "../../components/TextField/TextField";
 import { ISupplier } from "../../types/supplier.type";
+import SupplierSchema from "./SupplierForm.schema";
 
 type Inputs = {
   supplierCode: string;
@@ -33,14 +35,17 @@ const FormSupplier = (props: Props) => {
     handleSubmit,
     reset,
     formState: { errors }
-  } = useForm<Inputs>();
+  } = useForm<Inputs>({
+    resolver: yupResolver(SupplierSchema)
+  });
 
   const onSubmit = (item: any) => {
     if (props?.itemUpdate.length < 1) {
       const newData = {
         ...item,
-        phone_number: null
+        phone_number: `0${item.phone}`
       };
+      console.log(newData);
       props.uploadData(newData);
     } else {
       const newData = {
@@ -72,7 +77,7 @@ const FormSupplier = (props: Props) => {
               label="Nhà cung cấp"
               containerClass="col-span-6 mb-3"
               {...register("name", {
-                required: "bạn chưa nhập form này"
+                required: "Đây là trường bắt buộc"
               })}
               error={errors.name}
               defaultValue={
@@ -103,10 +108,20 @@ const FormSupplier = (props: Props) => {
             <TextField
               label="Địa chỉ"
               containerClass="col-span-6 mb-3"
-              {...register("address", { required: "bạn chưa nhập form này" })}
+              {...register("address", { required: "Đây là trường bắt buộc" })}
               error={errors.address}
               defaultValue={
                 props.itemUpdate.length > 0 ? props?.itemUpdate[0].address : ""
+              }
+            />
+            <TextField
+              label="Số điện thoại"
+              containerClass="col-span-6 mb-3"
+              type="text"
+              {...register("phone", { required: "Đây là trường bắt buộc" })}
+              error={errors.phone}
+              defaultValue={
+                props.itemUpdate.length > 0 ? props?.itemUpdate[0].phone : ""
               }
             />
           </div>
