@@ -2,11 +2,11 @@ import IOption from "../../../types/option.model";
 
 const EXPORT_TYPES: IOption[] = [
   {
-    label: "Nhà cung cấp",
+    label: "Khách hàng",
     value: 1
   },
   {
-    label: "Nguồn khác",
+    label: "Đối tượng khác",
     value: 2
   }
 ];

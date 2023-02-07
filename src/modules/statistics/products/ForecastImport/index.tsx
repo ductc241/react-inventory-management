@@ -34,7 +34,7 @@ const ForecastImport = () => {
       title: "SL bán năm trước",
       dataIndex: "name",
       render: (item, index) => (
-        <p>{oldData.length > 0 ? oldData[index].totail_quantity : 0}</p>
+        <p>{oldData.length > 0 ? oldData[index].totail_export : 0}</p>
       )
     },
     {
@@ -44,7 +44,7 @@ const ForecastImport = () => {
       render: (_, index) => (
         <p>
           {oldData.length > 0
-            ? (oldData[index].totail_quantity / totalDays).toFixed(2)
+            ? (oldData[index].totail_export / totalDays).toFixed(2)
             : 0}
         </p>
       )
@@ -53,13 +53,13 @@ const ForecastImport = () => {
       key: 4,
       title: "Sl bán hiện tại",
       dataIndex: "totail_export",
-      render: (item) => <p>{item.totail_quantity}</p>
+      render: (item) => <p>{item.totail_export}</p>
     },
     {
       key: 5,
       title: `Trung bình hiện tại (${totalDays} ngày)`,
       dataIndex: "name",
-      render: (item) => <p>{(item.totail_quantity / totalDays).toFixed(2)}</p>
+      render: (item) => <p>{(item.totail_export / totalDays).toFixed(2)}</p>
     },
     {
       key: 6,
@@ -85,14 +85,14 @@ const ForecastImport = () => {
       key: 3,
       title: `SL bán ra trung bình / ${totalDays} ngày`,
       dataIndex: "name",
-      render: (item) => <p>{(item.totail_quantity / totalDays).toFixed(2)}</p>
+      render: (item) => <p>{(item.totail_export / totalDays).toFixed(2)}</p>
     },
     {
       key: 4,
       title: `SL bán ${totalDays} ngày tới`,
       dataIndex: "name",
       render: (item) => (
-        <p>{Number((item.totail_quantity / totalDays).toFixed(2)) * 30}</p>
+        <p>{Number((item.totail_export / totalDays).toFixed(2)) * 30}</p>
       )
     },
     {
@@ -108,7 +108,7 @@ const ForecastImport = () => {
         <p>
           {Number(
             item.product.quantity /
-              Number((item.totail_quantity / totalDays).toFixed(2))
+              Number((item.totail_export / totalDays).toFixed(2))
           ).toFixed(1)}{" "}
           ngày
         </p>

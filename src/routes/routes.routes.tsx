@@ -29,6 +29,10 @@ import * as routerPaths from "./routes.paths";
 import NewSalse from "../modules/transaction/NewSalse/NewSalse";
 import ForecastImport from "../modules/statistics/products/ForecastImport";
 import StorageTime from "../modules/statistics/products/StorageTime";
+import ProductBroken from "../modules/transaction/ProductBroken";
+import ProductBrokenForm from "../modules/transaction/ProductBroken/ProductBrokenForm";
+import RefundForm from "../pages/refurnd/RefundForm";
+import RefundSupplier from "../modules/transaction/RefundSupplier";
 export const appRoutes: IRoute[] = [
   {
     key: 1,
@@ -142,7 +146,7 @@ export const appRoutes: IRoute[] = [
   {
     key: 22,
     path: routerPaths.PATH_REFUND_SUPPLIER,
-    component: <RefundPage />
+    component: <RefundSupplier />
   },
   {
     key: 23,
@@ -158,5 +162,21 @@ export const appRoutes: IRoute[] = [
     key: 25,
     path: routerPaths.PATH_STORAGE,
     component: <StorageTime />
+  },
+  {
+    key: 26,
+    path: routerPaths.PATH_PRODUCT_BROKEN,
+    // component: <ProductBroken />
+    component: <RefundPage />
+  },
+  {
+    key: 27,
+    path: routerPaths.PATH_PRODUCT_BROKEN_ADD,
+    component: <ProductBrokenForm />
+  },
+  {
+    key: 28,
+    path: routerPaths.PATH_REFUND_SUPPLIER_ADD,
+    component: <RefundForm />
   }
 ];

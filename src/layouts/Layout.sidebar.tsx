@@ -76,7 +76,7 @@ const LayoutSidebar = () => {
                   to={routerPaths.PATH_SUPPLIER}
                   className="text-[#eeeeeeb3]"
                 >
-                  Nhà cung cấp
+                  Đối tác
                 </Link>
               </div>
             </div>
@@ -119,8 +119,11 @@ const LayoutSidebar = () => {
                 </Link>
               </div>
               <div className="py-3 pr-8 pl-[75px] hover:bg-[#00000038] hover:cursor-pointer">
-                <Link to="#" className="text-[#eeeeeeb3]">
-                  Tạm giữ
+                <Link
+                  to={routerPaths.PATH_PRODUCT_BROKEN}
+                  className="text-[#eeeeeeb3]"
+                >
+                  Hàng lỗi
                 </Link>
               </div>
               <div className="py-3 pr-8 pl-[75px] hover:bg-[#00000038] hover:cursor-pointer">

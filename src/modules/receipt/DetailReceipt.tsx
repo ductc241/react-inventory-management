@@ -9,7 +9,10 @@ const DetailReceipt = () => {
   const [datas, setDatas] = useState<any>([]);
   const [dataList, setDataList] = useState<any>([]);
   const [visible, setVisible] = useState<boolean>(false);
+
+  const navigate = useNavigate();
   const { id } = useParams();
+
   const getReceiptId = async () => {
     const { data } = await getRecei(Number(id));
     const { data: dataReceipt } = await listRecei();
@@ -22,7 +25,6 @@ const DetailReceipt = () => {
     setDatas(dataa);
     setDataList(data.data);
   };
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (!Number(id)) {
@@ -162,6 +164,7 @@ const DetailReceipt = () => {
       </div>
     </div>
   );
+
   return (
     <div className="p-5">
       <h1 className="text-center text-2xl font-bold ">Thông tin</h1>
@@ -237,7 +240,7 @@ const DetailReceipt = () => {
         <Table dataSource={dataList} column={columns} />
       </div>
 
-      <div className="flex  justify-end">
+      <div className="flex justify-end">
         <Button
           variant="container"
           className="m-3"
@@ -256,6 +259,7 @@ const DetailReceipt = () => {
           <Link to="/receipt"> Quay lại</Link>
         </Button>
       </div>
+
       {visible && (
         <>
           <div className="fixed inset-0 flex justify-center items-center ">

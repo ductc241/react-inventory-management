@@ -1,13 +1,20 @@
 import instance from "./instance";
 
 export const addRecei = (receipt: any) => {
-  const url = `/export-shipment`;
+  const url = `/export-shipment/add`;
   return instance.post(url, receipt);
 };
 
 export const listRecei = () => {
   const url = "/export-shipment";
   return instance.get(url);
+};
+
+export const getReceiByCode = (code: string) => {
+  const url = "/export-shipment";
+  return instance.post(url, {
+    export_code: code
+  });
 };
 
 export const getRecei = (id: number) => {

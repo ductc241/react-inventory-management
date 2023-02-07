@@ -21,7 +21,7 @@ import {
 } from "../ExportShipments/export.constants";
 import { toast } from "react-toastify";
 import moment from "moment";
-import { getDateNow, numberWithCommas } from "../../../utils/funtion";
+import { numberWithCommas } from "../../../utils/funtion";
 import { addShipments } from "../../../api/shipments";
 
 type Inputs = {
@@ -147,7 +147,6 @@ const ImportShipmentForm = () => {
       import_date: moment(formValue.import_date, "YYYY-MM-DD")
         .subtract(1, "days")
         .format("DD/MM/YYYY"),
-      // import_date: "03/01/2023",
       receve_phone: formValue.phone_number,
       user_name: formValue.user_name
     };

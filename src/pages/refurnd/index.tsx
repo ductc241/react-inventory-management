@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getRefund } from "../../api/refund";
 import { Button, Table } from "../../components";
 import { EyesIcon } from "../../components/icons";
@@ -7,49 +8,22 @@ import { IRefund } from "../../types/refund.type";
 import ModalAddRefund from "./ModalAddRefund";
 import ModalDetailRefund from "./ModalDetailRefund";
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-type Props = {};
-
-const RefundPage = (props: Props) => {
+const RefundPage = () => {
   const [refundList, setRefundList] = useState([]);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
   const [idDetail, setIDdetail] = useState(0);
-  const fetchDataRefundList = async () => {
-    const { data, status } = await getRefund();
-    if (status === 200) {
-      setRefundList(data.data);
-    }
+
+  const handleShowDetail = (record: any) => {
+    console.log(record);
   };
 
-  useEffect(() => {
-    fetchDataRefundList();
-  }, []);
-
-  const handleAddOrEditRefund = (type: IRefund, id?: any) => {
-    if (type === IRefund.VIEW) {
-      setIsOpenModal((prev) => !prev);
-      setIDdetail(id);
-    }
-
-    if (type === IRefund.ADD) {
-      setIsOpenAddModal((prev) => !prev);
-    }
-  };
-
-  const handleCancel = () => {
-    setIsOpenModal(false);
-  };
-
-  const handleCancelAddModal = () => {
-    setIsOpenAddModal(false);
-  };
   const columns: ITableColumn[] = [
-    {
-      title: "Tên người tạo",
-      dataIndex: "user_name",
-      key: 1
-    },
+    // {
+    //   title: "Tên người tạo",
+    //   dataIndex: "user_name",
+    //   key: 1
+    // },
     {
       title: "Mã trả hàng",
       dataIndex: "refund_code",
@@ -96,25 +70,41 @@ const RefundPage = (props: Props) => {
       render: (record) => {
         return (
           <div className="flex items-center gap-5 justify-center">
-            <EyesIcon
-              onClick={() => handleAddOrEditRefund(IRefund.VIEW, record.id)}
-            />
+            <EyesIcon onClick={() => handleShowDetail(record)} />
           </div>
         );
       }
     }
   ];
 
+  const fetchDataRefundList = async () => {
+    const { data, status } = await getRefund();
+    if (status === 200) {
+      setRefundList(data.data);
+    }
+  };
+
+  useEffect(() => {
+    fetchDataRefundList();
+  }, []);
+
+  const handleCancel = () => {
+    setIsOpenModal(false);
+  };
+
+  const handleCancelAddModal = () => {
+    setIsOpenAddModal(false);
+  };
+
   return (
     <>
       <div>
         <div className="flex justify-between items-center mb-10">
-          <span className="text-3xl font-semibold inline-block">
-            Hàng hoàn trả
-          </span>
-          <Button onClick={() => handleAddOrEditRefund(IRefund.ADD)}>
-            Tạo đơn hoàn
-          </Button>
+          <p className="text-xl font-semibold uppercase">Danh sách hàng lỗi</p>
+
+          <Link to="/inventory/product/damaged/new">
+            <Button>Thêm mới</Button>
+          </Link>
         </div>
         <Table column={columns} dataSource={refundList} />
       </div>

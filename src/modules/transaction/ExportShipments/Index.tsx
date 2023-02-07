@@ -8,7 +8,6 @@ import ProductPlaceholder from "../../../assets/product-placeholder.png";
 
 import productServices from "../../../api/product.api";
 import { addRecei, exportShipmentsDetail } from "../../../api/receipt.api";
-import * as supplierServices from "../../../api/supplier.api";
 import {
   convertDataToOption,
   convertDataToOptionShipments,
@@ -21,6 +20,7 @@ import { IProduct } from "./../../../types/product.type";
 import { EXPORT_TYPES, PAYMENT_TYPES } from "./export.constants";
 import { toast } from "react-toastify";
 import moment from "moment";
+import customerServices from "../../../api/customer.api";
 
 type Inputs = {
   export_type: number;
@@ -77,7 +77,7 @@ const ExportShipments = () => {
 
   const getInitData = async () => {
     const initData = await Promise.all([
-      supplierServices.list(),
+      customerServices.getList(),
       productServices.getProducts()
     ]);
 
@@ -137,8 +137,7 @@ const ExportShipments = () => {
   const handleUpdatefields = async (id: number, index: number) => {
     const { data } = await exportShipmentsDetail(id);
 
-    // console.log(id, data, index, data.lot_code);
-    console.log(fields);
+    // console.log(fields);
 
     // const isDuplicateLotcode = fields.find((item) => Number(item.id) === id);
 
@@ -248,18 +247,18 @@ const ExportShipments = () => {
                   setValue("user_name", null),
                   setValue("phone_number", null);
               }}
-              placeholderText="-- Chọn kiểu xuất hàng --"
+              placeholderText="Chọn kiểu xuất hàng"
             />
 
             {watch("export_type") === 1 ? (
               <Select
                 selectLabel={{
-                  text: "Nhà cung cấp"
+                  text: "Khách hàng"
                 }}
                 options={suplierOption}
                 option={getValueFromOptions(suplierOption, watch("supplier"))}
                 handleClickChange={(brand) => setValue("supplier", brand.value)}
-                placeholderText="-- Chọn nhà cung cấp --"
+                placeholderText="Chọn khách hàng"
               />
             ) : (
               <>

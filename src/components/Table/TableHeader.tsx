@@ -15,7 +15,7 @@ const TableHeader = ({ tableHead, className }: TableHeaderProps) => {
           <th
             key={index}
             className={clsx(
-              "p-[14px] first:pl-[24px] last:pr-[24px] leading-[27px] ",
+              "p-[14px] first:pl-[24px] last:pr-[24px] leading-[27px]",
               "text-[#311339] text-[14px] font-bold uppercase",
               className
             )}

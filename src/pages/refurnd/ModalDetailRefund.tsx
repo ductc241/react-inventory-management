@@ -25,8 +25,6 @@ const ModalDetailRefund = (props: Props) => {
     fetchDetailRefund();
   }, [id]);
 
-  console.log(data);
-
   return (
     <Modal visible={open} showButtons={false} onCancel={handleCancelModal}>
       ABC
