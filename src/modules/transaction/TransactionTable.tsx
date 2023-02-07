@@ -145,6 +145,7 @@ const TransactionTable = () => {
 
   const [linkDetail, setLinkDetail] = useState<string>("");
   const [type, setType] = useState<IOption>(listType[0]);
+  const [search, setSearch] = useState<string>("");
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
   useEffect(() => {
@@ -168,9 +169,8 @@ const TransactionTable = () => {
 
     getInitData();
   }, [type]);
-  console.log(startDate.split("-"));
+
   const getInitData = async () => {
-    if (!startDate || !endDate) return;
     if (type.value === "export") {
       const { data } = await listRecei();
 
@@ -218,25 +218,77 @@ const TransactionTable = () => {
     }
   };
 
-  const filter = async (items: any) => {
-    if (type.value === "export") {
+  const filter = async () => {
+    if (search && !startDate && !endDate) {
+      if (type.value === "export") {
+        const { data } = await listRecei();
+        let dataList = data.data.filter((item: any) =>
+          item.export_code.toLowerCase().includes(search)
+        );
+        setData(dataList);
+        setColumn(ExportColumn);
+        setLinkDetail("inventory/export-shipment");
+      }
+
+      if (type.value === "import") {
+        const { data } = await listShipments();
+        let dataList = data.data.filter((item: any) =>
+          item.import_code.toLowerCase().includes(search)
+        );
+        setData(dataList);
+        setColumn(ImportColumn);
+        setLinkDetail("inventory/import-shipment");
+      }
+    }
+    if (!search && startDate && endDate) {
+      getInitData();
+    }
+    if (search && startDate && endDate) {
       const { data } = await listRecei();
       let dataList = data.data.filter((item: any) =>
-        item.export_code.toLowerCase().includes(items?.target.value)
+        item.export_code.toLowerCase().includes(search)
       );
-      setData(dataList);
-      setColumn(ExportColumn);
-      setLinkDetail("inventory/export-shipment");
-    }
+      if (type.value === "export") {
+        let dataItime = dataList.filter(
+          (item: any) =>
+            moment(`${item.updated_at}`).format("DD-MM-YYYY") <
+              moment(
+                `${Number(endDate.split("-")[2]) + 1}/${
+                  endDate.split("-")[1]
+                }/${endDate.split("-")[0]}`
+              ).format("DD-MM-YYYY") &&
+            moment(`${item.updated_at}`).format("DD-MM-YYYY") >
+              moment(
+                `${Number(startDate.split("-")[2]) - 1}/${
+                  startDate.split("-")[1]
+                }/${startDate.split("-")[0]}`
+              ).format("DD-MM-YYYY")
+        );
+        setData(dataItime);
+        setColumn(ExportColumn);
+        setLinkDetail("inventory/export-shipment");
+      }
 
-    if (type.value === "import") {
-      const { data } = await listShipments();
-      let dataList = data.data.filter((item: any) =>
-        item.import_code.toLowerCase().includes(items?.target.value)
-      );
-      setData(dataList);
-      setColumn(ImportColumn);
-      setLinkDetail("inventory/import-shipment");
+      if (type.value === "import") {
+        let dataItime = dataList.filter(
+          (item: any) =>
+            moment(`${item.updated_at}`).format("DD-MM-YYYY") <
+              moment(
+                `${endDate.split("-")[2]}/${endDate.split("-")[1]}/${
+                  endDate.split("-")[0]
+                }`
+              ).format("DD-MM-YYYY") &&
+            moment(`${item.updated_at}`).format("DD-MM-YYYY") >
+              moment(
+                `${Number(startDate.split("-")[2]) - 1}/${
+                  startDate.split("-")[1]
+                }/${startDate.split("-")[0]}`
+              ).format("DD-MM-YYYY")
+        );
+        setData(dataItime);
+        setColumn(ImportColumn);
+        setLinkDetail("inventory/import-shipment");
+      }
     }
   };
 
@@ -253,13 +305,18 @@ const TransactionTable = () => {
           name="id"
           id="id"
           containerClass="mr-5"
-          onChange={(e: object) => filter(e)}
+          onChange={(e: any) => setSearch(e.target.value)}
         />
 
         <Select
           options={listType}
           option={type}
-          handleClickChange={(option) => setType(option)}
+          handleClickChange={(option) => {
+            setType(option);
+            setStartDate("");
+            setSearch("");
+            setEndDate("");
+          }}
           containerClass="w-[250px]"
         />
 
@@ -278,7 +335,7 @@ const TransactionTable = () => {
           />
         </div>
 
-        <Button className="ml-5" onClick={() => getInitData()}>
+        <Button className="ml-5" onClick={() => filter()}>
           Lọc
         </Button>
       </div>
