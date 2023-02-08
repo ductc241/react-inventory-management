@@ -31,6 +31,7 @@ const ProductForm = ({ mode }: IProductProps) => {
 
   const [categories, setCategories] = useState<IOption[]>([]);
   const [suppliers, setSuppliers] = useState<IOption[]>([]);
+  const [message, setMessage] = useState<string>();
 
   const {
     register,
@@ -62,8 +63,15 @@ const ProductForm = ({ mode }: IProductProps) => {
           navigate("/products");
         }
       });
-    } catch (error) {
-      toast.error("Có lỗi xảy ra, vui lòng thử lại sau");
+    } catch (error: any) {
+      const { errors } = error.response.data;
+
+      if (errors.name[0]) {
+        toast.error(errors.name[0]);
+        return;
+      }
+
+      toast.error("Có lỗi xảy ra, vui lòng thử lại sau !!!");
     }
   };
 
@@ -178,11 +186,11 @@ const ProductForm = ({ mode }: IProductProps) => {
                     placeholderText="Chọn trạng thái"
                   />
 
-                  {errors.category_id && (
+                  {errors.status && (
                     <div className="flex mt-1 items-center">
                       <WarningIcon />
                       <span className="block text-error ml-1.5">
-                        {errors.category_id.message}
+                        {errors.status.message}
                       </span>
                     </div>
                   )}
@@ -192,7 +200,7 @@ const ProductForm = ({ mode }: IProductProps) => {
                   label="Số tháng bảo hành"
                   containerClass="mb-5"
                   {...register("warranty_date")}
-                  error={errors.name}
+                  error={errors.warranty_date}
                 />
 
                 <div>
@@ -217,29 +225,30 @@ const ProductForm = ({ mode }: IProductProps) => {
 
               <div className="px-5 py-7">
                 <div className="flex gap-6 mb-5">
-                  <TextField
+                  {/* <TextField
                     label="Giá nhập"
                     containerClass="basis-3/6"
                     {...register("import_price")}
                     error={errors.import_price}
-                  />
+                  /> */}
                   <TextField
                     label="Giá bán"
-                    containerClass="basis-3/6"
+                    // containerClass="basis-3/6"
+                    containerClass="w-full"
                     {...register("price")}
                     error={errors.price}
                   />
                 </div>
-                <TextField
+                {/* <TextField
                   label="Tồn kho"
                   containerClass="mb-5"
                   {...register("quantity")}
                   error={errors.quantity}
-                />
+                /> */}
               </div>
             </div>
 
-            {mode === "create" && (
+            {/* {mode === "create" && (
               <div className="shadow-md">
                 <div className="px-5 py-4 bg-gray-100">
                   <p className="text-xl font-semibold">Tồn kho</p>
@@ -279,7 +288,7 @@ const ProductForm = ({ mode }: IProductProps) => {
                   </div>
                 </div>
               </div>
-            )}
+            )} */}
           </div>
         </div>
 

@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
 import { Button, Select, Table, TextField } from "../../components";
 
 import { listRecei } from "../../api/receipt.api";
 import { listShipments } from "../../api/shipments";
 import { ITableColumn } from "../../components/Table/Table.types";
 import IOption from "../../types/option.model";
-import reportServices from "../../api/report.api";
 import moment from "moment";
+import ProductFilter from "./NewSalse/ProductFilter";
+import { date } from "yup/lib/locale";
 
 const ImportColumn: ITableColumn[] = [
   {
@@ -93,7 +93,7 @@ const ExportColumn: ITableColumn[] = [
       <>
         {item.export_type == 1 && (
           <>
-            <p className="text-red-500">Xuất nhà cung cấp</p>
+            <p className="text-red-500">Xuất khách hàng</p>
             <p>{item.seller_name}</p>
           </>
         )}
@@ -140,7 +140,8 @@ const TransactionTable = () => {
     { label: "Đơn nhập", value: "import" }
   ];
 
-  const [data, setData] = useState<any>([]);
+  const [data, setData] = useState<any[]>([]);
+  const [dataFilter, setDataFilter] = useState<any[] | null>(null);
   const [column, setColumn] = useState(ExportColumn);
 
   const [linkDetail, setLinkDetail] = useState<string>("");
@@ -148,6 +149,7 @@ const TransactionTable = () => {
   const [search, setSearch] = useState<string>("");
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
+
   useEffect(() => {
     const getInitData = async () => {
       if (type.value === "export") {
@@ -174,7 +176,7 @@ const TransactionTable = () => {
     if (type.value === "export") {
       const { data } = await listRecei();
 
-      let dataList = data.data.filter(
+      const dataList = data.data.filter(
         (item: any) =>
           moment(`${item.updated_at}`).format("DD-MM-YYYY") <
             moment(
@@ -197,7 +199,7 @@ const TransactionTable = () => {
     if (type.value === "import") {
       const { data } = await listShipments();
 
-      let dataList = data.data.filter(
+      const dataList = data.data.filter(
         (item: any) =>
           moment(`${item.updated_at}`).format("DD-MM-YYYY") <
             moment(
@@ -222,7 +224,7 @@ const TransactionTable = () => {
     if (search && !startDate && !endDate) {
       if (type.value === "export") {
         const { data } = await listRecei();
-        let dataList = data.data.filter((item: any) =>
+        const dataList = data.data.filter((item: any) =>
           item.export_code.toLowerCase().includes(search)
         );
         setData(dataList);
@@ -232,7 +234,7 @@ const TransactionTable = () => {
 
       if (type.value === "import") {
         const { data } = await listShipments();
-        let dataList = data.data.filter((item: any) =>
+        const dataList = data.data.filter((item: any) =>
           item.import_code.toLowerCase().includes(search)
         );
         setData(dataList);
@@ -245,11 +247,11 @@ const TransactionTable = () => {
     }
     if (search && startDate && endDate) {
       const { data } = await listRecei();
-      let dataList = data.data.filter((item: any) =>
+      const dataList = data.data.filter((item: any) =>
         item.export_code.toLowerCase().includes(search)
       );
       if (type.value === "export") {
-        let dataItime = dataList.filter(
+        const dataItime = dataList.filter(
           (item: any) =>
             moment(`${item.updated_at}`).format("DD-MM-YYYY") <
               moment(
@@ -270,7 +272,7 @@ const TransactionTable = () => {
       }
 
       if (type.value === "import") {
-        let dataItime = dataList.filter(
+        const dataItime = dataList.filter(
           (item: any) =>
             moment(`${item.updated_at}`).format("DD-MM-YYYY") <
               moment(
@@ -292,6 +294,63 @@ const TransactionTable = () => {
     }
   };
 
+  const handleFilter = () => {
+    const productsFilter: any[] = [];
+
+    if (search) {
+      if (type.value === "export") {
+        const filter = data.find((product) => product.export_code === search);
+        productsFilter.push({ ...filter });
+      }
+
+      if (type.value === "import") {
+        const filter = data.find((product) => product.import_code === search);
+        productsFilter.push({ ...filter });
+      }
+    }
+
+    if (startDate) {
+      if (type.value === "export") {
+        const filter = data.filter((product) =>
+          moment(startDate).isBefore(product.export_date)
+        );
+        productsFilter.push(...filter);
+      }
+
+      if (type.value === "import") {
+        const filter = data.filter((product) =>
+          moment(startDate).isBefore(product.import_date)
+        );
+        productsFilter.push(...filter);
+      }
+    }
+
+    if (endDate) {
+      if (type.value === "export") {
+        const filter = productsFilter.filter((product) =>
+          moment(endDate).isAfter(product.export_date)
+        );
+        productsFilter.push(...filter);
+      }
+
+      if (type.value === "import") {
+        const filter = productsFilter.filter((product) =>
+          moment(endDate).isAfter(product.import_date)
+        );
+        productsFilter.push(...filter);
+      }
+    }
+
+    setDataFilter(productsFilter);
+  };
+
+  const handleReset = () => {
+    setDataFilter(null);
+    setSearch("");
+    setStartDate("");
+    setEndDate("");
+  };
+
   return (
     <div className="bg-white">
       <p className="mb-5 text-xl font-semibold uppercase">
@@ -303,9 +362,9 @@ const TransactionTable = () => {
           type="text"
           placeholder="Mã phiếu"
           name="id"
-          id="id"
           containerClass="mr-5"
           onChange={(e: any) => setSearch(e.target.value)}
+          value={search}
         />
 
         <Select
@@ -325,6 +384,7 @@ const TransactionTable = () => {
             name="import_Date"
             type="date"
             onChange={(e) => setStartDate(e.target.value)}
+            value={startDate}
           />
         </div>
         <div className="ml-5">
@@ -332,11 +392,16 @@ const TransactionTable = () => {
             name="export_date"
             type="date"
             onChange={(e) => setEndDate(e.target.value)}
+            value={endDate}
           />
         </div>
 
-        <Button className="ml-5" onClick={() => filter()}>
+        <Button className="ml-5" onClick={handleFilter}>
           Lọc
+        </Button>
+
+        <Button className="ml-5" onClick={handleReset}>
+          Reset
         </Button>
       </div>
 
@@ -368,7 +433,11 @@ const TransactionTable = () => {
       </div>
 
       <div className="w-full mt-10">
-        <Table column={column} dataSource={data} linkUrl={linkDetail} />
+        {dataFilter ? (
+          <Table column={column} dataSource={dataFilter} linkUrl={linkDetail} />
+        ) : (
+          <Table column={column} dataSource={data} linkUrl={linkDetail} />
+        )}
       </div>
     </div>
   );

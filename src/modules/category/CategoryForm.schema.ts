@@ -5,8 +5,9 @@ const CategorySchema = yup
     name: yup
       .string()
       .required("Đây là trường bắt buộc")
+      .min(2, "Độ dài tối đa là 2")
       .max(255, "Độ dài tối đa là 255"),
-    parent_id: yup.number().required("Đây là trường bắt buộc")
+    parent_id: yup.number()
   })
   .required();
 

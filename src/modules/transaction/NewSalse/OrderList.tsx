@@ -43,9 +43,9 @@ const OrderList = () => {
                   </div>
                 </div>
 
-                <p className="text-lg font-semibold text-blue-500">
+                {/* <p className="text-lg font-semibold text-blue-500">
                   Tổng: 150.000
-                </p>
+                </p> */}
               </div>
 
               <TrashIcon

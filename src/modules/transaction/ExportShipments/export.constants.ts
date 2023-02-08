@@ -11,6 +11,17 @@ const EXPORT_TYPES: IOption[] = [
   }
 ];
 
+const IMPORT_TYPES: IOption[] = [
+  {
+    label: "Nhà cung cấp",
+    value: 1
+  },
+  {
+    label: "Đối tượng khác",
+    value: 2
+  }
+];
+
 const PAYMENT_TYPES: IOption[] = [
   {
     label: "Thanh toán trực tiếp",
@@ -22,4 +33,4 @@ const PAYMENT_TYPES: IOption[] = [
   }
 ];
 
-export { EXPORT_TYPES, PAYMENT_TYPES };
+export { EXPORT_TYPES, IMPORT_TYPES, PAYMENT_TYPES };

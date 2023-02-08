@@ -35,7 +35,7 @@ const NewSale_Checkout = ({ toggleCheckout }: IProps) => {
         id: item.id,
         quantity: item.quantity,
         price: item.price,
-        barcode: null
+        lot_code: "ML57-2023-02-08"
       };
     });
 
@@ -47,7 +47,7 @@ const NewSale_Checkout = ({ toggleCheckout }: IProps) => {
         products: orderProducts,
         description: "Bán lẻ tại cửa hảng",
 
-        export_date: moment().format("YYYY-MM-DD"),
+        export_date: moment().subtract(1, "days").format("DD/MM/YYYY"),
         receve_phone: null
       });
 

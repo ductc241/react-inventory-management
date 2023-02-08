@@ -16,7 +16,7 @@ import FormatNumber from "../../../components/formatNumber/formatNumber";
 import IOption from "../../../types/option.model";
 import { IProduct } from "./../../../types/product.type";
 import {
-  EXPORT_TYPES,
+  IMPORT_TYPES,
   PAYMENT_TYPES
 } from "../ExportShipments/export.constants";
 import { toast } from "react-toastify";
@@ -77,7 +77,7 @@ const ImportShipmentForm = () => {
       productServices.getProducts()
     ]);
 
-    setSuplierOption(convertDataToOption(initData[0].data));
+    setSuplierOption(convertDataToOption(initData[0].data).slice(1));
     setProducts(initData[1].data);
   };
 
@@ -154,7 +154,7 @@ const ImportShipmentForm = () => {
     try {
       await addShipments(import_order);
       toast.success("Tạo đơn thành công");
-      navigate("inventory/bill");
+      navigate("/inventory/bill");
     } catch (error) {
       toast.error("Có lỗi xảy ra, không thể tạo đơn");
     }
@@ -190,8 +190,8 @@ const ImportShipmentForm = () => {
                 text: "Loại nhập hàng"
               }}
               containerClass="mb-5"
-              options={EXPORT_TYPES}
-              option={getValueFromOptions(EXPORT_TYPES, watch("import_type"))}
+              options={IMPORT_TYPES}
+              option={getValueFromOptions(IMPORT_TYPES, watch("import_type"))}
               handleClickChange={(type) => {
                 setValue("import_type", type.value),
                   setValue("supplier", null),
@@ -252,7 +252,7 @@ const ImportShipmentForm = () => {
             />
 
             <TextField
-              label="Ngày hẹn thanh toán"
+              label="Ngày thanh toán"
               type="date"
               {...register("import_date")}
               error={errors.import_date}
